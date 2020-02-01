@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { API } from '../../constants/api';
 
+import StarRatingComponent from 'react-star-rating-component';
+
 import './index.css';
 
 export interface Props {}
@@ -15,10 +17,9 @@ const Component: React.FC<Props> = () => {
             'https://api.themoviedb.org/4/discover/movie?sort_by=popularity.desc&api_key=' +
                 API
         ).then(res => {
-            console.log(res.data.results[0]);
             setMovies(res.data.results);
         });
-    });
+    }, []);
 
     return (
         <div className="core">
@@ -26,7 +27,9 @@ const Component: React.FC<Props> = () => {
                 (
                     movie: {
                         title: string;
+                        genre_ids: string[];
                         vote_average: number;
+                        release_date: string;
                         poster_path: string;
                         overview: string;
                     },
@@ -40,10 +43,32 @@ const Component: React.FC<Props> = () => {
                             }}
                         ></div>
                         <div className="movie-info">
-                            <div className="movie-title">{movie.title} ({movie.vote_average})</div>
-                            <textarea className="movie-overview">
+                            <div className="movie-genre">
+                                {movie.genre_ids.map((genre_id, index) => (
+                                    <div
+                                        className="movie-genre-name"
+                                        key={index}
+                                    >
+                                        {genre_id}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="movie-title">{movie.title}</div>
+                            <div className="movie-rate">
+                                <StarRatingComponent
+                                    name="rating"
+                                    value={movie.vote_average / 2.0}
+                                    starColor="#FFEA00"
+                                    emptyStarColor="#606060"
+                                    editing={false}
+                                />
+                            </div>
+                            <div className="movie-release">
+                                {movie.release_date}
+                            </div>
+                            <div className="movie-overview">
                                 {movie.overview}
-                            </textarea>
+                            </div>
                         </div>
                     </div>
                 )
