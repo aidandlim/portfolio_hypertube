@@ -1,0 +1,82 @@
+.core {
+    width: 100%;
+    height: calc(100% - var(--size-header));
+
+    padding: 1rem;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    position: relative;
+    float: left;
+
+    background-color: var(--color-core);
+    box-sizing: border-box;
+}
+
+.movie {
+    width: calc(20% - 1rem);
+    height: auto;
+
+    margin: 0.5rem;
+
+    position: relative;
+    float: left;
+
+    background-color: var(--color-search-input);
+}
+
+.movie-poster {
+    width: 100%;
+    padding-top: calc(100% / 3 * 4);
+
+    position: relative;
+    float: left;
+
+    background-size: 100% 100%;
+    background-position: 'center';
+}
+
+.movie-info {
+    width: 100%;
+    height: 5rem;
+
+    padding: 0.5rem;
+
+    position: relative;
+    float: left;
+
+    box-sizing: border-box;
+}
+
+.movie-title {
+    width: 100%;
+    height: 1rem;
+
+    position: relative;
+    float: left;
+
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    box-sizing: border-box;
+}
+
+.movie-overview {
+    width: 100%;
+    height: 3rem;
+
+    position: relative;
+    float: left;
+
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 300;
+    line-height: 1rem;
+
+    background: none;
+    box-sizing: border-box;
+    border: none;
+    resize: none;
+}
