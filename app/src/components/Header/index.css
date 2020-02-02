@@ -5,8 +5,7 @@
     position: relative;
     float: left;
 
-    background-color: var(--color-header);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: var(--color-90);
 
     z-index: 2;
 }
@@ -25,9 +24,11 @@
     left: 1rem;
     transform: translate(0, -50%);
 
-    color: var(--color-ci);
+    color: var(--color-A);
     font-size: 0.85rem;
     font-weight: 700;
+
+    cursor: pointer;
 }
 
 .header-search-section {
@@ -59,11 +60,11 @@
     position: relative;
     float: left;
 
-    color: white;
+    color: var(--color-A);;
     font-size: 0.6rem;
     font-weight: 500;
 
-    background-color: var(--color-search-input);
+    background-color: var(--color-75);
     box-sizing: border-box;
     border: none;
     border-radius: 0.25rem 0 0 0.25rem;
@@ -75,7 +76,7 @@
     width: 4rem;
     height: 100%;
 
-    background-color: var(--color-search-button);
+    background-color: var(--color-50);
     border: none;
     border-radius: 0 0.25rem 0.25rem 0;
     cursor: pointer;

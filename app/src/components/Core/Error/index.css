@@ -1,0 +1,19 @@
+.error {
+    width: 100%;
+    height: calc(100% - var(--size-header));
+
+    padding: 3rem 0.5rem;
+
+    overflow: hidden;
+
+    position: relative;
+    float: left;
+
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-align: center;
+
+    background-color: var(--color-core);
+    box-sizing: border-box;
+}

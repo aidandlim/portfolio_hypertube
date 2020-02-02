@@ -1,9 +1,0 @@
-.header {
-    width: 100%;
-    height: var(--size-header);
-
-    position: relative;
-    float: left;
-
-    background-color: var(--color-header);
-}
