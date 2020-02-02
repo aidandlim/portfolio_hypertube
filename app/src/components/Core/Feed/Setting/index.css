@@ -59,6 +59,7 @@
 
     background: none;
     border: none;
+    border-radius: 1rem;
     transition: 0.5s;
 
     cursor: pointer;
@@ -71,7 +72,8 @@
 
 .setting-element-active {
     color: var(--color-primary);
-    text-decoration: underline;
+
+    background-color: var(--color-75);
 }
 
 .setting-confirm {
@@ -91,7 +93,12 @@
     background-color: var(--color-70);
     border: none;
     border-radius: 0.5rem;
+    transition: 0.5s;
 
     cursor: pointer;
     outline: none;
+}
+
+.setting-confirm:hover {
+    background-color: var(--color-60);
 }

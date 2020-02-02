@@ -41,6 +41,7 @@ const Component: React.FC<Props> = ({ match }) => {
                 {movies.map(
                     (
                         movie: {
+                            id: number;
                             title: string;
                             genre_ids: string[];
                             vote_average: number;

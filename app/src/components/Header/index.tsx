@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CI from '../../assets/favicon.png';
+import { Icon } from 'ts-react-feather-icons';
 import './index.css';
 
 export interface Props {}
@@ -22,7 +23,9 @@ const Component: React.FC<Props> = () => {
                         className="header-search-input"
                         placeholder="Search"
                     />
-                    <button className="header-search-button"></button>
+                    <button className="header-search-button">
+                        <Icon name="search" color="#303030" size={20} />
+                    </button>
                 </div>
             </div>
             <div className="header-util-section"></div>

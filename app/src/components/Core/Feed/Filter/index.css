@@ -22,7 +22,12 @@
 
     background-color: var(--color-50);
     box-sizing: border-box;
-    border-radius: 1rem;
+    border-radius: 0.75rem;
+    transition: 0.5s;
 
     cursor: pointer;
+}
+
+.filter-icon:hover {
+    background-color: var(--color-40);
 }
