@@ -45,6 +45,7 @@ const Component: React.FC<Props> = () => {
                         --color-F: #FFFFFF;
 
                         --color-primary: #FFEA00;
+                        --color-primary-light: #FFFF8D;
 					}
 				`}
             </style>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import CI from '../../assets/favicon.png';
 import './index.css';
 
 export interface Props {}
@@ -11,6 +12,7 @@ const Component: React.FC<Props> = () => {
         <div className="header">
             <div className="header-ci-section">
                 <Link to="/">
+                    <img className='header-ci-icon' src={CI} alt='hypertube' />
                     <div className="header-ci">HyperTube</div>
                 </Link>
             </div>
