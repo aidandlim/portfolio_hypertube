@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { getMovieWithPopularity } from '../../../data';
 
-import Filter from './Filter';
 import Movie from './Movie';
+import Filter from './Filter';
+import Setting from './Setting';
 
 import './index.css';
 
@@ -12,14 +13,16 @@ export interface Props {
         params: {
             genre: string;
             filter: string;
-        }
+        };
     };
 }
 
 const Component: React.FC<Props> = ({ match }) => {
     const genre = match.params.genre;
     const filter = match.params.filter;
+
     const [movies, setMovies] = useState([]);
+    const [isSetting, setIsSetting] = useState(false);
 
     useEffect(() => {
         getMovieWithPopularity(genre, filter, (res: []) => {
@@ -27,24 +30,37 @@ const Component: React.FC<Props> = ({ match }) => {
         });
     }, [genre, filter]);
 
+    const _handleSetting = () => {
+        setIsSetting(isSetting => !isSetting);
+    };
+
     return (
         <div className="feed">
-            <Filter genre={genre} filter={filter} />
-            {movies.map(
-                (
-                    movie: {
-                        title: string;
-                        genre_ids: string[];
-                        vote_average: number;
-                        release_date: string;
-                        poster_path: string;
-                        overview: string;
-                    },
-                    index: number
-                ) => (
-                    <Movie movie={movie} key={index} />
-                )
-            )}
+            <div className="content">
+                <Filter _handleSetting={_handleSetting} />
+                {movies.map(
+                    (
+                        movie: {
+                            title: string;
+                            genre_ids: string[];
+                            vote_average: number;
+                            release_date: string;
+                            poster_path: string;
+                            overview: string;
+                        },
+                        index: number
+                    ) => (
+                        <Movie movie={movie} key={index} />
+                    )
+                )}
+            </div>
+            {isSetting ? (
+                <Setting
+                    genre={genre}
+                    filter={filter}
+                    _handleSetting={_handleSetting}
+                />
+            ) : null}
         </div>
     );
 };

@@ -1,29 +1,19 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Icon } from 'ts-react-feather-icons';
 
 import './index.css';
 
 export interface Props {
-    genre: string;
-    filter: string;
+    _handleSetting: () => void;
 }
 
-const Component: React.FC<Props> = ({ genre, filter }) => {
+const Component: React.FC<Props> = ({ _handleSetting }) => {
     return (
         <div className="filter">
-            <div className="filter-button filter-genre-button">
-                Genre: {genre}
+            <div className="filter-icon" onClick={_handleSetting}>
+                <Icon name="filter" color="gray" size={20} />
             </div>
-            <Link
-                to={`/feed/${genre}/${
-                    filter === 'popularity' ? 'rating' : 'popularity'
-                }`}
-            >
-                <div className="filter-button filter-sorter-button">
-                    Sort: {filter}
-                </div>
-            </Link>
         </div>
     );
 };

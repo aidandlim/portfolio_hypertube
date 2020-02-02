@@ -17,7 +17,7 @@ export interface Props {
 
 const Component: React.FC<Props> = ({ movie }) => {
     const starColor = '#FFEA00';
-    const emptyStarColor = '#606060';
+    const emptyStarColor = '#505050';
 
     return (
         <div className="movie">
