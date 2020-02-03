@@ -32,7 +32,7 @@ const Component: React.FC<Props> = ({ history }) => {
                     />
                     <Link to="/auth/signup">
                         <div className="auth-nav">
-                            Don't you have an account? Just Sign Up for free!
+                            Don't you have an account yet? Just Sign Up for free!
                         </div>
                     </Link>
                     <Link to="/auth/recovery">
@@ -41,7 +41,7 @@ const Component: React.FC<Props> = ({ history }) => {
                     <input
                         className="auth-button auth-submit"
                         type="submit"
-                        value="SUBMIT"
+                        value="SIGN IN"
                     />
                     <input
                         className="auth-button"

@@ -35,3 +35,36 @@ body {
     -khtml-user-select: none;
     user-select: none;
 }
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="submit"],
+input[type="button"],
+textarea  {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 15px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: #272727;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #474747;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}

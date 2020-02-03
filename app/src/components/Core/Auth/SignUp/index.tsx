@@ -66,7 +66,7 @@ const Component: React.FC<Props> = ({ history }) => {
                     <input
                         className="auth-button auth-submit"
                         type="submit"
-                        value="SUBMIT"
+                        value="SIGN UP"
                     />
                     <input
                         className="auth-button"
