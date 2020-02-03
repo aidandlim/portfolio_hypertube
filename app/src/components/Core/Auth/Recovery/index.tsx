@@ -26,6 +26,7 @@ const Component: React.FC<Props> = ({ history }) => {
                         type="email"
                         name="email"
                         autoComplete="password"
+                        autoFocus
                     />
                     <input
                         className="auth-button auth-submit"

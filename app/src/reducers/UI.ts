@@ -1,21 +1,30 @@
 const data = {
     darkMode: false,
-    lang: 'en'
+    lang: 'en',
+    from: '/'
 };
 
-const reducer = (state = data, action: {
-    type: string;
-    payload: {
-        darkMode?: boolean;
-        lang?: string;
+const reducer = (
+    state = data,
+    action: {
+        type: string;
+        payload: {
+            darkMode?: boolean;
+            lang?: string;
+            from?: string;
+        };
     }
-}) => {
+) => {
     switch (action.type) {
         case 'UI_DARKMODE':
             return Object.assign({}, state, {
                 darkMode: action.payload.darkMode
             });
         case 'UI_LANG':
+            return Object.assign({}, state, {
+                lang: action.payload.lang
+            });
+        case 'UI_FROM':
             return Object.assign({}, state, {
                 lang: action.payload.lang
             });

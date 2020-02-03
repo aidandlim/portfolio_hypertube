@@ -84,13 +84,13 @@
 
     background: none;
     border: none;
-    border-bottom: solid 0.1rem var(--color-A);
+    border-bottom: solid 0.1rem var(--color-50);
 
     outline: none;
 }
 
 .auth-input:focus {
-    border-bottom: solid 0.1rem var(--color-E);
+    border-bottom: solid 0.1rem var(--color-A);
 }
 
 .auth-nav {

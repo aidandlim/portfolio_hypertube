@@ -24,7 +24,7 @@ const Component: React.FC<Props> = ({ history }) => {
                 </div>
                 <form autoComplete="off">
                     <div className="auth-placeholder">USER NAME</div>
-                    <input className="auth-input" type="text" name="userName" />
+                    <input className="auth-input" type="text" name="userName" autoFocus />
                     <div className="auth-placeholder">PASSWORD</div>
                     <input
                         className="auth-input"
