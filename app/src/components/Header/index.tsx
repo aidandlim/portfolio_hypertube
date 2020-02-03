@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
 import CI from '../../assets/favicon.png';
@@ -8,12 +10,20 @@ import './index.css';
 
 export interface Props {}
 
+export interface State {
+    auth: {
+        isLogin: boolean;
+    };
+}
+
 const Component: React.FC<Props> = () => {
+    const auth = useSelector((state: State) => state.auth);
+
     return (
         <div className="header">
             <div className="header-ci-section">
                 <Link to="/">
-                    <img className='header-ci-icon' src={CI} alt='hypertube' />
+                    <img className="header-ci-icon" src={CI} alt="hypertube" />
                     <div className="header-ci">HyperTube</div>
                 </Link>
             </div>
@@ -28,7 +38,17 @@ const Component: React.FC<Props> = () => {
                     </button>
                 </div>
             </div>
-            <div className="header-util-section"></div>
+            <div className="header-util-section">
+                <Link to={auth.isLogin ? '/user' : '/auth/signin'}>
+                    <div className="header-util-auth">
+                        {!auth.isLogin ? (
+                            <Icon name="log-in" color="#606060" size="1rem" />
+                        ) : (
+                            <Icon name="user" color="#606060" size="1rem" />
+                        )}
+                    </div>
+                </Link>
+            </div>
         </div>
     );
 };

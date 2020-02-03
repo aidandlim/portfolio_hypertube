@@ -4,7 +4,7 @@
 
     position: fixed;
 
-    background-color: var(--color-85);
+    background-color: var(--color-80);
 
     z-index: 2;
 }
@@ -12,6 +12,8 @@
 .setting-container {
     width: 30rem;
     height: auto;
+
+    margin-bottom: 10%;
 
     position: absolute;
     top: 10%;
@@ -73,7 +75,7 @@
 .setting-element-active {
     color: var(--color-primary);
 
-    background-color: var(--color-75);
+    background-color: var(--color-70);
 }
 
 .setting-confirm {
