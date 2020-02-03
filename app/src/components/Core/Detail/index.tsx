@@ -54,9 +54,7 @@ const Component: React.FC<Props> = ({ match, history }) => {
                                 ? `url('https://image.tmdb.org/t/p/w500/${movie.poster_path}')`
                                 : ''
                     }}
-                >
-                
-                </div>
+                ></div>
             </div>
         </div>
     );

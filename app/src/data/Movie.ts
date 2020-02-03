@@ -32,8 +32,6 @@ export const getMovies = (
     else if (filter === 'rating') url += '&sort_by=vote_average.desc';
     else if (filter === 'revenue') url += '&sort_by=revenue.desc';
 
-    console.log(url);
-
     Axios.get(url)
         .then(res => {
             cb(res.data.results);
@@ -45,24 +43,19 @@ export const getMovies = (
 
 export const getMovie = (
     id: number,
-    cb: (result: {
-        title: string,
-        status: string,
-        poster_path: string,
-    }) => void
+    cb: (result: { title: string; status: string; poster_path: string }) => void
 ) => {
     let url = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API;
 
     Axios.get(url)
         .then(res => {
-            console.log(res.data);
             cb(res.data);
         })
         .catch(() => {
             cb({
                 title: '',
                 status: '',
-                poster_path: '',
+                poster_path: ''
             });
         });
 };
