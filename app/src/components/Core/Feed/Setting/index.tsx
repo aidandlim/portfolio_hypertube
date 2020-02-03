@@ -261,6 +261,17 @@ const Component: React.FC<Props> = ({ genre, filter, _handleSetting }) => {
                             RATING
                         </button>
                     </Link>
+                    <Link to={`/feed/${genre}/revenue`}>
+                        <button
+                            className={
+                                filter === 'revenue'
+                                    ? 'setting-element-active'
+                                    : 'setting-element'
+                            }
+                        >
+                            REVENUE
+                        </button>
+                    </Link>
                 </div>
                 <button className='setting-confirm' onClick={_handleSetting}>CONFIRM</button>
             </div>

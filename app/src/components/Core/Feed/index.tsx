@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { getMovieWithPopularity } from '../../../data';
+import { getMovies } from '../../../data';
 
 import Movie from './Movie';
 import Filter from './Filter';
@@ -25,7 +25,7 @@ const Component: React.FC<Props> = ({ match }) => {
     const [isSetting, setIsSetting] = useState(false);
 
     useEffect(() => {
-        getMovieWithPopularity(genre, filter, (res: []) => {
+        getMovies(genre, filter, (res: []) => {
             setMovies(res);
         });
     }, [genre, filter]);
@@ -36,7 +36,7 @@ const Component: React.FC<Props> = ({ match }) => {
 
     return (
         <div className="feed">
-            <div className="content">
+            <div className="feed-container">
                 <Filter _handleSetting={_handleSetting} />
                 {movies.map(
                     (

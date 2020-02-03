@@ -1,5 +1,5 @@
-import { getMovieWithPopularity } from './Movie';
+import { getMovies, getMovie } from './Movie';
 
 export {
-    getMovieWithPopularity
+    getMovies, getMovie
 }
