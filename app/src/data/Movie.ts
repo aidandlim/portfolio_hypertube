@@ -43,19 +43,46 @@ export const getMovies = (
 
 export const getMovie = (
     id: number,
-    cb: (result: { title: string; status: string; poster_path: string }) => void
+    cb: (result: {
+        title: string;
+        overview: string;
+        status: string;
+        poster_path: string;
+        vote_average: number;
+        vote_count: number;
+        genres: [
+            {
+                name: string;
+            }
+        ];
+        runtime: number;
+        release_date: string;
+        production_companies: [
+            {
+                name: string;
+            }
+        ];
+    }) => void
 ) => {
     let url = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API;
 
     Axios.get(url)
         .then(res => {
+            console.log(res.data);
             cb(res.data);
         })
         .catch(() => {
             cb({
                 title: '',
+                overview: '',
                 status: '',
-                poster_path: ''
+                poster_path: '',
+                vote_average: 0,
+                vote_count: 0,
+                genres: [{ name: '' }],
+                runtime: 0,
+                release_date: '',
+                production_companies: [{ name: '' }]
             });
         });
 };
