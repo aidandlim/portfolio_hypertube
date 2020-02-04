@@ -1,6 +1,6 @@
 import { getMovies, getMovie } from './Movie';
-import { search } from './Search';
+import { getSearch } from './Search';
 
 export {
-    getMovies, getMovie, search
+    getMovies, getMovie, getSearch
 }

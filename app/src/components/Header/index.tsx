@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { search_query, search_results } from '../../actions';
 
 import { Link } from 'react-router-dom';
 
-import { search } from '../../data';
+import { getSearch } from '../../data';
 
 import CI from '../../assets/favicon.png';
 import { Icon } from 'ts-react-feather-icons';
@@ -21,11 +22,23 @@ export interface State {
 const Component: React.FC<Props> = () => {
     const auth = useSelector((state: State) => state.auth);
     const [query, setQuery] = useState('');
+    const dispatch = useDispatch();
 
     const _handleSearch = () => {
-        search(query, res => {
-            console.log(res);
-        });
+        getSearch(
+            query,
+            1,
+            (res: { results: []; page: number; total: number }) => {
+                dispatch(search_query(query));
+                dispatch(
+                    search_results({
+                        results: res.results,
+                        page: res.page,
+                        total: res.total
+                    })
+                );
+            }
+        );
     };
 
     return (
@@ -43,13 +56,15 @@ const Component: React.FC<Props> = () => {
                         placeholder="Search"
                         onChange={e => setQuery(e.target.value)}
                     />
-                    <button
-                        type="submit"
-                        className="header-search-button"
-                        onClick={_handleSearch}
-                    >
-                        <Icon name="search" color="#303030" size={20} />
-                    </button>
+                    <Link to="/search">
+                        <button
+                            type="submit"
+                            className="header-search-button"
+                            onClick={_handleSearch}
+                        >
+                            <Icon name="search" color="#303030" size={20} />
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="header-util-section">
