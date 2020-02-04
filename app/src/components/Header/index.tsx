@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+
+import { search } from '../../data';
 
 import CI from '../../assets/favicon.png';
 import { Icon } from 'ts-react-feather-icons';
@@ -18,6 +20,13 @@ export interface State {
 
 const Component: React.FC<Props> = () => {
     const auth = useSelector((state: State) => state.auth);
+    const [query, setQuery] = useState('');
+
+    const _handleSearch = () => {
+        search(query, res => {
+            console.log(res);
+        });
+    };
 
     return (
         <div className="header">
@@ -32,8 +41,13 @@ const Component: React.FC<Props> = () => {
                     <input
                         className="header-search-input"
                         placeholder="Search"
+                        onChange={e => setQuery(e.target.value)}
                     />
-                    <button className="header-search-button">
+                    <button
+                        type="submit"
+                        className="header-search-button"
+                        onClick={_handleSearch}
+                    >
                         <Icon name="search" color="#303030" size={20} />
                     </button>
                 </div>

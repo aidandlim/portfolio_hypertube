@@ -76,7 +76,7 @@ const Component: React.FC<Props> = ({ match, history }) => {
                                     className="detail-info-general-italic"
                                     key={index}
                                 >
-                                    #{genre.name}
+                                    #{genre.name.replace(' ', '_')}
                                 </div>
                             ))}
                         </div>
