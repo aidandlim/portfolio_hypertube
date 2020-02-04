@@ -4,6 +4,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 
 import Feed from './Feed';
 import Detail from './Detail';
+import Streaming from './Streaming';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
 import Recovery from './Auth/Recovery';
@@ -19,6 +20,7 @@ const Component: React.FC<Props> = () => {
             <Redirect from="/" to="/feed/all/popularity" exact />
             <Route path="/feed/:genre/:filter" exact component={Feed} />
             <Route path="/detail/:id" exact component={Detail} />
+            <Route path="/streaming/:id" exact component={Streaming} />
             <Route path="/auth/signin" exact component={SignIn} />
             <Route path="/auth/signup" exact component={SignUp} />
             <Route path="/auth/recovery" exact component={Recovery} />
