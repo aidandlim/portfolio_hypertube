@@ -158,22 +158,42 @@ const Component: React.FC<Props> = ({ match, history }) => {
                             </div>
                         </div>
                         <div className="detail-torrent-body">
-                            {torrentList.map((torrent, index) => (
-                                <div
-                                    className="detail-torrent-file"
-                                    key={index}
-                                    onClick={() =>
-                                        window.open(torrent.download)
-                                    }
-                                >
-                                    <div className="detail-torrent-file-title">{torrent.title}</div>
-                                    <div className="detail-torrent-file-info">{(torrent.size / 1024 / 1024 / 1024).toFixed(2)}GB</div>
-                                    <div className='detail-torrent-file-division'>l</div>
-                                    <div className="detail-torrent-file-info">{torrent.seeders}</div>
-                                    <div className='detail-torrent-file-division'>l</div>
-                                    <div className="detail-torrent-file-info">{torrent.leechers}</div>
-                                </div>
-                            ))}
+                            {torrentList.length !== 0
+                                ? torrentList.map((torrent, index) => (
+                                      <div
+                                          className="detail-torrent-file"
+                                          key={index}
+                                          onClick={() =>
+                                              window.open(torrent.download)
+                                          }
+                                      >
+                                          <div className="detail-torrent-file-title">
+                                              {torrent.title}
+                                          </div>
+                                          <div className="detail-torrent-file-info">
+                                              {(
+                                                  torrent.size /
+                                                  1024 /
+                                                  1024 /
+                                                  1024
+                                              ).toFixed(2)}
+                                              GB
+                                          </div>
+                                          <div className="detail-torrent-file-division">
+                                              l
+                                          </div>
+                                          <div className="detail-torrent-file-info">
+                                              {torrent.seeders}
+                                          </div>
+                                          <div className="detail-torrent-file-division">
+                                              l
+                                          </div>
+                                          <div className="detail-torrent-file-info">
+                                              {torrent.leechers}
+                                          </div>
+                                      </div>
+                                  ))
+                                : 'We are looking for torrent file!'}
                         </div>
                     </div>
                 </div>
