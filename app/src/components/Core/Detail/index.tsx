@@ -40,6 +40,7 @@ const Component: React.FC<Props> = ({ match, history }) => {
     });
     const [torrentList, setTorrentList] = useState([]);
     const [isOpenTorrentList, setIsOpenTorrentList] = useState(false);
+    const [isDoneSearch, setIsDoneSearch] = useState(false);
 
     const starColor = '#FFEA00';
     const emptyStarColor = '#505050';
@@ -50,6 +51,7 @@ const Component: React.FC<Props> = ({ match, history }) => {
         });
         getTorrents(id, res => {
             setTorrentList(res);
+            setIsDoneSearch(true);
         });
     }, [id]);
 
@@ -88,7 +90,7 @@ const Component: React.FC<Props> = ({ match, history }) => {
                             className="detail-play"
                             onClick={_handleTorrentList}
                         >
-                            WATCHING RIGHT NOW!
+                            {isOpenTorrentList ? '(HIDE)' : 'WATCHING RIGHT NOW!'}
                         </div>
                         <div className="detail-info-container">
                             <div className="detail-status">{movie.status}</div>
@@ -139,61 +141,48 @@ const Component: React.FC<Props> = ({ match, history }) => {
                                     )
                                 )}
                             </div>
-                        </div>
-                    </div>
-                    <div
-                        className={
-                            isOpenTorrentList
-                                ? 'detail-torrent-active'
-                                : 'detail-torrent'
-                        }
-                    >
-                        <div className="detail-torrent-header">
-                            SELECT THE TORRENT FILE
-                            <div
-                                className="detail-torrent-header-exit"
-                                onClick={_handleTorrentList}
-                            >
-                                <Icon name="x" color="#AAAAAA" size="1rem" />
-                            </div>
-                        </div>
-                        <div className="detail-torrent-body">
-                            {torrentList.length !== 0
-                                ? torrentList.map((torrent, index) => (
-                                      <div
-                                          className="detail-torrent-file"
-                                          key={index}
-                                          onClick={() =>
-                                              window.open(torrent.download)
-                                          }
-                                      >
-                                          <div className="detail-torrent-file-title">
-                                              {torrent.title}
-                                          </div>
-                                          <div className="detail-torrent-file-info">
-                                              {(
-                                                  torrent.size /
-                                                  1024 /
-                                                  1024 /
-                                                  1024
-                                              ).toFixed(2)}
-                                              GB
-                                          </div>
-                                          <div className="detail-torrent-file-division">
-                                              l
-                                          </div>
-                                          <div className="detail-torrent-file-info">
-                                              {torrent.seeders}
-                                          </div>
-                                          <div className="detail-torrent-file-division">
-                                              l
-                                          </div>
-                                          <div className="detail-torrent-file-info">
-                                              {torrent.leechers}
-                                          </div>
-                                      </div>
-                                  ))
-                                : 'We are looking for torrent file!'}
+                            {isOpenTorrentList ? (
+                                <div className="detail-torrent">
+                                    {torrentList.length !== 0
+                                        ? torrentList.map((torrent, index) => (
+                                              <div
+                                                  className="detail-torrent-file"
+                                                  key={index}
+                                                  onClick={() =>
+                                                      window.open(
+                                                          torrent.download
+                                                      )
+                                                  }
+                                              >
+                                                  <div className="detail-torrent-file-title">
+                                                      {torrent.title}
+                                                  </div>
+                                                  <div className="detail-torrent-file-info">
+                                                      {(
+                                                          torrent.size /
+                                                          1024 /
+                                                          1024 /
+                                                          1024
+                                                      ).toFixed(2)}
+                                                      GB
+                                                  </div>
+                                                  <div className="detail-torrent-file-division">
+                                                      l
+                                                  </div>
+                                                  <div className="detail-torrent-file-info">
+                                                      {torrent.seeders}
+                                                  </div>
+                                                  <div className="detail-torrent-file-division">
+                                                      l
+                                                  </div>
+                                                  <div className="detail-torrent-file-info">
+                                                      {torrent.leechers}
+                                                  </div>
+                                              </div>
+                                          ))
+                                        : (isDoneSearch ? 'We cannot find out any torrent file :(' : 'We are looking for torrent file!')}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                 </div>

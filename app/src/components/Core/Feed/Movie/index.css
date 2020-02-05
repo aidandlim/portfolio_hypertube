@@ -8,17 +8,14 @@
     float: left;
 
     background-color: var(--color-75);
+    opacity: 0.5;
     transition: 1s;
     
     cursor: pointer;
 }
 
 .movie:hover {
-    background-color: var(--color-85);
-}
-
-.movie:hover > .movie-poster {
-    filter: grayscale(1);
+    opacity: 1;
 }
 
 .movie-poster {

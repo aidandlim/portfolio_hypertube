@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useState, FormEvent } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { auth_isLogin } from '../../../../actions';
+
+import { signin } from '../../../../data';
 
 import { Link } from 'react-router-dom';
 
@@ -7,8 +12,26 @@ export interface Props {
 }
 
 const Component: React.FC<Props> = ({ history }) => {
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+
     const _handleBack = () => {
         history.goBack();
+    };
+
+    const _handleForm = (e: FormEvent) => {
+        e.preventDefault();
+        signin(userName, password, (result: number) => {
+            if (result === 1) {
+                dispatch(auth_isLogin());
+                history.goBack();
+            } else if (result === 2) {
+                alert('password error');
+            } else if (result === 3) {
+                alert('username error');
+            }
+        });
     };
 
     return (
@@ -21,18 +44,26 @@ const Component: React.FC<Props> = ({ history }) => {
                     after all. The green tea and avocado smoothie turned out
                     exactly as would be expected.
                 </div>
-                <form autoComplete="off">
+                <form autoComplete="off" onSubmit={_handleForm}>
                     <div className="auth-placeholder">USER NAME</div>
-                    <input className="auth-input" type="text" name="userName" autoFocus />
+                    <input
+                        className="auth-input"
+                        type="text"
+                        name="userName"
+                        onChange={e => setUserName(e.target.value)}
+                        autoFocus
+                    />
                     <div className="auth-placeholder">PASSWORD</div>
                     <input
                         className="auth-input"
                         type="password"
                         name="password"
+                        onChange={e => setPassword(e.target.value)}
                     />
                     <Link to="/auth/signup">
                         <div className="auth-nav">
-                            Don't you have an account yet? Just Sign Up for free!
+                            Don't you have an account yet? Just Sign Up for
+                            free!
                         </div>
                     </Link>
                     <Link to="/auth/recovery">

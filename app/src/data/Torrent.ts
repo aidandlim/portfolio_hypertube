@@ -5,7 +5,6 @@ export const getTorrents = (id: number, cb: (result: []) => void) => {
 
     Axios.get(url)
         .then((res: any) => {
-            console.log(res);
             if (res.data[0] === undefined) {
                 cb([]);
             } else {

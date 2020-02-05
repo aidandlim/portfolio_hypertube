@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const proxy = require('http-proxy-middleware');
 
 const RarbgApi = require('rarbg');
 
@@ -7,6 +8,14 @@ const app = express();
 const PORT = 9443;
 
 app.use(cors());
+
+app.use(
+    '/api',
+    proxy({
+        target: 'http://10.10.146.166:8080/',
+        changeOrigin: true
+    })
+);
 
 app.get('/search/:id', async (req, res) => {
     const id = req.params.id;

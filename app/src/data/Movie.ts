@@ -68,7 +68,7 @@ export const getMovie = (
 
     Axios.get(url)
         .then(res => {
-            console.log(res.data);
+            console.log(res);
             cb(res.data);
         })
         .catch(() => {
