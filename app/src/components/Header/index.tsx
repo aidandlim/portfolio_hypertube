@@ -25,6 +25,13 @@ const Component: React.FC<Props> = () => {
     const dispatch = useDispatch();
 
     const _handleSearch = () => {
+        dispatch(
+            search_results({
+                results: [],
+                page: 1,
+                total: 0
+            })
+        );
         getSearch(
             query,
             1,

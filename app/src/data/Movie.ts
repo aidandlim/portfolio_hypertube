@@ -6,7 +6,7 @@ export const getMovies = (
     filter: string,
     cb: (result: []) => void
 ) => {
-    let url = 'https://api.themoviedb.org/4/discover/movie?api_key=' + API;
+    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}`;
 
     if (genre === 'action') url += '&with_genres=28';
     else if (genre === 'adventure') url += '&with_genres=12';
@@ -43,7 +43,7 @@ export const getMovies = (
 
 export const getMovie = (
     id: number,
-    cb: (result: {
+    cb: (result?: {
         title: string;
         overview: string;
         status: string;
@@ -64,7 +64,7 @@ export const getMovie = (
         ];
     }) => void
 ) => {
-    let url = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API;
+    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API}`;
 
     Axios.get(url)
         .then(res => {
@@ -72,17 +72,6 @@ export const getMovie = (
             cb(res.data);
         })
         .catch(() => {
-            cb({
-                title: '',
-                overview: '',
-                status: '',
-                poster_path: '',
-                vote_average: 0,
-                vote_count: 0,
-                genres: [{ name: '' }],
-                runtime: 0,
-                release_date: '',
-                production_companies: [{ name: '' }]
-            });
+            cb(null);
         });
 };

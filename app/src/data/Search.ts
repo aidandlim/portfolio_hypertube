@@ -4,15 +4,9 @@ import { API } from '../constants/api';
 export const getSearch = (
     query: string,
     page: number,
-    cb: (result: { results: []; page: number; total: number }) => void
+    cb: (result?: { results: []; page: number; total: number }) => void
 ) => {
-    let url =
-        'https://api.themoviedb.org/3/search/movie?api_key=' +
-        API +
-        '&query=' +
-        query +
-        '&page=' +
-        page;
+    let url = `https://api.themoviedb.org/3/search/movie?api_key=${API}&query=${query}&page=${page}`;
 
     Axios.get(url)
         .then(
@@ -27,10 +21,6 @@ export const getSearch = (
             }
         )
         .catch(() => {
-            cb({
-                results: [],
-                page: 0,
-                total: 0
-            });
+            cb(null);
         });
 };
