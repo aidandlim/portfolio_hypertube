@@ -1,4 +1,4 @@
-export const search_query = (value: string) => {
+export const search_query = value => {
     return {
         type: 'SEARCH_QUERY',
         payload: {
@@ -7,11 +7,7 @@ export const search_query = (value: string) => {
     };
 };
 
-export const search_results = (value: {
-    results: any[];
-    page: number;
-    total: number;
-}) => {
+export const search_results = value => {
     return {
         type: 'SEARCH_RESULTS',
         payload: {

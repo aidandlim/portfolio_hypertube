@@ -7,9 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from '../Header';
 import Core from '../Core';
 
-export interface Props {}
-
-const Component: React.FC<Props> = () => {
+const Component = () => {
     return (
         <Wrapper className="no-drag">
             <style>

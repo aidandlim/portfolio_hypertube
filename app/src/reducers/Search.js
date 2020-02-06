@@ -2,18 +2,10 @@ const data = {
     query: '',
     results: [],
     page: 1,
-    total: 0,
+    total: 0
 };
 
-const reducer = (state = data, action: {
-    type: string;
-    payload: {
-        query?: string;
-        results?: [];
-        page?: number;
-        total?: number;
-    }
-}) => {
+const reducer = (state = data, action) => {
     switch (action.type) {
         case 'SEARCH_QUERY':
             return Object.assign({}, state, {

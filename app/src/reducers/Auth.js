@@ -1,10 +1,8 @@
 const data = {
-    isLogin: false,
+    isLogin: false
 };
 
-const reducer = (state = data, action: {
-    type: string;
-}) => {
+const reducer = (state = data, action) => {
     switch (action.type) {
         case 'AUTH_ISLOGIN':
             return Object.assign({}, state, {

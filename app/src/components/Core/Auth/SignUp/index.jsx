@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 
 import '../index.css';
 
-export interface Props {
-    history: any;
-}
-
-const Component: React.FC<Props> = ({ history }) => {
+const Component = ({ history }) => {
     const _handleBack = () => {
         history.goBack();
     };
@@ -24,7 +20,12 @@ const Component: React.FC<Props> = ({ history }) => {
                 </div>
                 <form autoComplete="off">
                     <div className="auth-placeholder">USER NAME</div>
-                    <input className="auth-input" type="text" name="userName" autoFocus />
+                    <input
+                        className="auth-input"
+                        type="text"
+                        name="userName"
+                        autoFocus
+                    />
                     <div className="auth-placeholder">PASSWORD</div>
                     <input
                         className="auth-input"

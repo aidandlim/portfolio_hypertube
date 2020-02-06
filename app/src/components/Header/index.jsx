@@ -8,19 +8,11 @@ import { Link } from 'react-router-dom';
 import { getSearch } from '../../data';
 
 import CI from '../../assets/favicon.png';
-import { Icon } from 'ts-react-feather-icons';
+import FeatherIcon from 'feather-icons-react';
 import './index.css';
 
-export interface Props {}
-
-export interface State {
-    auth: {
-        isLogin: boolean;
-    };
-}
-
-const Component: React.FC<Props> = () => {
-    const auth = useSelector((state: State) => state.auth);
+const Component = () => {
+    const auth = useSelector(state => state.auth);
     const [query, setQuery] = useState('');
     const dispatch = useDispatch();
 
@@ -32,20 +24,16 @@ const Component: React.FC<Props> = () => {
                 total: 0
             })
         );
-        getSearch(
-            query,
-            1,
-            (res: { results: []; page: number; total: number }) => {
-                dispatch(search_query(query));
-                dispatch(
-                    search_results({
-                        results: res.results,
-                        page: res.page,
-                        total: res.total
-                    })
-                );
-            }
-        );
+        getSearch(query, 1, res => {
+            dispatch(search_query(query));
+            dispatch(
+                search_results({
+                    results: res.results,
+                    page: res.page,
+                    total: res.total
+                })
+            );
+        });
     };
 
     return (
@@ -69,7 +57,7 @@ const Component: React.FC<Props> = () => {
                             className="header-search-button"
                             onClick={_handleSearch}
                         >
-                            <Icon name="search" color="#303030" size={20} />
+                            <FeatherIcon icon="search" color="#303030" size={20} />
                         </button>
                     </Link>
                 </div>
@@ -78,9 +66,9 @@ const Component: React.FC<Props> = () => {
                 <Link to={auth.isLogin ? '/user' : '/auth/signin'}>
                     <div className="header-util-auth">
                         {!auth.isLogin ? (
-                            <Icon name="log-in" color="#606060" size="1rem" />
+                            <FeatherIcon icon="log-in" color="#606060" size="1rem" />
                         ) : (
-                            <Icon name="user" color="#606060" size="1rem" />
+                            <FeatherIcon icon="user" color="#606060" size="1rem" />
                         )}
                     </div>
                 </Link>

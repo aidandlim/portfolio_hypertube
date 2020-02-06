@@ -13,9 +13,7 @@ import Error from './Error';
 
 import './index.css';
 
-export interface Props {}
-
-const Component: React.FC<Props> = () => {
+const Component = () => {
     return (
         <Switch>
             <Redirect from="/" to="/feed/all/popularity" exact />

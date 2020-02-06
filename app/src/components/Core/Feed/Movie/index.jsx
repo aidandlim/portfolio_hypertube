@@ -6,19 +6,7 @@ import StarRatingComponent from 'react-star-rating-component';
 
 import './index.css';
 
-export interface Props {
-    movie: {
-        id: number;
-        poster_path: string;
-        genre_ids: string[];
-        title: string;
-        vote_average: number;
-        release_date: string;
-        overview: string;
-    };
-}
-
-const Component: React.FC<Props> = ({ movie }) => {
+const Component = ({ movie }) => {
     const starColor = '#FFEA00';
     const emptyStarColor = '#505050';
 

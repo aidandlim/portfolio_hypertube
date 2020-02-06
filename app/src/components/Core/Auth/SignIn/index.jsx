@@ -1,17 +1,13 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { auth_isLogin } from '../../../../actions';
 
-import { signin } from '../../../../data';
-
 import { Link } from 'react-router-dom';
 
-export interface Props {
-    history: any;
-}
+import { signin } from '../../../../data';
 
-const Component: React.FC<Props> = ({ history }) => {
+const Component = ({ history }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
@@ -20,15 +16,15 @@ const Component: React.FC<Props> = ({ history }) => {
         history.goBack();
     };
 
-    const _handleForm = (e: FormEvent) => {
+    const _handleForm = e => {
         e.preventDefault();
-        signin(userName, password, (result: number) => {
-            if (result === 1) {
+        signin(userName, password, res => {
+            if (res === 1) {
                 dispatch(auth_isLogin());
                 history.goBack();
-            } else if (result === 2) {
+            } else if (res === 2) {
                 alert('password error');
-            } else if (result === 3) {
+            } else if (res === 3) {
                 alert('username error');
             }
         });

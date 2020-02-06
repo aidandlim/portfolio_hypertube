@@ -1,10 +1,6 @@
 import React from 'react';
 
-export interface Props {
-    history: any;
-}
-
-const Component: React.FC<Props> = ({ history }) => {
+const Component = ({ history }) => {
     const _handleBack = () => {
         history.goBack();
     };

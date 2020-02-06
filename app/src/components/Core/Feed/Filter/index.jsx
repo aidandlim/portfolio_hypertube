@@ -4,13 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './index.css';
 
-export interface Props {
-    genre: string;
-    filter: string;
-    _handleSetting: () => void;
-}
-
-const Component: React.FC<Props> = ({ genre, filter, _handleSetting }) => {
+const Component = ({ genre, filter, _handleSetting }) => {
     return (
         <div className="setting">
             <div className="setting-container">

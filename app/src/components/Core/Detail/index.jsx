@@ -3,41 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { getMovie, getTorrents } from '../../../data';
 
 import StarRatingComponent from 'react-star-rating-component';
-import { Icon } from 'ts-react-feather-icons';
+
+import FeatherIcon from 'feather-icons-react';
 
 import './index.css';
 
-export interface Props {
-    match: {
-        params: {
-            id: number;
-        };
-    };
-    history: any;
-}
-
-const Component: React.FC<Props> = ({ match, history }) => {
+const Component = ({ match, history }) => {
     const id = match.params.id;
-    const [movie, setMovie] = useState({
-        title: '',
-        overview: '',
-        status: '',
-        poster_path: '',
-        vote_average: 0,
-        vote_count: 0,
-        genres: [
-            {
-                name: ''
-            }
-        ],
-        runtime: 0,
-        release_date: '',
-        production_companies: [
-            {
-                name: ''
-            }
-        ]
-    });
+    const [movie, setMovie] = useState({});
     const [torrentList, setTorrentList] = useState([]);
     const [isOpenTorrentList, setIsOpenTorrentList] = useState(false);
     const [isDoneSearch, setIsDoneSearch] = useState(false);
@@ -80,7 +53,7 @@ const Component: React.FC<Props> = ({ match, history }) => {
                 >
                     <div className="detail-cover">
                         <div className="detail-back" onClick={_handleBack}>
-                            <Icon
+                            <FeatherIcon
                                 name="arrow-left"
                                 color="#AAAAAA"
                                 size="3rem"
@@ -90,7 +63,9 @@ const Component: React.FC<Props> = ({ match, history }) => {
                             className="detail-play"
                             onClick={_handleTorrentList}
                         >
-                            {isOpenTorrentList ? '(HIDE)' : 'WATCHING RIGHT NOW!'}
+                            {isOpenTorrentList
+                                ? '(HIDE)'
+                                : 'WATCHING RIGHT NOW!'}
                         </div>
                         <div className="detail-info-container">
                             <div className="detail-status">{movie.status}</div>
@@ -180,7 +155,9 @@ const Component: React.FC<Props> = ({ match, history }) => {
                                                   </div>
                                               </div>
                                           ))
-                                        : (isDoneSearch ? 'We cannot find out any torrent file :(' : 'We are looking for torrent file!')}
+                                        : isDoneSearch
+                                        ? 'We cannot find out any torrent file :('
+                                        : 'We are looking for torrent file!'}
                                 </div>
                             ) : null}
                         </div>
