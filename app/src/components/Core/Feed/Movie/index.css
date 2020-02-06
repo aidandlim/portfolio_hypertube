@@ -7,10 +7,13 @@
     position: relative;
     float: left;
 
+    text-align: left;
+    line-height: 1;
+
     background-color: var(--color-75);
-    opacity: 0.5;
+    opacity: 0.75;
     transition: 1s;
-    
+
     cursor: pointer;
 }
 
@@ -138,4 +141,22 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+@media (max-width: 100rem) {
+    .movie {
+        width: calc(100% / 4 - 1rem);
+    }
+}
+
+@media (max-width: 80rem) {
+    .movie {
+        width: calc(100% / 3 - 1rem);
+    }
+}
+
+@media (max-width: 60rem) {
+    .movie {
+        width: calc(100% / 2 - 1rem);
+    }
 }

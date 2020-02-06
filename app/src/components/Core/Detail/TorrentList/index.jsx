@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { getTorrents } from '../../../../data';
 
 import './index.css';
@@ -32,27 +34,27 @@ const Component = ({
         <div className="torrentList">
             {torrentList.length !== 0
                 ? torrentList.map((torrent, index) => (
-                      <div
-                          className="torrentList-file"
-                          key={index}
-                          onClick={() => window.open(torrent.download)}
-                      >
-                          <div className="torrentList-title">
-                              {torrent.title}
+                      <Link to='/streaming' key={index}>
+                          <div className="torrentList-file">
+                              <div className="torrentList-title">
+                                  {torrent.title}
+                              </div>
+                              <div className="torrentList-info">
+                                  {(torrent.size / 1024 / 1024 / 1024).toFixed(
+                                      2
+                                  )}
+                                  GB
+                              </div>
+                              <div className="torrentList-division">l</div>
+                              <div className="torrentList-info">
+                                  {torrent.seeders}
+                              </div>
+                              <div className="torrentList-division">l</div>
+                              <div className="torrentList-info">
+                                  {torrent.leechers}
+                              </div>
                           </div>
-                          <div className="torrentList-info">
-                              {(torrent.size / 1024 / 1024 / 1024).toFixed(2)}
-                              GB
-                          </div>
-                          <div className="torrentList-division">l</div>
-                          <div className="torrentList-info">
-                              {torrent.seeders}
-                          </div>
-                          <div className="torrentList-division">l</div>
-                          <div className="torrentList-info">
-                              {torrent.leechers}
-                          </div>
-                      </div>
+                      </Link>
                   ))
                 : isDoneSearch
                 ? 'We cannot find out any torrent file :('

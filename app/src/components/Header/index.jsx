@@ -36,6 +36,12 @@ const Component = () => {
         });
     };
 
+    const _handleEnter = (e) => {
+        if(e.keyCode === 13) {
+            document.querySelector('.header-search-button').click();
+        }
+    }
+
     return (
         <div className="header">
             <div className="header-ci-section">
@@ -50,6 +56,7 @@ const Component = () => {
                         className="header-search-input"
                         placeholder="Search"
                         onChange={e => setQuery(e.target.value)}
+                        onKeyUp={_handleEnter}
                     />
                     <Link to="/search">
                         <button

@@ -1,8 +1,8 @@
 import Axios from 'axios';
 import { API } from '../constants/api';
 
-export const getMovies = (genre, filter, cb) => {
-    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}`;
+export const getMovies = (genre, filter, page, cb) => {
+    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}&page=${page}`;
 
     if (genre === 'action') url += '&with_genres=28';
     else if (genre === 'adventure') url += '&with_genres=12';

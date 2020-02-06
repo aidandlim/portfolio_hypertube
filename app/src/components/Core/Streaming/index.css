@@ -1,0 +1,18 @@
+.streaming {
+    width: 100%;
+    height: calc(100% - var(--size-header));
+
+    position: relative;
+    float: left;
+
+    background-color: black;
+}
+
+.streaming-video {
+    width: 100%;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
