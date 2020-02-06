@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-import { getMovie, getTorrents } from '../../../data';
+import { getMovie } from '../../../data';
+
+import TorrentList from './TorrentList';
 
 import StarRatingComponent from 'react-star-rating-component';
-
 import FeatherIcon from 'feather-icons-react';
-
 import './index.css';
 
 const Component = ({ match, history }) => {
     const id = match.params.id;
-    const [movie, setMovie] = useState({});
-    const [torrentList, setTorrentList] = useState([]);
+    const [movie, setMovie] = useState({
+        genres: [],
+        vote_average: 0,
+        production_companies: []
+    });
+
     const [isOpenTorrentList, setIsOpenTorrentList] = useState(false);
     const [isDoneSearch, setIsDoneSearch] = useState(false);
 
@@ -19,13 +23,17 @@ const Component = ({ match, history }) => {
     const emptyStarColor = '#505050';
 
     useEffect(() => {
+        let isCancelled = false;
+
         getMovie(id, res => {
-            setMovie(res);
+            if (!isCancelled) {
+                setMovie(res);
+            }
         });
-        getTorrents(id, res => {
-            setTorrentList(res);
-            setIsDoneSearch(true);
-        });
+
+        return () => {
+            isCancelled = true;
+        };
     }, [id]);
 
     const _handleBack = () => {
@@ -46,7 +54,8 @@ const Component = ({ match, history }) => {
                     style={{
                         backgroundImage:
                             movie.poster_path !== '' &&
-                            movie.poster_path !== null
+                            movie.poster_path !== null &&
+                            movie.poster_path !== undefined
                                 ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`
                                 : ''
                     }}
@@ -54,7 +63,7 @@ const Component = ({ match, history }) => {
                     <div className="detail-cover">
                         <div className="detail-back" onClick={_handleBack}>
                             <FeatherIcon
-                                name="arrow-left"
+                                icon="arrow-left"
                                 color="#AAAAAA"
                                 size="3rem"
                             />
@@ -116,50 +125,12 @@ const Component = ({ match, history }) => {
                                     )
                                 )}
                             </div>
-                            {isOpenTorrentList ? (
-                                <div className="detail-torrent">
-                                    {torrentList.length !== 0
-                                        ? torrentList.map((torrent, index) => (
-                                              <div
-                                                  className="detail-torrent-file"
-                                                  key={index}
-                                                  onClick={() =>
-                                                      window.open(
-                                                          torrent.download
-                                                      )
-                                                  }
-                                              >
-                                                  <div className="detail-torrent-file-title">
-                                                      {torrent.title}
-                                                  </div>
-                                                  <div className="detail-torrent-file-info">
-                                                      {(
-                                                          torrent.size /
-                                                          1024 /
-                                                          1024 /
-                                                          1024
-                                                      ).toFixed(2)}
-                                                      GB
-                                                  </div>
-                                                  <div className="detail-torrent-file-division">
-                                                      l
-                                                  </div>
-                                                  <div className="detail-torrent-file-info">
-                                                      {torrent.seeders}
-                                                  </div>
-                                                  <div className="detail-torrent-file-division">
-                                                      l
-                                                  </div>
-                                                  <div className="detail-torrent-file-info">
-                                                      {torrent.leechers}
-                                                  </div>
-                                              </div>
-                                          ))
-                                        : isDoneSearch
-                                        ? 'We cannot find out any torrent file :('
-                                        : 'We are looking for torrent file!'}
-                                </div>
-                            ) : null}
+                            <TorrentList
+                                id={id}
+                                isOpenTorrentList={isOpenTorrentList}
+                                isDoneSearch={isDoneSearch}
+                                setIsDoneSearch={setIsDoneSearch}
+                            />
                         </div>
                     </div>
                 </div>
