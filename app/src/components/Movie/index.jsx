@@ -2,7 +2,9 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import StarRatingComponent from 'react-star-rating-component';
+import GenreInfo from '../GenreInfo';
+
+import StarIcon from 'react-star-rating-component';
 
 import './index.css';
 
@@ -24,15 +26,11 @@ const Component = ({ movie }) => {
                 ></div>
                 <div className="movie-info">
                     <div className="movie-genre">
-                        {movie.genre_ids.map((genre_id, index) => (
-                            <div className="movie-genre-name" key={index}>
-                                {genre_id}
-                            </div>
-                        ))}
+                        <GenreInfo genre_ids={movie.genre_ids} />
                     </div>
                     <div className="movie-title">{movie.title}</div>
                     <div className="movie-rate">
-                        <StarRatingComponent
+                        <StarIcon
                             name="rating"
                             value={movie.vote_average / 2.0}
                             starColor={starColor}

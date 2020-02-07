@@ -1,6 +1,20 @@
 import Axios from 'axios';
 import { API } from '../constants/api';
 
+export const getGenres = (cb) => {
+    let url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API}&language=en-US`;
+
+    console.log('here');
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data.genres);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};
+
 export const getMovies = (genre, filter, page, cb) => {
     let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}&page=${page}`;
 

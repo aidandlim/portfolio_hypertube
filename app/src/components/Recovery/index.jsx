@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../Auth/index.css';
+
 const Component = ({ history }) => {
     const _handleBack = () => {
         history.goBack();

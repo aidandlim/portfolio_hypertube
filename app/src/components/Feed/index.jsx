@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { getMovies } from '../../../data';
+import { getMovies } from '../../data';
 
-import Movie from './Movie';
-import FilterIcon from './FilterIcon';
-import Filter from './Filter';
+import Movie from '../Movie';
+import FilterIcon from '../FilterIcon';
+import Filter from '../Filter';
 
 import './index.css';
 
@@ -18,17 +18,20 @@ const Component = ({ match }) => {
 
     let isCancelled = false;
 
-    useEffect((isCancelled) => {
-        getMovies(genre, filter, 1, res => {
-            if (!isCancelled && res !== null) {
-                setMovies(res);
-                setPage(page => page + 1);
-            }
-        });
-        return () => {
-            isCancelled = true;
-        };
-    }, [genre, filter]);
+    useEffect(
+        isCancelled => {
+            getMovies(genre, filter, 1, res => {
+                if (!isCancelled && res !== null) {
+                    setMovies(res);
+                    setPage(page => page + 1);
+                }
+            });
+            return () => {
+                isCancelled = true;
+            };
+        },
+        [genre, filter]
+    );
 
     let isWorking = false;
 
@@ -42,7 +45,7 @@ const Component = ({ match }) => {
             isWorking = true;
             getMovies(genre, filter, page, res => {
                 if (!isCancelled && res !== null) {
-                    setMovies([...movies, ...res],);
+                    setMovies([...movies, ...res]);
                     setPage(page => page + 1);
                 }
                 isWorking = false;

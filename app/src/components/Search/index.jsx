@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { search_results } from '../../../actions';
+import { search_results } from '../../actions';
 
-import { getSearch } from '../../../data';
+import { getSearch } from '../../data';
 
-import Movie from '../Feed/Movie';
+import Movie from '../Movie';
 
 import './index.css';
 

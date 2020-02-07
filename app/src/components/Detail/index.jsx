@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { getMovie } from '../../../data';
+import { getMovie } from '../../data';
 
-import TorrentList from './TorrentList';
+import TorrentList from '../TorrentList';
 
-import StarRatingComponent from 'react-star-rating-component';
+import StarIcon from 'react-star-rating-component';
 import FeatherIcon from 'feather-icons-react';
 import './index.css';
 
@@ -90,7 +90,7 @@ const Component = ({ match, history }) => {
                             </div>
                             <div className="detail-title">{movie.title}</div>
                             <div className="detail-rating-icon">
-                                <StarRatingComponent
+                                <StarIcon
                                     name="rating"
                                     value={movie.vote_average / 2.0}
                                     starColor={starColor}
@@ -125,12 +125,13 @@ const Component = ({ match, history }) => {
                                     )
                                 )}
                             </div>
-                            <TorrentList
-                                id={id}
-                                isOpenTorrentList={isOpenTorrentList}
-                                isDoneSearch={isDoneSearch}
-                                setIsDoneSearch={setIsDoneSearch}
-                            />
+                            {isOpenTorrentList ? (
+                                <TorrentList
+                                    id={id}
+                                    isDoneSearch={isDoneSearch}
+                                    setIsDoneSearch={setIsDoneSearch}
+                                />
+                            ) : null}
                         </div>
                     </div>
                 </div>

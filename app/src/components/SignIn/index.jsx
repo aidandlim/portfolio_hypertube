@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { auth_isLogin } from '../../../../actions';
+import { auth_isLogin } from '../../actions';
 
 import { Link } from 'react-router-dom';
 
-import { signin } from '../../../../data';
+import { signin } from '../../data';
+
+import '../Auth/index.css';
 
 const Component = ({ history }) => {
     const [userName, setUserName] = useState('');
