@@ -1,7 +1,6 @@
 const data = {
     darkMode: false,
-    lang: 'en',
-    from: '/'
+    lang: 'en_US'
 };
 
 const reducer = (state = data, action) => {
@@ -11,10 +10,6 @@ const reducer = (state = data, action) => {
                 darkMode: action.payload.darkMode
             });
         case 'UI_LANG':
-            return Object.assign({}, state, {
-                lang: action.payload.lang
-            });
-        case 'UI_FROM':
             return Object.assign({}, state, {
                 lang: action.payload.lang
             });

@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Switch, Redirect, Route } from 'react-router-dom';
 
-import Feed from './Feed';
-import Search from './Search';
-import Detail from './Detail';
-import Streaming from './Streaming';
-import SignIn from './Auth/SignIn';
-import SignUp from './Auth/SignUp';
-import Recovery from './Auth/Recovery';
-import Error from './Error';
+import Feed from '../Feed';
+import Search from '../Search';
+import Detail from '../Detail';
+import Streaming from '../Streaming';
+import SignIn from '../SignIn';
+import SignUp from '../SignUp';
+import Recovery from '../Recovery';
+import Error from '../Error';
 
 import './index.css';
 

@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { movie_genres } from '../../actions';
 
 import Wrapper from 'react-div-100vh';
 
 import { BrowserRouter } from 'react-router-dom';
 
+import { getGenres } from '../../data';
+
 import Header from '../Header';
 import Core from '../Core';
 
 const Component = () => {
+    const ui = useSelector(state => state.ui);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        getGenres(ui.lang, res => {
+            dispatch(movie_genres(res));
+        });
+    }, [dispatch, ui.lang]);
+
     return (
         <Wrapper className="no-drag">
             <style>

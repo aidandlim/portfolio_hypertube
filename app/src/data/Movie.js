@@ -1,8 +1,20 @@
 import Axios from 'axios';
 import { API } from '../constants/api';
 
-export const getMovies = (genre, filter, page, cb) => {
-    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}&page=${page}`;
+export const getGenres = (lang, cb) => {
+    let url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API}&language=${lang}`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data.genres);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};
+
+export const getMovies = (genre, filter, page, lang, cb) => {
+    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}&page=${page}&language=${lang === 'en_US' ? 'en-US' : 'ko-KR'}`;
 
     if (genre === 'action') url += '&with_genres=28';
     else if (genre === 'adventure') url += '&with_genres=12';
@@ -37,8 +49,8 @@ export const getMovies = (genre, filter, page, cb) => {
         });
 };
 
-export const getMovie = (id, cb) => {
-    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API}`;
+export const getMovie = (id, lang, cb) => {
+    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API}&language=${lang}`;
 
     Axios.get(url)
         .then(res => {
