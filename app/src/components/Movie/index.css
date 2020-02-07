@@ -11,7 +11,7 @@
     line-height: 1;
 
     background-color: var(--color-75);
-    opacity: 0.75;
+    opacity: 0.5;
     transition: 1s;
 
     cursor: pointer;

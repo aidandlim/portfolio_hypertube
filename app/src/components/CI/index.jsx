@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import CI from '../../assets/favicon.png';
+import CI from '../../assets/images/ci.png';
 import './index.css';
 
 const Component = () => {

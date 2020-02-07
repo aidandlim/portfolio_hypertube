@@ -11,3 +11,18 @@
 
     cursor: pointer;
 }
+
+.langIcon-image {
+    width: 1rem;
+    height: 1rem;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-size: 1rem 1rem;
+    filter: grayscale(1);
+
+    transition: 0.5s;
+}

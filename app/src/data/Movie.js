@@ -16,8 +16,6 @@ export const getGenres = (lang, cb) => {
 export const getMovies = (genre, filter, page, lang, cb) => {
     let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}&page=${page}&language=${lang === 'en_US' ? 'en-US' : 'ko-KR'}`;
 
-    console.log(url);
-
     if (genre === 'action') url += '&with_genres=28';
     else if (genre === 'adventure') url += '&with_genres=12';
     else if (genre === 'animation') url += '&with_genres=16';
@@ -44,7 +42,6 @@ export const getMovies = (genre, filter, page, lang, cb) => {
 
     Axios.get(url)
         .then(res => {
-            console.log(res);
             cb(res.data.results);
         })
         .catch(() => {

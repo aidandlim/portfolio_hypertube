@@ -16,7 +16,7 @@ const Component = ({ match }) => {
 
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState([]);
-    const [isSetting, setIsSetting] = useState(false);
+    const [isOpenFilter, setIsOpenFilter] = useState(false);
 
     const ui = useSelector(state => state.ui);
 
@@ -57,23 +57,23 @@ const Component = ({ match }) => {
         }
     };
 
-    const _handleSetting = () => {
-        setIsSetting(isSetting => !isSetting);
+    const _handleFilter = () => {
+        setIsOpenFilter(isOpenFilter => !isOpenFilter);
     };
 
     return (
         <div className="feed" onScroll={_handleScroll}>
             <div className="feed-container">
-                <FilterIcon _handleSetting={_handleSetting} />
+                <FilterIcon genre={genre} filter={filter} _handleFilter={_handleFilter} />
                 {movies.map((movie, index) => (
                     <Movie movie={movie} key={index} />
                 ))}
             </div>
-            {isSetting ? (
+            {isOpenFilter ? (
                 <Filter
                     genre={genre}
                     filter={filter}
-                    _handleSetting={_handleSetting}
+                    _handleFilter={_handleFilter}
                 />
             ) : null}
         </div>

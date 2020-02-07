@@ -18,7 +18,7 @@ const Component = ({ url, titleEN, titleKR, genre, filter }) => {
                         : 'genreButton'
                 }
             >
-                {ui.lang === 'en-US' ? titleEN : titleKR}
+                {ui.lang === 'en_US' ? titleEN : titleKR}
             </button>
         </Link>
     );

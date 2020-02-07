@@ -3,7 +3,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ui_lang } from '../../actions';
 
-import FeatherIcon from 'feather-icons-react';
+import en_US from '../../assets/icons/en_US.png';
+import ko_KR from '../../assets/icons/ko_KR.png';
 
 import './index.css';
 
@@ -17,7 +18,14 @@ const Component = () => {
 
     return (
         <div className="langIcon" onClick={_handleLang}>
-            <FeatherIcon icon="underline" color="#606060" size="1rem" />
+            <div
+                className="langIcon-image"
+                style={{
+                    backgroundImage: `url('${
+                        ui.lang === 'en_US' ? en_US : ko_KR
+                    }')`
+                }}
+            ></div>
         </div>
     );
 };

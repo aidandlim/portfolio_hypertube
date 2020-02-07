@@ -5,7 +5,7 @@ import SorterButton from '../SorterButton';
 
 import './index.css';
 
-const Component = ({ genre, filter, _handleSetting }) => {
+const Component = ({ genre, filter, _handleFilter }) => {
     const genres = [
         {
             url: 'all',
@@ -156,7 +156,7 @@ const Component = ({ genre, filter, _handleSetting }) => {
                         />
                     ))}
                 </div>
-                <button className="setting-confirm" onClick={_handleSetting}>
+                <button className="setting-confirm" onClick={_handleFilter}>
                     CONFIRM
                 </button>
             </div>

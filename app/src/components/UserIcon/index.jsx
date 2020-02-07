@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import FeatherIcon from 'feather-icons-react';
+import user_default from '../../assets/icons/user_default.png';
+import temp from '../../assets/icons/en_US.png';
 
 import './index.css';
 
@@ -12,14 +13,15 @@ const Component = () => {
     const auth = useSelector(state => state.auth);
 
     return (
-        <Link to={auth.isLogin ? '/user' : '/auth/signin'}>
-            <div className="userIcon">
-                {auth.isLogin ? (
-                    <FeatherIcon icon="user" color="#606060" size="1rem" />
-                ) : (
-                    <FeatherIcon icon="log-in" color="#606060" size="1rem" />
-                )}
-            </div>
+        <Link to={auth.isLogin ? '/user' : '/auth/signin'} className='userIcon'>
+            <div
+                className="userIcon-image"
+                style={{
+                    backgroundImage: `url('${
+                        auth.isLogin ? temp : user_default
+                    }')`
+                }}
+            ></div>
         </Link>
     );
 };
