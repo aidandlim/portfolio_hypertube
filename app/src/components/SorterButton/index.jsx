@@ -1,10 +1,14 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
 import './index.css';
 
-const Component = ({ url, title, genre, filter }) => {
+const Component = ({ url, titleEN, titleKR, genre, filter }) => {
+    const ui = useSelector(state => state.ui);
+
     return (
         <Link to={`/feed/${genre}/${url}`}>
             <button
@@ -14,7 +18,7 @@ const Component = ({ url, title, genre, filter }) => {
                         : 'sorterButton'
                 }
             >
-                {title}
+                {ui.lang === 'en-US' ? titleEN : titleKR}
             </button>
         </Link>
     );

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { getMovies } from '../../data';
 
 import Movie from '../Movie';
@@ -16,11 +18,13 @@ const Component = ({ match }) => {
     const [movies, setMovies] = useState([]);
     const [isSetting, setIsSetting] = useState(false);
 
+    const ui = useSelector(state => state.ui);
+
     let isCancelled = false;
 
     useEffect(
         isCancelled => {
-            getMovies(genre, filter, 1, res => {
+            getMovies(genre, filter, 1, ui.lang, res => {
                 if (!isCancelled && res !== null) {
                     setMovies(res);
                     setPage(page => page + 1);
@@ -30,7 +34,7 @@ const Component = ({ match }) => {
                 isCancelled = true;
             };
         },
-        [genre, filter]
+        [genre, filter, ui.lang]
     );
 
     let isWorking = false;
@@ -43,7 +47,7 @@ const Component = ({ match }) => {
                 0.9
         ) {
             isWorking = true;
-            getMovies(genre, filter, page, res => {
+            getMovies(genre, filter, page, ui.lang, res => {
                 if (!isCancelled && res !== null) {
                     setMovies([...movies, ...res]);
                     setPage(page => page + 1);

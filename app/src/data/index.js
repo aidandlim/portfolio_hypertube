@@ -1,4 +1,4 @@
-import { signin } from './User';
+import { signin } from './Auth';
 
 import { getGenres, getMovies, getMovie } from './Movie';
 import { getTorrents } from './Torrent';

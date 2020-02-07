@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { movie_genres } from '../../actions';
 
 import Wrapper from 'react-div-100vh';
@@ -12,13 +12,14 @@ import Header from '../Header';
 import Core from '../Core';
 
 const Component = () => {
+    const ui = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getGenres(res => {
+        getGenres(ui.lang, res => {
             dispatch(movie_genres(res));
         });
-    }, [dispatch]);
+    }, [dispatch, ui.lang]);
 
     return (
         <Wrapper className="no-drag">

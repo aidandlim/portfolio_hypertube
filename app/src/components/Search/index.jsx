@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { search_results } from '../../actions';
@@ -10,10 +10,15 @@ import Movie from '../Movie';
 import './index.css';
 
 const Component = () => {
+    const ui = useSelector(state => state.ui);
     const search = useSelector(state => state.search);
     const dispatch = useDispatch();
 
     let isWorking = false;
+
+    useEffect(() => {
+        document.querySelector('.searchBar-button').click();
+    }, [ui.lang]);
 
     const _handleScroll = e => {
         if (search.page < search.total) {
@@ -24,7 +29,7 @@ const Component = () => {
                     0.9
             ) {
                 isWorking = true;
-                getSearch(search.query, search.page + 1, res => {
+                getSearch(search.query, search.page + 1, ui.lang, res => {
                     dispatch(
                         search_results({
                             results: [...search.results, ...res.results],

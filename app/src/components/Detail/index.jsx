@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { getMovie } from '../../data';
 
 import TorrentList from '../TorrentList';
@@ -10,14 +12,16 @@ import './index.css';
 
 const Component = ({ match, history }) => {
     const id = match.params.id;
+
     const [movie, setMovie] = useState({
         genres: [],
         vote_average: 0,
         production_companies: []
     });
-
     const [isOpenTorrentList, setIsOpenTorrentList] = useState(false);
     const [isDoneSearch, setIsDoneSearch] = useState(false);
+
+    const ui = useSelector(state => state.ui);
 
     const starColor = '#FFEA00';
     const emptyStarColor = '#505050';
@@ -25,7 +29,7 @@ const Component = ({ match, history }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        getMovie(id, res => {
+        getMovie(id, ui.lang, res => {
             if (!isCancelled) {
                 setMovie(res);
             }
@@ -34,7 +38,7 @@ const Component = ({ match, history }) => {
         return () => {
             isCancelled = true;
         };
-    }, [id]);
+    }, [id, ui.lang]);
 
     const _handleBack = () => {
         history.goBack();

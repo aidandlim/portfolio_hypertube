@@ -9,98 +9,121 @@ const Component = ({ genre, filter, _handleSetting }) => {
     const genres = [
         {
             url: 'all',
-            title: 'ALL'
+            titleEN: 'ALL',
+            titleKR: '모두보기'
         },
         {
             url: 'action',
-            title: 'ACTION'
+            titleEN: 'ACTION',
+            titleKR: '액션'
         },
         {
             url: 'adventure',
-            title: 'ADVENTURE'
+            titleEN: 'ADVENTURE',
+            titleKR: '어드벤쳐'
         },
         {
             url: 'animation',
-            title: 'ANIMATION'
+            titleEN: 'ANIMATION',
+            titleKR: '애니메이션'
         },
         {
             url: 'comedy',
-            title: 'COMEDY'
+            titleEN: 'COMEDY',
+            titleKR: '코미디'
         },
         {
             url: 'crime',
-            title: 'CRIME'
+            titleEN: 'CRIME',
+            titleKR: '범죄'
         },
         {
             url: 'documentary',
-            title: 'DOCUMENTARY'
+            titleEN: 'DOCUMENTARY',
+            titleKR: '다큐멘터리'
         },
         {
             url: 'drama',
-            title: 'DRAMA'
+            titleEN: 'DRAMA',
+            titleKR: '드라마'
         },
         {
             url: 'family',
-            title: 'FAMILY'
+            titleEN: 'FAMILY',
+            titleKR: '가족'
         },
         {
             url: 'fantasy',
-            title: 'FANTASY'
+            titleEN: 'FANTASY',
+            titleKR: '판타지'
         },
         {
             url: 'history',
-            title: 'HISTORY'
+            titleEN: 'HISTORY',
+            titleKR: '역사'
         },
         {
             url: 'horror',
-            title: 'HORROR'
+            titleEN: 'HORROR',
+            titleKR: '공포'
         },
         {
             url: 'music',
-            title: 'MUSIC'
+            titleEN: 'MUSIC',
+            titleKR: '음악'
         },
         {
             url: 'mystery',
-            title: 'MYSTERY'
+            titleEN: 'MYSTERY',
+            titleKR: '미스터리'
         },
         {
             url: 'romance',
-            title: 'ROMANCE'
+            titleEN: 'ROMANCE',
+            titleKR: '로맨스'
         },
         {
             url: 'sciencefiction',
-            title: 'SCIENCE FICTION'
+            titleEN: 'SCIENCE FICTION',
+            titleKR: '공상과학'
         },
         {
             url: 'tvmovie',
-            title: 'TV MOVIE'
+            titleEN: 'TV MOVIE',
+            titleKR: 'TV 영화'
         },
         {
             url: 'thriller',
-            title: 'THRILLER'
+            titleEN: 'THRILLER',
+            titleKR: '스릴러'
         },
         {
             url: 'war',
-            title: 'WAR'
+            titleEN: 'WAR',
+            titleKR: '전쟁'
         },
         {
             url: 'western',
-            title: 'WESTERN'
+            titleEN: 'WESTERN',
+            titleKR: '서부'
         }
     ];
 
     const sorters = [
         {
             url: 'popularity',
-            title: 'POPULARITY'
+            titleEN: 'POPULARITY',
+            titleKR: '인기도'
         },
         {
             url: 'rating',
-            title: 'RATING'
+            titleEN: 'RATING',
+            titleKR: '평가'
         },
         {
             url: 'revenue',
-            title: 'REVENUE'
+            titleEN: 'REVENUE',
+            titleKR: '수익'
         }
     ];
 
@@ -112,7 +135,8 @@ const Component = ({ genre, filter, _handleSetting }) => {
                     {genres.map((element, index) => (
                         <GenreButton
                             url={element.url}
-                            title={element.title}
+                            titleEN={element.titleEN}
+                            titleKR={element.titleKR}
                             genre={genre}
                             filter={filter}
                             key={index}
@@ -124,7 +148,8 @@ const Component = ({ genre, filter, _handleSetting }) => {
                     {sorters.map((element, index) => (
                         <SorterButton
                             url={element.url}
-                            title={element.title}
+                            titleEN={element.titleEN}
+                            titleKR={element.titleKR}
                             genre={genre}
                             filter={filter}
                             key={index}
