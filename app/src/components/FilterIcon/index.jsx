@@ -5,7 +5,10 @@ import './index.css';
 const Component = ({ genre, filter, _handleFilter }) => {
     return (
         <div className="filterIcon" onClick={_handleFilter}>
-            / HyperTube / {genre.toUpperCase()} / {filter.toUpperCase()}
+            / HyperTube /{' '}
+            {filter === 'trend_day' || filter === 'trend_week'
+                ? filter.toUpperCase()
+                : `${genre.toUpperCase()} / ${filter.toUpperCase()}`}
         </div>
     );
 };

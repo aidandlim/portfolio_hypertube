@@ -39,6 +39,8 @@ export const getMovies = (genre, filter, page, lang, cb) => {
     if (filter === 'popularity') url += '&sort_by=popularity.desc';
     else if (filter === 'rating') url += '&sort_by=vote_average.desc';
     else if (filter === 'revenue') url += '&sort_by=revenue.desc';
+    else if (filter === 'trend_day') url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API}`;
+    else if (filter === 'trend_week') url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API}`;
 
     Axios.get(url)
         .then(res => {

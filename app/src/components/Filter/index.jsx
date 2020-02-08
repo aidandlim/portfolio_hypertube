@@ -127,6 +127,19 @@ const Component = ({ genre, filter, _handleFilter }) => {
         }
     ];
 
+    const trends = [
+        {
+            url: 'trend_day',
+            titleEN: 'TODAY',
+            titleKR: '오늘의 트렌드'
+        },
+        {
+            url: 'trend_week',
+            titleEN: 'THIS WEEK',
+            titleKR: '이주의 트렌드'
+        }
+    ];
+
     return (
         <div className="filter">
             <div className="filter-container">
@@ -146,6 +159,19 @@ const Component = ({ genre, filter, _handleFilter }) => {
                 <div className="filter-title">SORT BY</div>
                 <div className="filter-element-container">
                     {sorters.map((element, index) => (
+                        <SorterButton
+                            url={element.url}
+                            titleEN={element.titleEN}
+                            titleKR={element.titleKR}
+                            genre={genre}
+                            filter={filter}
+                            key={index}
+                        />
+                    ))}
+                </div>
+                <div className="filter-title">TRENDS BY</div>
+                <div className="filter-element-container">
+                    {trends.map((element, index) => (
                         <SorterButton
                             url={element.url}
                             titleEN={element.titleEN}

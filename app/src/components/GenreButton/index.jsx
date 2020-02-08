@@ -10,9 +10,17 @@ const Component = ({ url, titleEN, titleKR, genre, filter }) => {
     const ui = useSelector(state => state.ui);
 
     return (
-        <Link to={`/feed/${url}/${filter}`}>
+        <Link
+            to={`/feed/${url}/${
+                filter === 'trend_day' || filter === 'trend_week'
+                    ? 'popularity'
+                    : filter
+            }`}
+        >
             <button
                 className={
+                    filter !== 'trend_day' &&
+                    filter !== 'trend_week' &&
                     genre === url
                         ? 'genreButton-active'
                         : 'genreButton'
