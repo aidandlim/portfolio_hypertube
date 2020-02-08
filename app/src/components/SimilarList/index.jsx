@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import SimilarMovie from '../SimilarMovie';
+import SimilarMovie from "../SimilarMovie";
 
-import { getSimilarMovies } from '../../data';
+import { getSimilarMovies } from "../../data";
 
-import './index.css';
+import "./index.css";
 
 const Component = ({ id, setIsOpenDetail }) => {
     const [similarList, setSimilarList] = useState([]);
@@ -18,10 +18,12 @@ const Component = ({ id, setIsOpenDetail }) => {
         let isCancelled = false;
 
         getSimilarMovies(id, ui.lang, res => {
-            if (!isCancelled) {
-                setSimilarList(res);
-                setIsDoneSearch(true);
-            }
+            setTimeout(() => {
+                if (!isCancelled) {
+                    setSimilarList(res);
+                    setIsDoneSearch(true);
+                }
+            }, 1000);
         });
         return () => {
             isCancelled = true;
@@ -29,17 +31,25 @@ const Component = ({ id, setIsOpenDetail }) => {
     }, [id, ui.lang, setIsDoneSearch]);
 
     return (
-        <div className="similarList">
+        <div className='similarList'>
             {similarList.length !== 0
                 ? similarList.map((movie, index) => (
-                      <SimilarMovie movie={movie} setIsOpenDetail={setIsOpenDetail} key={index} />
+                      <SimilarMovie
+                          movie={movie}
+                          setIsOpenDetail={setIsOpenDetail}
+                          key={index}
+                      />
                   ))
                 : null}
             {similarList.length === 0 && isDoneSearch
-                ? 'We cannot find out any similar movies :('
+                ? ui.lang === "en_US"
+                    ? "We cannot find out any similar movies :("
+                    : "비슷한 컨텐츠 정보를 찾을 수 없습니다 :("
                 : null}
             {similarList.length === 0 && !isDoneSearch
-                ? 'We are looking for similar movies!'
+                ? ui.lang === "en_US"
+                    ? "We are looking for similar movies!"
+                    : "비슷한 컨텐츠 정보를 검색 중입니다!"
                 : null}
         </div>
     );

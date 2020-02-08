@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Torrent from '../Torrent';
+import { useSelector } from "react-redux";
 
-import { getTorrents } from '../../data';
+import Torrent from "../Torrent";
 
-import './index.css';
+import { getTorrents } from "../../data";
+
+import "./index.css";
 
 const Component = ({ id }) => {
     const [torrentList, setTorrentList] = useState([]);
     const [isDoneSearch, setIsDoneSearch] = useState(false);
+
+    const ui = useSelector(state => state.ui);
 
     useEffect(() => {
         let isCancelled = false;
@@ -32,17 +36,21 @@ const Component = ({ id }) => {
     }, [id, setIsDoneSearch]);
 
     return (
-        <div className="torrentList">
+        <div className='torrentList'>
             {torrentList.length !== 0
                 ? torrentList.map((torrent, index) => (
-                    <Torrent torrent={torrent} key={index} />
-                ))
+                      <Torrent torrent={torrent} key={index} />
+                  ))
                 : null}
             {torrentList.length === 0 && isDoneSearch
-                ? 'We cannot find out any torrent file :('
+                ? ui.lang === "en_US"
+                    ? "We cannot find out any torrent file :("
+                    : "토렌트 파일을 찾을 수 없습니다 :("
                 : null}
             {torrentList.length === 0 && !isDoneSearch
-                ? 'We are looking for torrent file!'
+                ? ui.lang === "en_US"
+                    ? "We are looking for torrent file!"
+                    : "토렌트 파일을 검색 중입니다."
                 : null}
         </div>
     );

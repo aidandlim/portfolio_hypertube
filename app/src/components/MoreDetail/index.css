@@ -15,7 +15,7 @@
     text-align: center;
     line-height: 5rem;
 
-    background-color: var(--color-80);
+    background-color: var(--color-70);
     transition: 0.5s;
 }
 
@@ -32,7 +32,7 @@
 .moreDetail-header-nav,
 .moreDetail-header-nav-active {
     width: auto;
-    height: 1.5rem;
+    height: 1.55rem;
 
     padding: 0 1rem;
 
@@ -49,7 +49,7 @@
 
 .moreDetail-header-nav-active {
     font-weight: 700;
-    background-color: var(--color-80);
+    background-color: var(--color-70);
 }
 
 .moreDetail-body {

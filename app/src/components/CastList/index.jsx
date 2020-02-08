@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import Cast from '../Cast';
+import Cast from "../Cast";
 
-import { getMovieDetail } from '../../data';
+import { getMovieDetail } from "../../data";
 
-import './index.css';
+import "./index.css";
 
 const Component = ({ id }) => {
     const [castList, setCastList] = useState([]);
@@ -18,10 +18,12 @@ const Component = ({ id }) => {
         let isCancelled = false;
 
         getMovieDetail(id, ui.lang, res => {
-            if (!isCancelled) {
-                setCastList(res.cast);
-                setIsDoneSearch(true);
-            }
+            setTimeout(() => {
+                if (!isCancelled) {
+                    setCastList(res.cast);
+                    setIsDoneSearch(true);
+                }
+            }, 1000);
         });
         return () => {
             isCancelled = true;
@@ -29,17 +31,21 @@ const Component = ({ id }) => {
     }, [id, ui.lang, setIsDoneSearch]);
 
     return (
-        <div className="castList">
+        <div className='castList'>
             {castList.length !== 0
                 ? castList.map((cast, index) => (
                       <Cast cast={cast} key={index} />
                   ))
                 : null}
             {castList.length === 0 && isDoneSearch
-                ? 'We cannot find out any casting information :('
+                ? ui.lang === "en_US"
+                    ? "We cannot find out any casting information :("
+                    : "출연진 정보를 찾을 수 없습니다 :("
                 : null}
             {castList.length === 0 && !isDoneSearch
-                ? 'We are looking for casting information!'
+                ? ui.lang === "en_US"
+                    ? "We are looking for casting information!"
+                    : "출연진 정보를 검색 중입니다!"
                 : null}
         </div>
     );
