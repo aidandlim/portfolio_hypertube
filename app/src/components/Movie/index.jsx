@@ -14,9 +14,9 @@ const Component = ({ movie }) => {
 
     return (
         <Link to={`/detail/${movie.id}`}>
-            <div className="movie">
+            <div className='movie'>
                 <div
-                    className="movie-poster"
+                    className='movie-poster'
                     style={{
                         backgroundImage:
                             movie.poster_path !== null
@@ -24,22 +24,22 @@ const Component = ({ movie }) => {
                                 : ''
                     }}
                 ></div>
-                <div className="movie-info">
-                    <div className="movie-genre">
+                <div className='movie-info'>
+                    <div className='movie-genre'>
                         <GenreInfo genre_ids={movie.genre_ids} />
                     </div>
-                    <div className="movie-title">{movie.title}</div>
-                    <div className="movie-rate">
+                    <div className='movie-title'>{movie.title}</div>
+                    <div className='movie-rate'>
                         <StarIcon
-                            name="rating"
+                            name='rating'
                             value={movie.vote_average / 2.0}
                             starColor={starColor}
                             emptyStarColor={emptyStarColor}
                             editing={false}
                         />
                     </div>
-                    <div className="movie-release">{movie.release_date}</div>
-                    <div className="movie-overview">{movie.overview}</div>
+                    <div className='movie-release'>{movie.release_date}</div>
+                    <div className='movie-overview'>{movie.overview}</div>
                 </div>
             </div>
         </Link>

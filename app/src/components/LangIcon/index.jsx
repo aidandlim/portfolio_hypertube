@@ -3,6 +3,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ui_lang } from '../../actions';
 
+import cookie from 'react-cookies';
+
 import en_US from '../../assets/icons/en_US.png';
 import ko_KR from '../../assets/icons/ko_KR.png';
 
@@ -13,13 +15,16 @@ const Component = () => {
     const dispatch = useDispatch();
 
     const _handleLang = () => {
+        cookie.save('lang', ui.lang === 'en_US' ? 'ko_KR' : 'en_US', {
+            path: '/'
+        });
         dispatch(ui_lang(ui.lang === 'en_US' ? 'ko_KR' : 'en_US'));
     };
 
     return (
-        <div className="langIcon" onClick={_handleLang}>
+        <div className='langIcon' onClick={_handleLang}>
             <div
-                className="langIcon-image"
+                className='langIcon-image'
                 style={{
                     backgroundImage: `url('${
                         ui.lang === 'en_US' ? en_US : ko_KR

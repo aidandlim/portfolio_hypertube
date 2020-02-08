@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import Cast from "../Cast";
+import Cast from '../Cast';
 
-import { getMovieDetail } from "../../data";
+import { getMovieDetail } from '../../data';
 
-import "./index.css";
+import './index.css';
 
 const Component = ({ id }) => {
     const [castList, setCastList] = useState([]);
@@ -38,14 +38,14 @@ const Component = ({ id }) => {
                   ))
                 : null}
             {castList.length === 0 && isDoneSearch
-                ? ui.lang === "en_US"
-                    ? "We cannot find out any casting information :("
-                    : "출연진 정보를 찾을 수 없습니다 :("
+                ? ui.lang === 'en_US'
+                    ? 'We cannot find out any casting information :('
+                    : '출연진 정보를 찾을 수 없습니다 :('
                 : null}
             {castList.length === 0 && !isDoneSearch
-                ? ui.lang === "en_US"
-                    ? "We are looking for casting information!"
-                    : "출연진 정보를 검색 중입니다!"
+                ? ui.lang === 'en_US'
+                    ? 'We are looking for casting information!'
+                    : '출연진 정보를 검색 중입니다!'
                 : null}
         </div>
     );

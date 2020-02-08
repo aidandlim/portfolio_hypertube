@@ -35,8 +35,8 @@ const Component = () => {
     };
 
     return (
-        <div className="streaming">
-            <div className="streaming-video">
+        <div className='streaming'>
+            <div className='streaming-video'>
                 <Video
                     controls={[
                         'PlayPause',
@@ -46,7 +46,7 @@ const Component = () => {
                         'Fullscreen'
                     ]}
                 >
-                    <source src={stream} type="video/mp4" />
+                    <source src={stream} type='video/mp4' />
                 </Video>
             </div>
             <button onClick={_handleAdd}>add</button>

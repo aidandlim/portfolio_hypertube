@@ -34,14 +34,14 @@ const Component = () => {
     };
 
     return (
-        <div className="header">
-            <div className="header-ci-section">
+        <div className='header'>
+            <div className='header-ci-section'>
                 <CI />
             </div>
-            <div className="header-search-section">
+            <div className='header-search-section'>
                 <SearchBar setQuery={setQuery} _handleSearch={_handleSearch} />
             </div>
-            <div className="header-util-section">
+            <div className='header-util-section'>
                 <UserIcon />
                 <LangIcon />
             </div>

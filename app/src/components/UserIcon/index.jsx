@@ -15,7 +15,7 @@ const Component = () => {
     return (
         <Link to={auth.isLogin ? '/user' : '/auth/signin'} className='userIcon'>
             <div
-                className="userIcon-image"
+                className='userIcon-image'
                 style={{
                     backgroundImage: `url('${
                         auth.isLogin ? temp : user_default

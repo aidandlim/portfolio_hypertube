@@ -4,9 +4,9 @@ import './index.css';
 
 const Component = ({ crew }) => {
     return (
-        <div className="crew">
+        <div className='crew'>
             <div
-                className="crew-picture"
+                className='crew-picture'
                 style={
                     crew.profile_path !== '' &&
                     crew.profile_path !== null &&
@@ -17,9 +17,9 @@ const Component = ({ crew }) => {
                         : null
                 }
             ></div>
-            <div className="crew-info">
-                <div className="crew-info-name">{crew.name}</div>
-                <div className="crew-info-role">{crew.job}</div>
+            <div className='crew-info'>
+                <div className='crew-info-name'>{crew.name}</div>
+                <div className='crew-info-role'>{crew.job}</div>
             </div>
         </div>
     );

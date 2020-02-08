@@ -4,9 +4,9 @@ import './index.css';
 
 const Component = ({ cast }) => {
     return (
-        <div className="cast">
+        <div className='cast'>
             <div
-                className="cast-picture"
+                className='cast-picture'
                 style={
                     cast.profile_path !== '' &&
                     cast.profile_path !== null &&
@@ -17,9 +17,9 @@ const Component = ({ cast }) => {
                         : null
                 }
             ></div>
-            <div className="cast-info">
-                <div className="cast-info-name">{cast.name}</div>
-                <div className="cast-info-role">{cast.character}</div>
+            <div className='cast-info'>
+                <div className='cast-info-name'>{cast.name}</div>
+                <div className='cast-info-role'>{cast.character}</div>
             </div>
         </div>
     );

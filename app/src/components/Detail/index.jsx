@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import { getMovie } from "../../data";
+import { getMovie } from '../../data';
 
-import MoreDetail from "../MoreDetail";
+import MoreDetail from '../MoreDetail';
 
-import StarIcon from "react-star-rating-component";
-import FeatherIcon from "feather-icons-react";
-import "./index.css";
+import StarIcon from 'react-star-rating-component';
+import FeatherIcon from 'feather-icons-react';
+import './index.css';
 
 const Component = ({ match, history }) => {
     const id = match.params.id;
@@ -22,8 +22,8 @@ const Component = ({ match, history }) => {
 
     const ui = useSelector(state => state.ui);
 
-    const starColor = "#FFEA00";
-    const emptyStarColor = "#505050";
+    const starColor = '#FFEA00';
+    const emptyStarColor = '#505050';
 
     useEffect(() => {
         let isCancelled = false;
@@ -52,11 +52,11 @@ const Component = ({ match, history }) => {
                     className='detail-container'
                     style={{
                         backgroundImage:
-                            movie.poster_path !== "" &&
+                            movie.poster_path !== '' &&
                             movie.poster_path !== null &&
                             movie.poster_path !== undefined
                                 ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`
-                                : ""
+                                : ''
                     }}
                 >
                     <div className='detail-cover'>
@@ -73,7 +73,7 @@ const Component = ({ match, history }) => {
                                 setIsOpenDetail(isOpenDetail => !isOpenDetail)
                             }
                         >
-                            {isOpenDetail ? "HIDE DETAILS" : "SHOW DETAILS"}
+                            {isOpenDetail ? 'HIDE DETAILS' : 'SHOW DETAILS'}
                         </div>
                         <div className='detail-info-container'>
                             <div className='detail-status'>{movie.status}</div>
@@ -83,7 +83,7 @@ const Component = ({ match, history }) => {
                                         className='detail-info-general-italic'
                                         key={index}
                                     >
-                                        #{genre.name.replace(" ", "_")}
+                                        #{genre.name.replace(' ', '_')}
                                     </div>
                                 ))}
                             </div>
@@ -103,8 +103,8 @@ const Component = ({ match, history }) => {
                             </div>
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>
-                                {movie.runtime}{" "}
-                                {ui.lang === "en_US" ? "minutes" : "분"}
+                                {movie.runtime}{' '}
+                                {ui.lang === 'en_US' ? 'minutes' : '분'}
                             </div>
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>

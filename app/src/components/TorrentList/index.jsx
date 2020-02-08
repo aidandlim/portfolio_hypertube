@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import Torrent from "../Torrent";
+import Torrent from '../Torrent';
 
-import { getTorrents } from "../../data";
+import { getTorrents } from '../../data';
 
-import "./index.css";
+import './index.css';
 
 const Component = ({ id }) => {
     const [torrentList, setTorrentList] = useState([]);
@@ -43,14 +43,14 @@ const Component = ({ id }) => {
                   ))
                 : null}
             {torrentList.length === 0 && isDoneSearch
-                ? ui.lang === "en_US"
-                    ? "We cannot find out any torrent file :("
-                    : "토렌트 파일을 찾을 수 없습니다 :("
+                ? ui.lang === 'en_US'
+                    ? 'We cannot find out any torrent file :('
+                    : '토렌트 파일을 찾을 수 없습니다 :('
                 : null}
             {torrentList.length === 0 && !isDoneSearch
-                ? ui.lang === "en_US"
-                    ? "We are looking for torrent file!"
-                    : "토렌트 파일을 검색 중입니다."
+                ? ui.lang === 'en_US'
+                    ? 'We are looking for torrent file!'
+                    : '토렌트 파일을 검색 중입니다.'
                 : null}
         </div>
     );

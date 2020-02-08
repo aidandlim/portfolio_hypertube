@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import Crew from "../Crew";
+import Crew from '../Crew';
 
-import { getMovieDetail } from "../../data";
+import { getMovieDetail } from '../../data';
 
-import "./index.css";
+import './index.css';
 
 const Component = ({ id }) => {
     const [crewList, setCrewList] = useState([]);
@@ -38,14 +38,14 @@ const Component = ({ id }) => {
                   ))
                 : null}
             {crewList.length === 0 && isDoneSearch
-                ? ui.lang === "en_US"
-                    ? "We cannot find out any producer information :("
-                    : "제작진 정보를 찾을 수 없습니다 :("
+                ? ui.lang === 'en_US'
+                    ? 'We cannot find out any producer information :('
+                    : '제작진 정보를 찾을 수 없습니다 :('
                 : null}
             {crewList.length === 0 && !isDoneSearch
-                ? ui.lang === "en_US"
-                    ? "We are looking for producer information!"
-                    : "제작진 정보를 검색 중입니다!"
+                ? ui.lang === 'en_US'
+                    ? 'We are looking for producer information!'
+                    : '제작진 정보를 검색 중입니다!'
                 : null}
         </div>
     );

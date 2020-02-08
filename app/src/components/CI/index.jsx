@@ -7,9 +7,9 @@ import './index.css';
 
 const Component = () => {
     return (
-        <Link to="/">
-            <img className="ci-icon" src={CI} alt="hypertube" />
-            <div className="ci-title">HyperTube</div>
+        <Link to='/'>
+            <img className='ci-icon' src={CI} alt='hypertube' />
+            <div className='ci-title'>HyperTube</div>
         </Link>
     );
 };

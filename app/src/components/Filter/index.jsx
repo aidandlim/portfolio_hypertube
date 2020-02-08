@@ -141,10 +141,10 @@ const Component = ({ genre, filter, _handleFilter }) => {
     ];
 
     return (
-        <div className="filter">
-            <div className="filter-container">
-                <div className="filter-title">GENRE</div>
-                <div className="filter-element-container">
+        <div className='filter'>
+            <div className='filter-container'>
+                <div className='filter-title'>GENRE</div>
+                <div className='filter-element-container'>
                     {genres.map((element, index) => (
                         <GenreButton
                             url={element.url}
@@ -156,8 +156,8 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
-                <div className="filter-title">SORT BY</div>
-                <div className="filter-element-container">
+                <div className='filter-title'>SORT BY</div>
+                <div className='filter-element-container'>
                     {sorters.map((element, index) => (
                         <SorterButton
                             url={element.url}
@@ -169,8 +169,8 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
-                <div className="filter-title">TRENDS BY</div>
-                <div className="filter-element-container">
+                <div className='filter-title'>TRENDS BY</div>
+                <div className='filter-element-container'>
                     {trends.map((element, index) => (
                         <SorterButton
                             url={element.url}
@@ -182,7 +182,7 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
-                <button className="filter-confirm" onClick={_handleFilter}>
+                <button className='filter-confirm' onClick={_handleFilter}>
                     CONFIRM
                 </button>
             </div>

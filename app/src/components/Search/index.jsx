@@ -44,9 +44,10 @@ const Component = () => {
     };
 
     return (
-        <div className="search" onScroll={_handleScroll}>
-            <div className="search-result">
-                {ui.lang === 'en_US' ? 'SEARCH RESULT' : '검색결과'} : "{search.query === '' ? ' ' : search.query}"
+        <div className='search' onScroll={_handleScroll}>
+            <div className='search-result'>
+                {ui.lang === 'en_US' ? 'SEARCH RESULT' : '검색결과'} : "
+                {search.query === '' ? ' ' : search.query}"
             </div>
             {search.results.map((movie, index) => (
                 <Movie movie={movie} key={index} />

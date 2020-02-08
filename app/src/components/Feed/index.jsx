@@ -62,9 +62,13 @@ const Component = ({ match }) => {
     };
 
     return (
-        <div className="feed" onScroll={_handleScroll}>
-            <div className="feed-container">
-                <FilterIcon genre={genre} filter={filter} _handleFilter={_handleFilter} />
+        <div className='feed' onScroll={_handleScroll}>
+            <div className='feed-container'>
+                <FilterIcon
+                    genre={genre}
+                    filter={filter}
+                    _handleFilter={_handleFilter}
+                />
                 {movies.map((movie, index) => (
                     <Movie movie={movie} key={index} />
                 ))}

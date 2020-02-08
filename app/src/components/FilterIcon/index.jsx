@@ -4,7 +4,7 @@ import './index.css';
 
 const Component = ({ genre, filter, _handleFilter }) => {
     return (
-        <div className="filterIcon" onClick={_handleFilter}>
+        <div className='filterIcon' onClick={_handleFilter}>
             / HyperTube /{' '}
             {filter === 'trend_day' || filter === 'trend_week'
                 ? filter.toUpperCase()

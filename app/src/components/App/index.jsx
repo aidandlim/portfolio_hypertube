@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { movie_genres } from '../../actions';
+import { movie_genres, ui_lang } from '../../actions';
+
+import cookie from 'react-cookies';
 
 import Wrapper from 'react-div-100vh';
 
@@ -16,13 +18,23 @@ const Component = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(
+            ui_lang(
+                cookie.load('lang') !== undefined
+                    ? cookie.load('lang')
+                    : 'en_US'
+            )
+        );
+    }, [dispatch]);
+
+    useEffect(() => {
         getGenres(ui.lang, res => {
             dispatch(movie_genres(res));
         });
     }, [dispatch, ui.lang]);
 
     return (
-        <Wrapper className="no-drag">
+        <Wrapper className='no-drag'>
             <style>
                 {`
 					:root {

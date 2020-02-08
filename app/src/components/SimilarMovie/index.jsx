@@ -7,13 +7,13 @@ import './index.css';
 const Component = ({ movie, setIsOpenDetail }) => {
     const handleIsOpenDetail = () => {
         setIsOpenDetail(false);
-    }
+    };
 
     return (
         <Link to={`/detail/${movie.id}`} onClick={handleIsOpenDetail}>
-            <div className="similarMovie">
+            <div className='similarMovie'>
                 <div
-                    className="similarMovie-poster"
+                    className='similarMovie-poster'
                     style={{
                         backgroundImage:
                             movie.poster_path !== null
@@ -21,7 +21,7 @@ const Component = ({ movie, setIsOpenDetail }) => {
                                 : ''
                     }}
                 ></div>
-                <div className="similarMovie-title">{movie.title}</div>
+                <div className='similarMovie-title'>{movie.title}</div>
             </div>
         </Link>
     );

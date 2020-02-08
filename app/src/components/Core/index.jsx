@@ -11,19 +11,17 @@ import SignUp from '../SignUp';
 import Recovery from '../Recovery';
 import Error from '../Error';
 
-import './index.css';
-
 const Component = () => {
     return (
         <Switch>
-            <Redirect from="/" to="/feed/all/popularity" exact />
-            <Route path="/feed/:genre/:filter" exact component={Feed} />
-            <Route path="/search" exact component={Search} />
-            <Route path="/detail/:id" exact component={Detail} />
-            <Route path="/streaming" exact component={Streaming} />
-            <Route path="/auth/signin" exact component={SignIn} />
-            <Route path="/auth/signup" exact component={SignUp} />
-            <Route path="/auth/recovery" exact component={Recovery} />
+            <Redirect from='/' to='/feed/all/popularity' exact />
+            <Route path='/feed/:genre/:filter' exact component={Feed} />
+            <Route path='/search' exact component={Search} />
+            <Route path='/detail/:id' exact component={Detail} />
+            <Route path='/streaming' exact component={Streaming} />
+            <Route path='/auth/signin' exact component={SignIn} />
+            <Route path='/auth/signup' exact component={SignUp} />
+            <Route path='/auth/recovery' exact component={Recovery} />
             <Route component={Error} />
         </Switch>
     );
