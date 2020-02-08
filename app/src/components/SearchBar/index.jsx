@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
 import FeatherIcon from 'feather-icons-react';
@@ -7,6 +9,8 @@ import FeatherIcon from 'feather-icons-react';
 import './index.css';
 
 const Component = ({ setQuery, _handleSearch }) => {
+    const ui = useSelector(state => state.ui);
+
     const _handleEnter = e => {
         if (e.keyCode === 13) {
             document.querySelector('.searchBar-button').click();
@@ -17,7 +21,7 @@ const Component = ({ setQuery, _handleSearch }) => {
         <div className='searchBar'>
             <input
                 className='searchBar-input'
-                placeholder='Search'
+                placeholder={ui.lang === 'en_US' ? 'Search' : '검색'}
                 onChange={e => setQuery(e.target.value)}
                 onKeyUp={_handleEnter}
             />

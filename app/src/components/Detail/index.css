@@ -197,7 +197,7 @@
 }
 
 .detail-open {
-    width: auto;
+    width: 100%;
     height: 5rem;
 
     padding: 0 1rem;
@@ -207,19 +207,54 @@
     left: 50%;
     transform: translate(-50%, -100%);
 
-    color: var(--color-30);
-    font-size: 0.8rem;
-    font-weight: 900;
-    text-align: center;
-    line-height: 5rem;
-
     transition: 0.5s;
 
     cursor: pointer;
 }
 
-.detail-open:hover {
-    color: var(--color-10);
+.detail-open-icon {
+    width: 100%;
+    height: 2.5rem;
+
+    position: relative;
+    float: left;
+}
+
+.detail-open-icon-svg {
+    width: 1rem;
+    height: 1rem;
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, calc(-100% - 0.5rem));
+
+    color: var(--color-20);
+
+    transition: 0.5s;
+}
+
+.detail-open-message {
+    width: 100%;
+    height: 2.5rem;
+
+    position: relative;
+    float: left;
+
+    color: var(--color-30);
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-align: center;
+
+    transition: 0.5s;
+}
+
+.detail-open:hover .detail-open-icon-svg {
+    color: var(--color-B);
+}
+
+.detail-open:hover .detail-open-message {
+    color: var(--color-B);
 }
 
 .detail-error {

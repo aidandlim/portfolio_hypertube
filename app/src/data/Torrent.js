@@ -5,7 +5,6 @@ export const getTorrents = (id, cb) => {
 
     Axios.get(url)
         .then(res => {
-            console.log(res.data);
             cb(res.data);
         })
         .catch(() => {

@@ -7,6 +7,7 @@
 
     background-color: var(--color-70);
     box-sizing: border-box;
+    transition: 0.5s;
 }
 
 .feed-container {

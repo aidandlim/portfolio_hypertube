@@ -42,6 +42,12 @@ const Component = ({ match, history }) => {
     const _handleBack = () => {
         history.goBack();
     };
+    
+    const _handleWheel = (e) => {
+        if(!isOpenDetail) {
+            setIsOpenDetail(true);
+        }
+    }
 
     return (
         <div className='detail'>
@@ -58,6 +64,7 @@ const Component = ({ match, history }) => {
                                 ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`
                                 : ''
                     }}
+                    onWheel={_handleWheel}
                 >
                     <div className='detail-cover'>
                         <div className='detail-back' onClick={_handleBack}>
@@ -73,7 +80,22 @@ const Component = ({ match, history }) => {
                                 setIsOpenDetail(isOpenDetail => !isOpenDetail)
                             }
                         >
-                            {isOpenDetail ? 'HIDE DETAILS' : 'SHOW DETAILS'}
+                            <div className='detail-open-icon'>
+                                {isOpenDetail ? (
+                                    <FeatherIcon
+                                        className='detail-open-icon-svg'
+                                        icon='chevron-down'
+                                    />
+                                ) : (
+                                    <FeatherIcon
+                                        className='detail-open-icon-svg'
+                                        icon='chevron-up'
+                                    />
+                                )}
+                            </div>
+                            <div className='detail-open-message'>
+                                {isOpenDetail ? 'HIDE DETAILS' : 'SHOW DETAILS'}
+                            </div>
                         </div>
                         <div className='detail-info-container'>
                             <div className='detail-status'>{movie.status}</div>

@@ -169,7 +169,7 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
-                <div className='filter-title'>TRENDS BY</div>
+                <div className='filter-title'>TRENDS NOW</div>
                 <div className='filter-element-container'>
                     {trends.map((element, index) => (
                         <SorterButton
