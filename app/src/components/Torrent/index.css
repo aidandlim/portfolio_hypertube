@@ -1,4 +1,4 @@
-.torrentFile {
+.torrent {
     width: 100%;
     height: auto;
 
@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-.torrentFile-title {
+.torrent-title {
     width: 100%;
     height: auto;
 
@@ -28,7 +28,7 @@
     word-wrap: break-word;
 }
 
-.torrentFile-info {
+.torrent-info {
     width: auto;
     height: 1rem;
 
@@ -42,7 +42,7 @@
     line-height: 1rem;
 }
 
-.torrentFile-division {
+.torrent-division {
     width: auto;
     height: 1rem;
 

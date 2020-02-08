@@ -1,7 +1,17 @@
-import { signin } from './Auth';
+import { signin, signup } from './Auth';
 
-import { getGenres, getMovies, getMovie } from './Movie';
+import { getGenres, getMovies, getMovie, getMovieDetail, getSimilarMovies } from './Movie';
 import { getTorrents } from './Torrent';
 import { getSearch } from './Search';
 
-export { signin, getGenres, getMovies, getMovie, getTorrents, getSearch };
+export {
+    signin,
+    signup,
+    getGenres,
+    getMovies,
+    getMovie,
+    getMovieDetail, 
+    getSimilarMovies,
+    getTorrents,
+    getSearch
+};

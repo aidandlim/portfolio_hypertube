@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 export const getTorrents = (id, cb) => {
-    let url = `/search/${id}`;
+    let url = `/torrent/search/${id}`;
 
     Axios.get(url)
         .then(res => {

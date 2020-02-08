@@ -4,7 +4,7 @@ import './index.css';
 
 const Component = ({ genre, filter, _handleFilter }) => {
     return (
-        <div className="filter" onClick={_handleFilter}>
+        <div className="filterIcon" onClick={_handleFilter}>
             / HyperTube / {genre.toUpperCase()} / {filter.toUpperCase()}
         </div>
     );

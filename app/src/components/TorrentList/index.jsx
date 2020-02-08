@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import TorrentFile from '../TorrentFile';
+import Torrent from '../Torrent';
 
 import { getTorrents } from '../../data';
 
 import './index.css';
 
-const Component = ({ id, isDoneSearch, setIsDoneSearch }) => {
+const Component = ({ id }) => {
     const [torrentList, setTorrentList] = useState([]);
+    const [isDoneSearch, setIsDoneSearch] = useState(false);
 
     useEffect(() => {
         let isCancelled = false;
@@ -33,7 +34,7 @@ const Component = ({ id, isDoneSearch, setIsDoneSearch }) => {
         <div className="torrentList">
             {torrentList.length !== 0
                 ? torrentList.map((torrent, index) => (
-                    <TorrentFile torrent={torrent} key={index} />
+                    <Torrent torrent={torrent} key={index} />
                 ))
                 : null}
             {torrentList.length === 0 && isDoneSearch

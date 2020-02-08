@@ -60,3 +60,27 @@ export const getMovie = (id, lang, cb) => {
             cb(null);
         });
 };
+
+export const getMovieDetail = (id, lang, cb) => {
+    let url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API}&language=${lang === 'en_US' ? 'en-US' : 'ko-KR'}`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};
+
+export const getSimilarMovies = (id, lang, cb) => {
+    let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API}&language=${lang === 'en_US' ? 'en-US' : 'ko-KR'}`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data.results);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};

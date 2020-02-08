@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { getMovie } from '../../data';
 
-import TorrentList from '../TorrentList';
+import MoreDetail from '../MoreDetail';
 
 import StarIcon from 'react-star-rating-component';
 import FeatherIcon from 'feather-icons-react';
@@ -18,8 +18,7 @@ const Component = ({ match, history }) => {
         vote_average: 0,
         production_companies: []
     });
-    const [isOpenTorrentList, setIsOpenTorrentList] = useState(false);
-    const [isDoneSearch, setIsDoneSearch] = useState(false);
+    const [isOpenDetail, setIsOpenDetail] = useState(false);
 
     const ui = useSelector(state => state.ui);
 
@@ -42,10 +41,6 @@ const Component = ({ match, history }) => {
 
     const _handleBack = () => {
         history.goBack();
-    };
-
-    const _handleTorrentList = () => {
-        setIsOpenTorrentList(isOpenTorrentList => !isOpenTorrentList);
     };
 
     return (
@@ -73,12 +68,12 @@ const Component = ({ match, history }) => {
                             />
                         </div>
                         <div
-                            className="detail-play"
-                            onClick={_handleTorrentList}
+                            className="detail-open"
+                            onClick={() =>
+                                setIsOpenDetail(isOpenDetail => !isOpenDetail)
+                            }
                         >
-                            {isOpenTorrentList
-                                ? '(HIDE)'
-                                : 'WATCHING RIGHT NOW!'}
+                            {isOpenDetail ? 'HIDE DETAILS' : 'SHOW DETAILS'}
                         </div>
                         <div className="detail-info-container">
                             <div className="detail-status">{movie.status}</div>
@@ -129,13 +124,7 @@ const Component = ({ match, history }) => {
                                     )
                                 )}
                             </div>
-                            {isOpenTorrentList ? (
-                                <TorrentList
-                                    id={id}
-                                    isDoneSearch={isDoneSearch}
-                                    setIsDoneSearch={setIsDoneSearch}
-                                />
-                            ) : null}
+                            {isOpenDetail ? <MoreDetail id={id} /> : null}
                         </div>
                     </div>
                 </div>

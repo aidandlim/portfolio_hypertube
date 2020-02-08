@@ -11,3 +11,21 @@ export const signin = (userName, password, cb) => {
             cb(0);
         });
 };
+
+export const signup = (userName, password, email, firstName, lastName, cb) => {
+    let url = `/api/auth`;
+
+    Axios.post(url, {
+        userName,
+        password,
+        email,
+        firstName,
+        lastName
+    })
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(0);
+        });
+};
