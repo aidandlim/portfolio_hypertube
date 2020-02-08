@@ -14,6 +14,7 @@ const Component = ({ id }) => {
         let isCancelled = false;
 
         getTorrents(id, res => {
+            console.log(res);
             if (!isCancelled) {
                 if (
                     res !== null &&

@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 
 import './index.css';
 
-const Component = ({ movie }) => {
+const Component = ({ movie, setIsOpenDetail }) => {
+    const handleIsOpenDetail = () => {
+        setIsOpenDetail(false);
+    }
+
     return (
-        <Link to={`/detail/${movie.id}`}>
+        <Link to={`/detail/${movie.id}`} onClick={handleIsOpenDetail}>
             <div className="similarMovie">
                 <div
                     className="similarMovie-poster"

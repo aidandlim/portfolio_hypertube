@@ -124,7 +124,7 @@ const Component = ({ match, history }) => {
                                     )
                                 )}
                             </div>
-                            {isOpenDetail ? <MoreDetail id={id} /> : null}
+                            {isOpenDetail ? <MoreDetail id={id} setIsOpenDetail={setIsOpenDetail} /> : null}
                         </div>
                     </div>
                 </div>

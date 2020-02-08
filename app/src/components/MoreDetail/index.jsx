@@ -7,7 +7,7 @@ import TorrentList from '../TorrentList';
 
 import './index.css';
 
-const Component = ({ id }) => {
+const Component = ({ id, setIsOpenDetail }) => {
     const [nav, setNav] = useState(0);
 
     return (
@@ -57,7 +57,7 @@ const Component = ({ id }) => {
             <div className="moreDetail-body">
                 {nav === 0 ? <CastList id={id} /> : null}
                 {nav === 1 ? <CrewList id={id} /> : null}
-                {nav === 2 ? <SimilarList id={id} /> : null}
+                {nav === 2 ? <SimilarList id={id} setIsOpenDetail={setIsOpenDetail} /> : null}
                 {nav === 3 ? <TorrentList id={id} /> : null}
             </div>
         </div>

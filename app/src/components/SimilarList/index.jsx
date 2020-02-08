@@ -8,7 +8,7 @@ import { getSimilarMovies } from '../../data';
 
 import './index.css';
 
-const Component = ({ id }) => {
+const Component = ({ id, setIsOpenDetail }) => {
     const [similarList, setSimilarList] = useState([]);
     const [isDoneSearch, setIsDoneSearch] = useState(false);
 
@@ -32,7 +32,7 @@ const Component = ({ id }) => {
         <div className="similarList">
             {similarList.length !== 0
                 ? similarList.map((movie, index) => (
-                      <SimilarMovie movie={movie} key={index} />
+                      <SimilarMovie movie={movie} setIsOpenDetail={setIsOpenDetail} key={index} />
                   ))
                 : null}
             {similarList.length === 0 && isDoneSearch
