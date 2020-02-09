@@ -1,5 +1,5 @@
 {
-  "name": "portfolio_hypertube",
+  "name": "portfolio_hypertube_app",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9443"
+  "proxy": "http://localhost:8443"
 }

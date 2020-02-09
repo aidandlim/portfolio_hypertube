@@ -5,15 +5,24 @@ const proxy = require('http-proxy-middleware');
 const RarbgApi = require('rarbg');
 
 const app = express();
-const TORRENT_PORT = 9443;
-const DB_PORT = 8443;
+const TORRENT_PORT = 8443;
+const SOCKET_PORT = 8444;
+const API_PORT = 8445;
 
 app.use(cors());
 
 app.use(
+    '/socket',
+    proxy({
+        target: `http://localhost:${SOCKET_PORT}`,
+        changeOrigin: true
+    })
+);
+
+app.use(
     '/api',
     proxy({
-        target: `http://localhost:${DB_PORT}`,
+        target: `http://localhost:${API_PORT}`,
         changeOrigin: true
     })
 );
@@ -47,6 +56,6 @@ app.get('/torrent/search/:id', async (req, res) => {
         });
 });
 
-app.listen(TORRENT_PORT, function() {
-    console.log(`Rarbg server is running on port ${TORRENT_PORT}`);
+app.listen(TORRENT_PORT, () => {
+    console.log(`Torrent server is running on port ${TORRENT_PORT}`);
 });
