@@ -2,7 +2,9 @@ export const search_query = value => {
     return {
         type: 'SEARCH_QUERY',
         payload: {
-            query: value
+            type: value.type,
+            query: value.query,
+            queryName: value.queryName
         }
     };
 };

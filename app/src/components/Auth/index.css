@@ -87,6 +87,8 @@
     border-bottom: solid 0.1rem var(--color-50);
 
     outline: none;
+
+    transition: 0.5s;
 }
 
 .auth-input:focus {

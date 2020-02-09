@@ -15,6 +15,18 @@ const Component = () => {
     const dispatch = useDispatch();
 
     const _handleLang = () => {
+        const feed = document.querySelector('.feed-container');
+
+        if (feed !== null) {
+            feed.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }
+
+        const search = document.querySelector('.search');
+
+        if (search !== null) {
+            search.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }
+
         cookie.save('lang', ui.lang === 'en_US' ? 'ko_KR' : 'en_US', {
             path: '/'
         });

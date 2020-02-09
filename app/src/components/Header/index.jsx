@@ -21,7 +21,13 @@ const Component = () => {
     const _handleSearch = () => {
         if (query !== '') {
             getSearch(query, 1, ui.lang, res => {
-                dispatch(search_query(query));
+                dispatch(
+                    search_query({
+                        type: 'normal',
+                        query: query,
+                        queryName: '',
+                    })
+                );
                 dispatch(
                     search_results({
                         results: res.results,

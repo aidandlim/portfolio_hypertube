@@ -2,8 +2,6 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
-
 import { signup } from '../../data';
 
 import '../Auth/index.css';
@@ -103,13 +101,11 @@ const Component = ({ history }) => {
                         name='lastName'
                         autoComplete='password'
                     />
-                    <Link to='/auth/signin'>
-                        <div className='auth-nav'>
-                            {ui.lang === 'en_US'
-                                ? 'Do you have an account already?'
-                                : '이미 계정을 갖고 계신가요?'}
-                        </div>
-                    </Link>
+                    <div className='auth-nav' onClick={_handleBack}>
+                        {ui.lang === 'en_US'
+                            ? 'Do you have an account already?'
+                            : '이미 계정을 갖고 계신가요?'}
+                    </div>
                     <input
                         className='auth-button auth-submit'
                         type='submit'

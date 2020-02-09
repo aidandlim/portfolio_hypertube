@@ -34,7 +34,7 @@
     width: auto;
     height: 1.55rem;
 
-    padding: 0 1rem;
+    padding: 0 0.75rem;
 
     position: relative;
     float: left;
@@ -48,7 +48,7 @@
 }
 
 .moreDetail-header-nav-active {
-    font-weight: 700;
+    color: var(--color-D);
     background-color: var(--color-70);
 }
 

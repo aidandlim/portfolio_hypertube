@@ -42,12 +42,12 @@ const Component = ({ match, history }) => {
     const _handleBack = () => {
         history.goBack();
     };
-    
-    const _handleWheel = (e) => {
-        if(!isOpenDetail) {
+
+    const _handleWheel = e => {
+        if (!isOpenDetail) {
             setIsOpenDetail(true);
         }
-    }
+    };
 
     return (
         <div className='detail'>
@@ -125,8 +125,13 @@ const Component = ({ match, history }) => {
                             </div>
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>
-                                {movie.runtime}{' '}
-                                {ui.lang === 'en_US' ? 'minutes' : '분'}
+                                {movie.runtime !== null
+                                    ? `${movie.runtime} ${
+                                          ui.lang === 'en_US' ? 'minutes' : '분'
+                                      }`
+                                    : ui.lang === 'en_US'
+                                    ? 'No Data'
+                                    : '정보없음'}
                             </div>
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>

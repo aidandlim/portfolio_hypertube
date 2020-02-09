@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import GenreButton from '../GenreButton';
 import SorterButton from '../SorterButton';
 
 import './index.css';
 
 const Component = ({ genre, filter, _handleFilter }) => {
+    const ui = useSelector(state => state.ui);
+
     const genres = [
         {
             url: 'all',
@@ -140,10 +144,23 @@ const Component = ({ genre, filter, _handleFilter }) => {
         }
     ];
 
+    const upcoming = [
+        {
+            url: 'now_playing',
+            titleEN: 'NOW PLAYING',
+            titleKR: '현재상영작'
+        },
+        {
+            url: 'upcoming',
+            titleEN: 'UPCOMING',
+            titleKR: '상영예정작'
+        }
+    ];
+
     return (
         <div className='filter'>
             <div className='filter-container'>
-                <div className='filter-title'>GENRE</div>
+                <div className='filter-title'>{ui.lang === 'en_US' ? 'GENRE' : '장르별'}</div>
                 <div className='filter-element-container'>
                     {genres.map((element, index) => (
                         <GenreButton
@@ -156,7 +173,7 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
-                <div className='filter-title'>SORT BY</div>
+                <div className='filter-title'>{ui.lang === 'en_US' ? 'SORT BY' : '정렬순'}</div>
                 <div className='filter-element-container'>
                     {sorters.map((element, index) => (
                         <SorterButton
@@ -169,9 +186,22 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
-                <div className='filter-title'>TRENDS NOW</div>
+                <div className='filter-title'>{ui.lang === 'en_US' ? 'TRENDS' : '트렌드'}</div>
                 <div className='filter-element-container'>
                     {trends.map((element, index) => (
+                        <SorterButton
+                            url={element.url}
+                            titleEN={element.titleEN}
+                            titleKR={element.titleKR}
+                            genre={genre}
+                            filter={filter}
+                            key={index}
+                        />
+                    ))}
+                </div>
+                <div className='filter-title'>{ui.lang === 'en_US' ? 'NOW PLAYING & UPCOMING' : '상영작 및 상영예정작'}</div>
+                <div className='filter-element-container'>
+                    {upcoming.map((element, index) => (
                         <SorterButton
                             url={element.url}
                             titleEN={element.titleEN}

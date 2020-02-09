@@ -12,7 +12,10 @@ const Component = ({ url, titleEN, titleKR, genre, filter }) => {
     return (
         <Link
             to={`/feed/${url}/${
-                filter === 'trend_day' || filter === 'trend_week'
+                filter === 'trend_day' ||
+                filter === 'trend_week' ||
+                filter === 'now_playing' ||
+                filter === 'upcoming'
                     ? 'popularity'
                     : filter
             }`}
@@ -21,6 +24,8 @@ const Component = ({ url, titleEN, titleKR, genre, filter }) => {
                 className={
                     filter !== 'trend_day' &&
                     filter !== 'trend_week' &&
+                    filter !== 'now_playing' &&
+                    filter !== 'upcoming' &&
                     genre === url
                         ? 'genreButton-active'
                         : 'genreButton'

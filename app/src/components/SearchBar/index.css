@@ -29,6 +29,13 @@
     border-radius: 0.25rem 0 0 0.25rem;
     cursor: pointer;
     outline: none;
+
+    transition: 0.5s;
+}
+
+.searchBar-input:hover,
+.searchBar-input:focus {
+    background-color: var(--color-70);
 }
 
 .searchBar-button {
@@ -40,4 +47,10 @@
     border-radius: 0 0.25rem 0.25rem 0;
     cursor: pointer;
     outline: none;
+
+    transition: 0.5s;
+}
+
+.searchBar-button:hover {
+    background-color: var(--color-40);
 }

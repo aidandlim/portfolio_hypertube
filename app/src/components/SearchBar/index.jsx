@@ -31,7 +31,7 @@ const Component = ({ setQuery, _handleSearch }) => {
                     className='searchBar-button'
                     onClick={_handleSearch}
                 >
-                    <FeatherIcon icon='search' color='#303030' size={20} />
+                    <FeatherIcon icon='search' color='#303030' size='0.8rem' />
                 </button>
             </Link>
         </div>

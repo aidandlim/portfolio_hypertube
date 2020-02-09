@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import CastList from '../CastList';
 import CrewList from '../CrewList';
 import SimilarList from '../SimilarList';
+import RecommendationList from '../RecommendationList';
+import CommentList from '../CommentList';
 import TorrentList from '../TorrentList';
 
 import './index.css';
@@ -55,6 +57,26 @@ const Component = ({ id, setIsOpenDetail }) => {
                     }
                     onClick={() => setNav(3)}
                 >
+                    {ui.lang === 'en_US' ? 'RECOMMENDATION' : '추천 컨텐츠'}
+                </div>
+                <div
+                    className={
+                        nav === 4
+                            ? 'moreDetail-header-nav-active'
+                            : 'moreDetail-header-nav'
+                    }
+                    onClick={() => setNav(4)}
+                >
+                    {ui.lang === 'en_US' ? 'COMMENTS' : '코멘트'}
+                </div>
+                <div
+                    className={
+                        nav === 5
+                            ? 'moreDetail-header-nav-active'
+                            : 'moreDetail-header-nav'
+                    }
+                    onClick={() => setNav(5)}
+                >
                     {ui.lang === 'en_US' ? 'TORRENT' : '토렌트'}
                 </div>
             </div>
@@ -64,7 +86,11 @@ const Component = ({ id, setIsOpenDetail }) => {
                 {nav === 2 ? (
                     <SimilarList id={id} setIsOpenDetail={setIsOpenDetail} />
                 ) : null}
-                {nav === 3 ? <TorrentList id={id} /> : null}
+                {nav === 3 ? (
+                    <RecommendationList id={id} setIsOpenDetail={setIsOpenDetail} />
+                ) : null}
+                {nav === 4 ? <CommentList id={id} /> : null}
+                {nav === 5 ? <TorrentList id={id} /> : null}
             </div>
         </div>
     );
