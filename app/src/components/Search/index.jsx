@@ -17,6 +17,7 @@ const Component = () => {
     let isWorking = false;
 
     useEffect(() => {
+        // It needs to be updated!
         if (search.type === 'normal') {
             document.querySelector('.searchBar-button').click();
         } else if (search.type === 'cast') {
