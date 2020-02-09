@@ -1,64 +1,61 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { search_query, search_results } from '../../actions';
+import { useSelector } from 'react-redux';
 
-import { getSearch, getMoviesWithCast, getMoviesWithCrew } from '../../data';
+import { getSearch, getSearchWithCast, getSearchWithCrew } from '../../data';
 
 import Movie from '../Movie';
 
 import './index.css';
 
-const Component = () => {
+const Component = ({ match }) => {
+    const type = match.params.type;
+    const query = match.params.query;
+    const queryName = match.params.queryName;
+
+    const [result, setResult] = useState({
+        results: [],
+        page: 1,
+        total: 1
+    });
+
     const ui = useSelector(state => state.ui);
-    const search = useSelector(state => state.search);
-    const dispatch = useDispatch();
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        let func = getSearch;
+
+        if (type === 'cast') {
+            func = getSearchWithCast;
+        }
+        if (type === 'crew') {
+            func = getSearchWithCrew;
+        }
+
+        func(query, 1, ui.lang, res => {
+            console.log(res);
+            if (!isCancelled) {
+                setResult({
+                    results: res.results,
+                    page: 1,
+                    total:
+                        type === 'cast' || type === 'crew'
+                            ? res.total_pages
+                            : res.total
+                });
+                isCancelled = false;
+            }
+        });
+        return () => {
+            isCancelled = true;
+        };
+    }, [ui.lang, type, query]);
 
     let isWorking = false;
 
-    useEffect(() => {
-        // It needs to be updated!
-        if (search.type === 'normal') {
-            document.querySelector('.searchBar-button').click();
-        } else if (search.type === 'cast') {
-            getMoviesWithCast(search.query, 1, ui.lang, res => {
-                dispatch(
-                    search_query({
-                        type: 'cast',
-                        query: search.query,
-                        queryName: search.queryName,
-                    })
-                );
-                dispatch(
-                    search_results({
-                        results: res.results,
-                        page: res.page,
-                        total: res.total_pages
-                    })
-                );
-            });
-        }else if (search.type === 'crew') {
-            getMoviesWithCrew(search.query, 1, ui.lang, res => {
-                dispatch(
-                    search_query({
-                        type: 'crew',
-                        query: search.query,
-                        queryName: search.queryName,
-                    })
-                );
-                dispatch(
-                    search_results({
-                        results: res.results,
-                        page: res.page,
-                        total: res.total_pages
-                    })
-                );
-            });
-        }
-    }, [ui.lang, dispatch]);
-
     const _handleScroll = e => {
-        if (search.page < search.total) {
+        if (result.page < result.total) {
             if (
                 !isWorking &&
                 e.target.scrollTop /
@@ -69,24 +66,22 @@ const Component = () => {
 
                 let func = getSearch;
 
-                if (search.type === 'cast') {
-                    func = getMoviesWithCast;
+                if (type === 'cast') {
+                    func = getSearchWithCast;
                 }
-                if (search.type === 'crew') {
-                    func = getMoviesWithCrew;
+                if (type === 'crew') {
+                    func = getSearchWithCrew;
                 }
 
-                func(search.query, search.page + 1, ui.lang, res => {
-                    dispatch(
-                        search_results({
-                            results: [...search.results, ...res.results],
-                            page: res.page,
-                            total:
-                                search.type === 'cast' || search.type === 'crew'
-                                    ? res.total_pages
-                                    : res.total
-                        })
-                    );
+                func(query, result.page + 1, ui.lang, res => {
+                    setResult({
+                        results: [...result.results, ...res.results],
+                        page: res.page,
+                        total:
+                            type === 'cast' || type === 'crew'
+                                ? res.total_pages
+                                : res.total
+                    });
                     isWorking = false;
                 });
             }
@@ -94,12 +89,12 @@ const Component = () => {
     };
 
     return (
-        <div className='search' onScroll={_handleScroll}>
-            <div className='search-result'>
+        <div className="search" onScroll={_handleScroll}>
+            <div className="search-result">
                 {ui.lang === 'en_US' ? 'SEARCH RESULT' : '검색결과'} : "
-                {search.query === '' ? ' ' : search.type === 'normal' ? search.query : search.queryName}"
+                {type === 'movie' ? query : queryName}"
             </div>
-            {search.results.map((movie, index) => (
+            {result.results.map((movie, index) => (
                 <Movie movie={movie} key={index} />
             ))}
         </div>

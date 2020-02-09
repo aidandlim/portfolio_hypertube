@@ -16,7 +16,8 @@ const Component = () => {
         <Switch>
             <Redirect from='/' to='/feed/all/popularity' exact />
             <Route path='/feed/:genre/:filter' exact component={Feed} />
-            <Route path='/search' exact component={Search} />
+            <Route path='/search/:type/:query' exact component={Search} />
+            <Route path='/search/:type/:query/:queryName' exact component={Search} />
             <Route path='/detail/:id' exact component={Detail} />
             <Route path='/streaming' exact component={Streaming} />
             <Route path='/auth/signin' exact component={SignIn} />

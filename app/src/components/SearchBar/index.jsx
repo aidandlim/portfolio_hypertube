@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -8,7 +8,9 @@ import FeatherIcon from 'feather-icons-react';
 
 import './index.css';
 
-const Component = ({ setQuery, _handleSearch }) => {
+const Component = () => {
+    const [query, setQuery] = useState('');
+
     const ui = useSelector(state => state.ui);
 
     const _handleEnter = e => {
@@ -22,14 +24,14 @@ const Component = ({ setQuery, _handleSearch }) => {
             <input
                 className='searchBar-input'
                 placeholder={ui.lang === 'en_US' ? 'Search' : '검색'}
+                value={query}
                 onChange={e => setQuery(e.target.value)}
                 onKeyUp={_handleEnter}
             />
-            <Link to='/search'>
+            <Link to={`/search/movie/${query}`}>
                 <button
                     type='submit'
                     className='searchBar-button'
-                    onClick={_handleSearch}
                 >
                     <FeatherIcon icon='search' color='#303030' size='0.8rem' />
                 </button>

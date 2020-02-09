@@ -7,12 +7,10 @@ import {
     getMovieDetail,
     getSimilarMovies,
     getRecommendationMovies,
-    getMovieComment,
-    getMoviesWithCast,
-    getMoviesWithCrew
+    getMovieComment
 } from './Movie';
 import { getTorrents } from './Torrent';
-import { getSearch } from './Search';
+import { getSearch, getSearchWithCast, getSearchWithCrew } from './Search';
 
 export {
     signin,
@@ -24,8 +22,8 @@ export {
     getSimilarMovies,
     getRecommendationMovies,
     getMovieComment,
-    getMoviesWithCast,
-    getMoviesWithCrew,
-    getTorrents,
-    getSearch
+    getSearch,
+    getSearchWithCast,
+    getSearchWithCrew,
+    getTorrents
 };

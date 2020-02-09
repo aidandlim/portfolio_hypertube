@@ -16,3 +16,33 @@ export const getSearch = (query, page, lang, cb) => {
             cb(null);
         });
 };
+
+export const getSearchWithCast = (id, page, lang, cb) => {
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_cast=${id}&page=${page}&language=${
+        lang === 'en_US' ? 'en-US' : 'ko-KR'
+    }`;
+
+    Axios.get(url)
+        .then(res => {
+            console.log(res);
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};
+
+export const getSearchWithCrew = (id, page, lang, cb) => {
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_crew=${id}&page=${page}&language=${
+        lang === 'en_US' ? 'en-US' : 'ko-KR'
+    }`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};
+
