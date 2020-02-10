@@ -18,7 +18,6 @@ const Component = ({ id }) => {
         let isCancelled = false;
 
         getMovieDetail(id, ui.lang, res => {
-            console.log(res);
             setTimeout(() => {
                 if (!isCancelled) {
                     setCastList(res.cast);

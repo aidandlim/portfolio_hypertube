@@ -7,14 +7,14 @@ const addUser = ({ socketId, userName, movieRoom }) => {
     const existingUser = currentUsers.find((user) => user.socketId === socketId);
 
     if(existingUser) {
-        removeUser(userName);
+        removeUser(socketId);
     }
 
     const user = { socketId, userName, movieRoom };
 
     currentUsers.push(user);
 
-    return { user };
+    return user;
 }
 
 const removeUser = (socketId) => {
@@ -27,6 +27,4 @@ const removeUser = (socketId) => {
 
 const getUser = (socketId) => currentUsers.find((user) => user.socketId === socketId);
 
-const getUsersInMovieRoom = (movieRoom) => currentUsers.filter((user) => user.room === movieRoom);
-
-module.exports = { addUser, removeUser, getUser, getUsersInMovieRoom };
+module.exports = { addUser, removeUser, getUser };

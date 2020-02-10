@@ -6,7 +6,7 @@ import './index.css';
 
 const Component = ({ torrent }) => {
     return (
-        <Link to='/streaming'>
+        <Link to={`/streaming/${torrent.episode_info.themoviedb}`}>
             <div className='torrent'>
                 <div className='torrent-title'>{torrent.title}</div>
                 <div className='torrent-info'>

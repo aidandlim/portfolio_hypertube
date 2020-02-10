@@ -77,7 +77,7 @@ const Component = ({ id, setIsOpenDetail }) => {
                     }
                     onClick={() => setNav(5)}
                 >
-                    {ui.lang === 'en_US' ? 'TORRENT' : '토렌트'}
+                    {ui.lang === 'en_US' ? 'WATCHING NOW' : '지금 시청하기'}
                 </div>
             </div>
             <div className='moreDetail-body'>
