@@ -125,7 +125,7 @@ const Component = ({ match, history }) => {
                             </div>
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>
-                                {movie.runtime !== null
+                                {movie.runtime !== null && movie.runtime !== 0
                                     ? `${movie.runtime} ${
                                           ui.lang === 'en_US' ? 'minutes' : '분'
                                       }`
@@ -135,7 +135,12 @@ const Component = ({ match, history }) => {
                             </div>
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>
-                                {movie.release_date}
+                                {movie.release_date !== null &&
+                                movie.release_date !== ''
+                                    ? movie.release_date
+                                    : ui.lang === 'en_US'
+                                    ? 'No Data'
+                                    : '정보없음'}
                             </div>
                             <div className='detail-overview'>
                                 {movie.overview}

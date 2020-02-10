@@ -34,7 +34,6 @@ const Component = ({ match }) => {
         }
 
         func(query, 1, ui.lang, res => {
-            console.log(res);
             if (!isCancelled) {
                 setResult({
                     results: res.results,
