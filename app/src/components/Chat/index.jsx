@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { SOCKET_URL } from '../../constants/api';
 
+import ScrollToBottom from 'react-scroll-to-bottom';
+
 import FeatherIcon from 'feather-icons-react';
 
 import './index.css';
@@ -56,7 +58,7 @@ const Component = ({ id }) => {
                 />
             </div>
             <div className='chat-content-container'>
-                <div className='chat-message-container'>
+                <ScrollToBottom className='chat-message-container'>
                     {messages.map((message, index) => (
                         <div className='chat-message' key={index}>
                             <div className='chat-message-name'>
@@ -67,7 +69,7 @@ const Component = ({ id }) => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </ScrollToBottom>
                 <form name='chat' onSubmit={_handleSendMessage} autoComplete='off'>
                     <input
                         className='chat-input'
