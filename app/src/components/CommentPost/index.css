@@ -7,7 +7,7 @@
     position: relative;
     float: left;
 
-    background-color: var(--color-60);
+    background-color: var(--color-80);
 }
 
 .commentPost-textarea {
@@ -27,7 +27,7 @@
     font-weight: 300;
     line-height: 1.5;
 
-    background-color: var(--color-55);
+    background-color: var(--color-75);
     border: none;
     border-radius: 0;
 

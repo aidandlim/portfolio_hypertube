@@ -40,6 +40,14 @@
 
     background-color: var(--color-90);
     border-radius: 1.5rem 0 0 1.5rem;
+
+    cursor: pointer;
+
+    transition: 0.5s;
+}
+
+.chat-toggle:hover {
+    background-color: var(--color-80);
 }
 
 .chat-content-container {

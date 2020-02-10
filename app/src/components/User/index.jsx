@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
 
-// import { useDispatch } from 'react-redux';
-// import { auth_token } from '../../actions';
+import { useDispatch } from 'react-redux';
+import { auth_token } from '../../actions';
 
-// import cookie from 'react-cookies';
+import cookie from 'react-cookies';
 
 import UserMenu from '../UserMenu';
 import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
+
+import user_default from '../../assets/icons/user_default.png';
 
 import './index.css';
 
 const Component = ({ history }) => {
     const [nav, setNav] = useState(0);
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const _handleSignOut = () => {
-    //     cookie.save('token', '', {
-    //         path: '/'
-    //     });
-    //     dispatch(auth_token(''));
-    //     history.goBack();
-    // }
+    const _handleSignOut = () => {
+        cookie.save('token', '', {
+            path: '/'
+        });
+        dispatch(auth_token(''));
+        history.goBack();
+    };
 
     const menus = [0, 1, 2];
 
@@ -30,7 +32,12 @@ const Component = ({ history }) => {
         <div className='user'>
             <div className='user-container'>
                 <div className='user-info'>
-                    <div className='user-info-picture'></div>
+                    <div
+                        className='user-info-picture'
+                        style={{
+                            backgroundImage: `url('${user_default}')`
+                        }}
+                    ></div>
                     <div className='user-info-basic'>
                         <div className='user-info-userName'>@aidan</div>
                         <div className='user-info-fullName'>Aidan Lim</div>
@@ -53,6 +60,9 @@ const Component = ({ history }) => {
                     </div>
                 </div>
             </div>
+            <button className='user-signout' onClick={_handleSignOut}>
+                SIGN OUT
+            </button>
         </div>
     );
 };

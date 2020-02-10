@@ -186,6 +186,7 @@ const Component = ({ genre, filter, _handleFilter }) => {
                         />
                     ))}
                 </div>
+                <div className='filter-division'></div>
                 <div className='filter-title'>{ui.lang === 'en_US' ? 'TRENDS' : '트렌드'}</div>
                 <div className='filter-element-container'>
                     {trends.map((element, index) => (

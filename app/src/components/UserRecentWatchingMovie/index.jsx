@@ -29,7 +29,7 @@ const Component = ({ data }) => {
     }, [data.movieId, ui.lang]);
 
     return (
-        <Link to={`/detail/${movie.movieId}`}>
+        <Link to={`/detail/${movie.id}`}>
             <div className='userRecentWatchingMovie'>
                 <div className='userRecentWatchingMovie-picture' style={{
                     backgroundImage:
