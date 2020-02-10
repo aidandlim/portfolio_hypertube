@@ -1,26 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
-import { auth_token } from '../../actions';
+// import { useDispatch } from 'react-redux';
+// import { auth_token } from '../../actions';
 
-import cookie from 'react-cookies';
+// import cookie from 'react-cookies';
+
+import UserMenu from '../UserMenu';
+import UserRecentWatching from '../UserRecentWatching';
+import UserComments from '../UserComments';
 
 import './index.css';
 
 const Component = ({ history }) => {
-    const dispatch = useDispatch();
+    const [nav, setNav] = useState(0);
 
-    const _handleSignOut = () => {
-        cookie.save('token', '', {
-            path: '/'
-        });
-        dispatch(auth_token(''));
-        history.goBack();
-    }
+    // const dispatch = useDispatch();
+
+    // const _handleSignOut = () => {
+    //     cookie.save('token', '', {
+    //         path: '/'
+    //     });
+    //     dispatch(auth_token(''));
+    //     history.goBack();
+    // }
+
+    const menus = [0, 1, 2];
 
     return (
         <div className='user'>
-            <button onClick={_handleSignOut}>Sign Out</button>
+            <div className='user-container'>
+                <div className='user-info'>
+                    <div className='user-info-picture'></div>
+                    <div className='user-info-basic'>
+                        <div className='user-info-userName'>@aidan</div>
+                        <div className='user-info-fullName'>Aidan Lim</div>
+                    </div>
+                </div>
+                <div className='user-content-container'>
+                    <div className='user-content-header'>
+                        {menus.map((menu, index) => (
+                            <UserMenu
+                                index={menu}
+                                nav={nav}
+                                setNav={setNav}
+                                key={index}
+                            />
+                        ))}
+                    </div>
+                    <div className='user-content-body'>
+                        {nav === 0 ? <UserRecentWatching /> : null}
+                        {nav === 1 ? <UserComments /> : null}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

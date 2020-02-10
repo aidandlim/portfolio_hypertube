@@ -2,8 +2,6 @@
     width: 100%;
     height: calc(100% - var(--size-header));
 
-    padding: 0.5rem;
-
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -13,5 +11,104 @@
     float: left;
 
     background-color: var(--color-70);
-    box-sizing: border-box;
+}
+
+.user-container {
+    width: 100%;
+    max-width: 30rem;
+    height: auto;
+
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.user-info {
+    width: 100%;
+    height: auto;
+
+    position: relative;
+    float: left;
+}
+
+.user-info-picture {
+    width: 10rem;
+    height: 10rem;
+
+    margin: 3rem 0 1.5rem 0;
+
+    position: relative;
+    float: left;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.user-info-basic {
+    width: 100%;
+    height: auto;
+
+    position: relative;
+    float: left;
+}
+
+.user-info-userName {
+    width: 100%;
+    height: auto;
+
+    margin-bottom: 0.25rem;
+
+    position: relative;
+    float: left;
+
+    color: var(--color-A);
+    font-size: 1.25rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+.user-info-fullName {
+    width: 100%;
+    height: auto;
+
+    position: relative;
+    float: left;
+
+    color: var(--color-D);
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.user-content-container {
+    width: 100%;
+    height: auto;
+
+    margin: 3rem 0;
+
+    position: relative;
+    float: left;
+
+    background-color: var(--color-75);
+}
+
+.user-content-header {
+    width: 100%;
+    height: 1.5rem;
+
+    position: relative;
+    float: left;
+
+    background-color: var(--color-85);
+}
+
+.user-content-body {
+    width: 100%;
+    height: auto;
+
+    position: relative;
+    float: left;
 }

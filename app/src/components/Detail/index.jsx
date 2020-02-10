@@ -51,8 +51,6 @@ const Component = ({ match, history }) => {
         }
     };
 
-    console.log(movie.production_companies);
-
     return (
         <div className='detail'>
             {movie === null ? (
