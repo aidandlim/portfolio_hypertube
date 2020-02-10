@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { Link } from 'react-router-dom';
+
 import { getMovie } from '../../data';
 
 import MoreDetail from '../MoreDetail';
@@ -48,6 +50,8 @@ const Component = ({ match, history }) => {
             setIsOpenDetail(true);
         }
     };
+
+    console.log(movie.production_companies);
 
     return (
         <div className='detail'>
@@ -148,12 +152,14 @@ const Component = ({ match, history }) => {
                             <div className='detail-companies'>
                                 {movie.production_companies.map(
                                     (company, index) => (
-                                        <div
-                                            className='detail-info-general-small'
+                                        <Link
+                                            to={`/search/company/${company.id}/${company.name}/`}
                                             key={index}
                                         >
-                                            {company.name}
-                                        </div>
+                                            <div className='detail-info-general-small'>
+                                                {company.name}
+                                            </div>
+                                        </Link>
                                     )
                                 )}
                             </div>

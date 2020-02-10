@@ -10,7 +10,12 @@ import {
     getMovieComment
 } from './Movie';
 import { getTorrents } from './Torrent';
-import { getSearch, getSearchWithCast, getSearchWithCrew } from './Search';
+import {
+    getSearch,
+    getSearchWithCast,
+    getSearchWithCrew,
+    getSearchWithCompany
+} from './Search';
 
 export {
     signin,
@@ -25,5 +30,6 @@ export {
     getSearch,
     getSearchWithCast,
     getSearchWithCrew,
+    getSearchWithCompany,
     getTorrents
 };

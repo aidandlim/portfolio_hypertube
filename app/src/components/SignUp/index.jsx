@@ -15,7 +15,7 @@ const Component = ({ history }) => {
 
     const _handleForm = e => {
         e.preventDefault();
-        const form = document.signin;
+        const form = document.signup;
         signup(
             form.userName,
             form.password,

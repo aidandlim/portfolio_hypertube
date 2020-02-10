@@ -62,7 +62,7 @@ const Component = ({ id }) => {
                     {messages.map((message, index) => (
                         <div className='chat-message' key={index}>
                             <div className='chat-message-name'>
-                                {message.userName}
+                                {message.userName.toUpperCase()}
                             </div>
                             <div className='chat-message-message'>
                                 {message.text}

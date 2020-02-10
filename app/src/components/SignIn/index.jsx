@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { auth_isLogin } from '../../actions';
+import { auth_token } from '../../actions';
 
 import { Link } from 'react-router-dom';
+
+import cookie from 'react-cookies';
 
 import { signin } from '../../data';
 
@@ -21,13 +23,16 @@ const Component = ({ history }) => {
         e.preventDefault();
         const form = document.signin;
         signin(form.userName, form.password, res => {
-            if (res === 1) {
-                dispatch(auth_isLogin());
-                history.goBack();
-            } else if (res === 2) {
-                alert('password error');
-            } else if (res === 3) {
+            if (res === 401) {
                 alert('username error');
+            } else if (res === 402) {
+                alert('password error');
+            } else {
+                dispatch(auth_token(res));
+                cookie.save('token', res, {
+                    path: '/'
+                });
+                history.goBack();
             }
         });
     };

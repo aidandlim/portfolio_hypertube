@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { getSearch, getSearchWithCast, getSearchWithCrew } from '../../data';
+import {
+    getSearch,
+    getSearchWithCast,
+    getSearchWithCrew,
+    getSearchWithCompany
+} from '../../data';
 
 import Movie from '../Movie';
 
@@ -24,13 +29,16 @@ const Component = ({ match }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        let func = getSearch;
+        let func;
 
-        if (type === 'cast') {
+        if (type === 'movie') {
+            func = getSearch;
+        } else if (type === 'cast') {
             func = getSearchWithCast;
-        }
-        if (type === 'crew') {
+        } else if (type === 'crew') {
             func = getSearchWithCrew;
+        } else if (type === 'company') {
+            func = getSearchWithCompany;
         }
 
         func(query, 1, ui.lang, res => {
@@ -39,7 +47,7 @@ const Component = ({ match }) => {
                     results: res.results,
                     page: 1,
                     total:
-                        type === 'cast' || type === 'crew'
+                        type === 'cast' || type === 'crew' || type === 'company'
                             ? res.total_pages
                             : res.total
                 });
@@ -63,13 +71,16 @@ const Component = ({ match }) => {
             ) {
                 isWorking = true;
 
-                let func = getSearch;
+                let func;
 
-                if (type === 'cast') {
+                if (type === 'movie') {
+                    func = getSearch;
+                } else if (type === 'cast') {
                     func = getSearchWithCast;
-                }
-                if (type === 'crew') {
+                } else if (type === 'crew') {
                     func = getSearchWithCrew;
+                } else if (type === 'company') {
+                    func = getSearchWithCompany;
                 }
 
                 func(query, result.page + 1, ui.lang, res => {
@@ -77,7 +88,7 @@ const Component = ({ match }) => {
                         results: [...result.results, ...res.results],
                         page: res.page,
                         total:
-                            type === 'cast' || type === 'crew'
+                            type === 'cast' || type === 'crew' || type === 'company'
                                 ? res.total_pages
                                 : res.total
                     });
@@ -88,8 +99,8 @@ const Component = ({ match }) => {
     };
 
     return (
-        <div className="search" onScroll={_handleScroll}>
-            <div className="search-result">
+        <div className='search' onScroll={_handleScroll}>
+            <div className='search-result'>
                 {ui.lang === 'en_US' ? 'SEARCH RESULT' : '검색결과'} : "
                 {type === 'movie' ? query : queryName}"
             </div>

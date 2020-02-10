@@ -46,3 +46,16 @@ export const getSearchWithCrew = (id, page, lang, cb) => {
         });
 };
 
+export const getSearchWithCompany = (id, page, lang, cb) => {
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_companies=${id}&page=${page}&language=${
+        lang === 'en_US' ? 'en-US' : 'ko-KR'
+    }`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};

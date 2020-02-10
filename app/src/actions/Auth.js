@@ -1,5 +1,8 @@
-export const auth_isLogin = () => {
+export const auth_token = (value) => {
     return {
-        type: 'AUTH_ISLOGIN',
+        type: 'AUTH_TOKEN',
+        payload: {
+            token: value
+        }
     };
 };

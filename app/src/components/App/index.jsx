@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { movie_genres, ui_lang } from '../../actions';
+import { auth_token, movie_genres, ui_lang } from '../../actions';
 
 import cookie from 'react-cookies';
 
@@ -18,6 +18,13 @@ const Component = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(
+            auth_token(
+                cookie.load('token') !== undefined
+                    ? cookie.load('token')
+                    : ''
+            )
+        );
         dispatch(
             ui_lang(
                 cookie.load('lang') !== undefined

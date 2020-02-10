@@ -1,12 +1,12 @@
 const data = {
-    isLogin: false
+    token: ''
 };
 
 const reducer = (state = data, action) => {
     switch (action.type) {
-        case 'AUTH_ISLOGIN':
+        case 'AUTH_TOKEN':
             return Object.assign({}, state, {
-                isLogin: !data.isLogin
+                token: action.payload.token
             });
         default:
             return state;

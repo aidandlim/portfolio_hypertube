@@ -5,7 +5,7 @@
     position: relative;
     float: left;
 
-    background-color: black;
+    background-color: var(--color-95);
 }
 
 .streaming-video {
