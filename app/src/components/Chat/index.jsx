@@ -68,11 +68,12 @@ const Component = ({ id }) => {
                         </div>
                     ))}
                 </div>
-                <form name='chat' onSubmit={_handleSendMessage}>
+                <form name='chat' onSubmit={_handleSendMessage} autoComplete='off'>
                     <input
                         className='chat-input'
                         name='message'
                         placeholder='Message ...'
+                        autoComplete='off'
                     />
                     <button className='chat-button' type='submit' />
                 </form>

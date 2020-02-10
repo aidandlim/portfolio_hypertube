@@ -123,6 +123,7 @@
     background-color: var(--color-60);
     box-sizing: border-box;
     border: none;
+    border-radius: 0;
     outline: none;
 }
 

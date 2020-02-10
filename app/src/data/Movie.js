@@ -54,7 +54,7 @@ export const getMovies = (genre, filter, page, lang, cb) => {
             lang === 'en_US' ? 'en-US' : 'ko-KR'
         }`;
     else if (filter === 'upcoming')
-        url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API}&page=${page}&language=${
+        url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API}&page=${page}&region=US&language=${
             lang === 'en_US' ? 'en-US' : 'ko-KR'
         }`;
 
