@@ -48,6 +48,23 @@
     border-radius: 50%;
 }
 
+.user-info-picture-update {
+    width: 1rem;
+    height: 1rem;
+
+    padding: 0.5rem;
+
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(calc(-100% - 0.5rem), calc(-100% - 0.5rem));
+
+    color: var(--color-70);
+
+    background-color: var(--color-30);
+    border-radius: 50%;
+}
+
 .user-info-basic {
     width: 100%;
     height: auto;
