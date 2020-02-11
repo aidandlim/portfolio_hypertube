@@ -8,7 +8,7 @@ const app = express();
 const TORRENT_PORT = 8443;
 const API_PORT = 9443;
 
-app.use(cors({origin: 'http://localhost:3000'}));
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.use(
     '/api',
@@ -53,7 +53,20 @@ const WebTorrent = require('webtorrent');
 
 const client = new WebTorrent();
 
-app.get('/torrent/stream/:magnet', (req, res) => {
+client.on('error', err => {
+    console.log(err.message);
+});
+
+client.on('download', () => {
+    stats = {
+        progress: Math.round(client.progress * 100 * 100) / 100,
+        downloadSpeed: client.downloadSpeed,
+        ratio: client.ratio
+    };
+    console.log(stats);
+});
+
+app.get('/torrent/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
 
     client.add(magnet, function(torrent) {
@@ -74,16 +87,16 @@ app.get('/torrent/stream/:magnet', (req, res) => {
     });
 });
 
-app.get('/torrent/stream/:magnet/:max', (req, res, next) => {
+app.get('/torrent/stream/:magnet/:filename', (req, res, next) => {
     const magnet = req.params.magnet;
-    const max = req.params.max;
+    const filename = req.params.filename;
 
     var tor = client.get(magnet);
 
     let file = {};
 
     for (i = 0; i < tor.files.length; i++) {
-        if (tor.files[i].name == max) {
+        if (tor.files[i].name == filename) {
             file = tor.files[i];
         }
     }
@@ -94,7 +107,7 @@ app.get('/torrent/stream/:magnet/:max', (req, res, next) => {
         let err = new Error('Wrong range');
         err.status = 416;
         return next(err);
-	}
+    }
 
     let positions = range.replace(/bytes=/, '').split('-');
 
@@ -122,10 +135,19 @@ app.get('/torrent/stream/:magnet/:max', (req, res, next) => {
 
     let stream = file.createReadStream(stream_position);
 
-	stream.pipe(res);
+    stream.pipe(res);
 
-    stream.on('error', function(err) {
+    stream.on('error', err => {
         return next(err);
+    });
+});
+
+app.get('/torrent/delete/:magnet', (req, res, next) => {
+    let magnet = req.params.magnet;
+
+    client.remove(magnet, () => {
+        res.status(200);
+        res.end();
     });
 });
 

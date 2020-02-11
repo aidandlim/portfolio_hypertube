@@ -13,19 +13,19 @@ const Component = ({ match }) => {
     const [movieName, setMovieName] = useState('');
 
     useEffect(() => {
-        axios.get(`/torrent/stream/${magnet}`).then(res => {
+        axios.get(`/torrent/add/${magnet}`).then(res => {
             setMovieName(res.data.name);
         });
 
         return () => {
-            console.log('Escape from streaming!');
+            axios.get(`/torrent/delete/${magnet}`);
         };
     }, [magnet]);
 
     return (
         <div className='streaming'>
             {movieName !== '' ? (
-                <video controls autoPlay>
+                <video className='streaming-video' controls autoPlay>
                     <source
                         src={`/torrent/stream/${magnet}/${movieName}`}
                         type='video/mp4'
