@@ -9,7 +9,7 @@ import UserMenu from '../UserMenu';
 import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
 
-import user_default from '../../assets/icons/user_default.png';
+import user_default from '../../assets/images/user_default.png';
 
 import './index.css';
 

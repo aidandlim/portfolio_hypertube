@@ -17,7 +17,7 @@
 
 .similarMovie-poster {
     width: 100%;
-    padding-top: calc(100% / 3 * 4);
+    padding-top: calc(100% / 3 * 4.5);
 
     position: relative;
     float: left;

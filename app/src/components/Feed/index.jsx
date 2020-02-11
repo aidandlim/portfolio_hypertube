@@ -8,6 +8,8 @@ import Movie from '../Movie';
 import FilterIcon from '../FilterIcon';
 import Filter from '../Filter';
 
+import FeatherIcon from 'feather-icons-react';
+
 import './index.css';
 
 const Component = ({ match }) => {
@@ -55,15 +57,28 @@ const Component = ({ match }) => {
                 isWorking = false;
             });
         }
+        if (e.target.scrollTop > 100) {
+            document.querySelector('.feed-toTop').style.opacity = 1;
+        } else {
+            document.querySelector('.feed-toTop').style.opacity = 0;
+        }
     };
+
+    const _handleScrollTop = () => {
+        const feed = document.querySelector('.feed-container');
+
+        if (feed !== null) {
+            feed.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }
+    }
 
     const _handleFilter = () => {
         setIsOpenFilter(isOpenFilter => !isOpenFilter);
     };
 
     return (
-        <div className='feed' onScroll={_handleScroll}>
-            <div className='feed-container'>
+        <div className="feed" onScroll={_handleScroll}>
+            <div className="feed-container">
                 <FilterIcon
                     genre={genre}
                     filter={filter}
@@ -80,6 +95,9 @@ const Component = ({ match }) => {
                     _handleFilter={_handleFilter}
                 />
             ) : null}
+            <div className="feed-toTop" onClick={_handleScrollTop}>
+                <FeatherIcon className="feed-toTop-icon" icon="arrow-up" />
+            </div>
         </div>
     );
 };

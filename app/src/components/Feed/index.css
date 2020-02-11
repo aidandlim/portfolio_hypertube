@@ -33,3 +33,39 @@
     background-color: var(--color-70);
     box-sizing: border-box;
 }
+
+.feed-toTop {
+    width: 5rem;
+    height: 2rem;
+
+    position: fixed;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, calc(-100% - 1rem));
+
+    background-color: var(--color-50);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 1rem;
+
+    transition: 1s;
+    cursor: pointer;
+
+    opacity: 0;
+    z-index: 9;
+}
+
+.feed-toTop:hover {
+    background-color: var(--color-40);
+}
+
+.feed-toTop-icon {
+    width: 1rem;
+    height: 1rem;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: var(--color-A);
+}

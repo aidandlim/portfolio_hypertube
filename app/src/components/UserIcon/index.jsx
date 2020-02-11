@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import user_default from '../../assets/icons/user_default.png';
+import user_default from '../../assets/images/user_default.png';
 import temp from '../../assets/icons/en_US.png';
 
 import './index.css';

@@ -6,6 +6,8 @@ import GenreInfo from '../GenreInfo';
 
 import StarIcon from 'react-star-rating-component';
 
+import image_default from '../../assets/images/image_default.png';
+
 import './index.css';
 
 const Component = ({ movie }) => {
@@ -21,7 +23,7 @@ const Component = ({ movie }) => {
                         backgroundImage:
                             movie.poster_path !== null
                                 ? `url('https://image.tmdb.org/t/p/w500/${movie.poster_path}')`
-                                : ''
+                                : `url('${image_default}')`
                     }}
                 ></div>
                 <div className='movie-info'>

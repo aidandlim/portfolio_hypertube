@@ -1,6 +1,6 @@
 import React from 'react';
 
-import user_default from '../../assets/icons/user_default.png';
+import user_default from '../../assets/images/user_default.png';
 
 import './index.css';
 

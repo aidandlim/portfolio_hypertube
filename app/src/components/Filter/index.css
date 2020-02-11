@@ -85,5 +85,5 @@
     position: relative;
     float: left;
 
-    background: var(--color-70);
+    border-bottom: dotted var(--color-70) 0.1rem;
 }
