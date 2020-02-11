@@ -34,7 +34,7 @@ const Component = ({ torrent }) => {
                 auth.token !== ''
                     ? `/streaming/${
                           torrent.episode_info.themoviedb
-                      }/${torrent.download.replace('magnet:?xt=urn:btih:', '')}`
+                      }/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}`
                     : '/auth/signin'
             }
             onClick={_handleUserStatus}

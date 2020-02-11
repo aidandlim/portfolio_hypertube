@@ -49,6 +49,86 @@ app.get('/torrent/search/:id', async (req, res) => {
         });
 });
 
+const WebTorrent = require('webtorrent');
+
+const client = new WebTorrent();
+
+app.get('/torrent/stream/:magnet', (req, res) => {
+    const magnet = req.params.magnet;
+
+    client.add(magnet, function(torrent) {
+        let max = {
+            name: '',
+            length: 0
+        };
+
+        torrent.files.forEach(function(data) {
+            if (max.length < data.length)
+                max = {
+                    name: data.name,
+                    length: data.length
+                };
+        });
+
+        res.json(max);
+    });
+});
+
+app.get('/torrent/stream/:magnet/:max', (req, res, next) => {
+    const magnet = req.params.magnet;
+    const max = req.params.max;
+
+    var tor = client.get(magnet);
+
+    let file = {};
+
+    for (i = 0; i < tor.files.length; i++) {
+        if (tor.files[i].name == max) {
+            file = tor.files[i];
+        }
+    }
+
+    let range = req.headers.range;
+
+    if (!range) {
+        let err = new Error('Wrong range');
+        err.status = 416;
+        return next(err);
+	}
+
+    let positions = range.replace(/bytes=/, '').split('-');
+
+    let start = parseInt(positions[0], 10);
+
+    let file_size = file.length;
+
+    let end = positions[1] ? parseInt(positions[1], 10) : file_size - 1;
+
+    let chunksize = end - start + 1;
+
+    let head = {
+        'Content-Range': 'bytes ' + start + '-' + end + '/' + file_size,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': 'video/mp4'
+    };
+
+    res.writeHead(206, head);
+
+    let stream_position = {
+        start: start,
+        end: end
+    };
+
+    let stream = file.createReadStream(stream_position);
+
+	stream.pipe(res);
+
+    stream.on('error', function(err) {
+        return next(err);
+    });
+});
+
 app.listen(TORRENT_PORT, () => {
     console.log(`Torrent server is running on port ${TORRENT_PORT}`);
 });
