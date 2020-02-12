@@ -15,4 +15,47 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    outline: none;
+}
+
+.streaming-loading {
+    width: auto;
+    height: auto;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: var(--color-A);
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.streaming-back-active,
+.streaming-back {
+    width: 6rem;
+    height: 6rem;
+
+    padding: 1.5rem;
+
+    position: absolute;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+    opacity: 0;
+    transition: 1s;
+
+    z-index: 9;
+}
+
+.streaming-back:hover {
+    opacity: 1;
+}
+
+.streaming-back-active {
+    opacity: 1;
 }

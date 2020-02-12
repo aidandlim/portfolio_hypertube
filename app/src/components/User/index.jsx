@@ -11,14 +11,12 @@ import UserComments from '../UserComments';
 import UserSetting from '../UserSetting';
 
 import FeatherIcon from 'feather-icons-react';
-
 import user_default from '../../assets/images/user_default.png';
 
 import './index.css';
 
-const Component = ({ history }) => {
+const Component = () => {
     const [nav, setNav] = useState(0);
-
     const dispatch = useDispatch();
 
     const _handleSignOut = () => {
@@ -26,35 +24,37 @@ const Component = ({ history }) => {
             path: '/'
         });
         dispatch(auth_token(''));
-        history.goBack();
+        window.location.href = '/';
     };
 
     const menus = [0, 1, 2];
 
     return (
-        <div className="user">
-            <div className="user-container">
-                <div className="user-info">
+        <div className='user'>
+            <div className='user-container'>
+                <div className='user-info'>
                     <div
-                        className="user-info-picture"
+                        className='user-info-picture'
                         style={{
                             backgroundImage: `url('${user_default}')`
                         }}
                     >
-                        {nav === 2 ? (
-                            <FeatherIcon
-                                className="user-info-picture-update"
-                                icon="upload"
-                            />
-                        ) : null}
+                        <FeatherIcon
+                            className={
+                                nav === 2
+                                    ? 'user-info-picture-update-active'
+                                    : 'user-info-picture-update'
+                            }
+                            icon='upload'
+                        />
                     </div>
-                    <div className="user-info-basic">
-                        <div className="user-info-userName">@aidan</div>
-                        <div className="user-info-fullName">Aidan Lim</div>
+                    <div className='user-info-basic'>
+                        <div className='user-info-userName'>@aidan</div>
+                        <div className='user-info-fullName'>Aidan Lim</div>
                     </div>
                 </div>
-                <div className="user-content-container">
-                    <div className="user-content-header">
+                <div className='user-content-container'>
+                    <div className='user-content-header'>
                         {menus.map((menu, index) => (
                             <UserMenu
                                 index={menu}
@@ -64,14 +64,14 @@ const Component = ({ history }) => {
                             />
                         ))}
                     </div>
-                    <div className="user-content-body">
+                    <div className='user-content-body'>
                         {nav === 0 ? <UserRecentWatching /> : null}
                         {nav === 1 ? <UserComments /> : null}
                         {nav === 2 ? <UserSetting /> : null}
                     </div>
                 </div>
             </div>
-            <button className="user-signout" onClick={_handleSignOut}>
+            <button className='user-signout' onClick={_handleSignOut}>
                 SIGN OUT
             </button>
         </div>

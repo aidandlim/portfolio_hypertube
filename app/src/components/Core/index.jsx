@@ -20,7 +20,7 @@ const Component = () => {
             <Route path='/search/:type/:query' exact component={Search} />
             <Route path='/search/:type/:query/:queryName' exact component={Search} />
             <Route path='/detail/:id' exact component={Detail} />
-            <Route path='/streaming/:id/:magnet' exact component={Streaming} />
+            <Route path='/streaming/:torrent/:magnet' exact component={Streaming} />
             <Route path='/auth/signin' exact component={SignIn} />
             <Route path='/auth/signup' exact component={SignUp} />
             <Route path='/auth/recovery' exact component={Recovery} />

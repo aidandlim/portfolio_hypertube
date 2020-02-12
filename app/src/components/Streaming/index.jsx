@@ -4,35 +4,57 @@ import axios from 'axios';
 
 import Chat from '../Chat';
 
+import FeatherIcon from 'feather-icons-react';
 import './index.css';
 
-const Component = ({ match }) => {
-    const id = match.params.id;
+const Component = ({ match, history }) => {
+    const torrent = match.params.torrent;
     const magnet = match.params.magnet;
 
-    const [movieName, setMovieName] = useState('');
+    const [fileName, setFileName] = useState('');
+    const [isVisibleBack, setIsVisibleBack] = useState(true);
 
     useEffect(() => {
         axios.get(`/torrent/add/${magnet}`).then(res => {
-            setMovieName(res.data.name);
+            setFileName(res.data.name);
         });
+
+        setTimeout(() => {
+            setIsVisibleBack(false);
+        }, 5000);
 
         return () => {
             axios.get(`/torrent/delete/${magnet}`);
         };
     }, [magnet]);
 
+    const _handleBack = () => {
+        history.goBack();
+    };
+
+    const _handleMouseMove = () => {
+        setIsVisibleBack(true);
+        setTimeout(() => {
+            setIsVisibleBack(false);
+        }, 5000);
+    }
+
     return (
-        <div className='streaming'>
-            {movieName !== '' ? (
-                <video className='streaming-video' controls autoPlay>
+        <div className='streaming' onMouseMove={_handleMouseMove}>
+            <div className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'} onClick={_handleBack}>
+                <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
+            </div>
+            {fileName !== '' ? (
+                <video className='streaming-video' controls autoPlay={true}>
                     <source
-                        src={`/torrent/stream/${magnet}/${movieName}`}
+                        src={`/torrent/stream/${magnet}/${fileName}`}
                         type='video/mp4'
                     />
                 </video>
-            ) : null}
-            <Chat id={id} />
+            ) : (
+                <div className='streaming-loading'>Loading...</div>
+            )}
+            <Chat torrent={torrent} />
         </div>
     );
 };

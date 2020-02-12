@@ -48,7 +48,8 @@
     border-radius: 50%;
 }
 
-.user-info-picture-update {
+.user-info-picture-update,
+.user-info-picture-update-active {
     width: 1rem;
     height: 1rem;
 
@@ -63,6 +64,19 @@
 
     background-color: var(--color-30);
     border-radius: 50%;
+
+    cursor: pointer;
+
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.user-info-picture-update-active {
+    opacity: 1;
+}
+
+.user-info-picture-update-active:hover {
+    background-color: var(--color-10);
 }
 
 .user-info-basic {

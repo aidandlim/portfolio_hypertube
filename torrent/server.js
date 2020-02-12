@@ -57,25 +57,35 @@ client.on('error', err => {
     console.log(err.message);
 });
 
-client.on('download', () => {
-    stats = {
-        progress: Math.round(client.progress * 100 * 100) / 100,
-        downloadSpeed: client.downloadSpeed,
-        ratio: client.ratio
-    };
-    console.log(stats);
-});
+// client.on('download', () => {
+//     stats = {
+//         progress: Math.round(client.progress * 100 * 100) / 100,
+//         downloadSpeed: client.downloadSpeed,
+//         ratio: client.ratio
+//     };
+//     console.log(stats);
+// });
 
 app.get('/torrent/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
 
-    client.add(magnet, function(torrent) {
+    const exist = client.get(magnet);
+
+    if(exist) {
+        console.log(`There is magnet(${magnet}) already`);
+        client.remove(magnet, () => {
+            console.log(`magnet(${magnet}) has removed`);
+        });
+    }
+
+    client.add(magnet, torrent => {
+        console.log(`magnet(${magnet}) has added`);
         let max = {
             name: '',
             length: 0
         };
 
-        torrent.files.forEach(function(data) {
+        torrent.files.forEach(data => {
             if (max.length < data.length)
                 max = {
                     name: data.name,
@@ -91,7 +101,9 @@ app.get('/torrent/stream/:magnet/:filename', (req, res, next) => {
     const magnet = req.params.magnet;
     const filename = req.params.filename;
 
-    var tor = client.get(magnet);
+    console.log(filename);
+
+    const tor = client.get(magnet);
 
     let file = {};
 
@@ -101,7 +113,7 @@ app.get('/torrent/stream/:magnet/:filename', (req, res, next) => {
         }
     }
 
-    let range = req.headers.range;
+    const range = req.headers.range;
 
     if (!range) {
         let err = new Error('Wrong range');
@@ -109,31 +121,24 @@ app.get('/torrent/stream/:magnet/:filename', (req, res, next) => {
         return next(err);
     }
 
-    let positions = range.replace(/bytes=/, '').split('-');
+    const file_size = file.length;
+    const positions = range.replace(/bytes=/, '').split('-');
+    const start = parseInt(positions[0], 10);
+    const end = positions[1] ? parseInt(positions[1], 10) : file_size - 1;
 
-    let start = parseInt(positions[0], 10);
+    const chunksize = end - start + 1;
 
-    let file_size = file.length;
-
-    let end = positions[1] ? parseInt(positions[1], 10) : file_size - 1;
-
-    let chunksize = end - start + 1;
-
-    let head = {
+    res.writeHead(206, {
         'Content-Range': 'bytes ' + start + '-' + end + '/' + file_size,
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
         'Content-Type': 'video/mp4'
-    };
+    });
 
-    res.writeHead(206, head);
-
-    let stream_position = {
-        start: start,
-        end: end
-    };
-
-    let stream = file.createReadStream(stream_position);
+    let stream = file.createReadStream({
+        start,
+        end
+    });
 
     stream.pipe(res);
 
@@ -146,8 +151,7 @@ app.get('/torrent/delete/:magnet', (req, res, next) => {
     let magnet = req.params.magnet;
 
     client.remove(magnet, () => {
-        res.status(200);
-        res.end();
+        console.log(`magnet(${magnet}) has removed`);
     });
 });
 

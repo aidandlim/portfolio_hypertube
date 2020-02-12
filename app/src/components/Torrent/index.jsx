@@ -33,7 +33,7 @@ const Component = ({ torrent }) => {
             to={
                 auth.token !== ''
                     ? `/streaming/${
-                          torrent.episode_info.themoviedb
+                        torrent.title
                       }/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}`
                     : '/auth/signin'
             }
