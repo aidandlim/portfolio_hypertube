@@ -8,7 +8,7 @@ import Wrapper from 'react-div-100vh';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { getGenres } from '../../data';
+import { apiGenres } from '../../data';
 
 import Header from '../Header';
 import Core from '../Core';
@@ -35,7 +35,7 @@ const Component = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        getGenres(ui.lang, res => {
+        apiGenres(ui.lang, res => {
             dispatch(movie_genres(res));
         });
     }, [dispatch, ui.lang]);

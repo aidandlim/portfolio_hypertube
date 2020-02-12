@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
-export const checkToken = (token, cb) => {
-    const url = `/api/token`;
+export const getUserByToken = (token, cb) => {
+    const url = `/api/user`;
     const data = {
         token
     };
@@ -14,30 +14,17 @@ export const checkToken = (token, cb) => {
             cb(0);
         });
 
-    // cb(1);
+    // cb({
+    //     userName: 'aidan',
+    //     firstName: 'Aidan',
+    //     lastName: 'Lim',
+    // });
 };
 
-export const signin = (userName, password, cb) => {
-    const url = `/api/auth`;
+export const getUserByUserName = (token, userName, cb) => {
+    const url = `/api/user/userName`;
     const data = {
-        userName,
-        password
-    };
-
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb(0);
-        });
-
-    // cb('VALIDTOKEN');
-};
-
-export const getUserName = (userName, cb) => {
-    let url = `/api/auth/userName`;
-    const data = {
+        token,
         userName
     };
 
@@ -48,22 +35,25 @@ export const getUserName = (userName, cb) => {
         .catch(() => {
             cb(0);
         });
-    
 
-    // cb(1);
+    // cb({
+    //     userName: 'aidan',
+    //     firstName: 'Aidan',
+    //     lastName: 'Lim',
+    // });
 };
 
-export const signup = (userName, password, email, firstName, lastName, cb) => {
+export const putUser = (token, password, email, firstName, lastName, cb) => {
     let url = `/api/auth`;
     const data = {
-        userName,
+        token,
         password,
         email,
         firstName,
         lastName
     };
 
-    Axios.post(url, data)
+    Axios.put(url, data)
         .then(res => {
             cb(res.data);
         })
@@ -74,13 +64,13 @@ export const signup = (userName, password, email, firstName, lastName, cb) => {
     // cb(1);
 };
 
-export const recovery = (email, cb) => {
+export const deleteUser = (token, cb) => {
     let url = `/api/auth`;
     const data = {
-        email
+        token
     };
 
-    Axios.get(url, { params: data })
+    Axios.delete(url, { params: data })
         .then(res => {
             cb(res.data);
         })

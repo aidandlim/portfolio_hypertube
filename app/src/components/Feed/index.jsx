@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { getMovies } from '../../data';
+import { apiMovies } from '../../data';
 
 import Movie from '../Movie';
 import FilterIcon from '../FilterIcon';
@@ -26,7 +26,7 @@ const Component = ({ match }) => {
 
     useEffect(
         isCancelled => {
-            getMovies(genre, filter, 1, ui.lang, res => {
+            apiMovies(genre, filter, 1, ui.lang, res => {
                 if (!isCancelled && res !== null) {
                     setMovies(res);
                     setPage(page => page + 1);
@@ -49,7 +49,7 @@ const Component = ({ match }) => {
                 0.9
         ) {
             isWorking = true;
-            getMovies(genre, filter, page, ui.lang, res => {
+            apiMovies(genre, filter, page, ui.lang, res => {
                 if (!isCancelled && res !== null) {
                     setMovies([...movies, ...res]);
                     setPage(page => page + 1);

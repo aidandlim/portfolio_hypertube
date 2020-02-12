@@ -8,7 +8,7 @@ const app = express();
 const TORRENT_PORT = 8443;
 const API_PORT = 9443;
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 
 app.use(
     '/api',

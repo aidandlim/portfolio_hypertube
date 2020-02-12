@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Cast from '../Cast';
 
-import { getMovieDetail } from '../../data';
+import { apiMovieDetail } from '../../data';
 
 import './index.css';
 
@@ -17,7 +17,7 @@ const Component = ({ id }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        getMovieDetail(id, ui.lang, res => {
+        apiMovieDetail(id, ui.lang, res => {
             setTimeout(() => {
                 if (!isCancelled) {
                     setCastList(res.cast);

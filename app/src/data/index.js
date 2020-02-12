@@ -1,35 +1,41 @@
-import { signin, signup } from './Auth';
-
+import { checkToken, signin, getUserName, signup, recovery } from './Auth';
 import {
-    getGenres,
-    getMovies,
-    getMovie,
-    getMovieDetail,
-    getSimilarMovies,
-    getRecommendationMovies,
-    getMovieComment
-} from './Movie';
+    apiGenres,
+    apiMovies,
+    apiMovie,
+    apiMovieDetail,
+    apiSimilarMovies,
+    apiRecommendationMovies,
+    apiSearch,
+    apiSearchWithCast,
+    apiSearchWithCrew,
+    apiSearchWithCompany
+} from './API';
+import { getHistories, getHistory } from './History';
+import { getCommentByMovieId, getCommentByUserId, postComment, deleteComment } from './Comment';
 import { getTorrents } from './Torrent';
-import {
-    getSearch,
-    getSearchWithCast,
-    getSearchWithCrew,
-    getSearchWithCompany
-} from './Search';
 
 export {
+    apiGenres,
+    apiMovies,
+    apiMovie,
+    apiMovieDetail,
+    apiSimilarMovies,
+    apiRecommendationMovies,
+    apiSearch,
+    apiSearchWithCast,
+    apiSearchWithCrew,
+    apiSearchWithCompany,
+    checkToken,
     signin,
+    getUserName,
     signup,
-    getGenres,
-    getMovies,
-    getMovie,
-    getMovieDetail,
-    getSimilarMovies,
-    getRecommendationMovies,
-    getMovieComment,
-    getSearch,
-    getSearchWithCast,
-    getSearchWithCrew,
-    getSearchWithCompany,
+    recovery,
+    getHistories,
+    getHistory,
+    getCommentByMovieId,
+    getCommentByUserId,
+    postComment,
+    deleteComment,
     getTorrents
 };

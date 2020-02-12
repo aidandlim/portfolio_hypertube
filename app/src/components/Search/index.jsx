@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
-    getSearch,
-    getSearchWithCast,
-    getSearchWithCrew,
-    getSearchWithCompany
+    apiSearch,
+    apiSearchWithCast,
+    apiSearchWithCrew,
+    apiSearchWithCompany
 } from '../../data';
 
 import Movie from '../Movie';
@@ -32,13 +32,13 @@ const Component = ({ match }) => {
         let func;
 
         if (type === 'movie') {
-            func = getSearch;
+            func = apiSearch;
         } else if (type === 'cast') {
-            func = getSearchWithCast;
+            func = apiSearchWithCast;
         } else if (type === 'crew') {
-            func = getSearchWithCrew;
+            func = apiSearchWithCrew;
         } else if (type === 'company') {
-            func = getSearchWithCompany;
+            func = apiSearchWithCompany;
         }
 
         func(query, 1, ui.lang, res => {
@@ -74,13 +74,13 @@ const Component = ({ match }) => {
                 let func;
 
                 if (type === 'movie') {
-                    func = getSearch;
+                    func = apiSearch;
                 } else if (type === 'cast') {
-                    func = getSearchWithCast;
+                    func = apiSearchWithCast;
                 } else if (type === 'crew') {
-                    func = getSearchWithCrew;
+                    func = apiSearchWithCrew;
                 } else if (type === 'company') {
-                    func = getSearchWithCompany;
+                    func = apiSearchWithCompany;
                 }
 
                 func(query, result.page + 1, ui.lang, res => {

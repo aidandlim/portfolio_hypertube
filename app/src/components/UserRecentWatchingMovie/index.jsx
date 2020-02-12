@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import { getMovie } from '../../data';
+import { apiMovie } from '../../data';
 
 import './index.css';
 
@@ -17,7 +17,7 @@ const Component = ({ data }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        getMovie(data.movieId, ui.lang, res => {
+        apiMovie(data.movieId, ui.lang, res => {
             if (!isCancelled) {
                 setMovie(res);
             }

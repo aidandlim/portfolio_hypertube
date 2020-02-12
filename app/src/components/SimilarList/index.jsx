@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import SimilarMovie from '../SimilarMovie';
 
-import { getSimilarMovies } from '../../data';
+import { apiSimilarMovies } from '../../data';
 
 import './index.css';
 
@@ -17,7 +17,7 @@ const Component = ({ id, setIsOpenDetail }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        getSimilarMovies(id, ui.lang, res => {
+        apiSimilarMovies(id, ui.lang, res => {
             setTimeout(() => {
                 if (!isCancelled) {
                     setSimilarList(res);

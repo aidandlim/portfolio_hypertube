@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import SimilarMovie from '../SimilarMovie';
 
-import { getRecommendationMovies } from '../../data';
+import { apiRecommendationMovies } from '../../data';
 
 import './index.css';
 
@@ -17,7 +17,7 @@ const Component = ({ id, setIsOpenDetail }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        getRecommendationMovies(id, ui.lang, res => {
+        apiRecommendationMovies(id, ui.lang, res => {
             setTimeout(() => {
                 if (!isCancelled) {
                     setRecommendationList(res);
