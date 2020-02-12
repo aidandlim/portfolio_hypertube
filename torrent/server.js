@@ -71,7 +71,7 @@ app.get('/torrent/add/:magnet', (req, res) => {
 
     const exist = client.get(magnet);
 
-    if(exist) {
+    if (exist) {
         console.log(`There is magnet(${magnet}) already`);
         client.remove(magnet, () => {
             console.log(`magnet(${magnet}) has removed`);
@@ -140,7 +140,11 @@ app.get('/torrent/stream/:magnet/:filename', (req, res, next) => {
         end
     });
 
-    stream.pipe(res);
+    if (filename.split('.')[filename.split('.').length - 1] === 'mkv') {
+        
+    } else {
+        stream.pipe(res);
+    }
 
     stream.on('error', err => {
         return next(err);

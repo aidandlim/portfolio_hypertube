@@ -1,4 +1,3 @@
-import { checkToken, signin, getUserName, signup, recovery } from './Auth';
 import {
     apiGenres,
     apiMovies,
@@ -11,6 +10,7 @@ import {
     apiSearchWithCrew,
     apiSearchWithCompany
 } from './API';
+import { checkToken, signin, getUserName, signup, recovery } from './Auth';
 import { getHistories, getHistory } from './History';
 import { getCommentByMovieId, getCommentByUserId, postComment, deleteComment } from './Comment';
 import { getTorrents } from './Torrent';
