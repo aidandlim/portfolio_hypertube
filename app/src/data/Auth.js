@@ -53,6 +53,24 @@ export const getUserName = (userName, cb) => {
     // cb(1);
 };
 
+export const getEmail = (email, cb) => {
+    let url = `/api/auth/email`;
+    const data = {
+        email
+    };
+
+    Axios.get(url, { params: data })
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(0);
+        });
+    
+
+    // cb(1);
+};
+
 export const signup = (userName, password, email, firstName, lastName, cb) => {
     let url = `/api/auth`;
     const data = {
