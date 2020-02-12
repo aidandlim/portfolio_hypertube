@@ -11,7 +11,7 @@ const {
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const SOCKET_PORT = 8444;
+const SOCKET_PORT = 8445;
 
 io.on('connection', socket => {
     socket.on('join', ({ userName, movieRoom }, callback) => {

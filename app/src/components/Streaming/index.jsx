@@ -15,7 +15,7 @@ const Component = ({ match, history }) => {
     const [isVisibleBack, setIsVisibleBack] = useState(true);
 
     useEffect(() => {
-        axios.get(`/torrent/add/${magnet}`).then(res => {
+        axios.get(`/stream/add/${magnet}`).then(res => {
             setFileName(res.data.name);
         });
 
@@ -24,7 +24,7 @@ const Component = ({ match, history }) => {
         }, 5000);
 
         return () => {
-            axios.get(`/torrent/delete/${magnet}`);
+            axios.get(`/stream/delete/${magnet}`);
         };
     }, [magnet]);
 
@@ -47,7 +47,7 @@ const Component = ({ match, history }) => {
             {fileName !== '' ? (
                 <video className='streaming-video' controls autoPlay={true}>
                     <source
-                        src={`/torrent/stream/${magnet}/${fileName}`}
+                        src={`/stream/play/${magnet}/${fileName}`}
                         type='video/mp4'
                     />
                 </video>
