@@ -152,6 +152,7 @@ app.get('/torrent/delete/:magnet', (req, res, next) => {
 
     client.remove(magnet, () => {
         console.log(`magnet(${magnet}) has removed`);
+        res.write();
     });
 });
 
