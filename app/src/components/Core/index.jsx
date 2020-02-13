@@ -7,7 +7,6 @@ import Search from '../Search';
 import Detail from '../Detail';
 import Streaming from '../Streaming';
 import SignIn from '../SignIn';
-import SocialSignInWith42 from '../SocialSignInWith42';
 import SignUp from '../SignUp';
 import Recovery from '../Recovery';
 import User from '../User';
@@ -23,7 +22,6 @@ const Component = () => {
             <Route path='/detail/:id' exact component={Detail} />
             <Route path='/streaming/:torrent/:magnet' exact component={Streaming} />
             <Route path='/auth/signin' exact component={SignIn} />
-            <Route path='/auth/signin/42' exact component={SocialSignInWith42} />
             <Route path='/auth/signup' exact component={SignUp} />
             <Route path='/auth/recovery' exact component={Recovery} />
             <Route path='/user/:userName' exact component={User} />
