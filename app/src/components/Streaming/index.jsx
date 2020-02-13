@@ -28,6 +28,11 @@ const Component = ({ match, history }) => {
         };
     }, [magnet]);
 
+    // const _handleTest = () => {
+    //     console.log(document.querySelector('.streaming-video').currentTime);
+    //     console.log(document.querySelector('.streaming-video').duration);
+    // };
+
     const _handleBack = () => {
         history.goBack();
     };
@@ -37,22 +42,27 @@ const Component = ({ match, history }) => {
         setTimeout(() => {
             setIsVisibleBack(false);
         }, 5000);
-    }
+    };
 
     return (
-        <div className='streaming' onMouseMove={_handleMouseMove}>
-            <div className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'} onClick={_handleBack}>
-                <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
+        <div className="streaming" onMouseMove={_handleMouseMove}>
+            <div
+                className={
+                    isVisibleBack ? 'streaming-back-active' : 'streaming-back'
+                }
+                onClick={_handleBack}
+            >
+                <FeatherIcon icon="arrow-left" color="#AAAAAA" size="3rem" />
             </div>
             {fileName !== '' ? (
-                <video className='streaming-video' controls autoPlay={true}>
+                <video className="streaming-video" controls autoPlay={true}>
                     <source
                         src={`/stream/play/${magnet}/${fileName}`}
-                        type='video/mp4'
+                        type="video/mp4"
                     />
                 </video>
             ) : (
-                <div className='streaming-loading'>Loading...</div>
+                <div className="streaming-loading">Loading...</div>
             )}
             <Chat torrent={torrent} />
         </div>

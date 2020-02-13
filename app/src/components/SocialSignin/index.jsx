@@ -24,21 +24,28 @@ const Component = () => {
         console.log(res);
     };
 
+    const _handleInit42Signin = () => {
+        window.location.href = '/auth/signin/42';
+    };
+
     return (
-        <div className="socialSignin">
+        <div className="socialSignIn">
             <div
-                className="socialSignin-button google"
+                className="socialSignIn-button google"
                 onClick={_handleInitGoogleSignin}
             >
                 Google
             </div>
             <div
-                className="socialSignin-button facebook"
+                className="socialSignIn-button facebook"
                 onClick={_handleInitFacebookSignin}
             >
                 Facebook
             </div>
-            <div className="socialSignin-button siliconvalley">
+            <div
+                className="socialSignIn-button siliconvalley"
+                onClick={_handleInit42Signin}
+            >
                 42SV
             </div>
             <div className="hidden">

@@ -1,5 +1,7 @@
 import Axios from 'axios';
 
+import { SV_ID } from '../constants/api';
+
 export const checkToken = (token, cb) => {
     const url = `/api/token`;
     const data = {
@@ -48,7 +50,6 @@ export const getUserName = (userName, cb) => {
         .catch(() => {
             cb(0);
         });
-    
 
     // cb(1);
 };
@@ -66,7 +67,6 @@ export const getEmail = (email, cb) => {
         .catch(() => {
             cb(0);
         });
-    
 
     // cb(1);
 };
@@ -107,4 +107,28 @@ export const recovery = (email, cb) => {
         });
 
     // cb(1);
+};
+
+export const request42Access = cb => {
+    const url = `https://api.intra.42.fr/oauth/authorize`;
+    const data = {
+        client_id: SV_ID,
+        scope: 'public',
+        redirect_uri: 'http://localhost:3000',
+        response_type: 'code',
+        state:
+            'ksadmklqwnklenwqejkwqnielwqbnduliqwbnduiwqbenuiqwdbneqwijqjbdqweeb'
+    };
+
+    Axios.get(url, {
+        params: data,
+        mode: 'no-cors',
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
+        withCredentials: true,
+        credentials: 'same-origin'
+    }).then(res => {
+        cb(res);
+    });
 };

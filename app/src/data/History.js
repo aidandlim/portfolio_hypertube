@@ -1,9 +1,10 @@
 import Axios from 'axios';
 
-export const getHistories = (token, cb) => {
-    const url = `/api/histories`;
+export const getHistories = (token, userName, cb) => {
+    const url = `/api/history/userName`;
     const data = {
-        token
+        token,
+        userName
     };
 
     Axios.get(url, { params: data })
@@ -30,3 +31,21 @@ export const getHistory = (token, movieId, cb) => {
             cb(null);
         });
 };
+
+export const postHistory = (token, movieId, current, duration, cb) => {
+    const url = `/api/history`;
+    const data = {
+        token,
+        movieId,
+        current,
+        duration
+    };
+
+    Axios.post(url, data)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+}

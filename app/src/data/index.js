@@ -17,8 +17,16 @@ import {
     getUserName,
     getEmail,
     signup,
-    recovery
+    recovery,
+    request42Access
 } from './Auth';
+
+import {
+    getUserByToken,
+    getUserByUserName,
+    putUser,
+    deleteUser
+} from './User';
 
 import { getHistories, getHistory } from './History';
 
@@ -48,6 +56,11 @@ export {
     getEmail,
     signup,
     recovery,
+    request42Access,
+    getUserByToken,
+    getUserByUserName,
+    putUser,
+    deleteUser,
     getHistories,
     getHistory,
     getCommentByMovieId,
