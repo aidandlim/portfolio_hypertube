@@ -26,15 +26,15 @@ export const signin = (userName, password, cb) => {
         password
     };
 
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb(0);
-        });
+    // Axios.get(url, { params: data })
+    //     .then(res => {
+    //         cb(res.data);
+    //     })
+    //     .catch(() => {
+    //         cb(0);
+    //     });
 
-    // cb('VALIDTOKEN');
+    cb('VALIDTOKEN');
 };
 
 export const getUserName = (userName, cb) => {
@@ -126,4 +126,16 @@ export const request42Token = (code, cb) => {
         .catch(() => {
             cb(0);
         });
-}
+};
+
+export const request42Data = (token, cb) => {
+    let url = `https://api.intra.42.fr/v2/me`;
+
+    Axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(res => {
+            cb(res);
+        })
+        .catch(() => {
+            cb(0);
+        });
+};

@@ -1,32 +1,13 @@
-import React, { useEffect } from 'react';
-
-import queryString from 'query-string';
+import React from 'react';
 
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
-
-import { request42Token } from '../../data';
 
 import { GOOGLE_ID, FACEBOOK_ID, SV_ID } from '../../constants/api';
 
 import './index.css';
 
-const Component = ({ match }) => {
-    // useEffect(() => {
-    //     console.log(location);
-    //     if (location !== undefined) {
-    //         const { code } = queryString.parse(location.search);
-
-    //         console.log(code);
-
-    //         if (code !== undefined) {
-    //             request42Token(code, res => {
-    //                 console.log(res);
-    //             });
-    //         }
-    //     }
-    // }, [location]);
-
+const Component = () => {
     const _handleInitGoogleSignin = () => {
         document.querySelector('.google-signin').click();
     };
@@ -45,7 +26,7 @@ const Component = ({ match }) => {
 
     const _handleInit42Signin = () => {
         window.open(
-            `https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=http://localhost:3000/auth/signin&response_type=code`,
+            `https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=http://localhost:3000/auth/signin/42&response_type=code`,
             '_self'
         );
     };
@@ -73,6 +54,7 @@ const Component = ({ match }) => {
             <div className="hidden">
                 <GoogleLogin
                     className="google-signin"
+                    autoLoad={false}
                     clientId={GOOGLE_ID}
                     onSuccess={_handleGoogleSignin}
                     onFailure={_handleGoogleSignin}
