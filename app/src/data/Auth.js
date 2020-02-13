@@ -24,15 +24,15 @@ export const signin = (userName, password, cb) => {
         password
     };
 
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb(0);
-        });
+    // Axios.get(url, { params: data })
+    //     .then(res => {
+    //         cb(res.data);
+    //     })
+    //     .catch(() => {
+    //         cb(0);
+    //     });
 
-    // cb('VALIDTOKEN');
+    cb('VALIDTOKEN');
 };
 
 export const getUserName = (userName, cb) => {
