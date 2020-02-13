@@ -1,8 +1,8 @@
 import Axios from 'axios';
-import { API } from '../constants/api';
+import { TMDB_ID } from '../constants/api';
 
 export const apiGenres = (lang, cb) => {
-    let url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API}&language=${lang}`;
+    let url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_ID}&language=${lang}`;
 
     Axios.get(url)
         .then(res => {
@@ -14,7 +14,7 @@ export const apiGenres = (lang, cb) => {
 };
 
 export const apiMovies = (genre, filter, page, lang, cb) => {
-    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${API}&page=${page}&language=${
+    let url = `https://api.themoviedb.org/4/discover/movie?api_key=${TMDB_ID}&page=${page}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -42,19 +42,19 @@ export const apiMovies = (genre, filter, page, lang, cb) => {
     else if (filter === 'rating') url += '&sort_by=vote_average.desc';
     else if (filter === 'revenue') url += '&sort_by=revenue.desc';
     else if (filter === 'trend_day')
-        url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API}&page=${page}&language=${
+        url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${TMDB_ID}&page=${page}&language=${
             lang === 'en_US' ? 'en-US' : 'ko-KR'
         }`;
     else if (filter === 'trend_week')
-        url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API}&page=${page}&language=${
+        url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${TMDB_ID}&page=${page}&language=${
             lang === 'en_US' ? 'en-US' : 'ko-KR'
         }`;
     else if (filter === 'now_playing')
-        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API}&page=${page}&language=${
+        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${TMDB_ID}&page=${page}&language=${
             lang === 'en_US' ? 'en-US' : 'ko-KR'
         }`;
     else if (filter === 'upcoming')
-        url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API}&page=${page}&region=US&language=${
+        url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_ID}&page=${page}&region=US&language=${
             lang === 'en_US' ? 'en-US' : 'ko-KR'
         }`;
 
@@ -68,7 +68,7 @@ export const apiMovies = (genre, filter, page, lang, cb) => {
 };
 
 export const apiMovie = (id, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API}&language=${lang}`;
+    let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_ID}&language=${lang}`;
 
     Axios.get(url)
         .then(res => {
@@ -80,7 +80,7 @@ export const apiMovie = (id, lang, cb) => {
 };
 
 export const apiMovieDetail = (id, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API}&language=${
+    let url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${TMDB_ID}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -94,7 +94,7 @@ export const apiMovieDetail = (id, lang, cb) => {
 };
 
 export const apiSimilarMovies = (id, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API}&language=${
+    let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${TMDB_ID}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -108,7 +108,7 @@ export const apiSimilarMovies = (id, lang, cb) => {
 };
 
 export const apiRecommendationMovies = (id, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${API}&language=${
+    let url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${TMDB_ID}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -122,7 +122,7 @@ export const apiRecommendationMovies = (id, lang, cb) => {
 };
 
 export const apiSearch = (query, page, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/search/movie?api_key=${API}&query=${query}&page=${page}&language=${
+    let url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_ID}&query=${query}&page=${page}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -140,7 +140,7 @@ export const apiSearch = (query, page, lang, cb) => {
 };
 
 export const apiSearchWithCast = (id, page, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_cast=${id}&page=${page}&language=${
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_ID}&with_cast=${id}&page=${page}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -155,7 +155,7 @@ export const apiSearchWithCast = (id, page, lang, cb) => {
 };
 
 export const apiSearchWithCrew = (id, page, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_crew=${id}&page=${page}&language=${
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_ID}&with_crew=${id}&page=${page}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
@@ -169,7 +169,7 @@ export const apiSearchWithCrew = (id, page, lang, cb) => {
 };
 
 export const apiSearchWithCompany = (id, page, lang, cb) => {
-    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_companies=${id}&page=${page}&language=${
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_ID}&with_companies=${id}&page=${page}&language=${
         lang === 'en_US' ? 'en-US' : 'ko-KR'
     }`;
 
