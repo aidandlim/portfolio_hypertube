@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 
-import { request42Access } from '../../data';
+import queryString from 'query-string';
+
+import { request42Token } from '../../data';
 
 import './index.css';
 
-const Component = () => {
+const Component = ({ location }) => {
     useEffect(() => {
-        request42Access((res) => {
-            console.log(res);
-            document.querySelector('.socialSignInWith42').innerHTML = res.data;
-        })
-    }, []);
+        const { code } = queryString.parse(location.search);
 
-    return (
-        <div className='socialSignInWith42'></div>
-    );
-}
+        request42Token(code, res => {
+            console.log(res);
+        });
+    }, [location.search]);
+
+    return <div></div>;
+};
 
 export default Component;

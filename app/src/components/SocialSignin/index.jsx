@@ -3,7 +3,7 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 
-import { GOOGLE_ID, FACEBOOK_ID } from '../../constants/api';
+import { GOOGLE_ID, FACEBOOK_ID, SV_ID } from '../../constants/api';
 
 import './index.css';
 
@@ -25,7 +25,8 @@ const Component = () => {
     };
 
     const _handleInit42Signin = () => {
-        window.location.href = '/auth/signin/42';
+        // window.location.href = '/auth/signin/42';
+        window.open(`https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=http://localhost:3000/auth/signin/42&response_type=code`, 'new');
     };
 
     return (

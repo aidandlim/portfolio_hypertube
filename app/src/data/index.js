@@ -18,7 +18,7 @@ import {
     getEmail,
     signup,
     recovery,
-    request42Access
+    request42Token
 } from './Auth';
 
 import {
@@ -56,7 +56,7 @@ export {
     getEmail,
     signup,
     recovery,
-    request42Access,
+    request42Token,
     getUserByToken,
     getUserByUserName,
     putUser,

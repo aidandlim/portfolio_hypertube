@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import { SV_ID } from '../constants/api';
+import { SV_ID, SV_SECRET } from '../constants/api';
 
 export const checkToken = (token, cb) => {
     const url = `/api/token`;
@@ -26,15 +26,15 @@ export const signin = (userName, password, cb) => {
         password
     };
 
-    // Axios.get(url, { params: data })
-    //     .then(res => {
-    //         cb(res.data);
-    //     })
-    //     .catch(() => {
-    //         cb(0);
-    //     });
+    Axios.get(url, { params: data })
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(0);
+        });
 
-    cb('VALIDTOKEN');
+    // cb('VALIDTOKEN');
 };
 
 export const getUserName = (userName, cb) => {
@@ -109,26 +109,21 @@ export const recovery = (email, cb) => {
     // cb(1);
 };
 
-export const request42Access = cb => {
-    const url = `https://api.intra.42.fr/oauth/authorize`;
+export const request42Token = (code, cb) => {
+    let url = `https://api.intra.42.fr/oauth/token`;
     const data = {
+        grant_type: 'authorization_code',
         client_id: SV_ID,
-        scope: 'public',
-        redirect_uri: 'http://localhost:3000',
-        response_type: 'code',
-        state:
-            'ksadmklqwnklenwqejkwqnielwqbnduliqwbnduiwqbenuiqwdbneqwijqjbdqweeb'
+        client_secret: SV_SECRET,
+        code,
+        redirect_uri: 'http://localhost:3000/auth/signin/42'
     };
 
-    Axios.get(url, {
-        params: data,
-        mode: 'no-cors',
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        },
-        withCredentials: true,
-        credentials: 'same-origin'
-    }).then(res => {
-        cb(res);
-    });
-};
+    Axios.post(url, data)
+        .then(res => {
+            cb(res);
+        })
+        .catch(() => {
+            cb(0);
+        });
+}
