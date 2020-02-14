@@ -70,7 +70,7 @@ const Component = ({ match }) => {
         if (feed !== null) {
             feed.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }
-    }
+    };
 
     const _handleFilter = () => {
         setIsOpenFilter(isOpenFilter => !isOpenFilter);

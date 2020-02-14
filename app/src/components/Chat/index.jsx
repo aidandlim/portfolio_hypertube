@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import io from 'socket.io-client';
-import { SOCKET_URL } from '../../constants/api';
+import { SOCKET_URL } from '../../constants/url';
 
 import ScrollToBottom from 'react-scroll-to-bottom';
 

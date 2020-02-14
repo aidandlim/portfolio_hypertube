@@ -1,32 +1,28 @@
 import React from 'react';
 
-import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
-
 import { GOOGLE_ID, FACEBOOK_ID, SV_ID } from '../../constants/api';
+import { APP_REDIRECT_URL } from '../../constants/url';
 
 import './index.css';
 
 const Component = () => {
-    const _handleInitGoogleSignin = () => {
-        document.querySelector('.google-signin').click();
-    };
-
-    const _handleGoogleSignin = res => {
-        console.log(res.profileObj);
-    };
-
-    const _handleInitFacebookSignin = () => {
-        document.querySelector('.facebook-signin').click();
-    };
-
-    const _handleFacebookSignin = res => {
-        console.log(res);
-    };
-
-    const _handleInit42Signin = () => {
+    const _handleGoogleSignin = () => {
         window.open(
-            `https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=http://localhost:3000/auth/signin/42&response_type=code`,
+            `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_ID}&scope=openid%20email%20profile&redirect_uri=${APP_REDIRECT_URL}/google&response_type=code`,
+            '_self'
+        );
+    };
+
+    const _handleFacebookSignin = () => {
+        window.open(
+            `https://www.facebook.com/v6.0/dialog/oauth?client_id=${FACEBOOK_ID}&redirect_uri=${APP_REDIRECT_URL}/facebook`,
+            '_self'
+        );
+    };
+
+    const _handle42Signin = () => {
+        window.open(
+            `https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=${APP_REDIRECT_URL}/42&response_type=code`,
             '_self'
         );
     };
@@ -35,38 +31,21 @@ const Component = () => {
         <div className="socialSignIn">
             <div
                 className="socialSignIn-button google"
-                onClick={_handleInitGoogleSignin}
+                onClick={_handleGoogleSignin}
             >
                 Google
             </div>
             <div
                 className="socialSignIn-button facebook"
-                onClick={_handleInitFacebookSignin}
+                onClick={_handleFacebookSignin}
             >
                 Facebook
             </div>
             <div
                 className="socialSignIn-button siliconvalley"
-                onClick={_handleInit42Signin}
+                onClick={_handle42Signin}
             >
                 42SV
-            </div>
-            <div className="hidden">
-                <GoogleLogin
-                    className="google-signin"
-                    autoLoad={false}
-                    clientId={GOOGLE_ID}
-                    onSuccess={_handleGoogleSignin}
-                    onFailure={_handleGoogleSignin}
-                    cookiePolicy={'single_host_origin'}
-                />
-                <FacebookLogin
-                    cssClass="facebook-signin"
-                    autoLoad={false}
-                    appId={FACEBOOK_ID}
-                    fields="email,first_name,last_name,picture"
-                    callback={_handleFacebookSignin}
-                />
             </div>
         </div>
     );

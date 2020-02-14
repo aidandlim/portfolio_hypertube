@@ -11,8 +11,6 @@
     "react-cookies": "^0.1.1",
     "react-div-100vh": "^0.3.8",
     "react-dom": "^16.12.0",
-    "react-facebook-login": "^4.1.1",
-    "react-google-login": "^5.1.0",
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
@@ -24,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prestart": "rm -f ./node_modules/webpack-dev-server/ssl/server.pem && cp -f ./cert/server.pem ./node_modules/webpack-dev-server/ssl",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

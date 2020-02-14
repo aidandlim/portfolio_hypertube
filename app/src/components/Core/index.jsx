@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { Switch, Redirect, Route } from 'react-router-dom';
 
 import Feed from '../Feed';
@@ -7,13 +9,15 @@ import Search from '../Search';
 import Detail from '../Detail';
 import Streaming from '../Streaming';
 import SignIn from '../SignIn';
-import SocialSignInWith42 from '../SocialSignInWith42';
+import SocialSignInCallback from '../SocialSignInCallback';
 import SignUp from '../SignUp';
 import Recovery from '../Recovery';
 import User from '../User';
 import Error from '../Error';
 
 const Component = () => {
+    const auth = useSelector(state => state.auth);
+
     return (
         <Switch>
             <Redirect from='/' to='/feed/all/popularity' exact />
@@ -22,10 +26,13 @@ const Component = () => {
             <Route path='/search/:type/:query/:queryName' exact component={Search} />
             <Route path='/detail/:id' exact component={Detail} />
             <Route path='/streaming/:torrent/:magnet' exact component={Streaming} />
+            {auth.token !== '' ? <Redirect from='/auth/signin' to='/feed/all/popularity' exact /> : null}
             <Route path='/auth/signin' exact component={SignIn} />
-            <Route path='/auth/signin/42' exact component={SocialSignInWith42} />
+            {auth.token !== '' ? <Redirect from='/auth/signin/:source' to='/feed/all/popularity' exact /> : null}
+            <Route path='/auth/signin/:source' exact component={SocialSignInCallback} />
             <Route path='/auth/signup' exact component={SignUp} />
             <Route path='/auth/recovery' exact component={Recovery} />
+            {auth.token === '' ? <Redirect from='/user/:userName' to='/auth/signin' exact /> : null}
             <Route path='/user/:userName' exact component={User} />
             <Route component={Error} />
         </Switch>

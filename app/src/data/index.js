@@ -17,9 +17,14 @@ import {
     getUserName,
     getEmail,
     signup,
+    oAuth,
     recovery,
-    request42Token,
-    request42Data
+    requestGoogleCode,
+    requestGoogleProfile,
+    requestFacebookCode,
+    requestFacebookProfile,
+    request42Code,
+    request42Profile
 } from './Auth';
 
 import {
@@ -56,9 +61,14 @@ export {
     getUserName,
     getEmail,
     signup,
+    oAuth,
     recovery,
-    request42Token,
-    request42Data,
+    requestGoogleCode,
+    requestGoogleProfile,
+    requestFacebookCode,
+    requestFacebookProfile,
+    request42Code,
+    request42Profile,
     getUserByToken,
     getUserByUserName,
     putUser,

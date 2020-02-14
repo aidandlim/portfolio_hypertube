@@ -8,7 +8,7 @@ import Wrapper from 'react-div-100vh';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { apiGenres } from '../../data';
+import { apiGenres, checkToken } from '../../data';
 
 import Header from '../Header';
 import Core from '../Core';
@@ -18,20 +18,16 @@ const Component = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(
-            auth_token(
-                cookie.load('token') !== undefined
-                    ? cookie.load('token')
-                    : ''
-            )
-        );
-        dispatch(
-            ui_lang(
-                cookie.load('lang') !== undefined
-                    ? cookie.load('lang')
-                    : 'en_US'
-            )
-        );
+        const token = cookie.load('token');
+
+        if (token !== undefined && token !== '') {
+            checkToken(token, res => {
+                if (res) {
+                    dispatch(auth_token(token));
+                }
+            });
+        }
+        dispatch(ui_lang(cookie.load('lang') !== undefined ? cookie.load('lang') : 'en_US'));
     }, [dispatch]);
 
     useEffect(() => {

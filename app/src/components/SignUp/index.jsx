@@ -17,19 +17,14 @@ const Component = ({ history }) => {
         e.preventDefault();
         const form = document.signup;
         signup(
-            form.userName,
-            form.password,
-            form.email,
-            form.firstName,
-            form.lastName,
+            form.userName.value,
+            form.password.value,
+            form.email.value,
+            form.firstName.value,
+            form.lastName.value,
             res => {
-                if (res === 1) {
-                    alert('complete');
+                if (res.status === 200) {
                     history.goBack();
-                } else if (res === 2) {
-                    alert('password error');
-                } else if (res === 3) {
-                    alert('username error');
                 }
             }
         );

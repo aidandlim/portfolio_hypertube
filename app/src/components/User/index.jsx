@@ -24,7 +24,6 @@ const Component = () => {
             path: '/'
         });
         dispatch(auth_token(''));
-        window.location.href = '/';
     };
 
     const menus = [0, 1, 2];

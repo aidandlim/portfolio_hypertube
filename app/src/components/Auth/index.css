@@ -187,7 +187,7 @@
     padding: 0.5rem;
 
     position: absolute;
-    top: 50%;
+    top: calc(50% + 0.25rem);
     left: 50%;
     transform: translate(-50%, -50%);
 
