@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Comment from '../Comment';
 import CommentPost from '../CommentPost';
 
-import { getCommentByMovieId } from '../../data';
+import { getCommentsByMovieId } from '../../data';
 
 import './index.css';
 
@@ -18,7 +18,7 @@ const Component = ({ id }) => {
     useEffect(() => {
         let isCancelled = false;
 
-        getCommentByMovieId(id, res => {
+        getCommentsByMovieId(id, res => {
             setTimeout(() => {
                 if (!isCancelled) {
                     setCommentList(res);

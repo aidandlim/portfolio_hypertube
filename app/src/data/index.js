@@ -17,15 +17,18 @@ import {
     getUserName,
     getEmail,
     signup,
-    oAuth,
     recovery,
+    oAuth,
+} from './Auth';
+
+import {
     requestGoogleCode,
     requestGoogleProfile,
     requestFacebookCode,
     requestFacebookProfile,
     request42Code,
     request42Profile
-} from './Auth';
+} from './oAuth';
 
 import {
     getUserByToken,
@@ -37,8 +40,8 @@ import {
 import { getHistories, getHistory } from './History';
 
 import {
-    getCommentByMovieId,
-    getCommentByUserId,
+    getCommentsByMovieId,
+    getCommentsByUserId,
     postComment,
     deleteComment
 } from './Comment';
@@ -75,8 +78,8 @@ export {
     deleteUser,
     getHistories,
     getHistory,
-    getCommentByMovieId,
-    getCommentByUserId,
+    getCommentsByMovieId,
+    getCommentsByUserId,
     postComment,
     deleteComment,
     getTorrents
