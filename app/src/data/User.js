@@ -1,52 +1,80 @@
+/*
+    Response = {
+        status: number
+            200: success
+            400: failure
+            401: invalid token
+        obj: object(return value)
+        list: list(return value)
+    }
+*/
+
 import Axios from 'axios';
 
+/*
+    method: 
+        GET
+    url: 
+        /api/user/token/:token
+    parameter: 
+        null
+    result:
+        status
+        obj
+*/
 export const getUserByToken = (token, cb) => {
-    const url = `/api/user`;
+    const url = `/api/user/token/${token}`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(0);
+        });
+};
+
+/*
+    method: 
+        GET
+    url: 
+        /api/user/userName/:userName
+    parameter: 
+        token
+    result:
+        status
+        obj
+*/
+export const getUserByUserName = (token, userName, cb) => {
+    const url = `/api/user/userName/${userName}`;
     const data = {
         token
     };
 
-    Axios.get(url, { params: data })
+    Axios.get(url)
         .then(res => {
             cb(res.data);
         })
         .catch(() => {
             cb(0);
         });
-
-    // cb({
-    //     userName: 'aidan',
-    //     firstName: 'Aidan',
-    //     lastName: 'Lim',
-    // });
 };
 
-export const getUserByUserName = (token, userName, cb) => {
-    const url = `/api/user/userName`;
-    const data = {
-        token,
-        userName
-    };
-
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb(0);
-        });
-
-    // cb({
-    //     userName: 'aidan',
-    //     firstName: 'Aidan',
-    //     lastName: 'Lim',
-    // });
-};
-
-export const putUser = (token, password, email, firstName, lastName, cb) => {
+/*
+    method: 
+        PUT
+    url: 
+        /api/user
+    parameter: 
+        token, userName, password, email, firstName, lastName
+    result:
+        status
+*/
+export const putUser = (token, userName, password, email, firstName, lastName, cb) => {
     let url = `/api/auth`;
     const data = {
         token,
+        userName,
         password,
         email,
         firstName,
@@ -60,23 +88,26 @@ export const putUser = (token, password, email, firstName, lastName, cb) => {
         .catch(() => {
             cb(0);
         });
-
-    // cb(1);
 };
 
+/*
+    method: 
+        DELETE
+    url: 
+        /api/user/:token
+    parameter: 
+        null
+    result:
+        status
+*/
 export const deleteUser = (token, cb) => {
-    let url = `/api/auth`;
-    const data = {
-        token
-    };
+    let url = `/api/auth/${token}`;
 
-    Axios.delete(url, { params: data })
+    Axios.delete(url)
         .then(res => {
             cb(res.data);
         })
         .catch(() => {
             cb(0);
         });
-
-    // cb(1);
 };
