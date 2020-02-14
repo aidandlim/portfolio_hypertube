@@ -15,7 +15,7 @@ import Axios from 'axios';
     method: 
         GET
     url: 
-        /api/user/token/:token
+        /api/user/token
     parameter: 
         null
     result:
@@ -23,9 +23,12 @@ import Axios from 'axios';
         obj
 */
 export const getUserByToken = (token, cb) => {
-    const url = `/api/user/token/${token}`;
+    const url = `/api/user/token`;
+    const data = {
+        token
+    };
 
-    Axios.get(url)
+    Axios.get(url, { params: data })
         .then(res => {
             cb(res.data);
         })
@@ -38,7 +41,7 @@ export const getUserByToken = (token, cb) => {
     method: 
         GET
     url: 
-        /api/user/userName/:userName
+        /api/user/:userName
     parameter: 
         token
     result:
@@ -46,12 +49,12 @@ export const getUserByToken = (token, cb) => {
         obj
 */
 export const getUserByUserName = (token, userName, cb) => {
-    const url = `/api/user/userName/${userName}`;
+    const url = `/api/user/${userName}`;
     const data = {
         token
     };
 
-    Axios.get(url)
+    Axios.get(url, { params: data })
         .then(res => {
             cb(res.data);
         })
@@ -71,7 +74,7 @@ export const getUserByUserName = (token, userName, cb) => {
         status
 */
 export const putUser = (token, userName, password, email, firstName, lastName, cb) => {
-    let url = `/api/auth`;
+    const url = `/api/auth`;
     const data = {
         token,
         userName,
@@ -94,16 +97,19 @@ export const putUser = (token, userName, password, email, firstName, lastName, c
     method: 
         DELETE
     url: 
-        /api/user/:token
+        /api/user
     parameter: 
         null
     result:
         status
 */
 export const deleteUser = (token, cb) => {
-    let url = `/api/auth/${token}`;
+    const url = `/api/auth`;
+    const data = {
+        token
+    };
 
-    Axios.delete(url)
+    Axios.delete(url, { params: data })
         .then(res => {
             cb(res.data);
         })

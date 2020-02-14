@@ -2,8 +2,9 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { signup } from '../../data';
+import { getUserName, getEmail, signup } from '../../data';
 
+import FeatherIcon from 'feather-icons-react';
 import '../Auth/index.css';
 
 const Component = ({ history }) => {
@@ -30,12 +31,61 @@ const Component = ({ history }) => {
         );
     };
 
+    const normalColor = '#505050';
+    const confirmedColor = '#64FFDA';
+
+    const _handleCheckUserName = e => {
+        const value = e.target.value;
+        const target = 'signup-userName';
+
+        if (value.length < 5) {
+            document.getElementById(target).style.color = normalColor;
+            return false;
+        }
+
+        getUserName(value, res => {
+            if (res.status === 200) {
+                document.getElementById(target).style.color = confirmedColor;
+                return true;
+            } else {
+                document.getElementById(target).style.color = normalColor;
+                return false;
+            }
+        });
+    };
+
+    const _handleCheckPassword = e => {
+        document.getElementById('signup-password').style.color = confirmedColor;
+    };
+
+    const _handleCheckConfrim = e => {
+        document.getElementById('signup-confirm').style.color = confirmedColor;
+    };
+
+    const _handleCheckEmail = e => {
+        const value = e.target.value;
+        const target = 'signup-email';
+
+        if (value.length < 5) {
+            document.getElementById(target).style.color = normalColor;
+            return false;
+        }
+
+        getEmail(value, res => {
+            if (res.status === 200) {
+                document.getElementById(target).style.color = confirmedColor;
+                return true;
+            } else {
+                document.getElementById(target).style.color = normalColor;
+                return false;
+            }
+        });
+    };
+
     return (
         <div className='auth'>
             <div className='auth-container'>
-                <div className='auth-title'>
-                    {ui.lang === 'en_US' ? 'Sign Up' : '회원가입'}
-                </div>
+                <div className='auth-title'>{ui.lang === 'en_US' ? 'Sign Up' : '회원가입'}</div>
                 <div className='auth-description'>
                     {ui.lang === 'en_US'
                         ? 'Sometimes, all you need to do is completely make an ass of yourself and laugh it off to realise that life isn’t so bad after all. The green tea and avocado smoothie turned out exactly as would be expected.'
@@ -44,62 +94,50 @@ const Component = ({ history }) => {
                 <form name='signup' autoComplete='off' onSubmit={_handleForm}>
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'USER NAME' : '아이디'}
+                        <div className='auth-input-check'>
+                            <FeatherIcon id='signup-userName' className='auth-input-check-icon' icon='check' />
+                        </div>
                     </div>
                     <input
                         className='auth-input'
                         type='text'
                         name='userName'
                         autoFocus
+                        onChange={_handleCheckUserName}
                     />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호'}
+                        <div className='auth-input-check'>
+                            <FeatherIcon id='signup-password' className='auth-input-check-icon' icon='check' />
+                        </div>
                     </div>
-                    <input
-                        className='auth-input'
-                        type='password'
-                        name='password'
-                    />
+                    <input className='auth-input' type='password' name='password' onChange={_handleCheckPassword} />
                     <div className='auth-placeholder'>
-                        {ui.lang === 'en_US'
-                            ? 'CONFIRM PASSWORD'
-                            : '비밀번호 확인'}
+                        {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
+                        <div className='auth-input-check'>
+                            <FeatherIcon id='signup-confirm' className='auth-input-check-icon' icon='check' />
+                        </div>
                     </div>
-                    <input
-                        className='auth-input'
-                        type='password'
-                        name='confirm'
-                    />
+                    <input className='auth-input' type='password' name='confirm' onChange={_handleCheckConfrim} />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
+                        <div className='auth-input-check'>
+                            <FeatherIcon id='signup-email' className='auth-input-check-icon' icon='check' />
+                        </div>
                     </div>
                     <input
                         className='auth-input'
                         type='email'
                         name='email'
                         autoComplete='password'
+                        onChange={_handleCheckEmail}
                     />
-                    <div className='auth-placeholder'>
-                        {ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}
-                    </div>
-                    <input
-                        className='auth-input'
-                        type='text'
-                        name='firstName'
-                        autoComplete='password'
-                    />
-                    <div className='auth-placeholder'>
-                        {ui.lang === 'en_US' ? 'LAST NAME' : '성'}
-                    </div>
-                    <input
-                        className='auth-input'
-                        type='text'
-                        name='lastName'
-                        autoComplete='password'
-                    />
+                    <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
+                    <input className='auth-input' type='text' name='firstName' autoComplete='password' />
+                    <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
+                    <input className='auth-input' type='text' name='lastName' autoComplete='password' />
                     <div className='auth-nav' onClick={_handleBack}>
-                        {ui.lang === 'en_US'
-                            ? 'Do you have an account already?'
-                            : '이미 계정을 갖고 계신가요?'}
+                        {ui.lang === 'en_US' ? 'Do you have an account already?' : '이미 계정을 갖고 계신가요?'}
                     </div>
                     <input
                         className='auth-button auth-submit'

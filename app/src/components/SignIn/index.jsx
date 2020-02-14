@@ -26,7 +26,6 @@ const Component = ({ history }) => {
         e.preventDefault();
         const form = document.signin;
         signin(form.userName.value, form.password.value, res => {
-            console.log(res);
             if (res.status === 200) {
                 dispatch(auth_token(res.obj));
                 confirmAlert({
@@ -52,12 +51,12 @@ const Component = ({ history }) => {
                 });
                 history.goBack();
             } else {
-                if (res.message === 'UserName') {
+                if (res.status === 411) {
                     confirmAlert({
                         message: ui.lang === 'en_US' ? 'Username is invalid :(' : '아이디가 올바르지 않습니다.',
                         buttons: [{ label: 'Okay' }]
                     });
-                } else if (res.message === 'Password') {
+                } else if (res.status === 412) {
                     confirmAlert({
                         message: ui.lang === 'en_US' ? 'Password is invalid :(' : '비밀번호가 올바르지 않습니다.',
                         buttons: [{ label: 'Okay' }]

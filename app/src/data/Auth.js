@@ -15,16 +15,19 @@ import Axios from 'axios';
     method: 
         GET
     url: 
-        /api/token/:token
+        /api/token/
     parameter: 
         null
     result:
         status
 */
 export const checkToken = (token, cb) => {
-    const url = `/api/token/${token}`;
+    const url = `/api/token`;
+    const data = {
+        token
+    }
 
-    Axios.get(url)
+    Axios.get(url, { params: data })
         .then(res => {
             cb(res.data);
         })
@@ -74,7 +77,7 @@ export const signin = (userName, password, cb) => {
         status
 */
 export const getUserName = (userName, cb) => {
-    let url = `/api/auth/userName/${userName}`;
+    const url = `/api/auth/userName/${userName}`;
 
     Axios.get(url)
         .then(res => {
@@ -96,7 +99,7 @@ export const getUserName = (userName, cb) => {
         status
 */
 export const getEmail = (email, cb) => {
-    let url = `/api/auth/email/${email}`;
+    const url = `/api/auth/email/${email}`;
 
     Axios.get(url)
         .then(res => {
@@ -109,7 +112,7 @@ export const getEmail = (email, cb) => {
 
 /*
     method: 
-        GET
+        POST
     url: 
         /api/auth
     parameter: 
@@ -118,7 +121,7 @@ export const getEmail = (email, cb) => {
         status
 */
 export const signup = (userName, password, email, firstName, lastName, cb) => {
-    let url = `/api/auth`;
+    const url = `/api/auth`;
     const data = {
         userName,
         password,
@@ -147,11 +150,11 @@ export const signup = (userName, password, email, firstName, lastName, cb) => {
         status
 */
 export const recovery = (email, cb) => {
-    let url = `/api/auth/recovery/${email}`;
+    const url = `/api/auth/recovery/${email}`;
 
     Axios.get(url)
         .then(res => {
-            cb(res.data.status);
+            cb(res.data);
         })
         .catch(() => {
             cb(0);
@@ -169,7 +172,7 @@ export const recovery = (email, cb) => {
         status
 */
 export const oAuth = ({ userName, email, firstName, lastName, picture, socialType }, cb) => {
-    let url = `/api/auth/social`;
+    const url = `/api/auth/social`;
     const data = {
         userName: `${userName}-${Math.floor(Math.random() * 100000)}`,
         email,

@@ -69,7 +69,6 @@ export const getCommentsByUserId = (token, userId, cb) => {
         token, movieId, content
     result:
         status
-        list
 */
 export const postComment = (token, movieId, content, cb) => {
     const url = `/api/comment`;

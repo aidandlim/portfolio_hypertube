@@ -20,9 +20,9 @@ const Component = () => {
     useEffect(() => {
         const token = cookie.load('token');
 
-        if (token !== undefined && token !== '') {
+        if (token !== undefined && token !== '' && token !== null) {
             checkToken(token, res => {
-                if (res) {
+                if (res === 200) {
                     dispatch(auth_token(token));
                 }
             });
