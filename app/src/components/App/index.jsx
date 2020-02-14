@@ -2,16 +2,14 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth_token, movie_genres, ui_lang } from '../../actions';
 
-import cookie from 'react-cookies';
-
-import Wrapper from 'react-div-100vh';
-
 import { BrowserRouter } from 'react-router-dom';
-
-import { apiGenres, checkToken } from '../../data';
+import Wrapper from 'react-div-100vh';
+import cookie from 'react-cookies';
 
 import Header from '../Header';
 import Core from '../Core';
+
+import { apiGenres, checkToken } from '../../data';
 
 const Component = () => {
     const ui = useSelector(state => state.ui);
@@ -20,7 +18,7 @@ const Component = () => {
     useEffect(() => {
         const token = cookie.load('token');
 
-        if (token !== undefined && token !== '' && token !== null) {
+        if (token !== null && token !== undefined && token !== '') {
             checkToken(token, res => {
                 if (res === 200) {
                     dispatch(auth_token(token));

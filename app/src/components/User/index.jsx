@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { auth_token } from '../../actions';
 
 import cookie from 'react-cookies';
@@ -10,6 +10,8 @@ import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
 import UserSetting from '../UserSetting';
 
+import { getUserByToken } from '../../data';
+
 import FeatherIcon from 'feather-icons-react';
 import user_default from '../../assets/images/user_default.png';
 
@@ -17,7 +19,13 @@ import './index.css';
 
 const Component = () => {
     const [nav, setNav] = useState(0);
+
+    const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        
+    }, []);
 
     const _handleSignOut = () => {
         cookie.save('token', '', {
