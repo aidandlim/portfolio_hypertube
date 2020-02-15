@@ -1,5 +1,8 @@
+#node_modules
 /node_modules
 
+#unnecessary file
 .DS_Store
 
+#protect api key file
 /src/constants/api.js
