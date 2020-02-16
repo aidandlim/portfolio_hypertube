@@ -7,18 +7,9 @@ import cookie from 'react-cookies';
 
 import queryString from 'query-string';
 
-import {
-    requestGoogleCode,
-    requestGoogleProfile,
-    requestFacebookCode,
-    requestFacebookProfile,
-    request42Code,
-    request42Profile,
-    oAuth
-} from '../../data';
+import { requestGoogleCode, requestGoogleProfile, requestFacebookCode, requestFacebookProfile, request42Code, request42Profile, oAuth } from '../../data';
 
-import { confirmAlert } from 'react-confirm-alert';
-
+import { alert } from '../../util';
 import './index.css';
 
 const Component = ({ history, location, match }) => {
@@ -51,55 +42,24 @@ const Component = ({ history, location, match }) => {
                         oAuth(res, res => {
                             if (res.status === 200) {
                                 dispatch(auth_token(res.obj));
-                                confirmAlert({
-                                    message:
-                                        ui.lang === 'en_US'
-                                            ? 'Do you want to keep your signin status?'
-                                            : '로그인을 유지하시겠습니까?',
-                                    buttons: [
-                                        {
-                                            label: 'Yes',
-                                            onClick: () =>
-                                                cookie.save('token', res.obj, {
-                                                    path: '/'
-                                                })
-                                        },
-                                        {
-                                            label: 'No',
-                                            onClick: () =>
-                                                cookie.save('token', res.obj, {
-                                                    path: '/',
-                                                    maxAge: 60 * 30
-                                                })
-                                        }
-                                    ]
-                                });
+                                alert(
+                                    'question',
+                                    ui.lang === 'en_US' ? 'Do you want to keep your signin status?' : '로그인을 유지하시겠습니까?',
+                                    cookie.save('token', res.obj, {
+                                        path: '/'
+                                    }),
+                                    cookie.save('token', res.obj, {
+                                        path: '/',
+                                        maxAge: 60 * 30
+                                    })
+                                );
                             } else {
-                                if (res.message === 'Email') {
-                                    confirmAlert({
-                                        message:
-                                            ui.lang === 'en_US'
-                                                ? 'This email is taken!'
-                                                : '이미 존재하는 이메일입니다.',
-                                        buttons: [{ label: 'Okay', onClick: () => history.goBack() }]
-                                    });
-                                }
+                                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                             }
                         });
                     });
                 } else {
-                    confirmAlert({
-                        message:
-                            ui.lang === 'en_US'
-                                ? 'This access is invalid! Please try again.'
-                                : '올바르지 않은 접속입니다. 다시 시도해주십시오.',
-                        buttons: [
-                            {
-                                label: 'Okay',
-                                onClick: () => history.goBack()
-                            }
-                        ]
-                    });
+                    alert('message', ui.lang === 'en_US' ? 'This access is invalid! Please try again.' : '올바르지 않은 접속입니다. 다시 시도해주십시오.', () => history.goBack(), null);
                 }
             });
         }
@@ -107,9 +67,7 @@ const Component = ({ history, location, match }) => {
 
     return (
         <div className='socialSignInWith42'>
-            <div className='socialSignInWith42-loading'>
-                {ui.lang === 'en_US' ? 'SignIn is processing!' : '로그인이 진행 중입니다.'}
-            </div>
+            <div className='socialSignInWith42-loading'>{ui.lang === 'en_US' ? 'SignIn is processing!' : '로그인이 진행 중입니다.'}</div>
         </div>
     );
 };

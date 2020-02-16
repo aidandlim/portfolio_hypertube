@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { auth_token, movie_genres, ui_lang } from '../../actions';
+import { auth_token, movie_genres, movie_histories, ui_lang } from '../../actions';
 
 import { BrowserRouter } from 'react-router-dom';
 import Wrapper from 'react-div-100vh';
@@ -9,7 +9,8 @@ import cookie from 'react-cookies';
 import Header from '../Header';
 import Core from '../Core';
 
-import { apiGenres, checkToken } from '../../data';
+import { apiGenres, checkToken, getHistories } from '../../data';
+import { session } from '../../util';
 
 const Component = () => {
     const ui = useSelector(state => state.ui);
@@ -22,13 +23,17 @@ const Component = () => {
             checkToken(token, res => {
                 if (res === 200) {
                     dispatch(auth_token(token));
+                    getHistories(token, res => {
+                        if (session(dispatch, res)) {
+                            dispatch(movie_histories(res.list));
+                        } else {
+                            alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                        }
+                    });
                 }
             });
         }
         dispatch(ui_lang(cookie.load('lang') !== undefined ? cookie.load('lang') : 'en_US'));
-    }, [dispatch]);
-
-    useEffect(() => {
         apiGenres(ui.lang, res => {
             dispatch(movie_genres(res));
         });

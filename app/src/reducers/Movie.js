@@ -1,5 +1,6 @@
 const data = {
     genres: [],
+    histories: []
 };
 
 const reducer = (state = data, action) => {
@@ -7,6 +8,10 @@ const reducer = (state = data, action) => {
         case 'MOVIE_GENRES':
             return Object.assign({}, state, {
                 genres: action.payload.genres
+            });
+        case 'MOVIE_HISTORIES':
+            return Object.assign({}, state, {
+                histories: action.payload.genres
             });
         default:
             return state;

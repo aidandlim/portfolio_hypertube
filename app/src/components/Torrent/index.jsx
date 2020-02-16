@@ -15,10 +15,7 @@ const Component = ({ torrent }) => {
     const _handleUserStatus = () => {
         if (auth.token === '') {
             confirmAlert({
-                message:
-                    ui.lang === 'en_US'
-                        ? 'This feature requires SignIn first.'
-                        : '로그인이 필요한 서비스입니다.',
+                message: ui.lang === 'en_US' ? 'This feature requires SignIn first.' : '로그인이 필요한 서비스입니다.',
                 buttons: [
                     {
                         label: 'Okay'
@@ -29,16 +26,7 @@ const Component = ({ torrent }) => {
     };
 
     return (
-        <Link
-            to={
-                auth.token !== ''
-                    ? `/streaming/${
-                        torrent.title
-                      }/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}`
-                    : '/auth/signin'
-            }
-            onClick={_handleUserStatus}
-        >
+        <Link to={auth.token !== '' ? `/streaming/${torrent.title}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
             <div className='torrent'>
                 <div className='torrent-title'>{torrent.title}</div>
                 <div className='torrent-info'>

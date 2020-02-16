@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { getUserName, getEmail, signup } from '../../data';
 
+import { alert } from '../../util';
 import FeatherIcon from 'feather-icons-react';
 import '../Auth/index.css';
 
@@ -18,19 +19,15 @@ const Component = ({ history }) => {
         e.preventDefault();
         if (_handleCheckUserName && _handleCheckPassword && _handleCheckConfrim && _handleCheckEmail) {
             const form = document.signup;
-            signup(
-                form.userName.value,
-                form.password.value,
-                form.email.value,
-                form.firstName.value,
-                form.lastName.value,
-                res => {
-                    if (res.status === 200) {
-                        history.goBack();
-                    }
+            signup(form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
+                if (res.status === 200) {
+                    history.goBack();
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
-            );
+            });
         } else {
+            alert('messeage', 'Input data is invalid! Please check your information again.', null, null);
         }
     };
 
@@ -142,13 +139,7 @@ const Component = ({ history }) => {
                             <FeatherIcon id='signup-userName' className='auth-input-check-icon' icon='check' />
                         </div>
                     </div>
-                    <input
-                        className='auth-input'
-                        type='text'
-                        name='userName'
-                        autoFocus
-                        onChange={_handleCheckUserName}
-                    />
+                    <input className='auth-input' type='text' name='userName' autoFocus onChange={_handleCheckUserName} />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호'}
                         <div className='auth-input-check'>
@@ -169,13 +160,7 @@ const Component = ({ history }) => {
                             <FeatherIcon id='signup-email' className='auth-input-check-icon' icon='check' />
                         </div>
                     </div>
-                    <input
-                        className='auth-input'
-                        type='email'
-                        name='email'
-                        autoComplete='password'
-                        onChange={_handleCheckEmail}
-                    />
+                    <input className='auth-input' type='email' name='email' autoComplete='password' onChange={_handleCheckEmail} />
                     <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
                     <input className='auth-input' type='text' name='firstName' autoComplete='password' />
                     <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
@@ -183,17 +168,8 @@ const Component = ({ history }) => {
                     <div className='auth-nav' onClick={_handleBack}>
                         {ui.lang === 'en_US' ? 'Do you have an account already?' : '이미 계정을 갖고 계신가요?'}
                     </div>
-                    <input
-                        className='auth-button auth-submit'
-                        type='submit'
-                        value={ui.lang === 'en_US' ? 'SIGN UP' : '회원가입'}
-                    />
-                    <input
-                        className='auth-button'
-                        type='button'
-                        value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'}
-                        onClick={_handleBack}
-                    />
+                    <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SIGN UP' : '회원가입'} />
+                    <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'} onClick={_handleBack} />
                 </form>
             </div>
         </div>

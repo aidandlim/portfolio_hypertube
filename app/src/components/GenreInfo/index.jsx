@@ -9,9 +9,7 @@ const Component = ({ genre_ids }) => {
 
     return genre_ids.map((genre_id, index) => (
         <div className='genre' key={index}>
-            {movie.genres.find(genre => genre.id === genre_id) === undefined
-                ? 'NULL'
-                : movie.genres.find(genre => genre.id === genre_id).name}
+            {movie.genres.find(genre => genre.id === genre_id) === undefined ? 'NULL' : movie.genres.find(genre => genre.id === genre_id).name}
         </div>
     ));
 };

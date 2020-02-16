@@ -52,125 +52,62 @@ const Component = ({ match, history }) => {
     };
 
     return (
-        <div className="detail">
+        <div className='detail'>
             {movie === null ? (
-                <div className="detail-error">Something went wrong :(</div>
+                <div className='detail-error'>Something went wrong :(</div>
             ) : (
                 <div
-                    className="detail-container"
+                    className='detail-container'
                     style={{
                         backgroundImage:
-                            movie.poster_path !== '' &&
-                            movie.poster_path !== null &&
-                            movie.poster_path !== undefined
-                                ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`
-                                : ''
+                            movie.poster_path !== '' && movie.poster_path !== null && movie.poster_path !== undefined ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')` : ''
                     }}
                     onWheel={_handleWheel}
                 >
-                    <div className="detail-cover">
-                        <div className="detail-back" onClick={_handleBack}>
-                            <FeatherIcon
-                                icon="arrow-left"
-                                color="#AAAAAA"
-                                size="3rem"
-                            />
+                    <div className='detail-cover'>
+                        <div className='detail-back' onClick={_handleBack}>
+                            <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
                         </div>
-                        <div
-                            className="detail-open"
-                            onClick={() =>
-                                setIsOpenDetail(isOpenDetail => !isOpenDetail)
-                            }
-                        >
-                            <div className="detail-open-icon">
-                                {isOpenDetail ? (
-                                    <FeatherIcon
-                                        className="detail-open-icon-svg"
-                                        icon="chevron-down"
-                                    />
-                                ) : (
-                                    <FeatherIcon
-                                        className="detail-open-icon-svg"
-                                        icon="chevron-up"
-                                    />
-                                )}
+                        <div className='detail-open' onClick={() => setIsOpenDetail(isOpenDetail => !isOpenDetail)}>
+                            <div className='detail-open-icon'>
+                                {isOpenDetail ? <FeatherIcon className='detail-open-icon-svg' icon='chevron-down' /> : <FeatherIcon className='detail-open-icon-svg' icon='chevron-up' />}
                             </div>
-                            <div className="detail-open-message">
-                                {isOpenDetail ? 'HIDE DETAILS' : 'SHOW DETAILS'}
-                            </div>
+                            <div className='detail-open-message'>{isOpenDetail ? 'HIDE DETAILS' : 'SHOW DETAILS'}</div>
                         </div>
-                        <div className="detail-info-container">
-                            <div className="detail-status">{movie.status}</div>
-                            <div className="detail-genres">
+                        <div className='detail-info-container'>
+                            <div className='detail-status'>{movie.status}</div>
+                            <div className='detail-genres'>
                                 {movie.genres.map((genre, index) => (
-                                    <div
-                                        className="detail-info-general-italic"
-                                        key={index}
-                                    >
+                                    <div className='detail-info-general-italic' key={index}>
                                         #{genre.name.replace(' ', '_')}
                                     </div>
                                 ))}
                             </div>
-                            <div className="detail-title">{movie.title}</div>
-                            <div className="detail-rating-icon">
-                                <StarIcon
-                                    name="rating"
-                                    value={movie.vote_average / 2.0}
-                                    starColor={starColor}
-                                    emptyStarColor={emptyStarColor}
-                                    editing={false}
-                                />
+                            <div className='detail-title'>{movie.title}</div>
+                            <div className='detail-rating-icon'>
+                                <StarIcon name='rating' value={movie.vote_average / 2.0} starColor={starColor} emptyStarColor={emptyStarColor} editing={false} />
                             </div>
-                            <div className="detail-info-general">
+                            <div className='detail-info-general'>
                                 {movie.vote_average.toFixed(1)}&nbsp;&nbsp;(
                                 {movie.vote_count})
                             </div>
-                            <div className="detail-info-division">l</div>
-                            <div className="detail-info-general">
-                                {movie.runtime !== null && movie.runtime !== 0
-                                    ? `${movie.runtime} ${
-                                          ui.lang === 'en_US' ? 'minutes' : '분'
-                                      }`
-                                    : ui.lang === 'en_US'
-                                    ? 'No Data'
-                                    : '정보없음'}
+                            <div className='detail-info-division'>l</div>
+                            <div className='detail-info-general'>
+                                {movie.runtime !== null && movie.runtime !== 0 ? `${movie.runtime} ${ui.lang === 'en_US' ? 'minutes' : '분'}` : ui.lang === 'en_US' ? 'No Data' : '정보없음'}
                             </div>
-                            <div className="detail-info-division">l</div>
-                            <div className="detail-info-general">
-                                {movie.release_date !== null &&
-                                movie.release_date !== ''
-                                    ? movie.release_date
-                                    : ui.lang === 'en_US'
-                                    ? 'No Data'
-                                    : '정보없음'}
-                            </div>
+                            <div className='detail-info-division'>l</div>
+                            <div className='detail-info-general'>{movie.release_date !== null && movie.release_date !== '' ? movie.release_date : ui.lang === 'en_US' ? 'No Data' : '정보없음'}</div>
+                            {!isOpenDetail ? <div className='detail-overview'>{movie.overview}</div> : null}
                             {!isOpenDetail ? (
-                                <div className="detail-overview">
-                                    {movie.overview}
+                                <div className='detail-companies'>
+                                    {movie.production_companies.map((company, index) => (
+                                        <Link to={`/search/company/${company.id}/${company.name}/`} key={index}>
+                                            <div className='detail-info-general-small'>{company.name}</div>
+                                        </Link>
+                                    ))}
                                 </div>
                             ) : null}
-                            {!isOpenDetail ? (
-                                <div className="detail-companies">
-                                    {movie.production_companies.map(
-                                        (company, index) => (
-                                            <Link
-                                                to={`/search/company/${company.id}/${company.name}/`}
-                                                key={index}
-                                            >
-                                                <div className="detail-info-general-small">
-                                                    {company.name}
-                                                </div>
-                                            </Link>
-                                        )
-                                    )}
-                                </div>
-                            ) : null}
-                            {isOpenDetail ? (
-                                <MoreDetail
-                                    id={id}
-                                    setIsOpenDetail={setIsOpenDetail}
-                                />
-                            ) : null}
+                            {isOpenDetail ? <MoreDetail id={id} setIsOpenDetail={setIsOpenDetail} /> : null}
                         </div>
                     </div>
                 </div>

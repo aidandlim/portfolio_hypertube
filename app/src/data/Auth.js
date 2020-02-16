@@ -20,12 +20,14 @@ import Axios from 'axios';
         null
     result:
         status
+    using at:
+        App
 */
 export const checkToken = (token, cb) => {
     const url = `/api/token`;
     const data = {
         token
-    }
+    };
 
     Axios.get(url, { params: data })
         .then(res => {
@@ -49,9 +51,11 @@ export const checkToken = (token, cb) => {
             411: invalid userName
             412: invalid password
         obj
+    using at:
+        Signin
 */
 export const signin = (userName, password, cb) => {
-    const url = `/api/auth`;
+    const url = `/api/auth/signin`;
     const data = {
         userName,
         password
@@ -75,6 +79,8 @@ export const signin = (userName, password, cb) => {
         null
     result:
         status
+    using at:
+        Signup, UserSetting
 */
 export const getUserName = (userName, cb) => {
     const url = `/api/auth/userName/${userName}`;
@@ -97,6 +103,8 @@ export const getUserName = (userName, cb) => {
         null
     result:
         status
+    using at:
+        Signup, Recovery
 */
 export const getEmail = (email, cb) => {
     const url = `/api/auth/email/${email}`;
@@ -119,9 +127,11 @@ export const getEmail = (email, cb) => {
         userName, password, email, firstName, lastName
     result:
         status
+    using at:
+        Signup
 */
 export const signup = (userName, password, email, firstName, lastName, cb) => {
-    const url = `/api/auth`;
+    const url = `/api/auth/signup`;
     const data = {
         userName,
         password,
@@ -148,6 +158,8 @@ export const signup = (userName, password, email, firstName, lastName, cb) => {
         null
     result:
         status
+    using at:
+        Recovery
 */
 export const recovery = (email, cb) => {
     const url = `/api/auth/recovery/${email}`;
@@ -170,6 +182,8 @@ export const recovery = (email, cb) => {
         userName, email, firstName, lastName, picture, socialType
     result:
         status
+    using at:
+        SocialSigninCallback
 */
 export const oAuth = ({ userName, email, firstName, lastName, picture, socialType }, cb) => {
     const url = `/api/auth/social`;
@@ -182,7 +196,7 @@ export const oAuth = ({ userName, email, firstName, lastName, picture, socialTyp
         socialType
     };
 
-    Axios.get(url, { params: data })
+    Axios.post(url, { params: data })
         .then(res => {
             cb(res.data);
         })

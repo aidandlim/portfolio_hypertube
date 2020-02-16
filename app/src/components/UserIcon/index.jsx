@@ -19,9 +19,7 @@ const Component = () => {
             <div
                 className='userIcon-image'
                 style={{
-                    backgroundImage: `url('${
-                        auth.isLogin ? temp : user_default
-                    }')`
+                    backgroundImage: `url('${auth.isLogin ? temp : user_default}')`
                 }}
             ></div>
         </Link>

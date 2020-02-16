@@ -18,27 +18,22 @@ const Component = ({ user, setUser }) => {
         e.preventDefault();
         if (_handleCheckUserName && _handleCheckPassword && _handleCheckConfrim && _handleCheckEmail) {
             const form = document.setting;
-            putUser(
-                auth.token,
-                form.userName.value,
-                form.password.value,
-                form.email.value,
-                form.firstName.value,
-                form.lastName.value,
-                res => {
-                    if (session(dispatch, res)) {
-                        setUser({
-                            id: user.id,
-                            userName: form.userName.value,
-                            email: form.email.value,
-                            firstName: form.firstName.value,
-                            lastName: form.lastName.value,
-                            socialType: user.socialType
-                        });
-                    }
+            putUser(auth.token, form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
+                if (session(dispatch, res)) {
+                    setUser({
+                        id: user.id,
+                        userName: form.userName.value,
+                        email: form.email.value,
+                        firstName: form.firstName.value,
+                        lastName: form.lastName.value,
+                        socialType: user.socialType
+                    });
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
-            );
+            });
         } else {
+            alert('messeage', 'Input data is invalid! Please check your information again.', null, null);
         }
     };
 
@@ -154,13 +149,7 @@ const Component = ({ user, setUser }) => {
                         <FeatherIcon id='setting-userName' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input
-                    className='auth-input-disabled'
-                    type='text'
-                    name='userName'
-                    defaultValue={user.userName}
-                    onChange={_handleCheckUserName}
-                />
+                <input className='auth-input-disabled' type='text' name='userName' defaultValue={user.userName} onChange={_handleCheckUserName} />
                 <div className='auth-placeholder'>
                     {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호 변경'}
                     <div className='auth-input-check'>
@@ -181,42 +170,13 @@ const Component = ({ user, setUser }) => {
                         <FeatherIcon id='setting-email' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input
-                    className='auth-input'
-                    type='email'
-                    name='email'
-                    defaultValue={user.email}
-                    autoComplete='password'
-                    autoFocus
-                    onChange={_handleCheckEmail}
-                />
+                <input className='auth-input' type='email' name='email' defaultValue={user.email} autoComplete='password' autoFocus onChange={_handleCheckEmail} />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
-                <input
-                    className='auth-input'
-                    type='text'
-                    name='firstName'
-                    defaultValue={user.firstName}
-                    autoComplete='password'
-                />
+                <input className='auth-input' type='text' name='firstName' defaultValue={user.firstName} autoComplete='password' />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
-                <input
-                    className='auth-input'
-                    type='text'
-                    name='lastName'
-                    defaultValue={user.lastName}
-                    autoComplete='password'
-                />
-                <input
-                    className='auth-button auth-submit'
-                    type='submit'
-                    value={ui.lang === 'en_US' ? 'SAVE' : '저장'}
-                />
-                <input
-                    className='auth-button'
-                    type='button'
-                    value={ui.lang === 'en_US' ? 'RESET' : '취소'}
-                    onClick={_handleReset}
-                />
+                <input className='auth-input' type='text' name='lastName' defaultValue={user.lastName} autoComplete='password' />
+                <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SAVE' : '저장'} />
+                <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'RESET' : '취소'} onClick={_handleReset} />
             </form>
         </div>
     );

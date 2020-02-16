@@ -21,18 +21,9 @@ const Component = () => {
 
     return (
         <div className='searchBar'>
-            <input
-                className='searchBar-input'
-                placeholder={ui.lang === 'en_US' ? 'Search' : '검색'}
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                onKeyUp={_handleEnter}
-            />
+            <input className='searchBar-input' placeholder={ui.lang === 'en_US' ? 'Search' : '검색'} value={query} onChange={e => setQuery(e.target.value)} onKeyUp={_handleEnter} />
             <Link to={`/search/movie/${query}`}>
-                <button
-                    type='submit'
-                    className='searchBar-button'
-                >
+                <button type='submit' className='searchBar-button'>
                     <FeatherIcon icon='search' color='#303030' size='0.8rem' />
                 </button>
             </Link>

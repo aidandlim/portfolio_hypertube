@@ -38,9 +38,7 @@ const Component = () => {
             <div
                 className='langIcon-image'
                 style={{
-                    backgroundImage: `url('${
-                        ui.lang === 'en_US' ? en_US : ko_KR
-                    }')`
+                    backgroundImage: `url('${ui.lang === 'en_US' ? en_US : ko_KR}')`
                 }}
             ></div>
         </div>

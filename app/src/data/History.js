@@ -15,15 +15,43 @@ import Axios from 'axios';
     method: 
         GET
     url: 
-        /api/histories/:userName
+        /api/histories/
+    parameter: 
+        token
+    result:
+        status
+        list
+    using at:
+        App
+*/
+export const getHistories = (token, cb) => {
+    const url = `/api/histories`;
+    const data = {
+        token
+    };
+
+    Axios.get(url, { params: data })
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+};
+
+/*
+    method: 
+        GET
+    url: 
+        /api/histories/userName/:userName
     parameter: 
         token
     result:
         status
         list
 */
-export const getHistories = (token, userName, cb) => {
-    const url = `/api/histories/${userName}`;
+export const getHistoriesByUserName = (token, userName, cb) => {
+    const url = `/api/histories/userName/${userName}`;
     const data = {
         token
     };
@@ -89,4 +117,4 @@ export const postHistory = (token, movieId, current, duration, cb) => {
         .catch(() => {
             cb(null);
         });
-}
+};

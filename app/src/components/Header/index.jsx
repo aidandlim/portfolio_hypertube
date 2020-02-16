@@ -9,14 +9,14 @@ import './index.css';
 
 const Component = () => {
     return (
-        <div className="header">
-            <div className="header-ci-section">
+        <div className='header'>
+            <div className='header-ci-section'>
                 <CI />
             </div>
-            <div className="header-search-section">
+            <div className='header-search-section'>
                 <SearchBar />
             </div>
-            <div className="header-util-section">
+            <div className='header-util-section'>
                 <UserIcon />
                 <LangIcon />
             </div>

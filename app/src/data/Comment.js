@@ -21,6 +21,8 @@ import Axios from 'axios';
     result:
         status
         list
+    using at:
+        CommentList
 */
 export const getCommentsByMovieId = (movieId, cb) => {
     const url = `/api/comments/movieId/${movieId}`;
@@ -44,6 +46,8 @@ export const getCommentsByMovieId = (movieId, cb) => {
     result:
         status
         list
+    using at:
+        UserComments
 */
 export const getCommentsByUserId = (token, userId, cb) => {
     const url = `/api/comments/userId/${userId}`;
@@ -69,6 +73,8 @@ export const getCommentsByUserId = (token, userId, cb) => {
         token, movieId, content
     result:
         status
+    using at:
+        CommentPost
 */
 export const postComment = (token, movieId, content, cb) => {
     const url = `/api/comment`;
@@ -96,6 +102,8 @@ export const postComment = (token, movieId, content, cb) => {
         token
     result:
         status
+    using at:
+        
 */
 export const deleteComment = (token, commentId, cb) => {
     const url = `/api/comment/${commentId}`;

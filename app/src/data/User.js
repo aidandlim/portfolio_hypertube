@@ -21,6 +21,8 @@ import Axios from 'axios';
     result:
         status
         obj
+    using at:
+        User
 */
 export const getUserByToken = (token, cb) => {
     const url = `/api/user/token`;
@@ -47,6 +49,8 @@ export const getUserByToken = (token, cb) => {
     result:
         status
         obj
+    using at:
+        User
 */
 export const getUserByUserName = (token, userName, cb) => {
     const url = `/api/user/${userName}`;
@@ -72,6 +76,8 @@ export const getUserByUserName = (token, userName, cb) => {
         token, userName, password, email, firstName, lastName
     result:
         status
+    using at:
+        UserSetting
 */
 export const putUser = (token, userName, password, email, firstName, lastName, cb) => {
     const url = `/api/auth`;
@@ -102,6 +108,8 @@ export const putUser = (token, userName, password, email, firstName, lastName, c
         null
     result:
         status
+    using at:
+        User
 */
 export const deleteUser = (token, cb) => {
     const url = `/api/auth`;

@@ -37,7 +37,7 @@ import {
     deleteUser
 } from './User';
 
-import { getHistories, getHistory } from './History';
+import { getHistories, getHistoriesByUserName, getHistory } from './History';
 
 import {
     getCommentsByMovieId,
@@ -78,6 +78,7 @@ export {
     deleteUser,
     getHistories,
     getHistory,
+    getHistoriesByUserName,
     getCommentsByMovieId,
     getCommentsByUserId,
     postComment,

@@ -10,7 +10,7 @@ import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
 import UserSetting from '../UserSetting';
 
-import { getUserByToken, getUserByUserName } from '../../data';
+import { getUserByToken, getUserByUserName, deleteUser } from '../../data';
 
 import { session } from '../../util/session';
 
@@ -28,28 +28,43 @@ const Component = ({ match }) => {
         firstName: '',
         lastName: '',
         picture: '',
-        socialType: '',
+        socialType: ''
     });
     const [nav, setNav] = useState(0);
 
     const auth = useSelector(state => state.auth);
+    const ui = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
     useEffect(() => {
         getUserByToken(auth.token, res => {
             if (session(dispatch, res)) {
-                if (res.data.obj.userName === userName) {
+                if (res.obj.userName === userName) {
                     setUser(res.data);
                 } else {
                     getUserByUserName(auth.token, userName, res => {
                         if (session(dispatch, res)) {
-                            setUser(res.data.obj);
+                            setUser(res.obj);
+                        } else {
+                            alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                         }
                     });
                 }
+            } else {
+                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
             }
         });
-    }, [dispatch, auth.token, userName]);
+    }, [dispatch, auth.token, userName, ui.lang]);
+
+    const _handleClose = () => {
+        deleteUser(auth.token, res => {
+            if (session(dispatch, res)) {
+                _handleSignOut();
+            } else {
+                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+            }
+        });
+    };
 
     const _handleSignOut = () => {
         cookie.save('token', '', {
@@ -67,16 +82,10 @@ const Component = ({ match }) => {
                     <div
                         className='user-info-picture'
                         style={{
-                            backgroundImage:
-                                user.picture !== null && user.picture !== undefined && user.picture !== ''
-                                    ? `url('${user.picture}')`
-                                    : `url('${user_default}')`
+                            backgroundImage: user.picture !== null && user.picture !== undefined && user.picture !== '' ? `url('${user.picture}')` : `url('${user_default}')`
                         }}
                     >
-                        <FeatherIcon
-                            className={nav === 2 ? 'user-info-picture-update-active' : 'user-info-picture-update'}
-                            icon='upload'
-                        />
+                        <FeatherIcon className={nav === 2 ? 'user-info-picture-update-active' : 'user-info-picture-update'} icon='upload' />
                     </div>
                     <div className='user-info-basic'>
                         <div className='user-info-userName'>@{user.userName}</div>
@@ -98,6 +107,9 @@ const Component = ({ match }) => {
                     </div>
                 </div>
             </div>
+            <button className='user-delete' onClick={_handleClose}>
+                CLOSE ACCOUNT
+            </button>
             <button className='user-signout' onClick={_handleSignOut}>
                 SIGN OUT
             </button>

@@ -163,54 +163,26 @@ const Component = ({ genre, filter, _handleFilter }) => {
                 <div className='filter-title'>{ui.lang === 'en_US' ? 'GENRE' : '장르별'}</div>
                 <div className='filter-element-container'>
                     {genres.map((element, index) => (
-                        <GenreButton
-                            url={element.url}
-                            titleEN={element.titleEN}
-                            titleKR={element.titleKR}
-                            genre={genre}
-                            filter={filter}
-                            key={index}
-                        />
+                        <GenreButton url={element.url} titleEN={element.titleEN} titleKR={element.titleKR} genre={genre} filter={filter} key={index} />
                     ))}
                 </div>
                 <div className='filter-title'>{ui.lang === 'en_US' ? 'SORT BY' : '정렬순'}</div>
                 <div className='filter-element-container'>
                     {sorters.map((element, index) => (
-                        <SorterButton
-                            url={element.url}
-                            titleEN={element.titleEN}
-                            titleKR={element.titleKR}
-                            genre={genre}
-                            filter={filter}
-                            key={index}
-                        />
+                        <SorterButton url={element.url} titleEN={element.titleEN} titleKR={element.titleKR} genre={genre} filter={filter} key={index} />
                     ))}
                 </div>
                 <div className='filter-division'></div>
                 <div className='filter-title'>{ui.lang === 'en_US' ? 'TRENDS' : '트렌드'}</div>
                 <div className='filter-element-container'>
                     {trends.map((element, index) => (
-                        <SorterButton
-                            url={element.url}
-                            titleEN={element.titleEN}
-                            titleKR={element.titleKR}
-                            genre={genre}
-                            filter={filter}
-                            key={index}
-                        />
+                        <SorterButton url={element.url} titleEN={element.titleEN} titleKR={element.titleKR} genre={genre} filter={filter} key={index} />
                     ))}
                 </div>
                 <div className='filter-title'>{ui.lang === 'en_US' ? 'NOW PLAYING & UPCOMING' : '상영작 및 상영예정작'}</div>
                 <div className='filter-element-container'>
                     {upcoming.map((element, index) => (
-                        <SorterButton
-                            url={element.url}
-                            titleEN={element.titleEN}
-                            titleKR={element.titleKR}
-                            genre={genre}
-                            filter={filter}
-                            key={index}
-                        />
+                        <SorterButton url={element.url} titleEN={element.titleEN} titleKR={element.titleKR} genre={genre} filter={filter} key={index} />
                     ))}
                 </div>
                 <button className='filter-confirm' onClick={_handleFilter}>

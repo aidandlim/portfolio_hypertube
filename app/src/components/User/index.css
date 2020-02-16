@@ -145,6 +145,33 @@
     float: left;
 }
 
+.user-delete {
+    width: 5rem;
+    height: 2rem;
+
+    padding: 0.5rem 1rem;
+
+    position: fixed;
+    top: 100%;
+    left: 1rem;
+    transform: translate(calc(-100%), calc(-100% - 1rem));
+
+    color: var(--color-50);
+    font-size: 0.6rem;
+    font-weight: 300;
+
+    background-color: #E57373;
+    border: none;
+    border-radius: 0.5rem;
+
+    opacity: 0.75;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: 0.5s;
+}
+
 .user-signout {
     width: 5rem;
     height: 2rem;

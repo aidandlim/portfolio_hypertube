@@ -10,8 +10,7 @@ import SocialSignIn from '../SocialSignIn';
 
 import { signin } from '../../data';
 
-import { confirmAlert } from 'react-confirm-alert';
-
+import { alert } from '../../util';
 import '../Auth/index.css';
 
 const Component = ({ history }) => {
@@ -28,39 +27,25 @@ const Component = ({ history }) => {
         signin(form.userName.value, form.password.value, res => {
             if (res.status === 200) {
                 dispatch(auth_token(res.obj));
-                confirmAlert({
-                    message:
-                        ui.lang === 'en_US' ? 'Do you want to keep your signin status?' : '로그인을 유지하시겠습니까?',
-                    buttons: [
-                        {
-                            label: 'Yes',
-                            onClick: () =>
-                                cookie.save('token', res.obj, {
-                                    path: '/'
-                                })
-                        },
-                        {
-                            label: 'No',
-                            onClick: () =>
-                                cookie.save('token', res.obj, {
-                                    path: '/',
-                                    maxAge: 60 * 30
-                                })
-                        }
-                    ]
-                });
+                alert(
+                    'question',
+                    ui.lang === 'en_US' ? 'Do you want to keep your signin status?' : '로그인을 유지하시겠습니까?',
+                    cookie.save('token', res.obj, {
+                        path: '/'
+                    }),
+                    cookie.save('token', res.obj, {
+                        path: '/',
+                        maxAge: 60 * 30
+                    })
+                );
                 history.goBack();
             } else {
                 if (res.status === 411) {
-                    confirmAlert({
-                        message: ui.lang === 'en_US' ? 'Username is invalid :(' : '아이디가 올바르지 않습니다.',
-                        buttons: [{ label: 'Okay' }]
-                    });
+                    alert('message', ui.lang === 'en_US' ? 'Username is invalid :(' : '아이디가 올바르지 않습니다.', null, null);
                 } else if (res.status === 412) {
-                    confirmAlert({
-                        message: ui.lang === 'en_US' ? 'Password is invalid :(' : '비밀번호가 올바르지 않습니다.',
-                        buttons: [{ label: 'Okay' }]
-                    });
+                    alert('message', ui.lang === 'en_US' ? 'Password is invalid :(' : '비밀번호가 올바르지 않습니다.', null, null);
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
             }
         });
@@ -81,36 +66,19 @@ const Component = ({ history }) => {
                     <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호'}</div>
                     <input className='auth-input' type='password' name='password' />
                     <Link to='/auth/signup'>
-                        <div className='auth-nav'>
-                            {ui.lang === 'en_US'
-                                ? "Don't you have an account yet? Just Sign Up for free!"
-                                : '아직 계정이 없으신가요? 바로 무료로 가입하세요!'}
-                        </div>
+                        <div className='auth-nav'>{ui.lang === 'en_US' ? "Don't you have an account yet? Just Sign Up for free!" : '아직 계정이 없으신가요? 바로 무료로 가입하세요!'}</div>
                     </Link>
                     <Link to='/auth/recovery'>
-                        <div className='auth-nav'>
-                            {ui.lang === 'en_US' ? 'Do you Forgot Password?' : '비밀번호를 잊으셨나요?'}
-                        </div>
+                        <div className='auth-nav'>{ui.lang === 'en_US' ? 'Do you Forgot Password?' : '비밀번호를 잊으셨나요?'}</div>
                     </Link>
-                    <input
-                        className='auth-button auth-submit'
-                        type='submit'
-                        value={ui.lang === 'en_US' ? 'SIGN IN' : '로그인'}
-                    />
-                    <input
-                        className='auth-button'
-                        type='button'
-                        value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'}
-                        onClick={_handleBack}
-                    />
+                    <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SIGN IN' : '로그인'} />
+                    <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'} onClick={_handleBack} />
                 </form>
                 <div className='auth-division'>
                     <div className='auth-division-line'></div>
                     <div className='auth-division-text'>{ui.lang === 'en_US' ? 'OR' : '혹은'}</div>
                 </div>
-                <div className='auth-title'>
-                    {ui.lang === 'en_US' ? 'Sign In with Social Media' : '소셜미디어를 통해 로그인'}
-                </div>
+                <div className='auth-title'>{ui.lang === 'en_US' ? 'Sign In with Social Media' : '소셜미디어를 통해 로그인'}</div>
                 <div className='auth-description'>
                     {ui.lang === 'en_US'
                         ? 'Sometimes, all you need to do is completely make an ass of yourself and laugh it off to realise that life isn’t so bad after all.'

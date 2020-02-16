@@ -12,11 +12,7 @@ const Component = ({ comment }) => {
     const auth = useSelector(state => state.auth);
 
     return (
-        <Link
-            to={
-                auth.token !== '' ? `/user/${comment.userName}` : '/auth/signin'
-            }
-        >
+        <Link to={auth.token !== '' ? `/user/${comment.userName}` : '/auth/signin'}>
             <div className='comment'>
                 <div
                     className='comment-picture'
@@ -25,13 +21,9 @@ const Component = ({ comment }) => {
                     }}
                 ></div>
                 <div className='comment-content'>
-                    <div className='comment-content-name'>
-                        {comment.fullName}
-                    </div>
+                    <div className='comment-content-name'>{comment.fullName}</div>
                     <div className='comment-content-time'>({comment.time})</div>
-                    <div className='comment-content-message'>
-                        {comment.comment}
-                    </div>
+                    <div className='comment-content-message'>{comment.comment}</div>
                 </div>
             </div>
         </Link>

@@ -20,10 +20,7 @@ const Component = ({ movie }) => {
                 <div
                     className='movie-poster'
                     style={{
-                        backgroundImage:
-                            movie.poster_path !== null
-                                ? `url('https://image.tmdb.org/t/p/w500/${movie.poster_path}')`
-                                : `url('${image_default}')`
+                        backgroundImage: movie.poster_path !== null ? `url('https://image.tmdb.org/t/p/w500/${movie.poster_path}')` : `url('${image_default}')`
                     }}
                 ></div>
                 <div className='movie-info'>
@@ -32,13 +29,7 @@ const Component = ({ movie }) => {
                     </div>
                     <div className='movie-title'>{movie.title}</div>
                     <div className='movie-rate'>
-                        <StarIcon
-                            name='rating'
-                            value={movie.vote_average / 2.0}
-                            starColor={starColor}
-                            emptyStarColor={emptyStarColor}
-                            editing={false}
-                        />
+                        <StarIcon name='rating' value={movie.vote_average / 2.0} starColor={starColor} emptyStarColor={emptyStarColor} editing={false} />
                     </div>
                     <div className='movie-release'>{movie.release_date}</div>
                     <div className='movie-overview'>{movie.overview}</div>

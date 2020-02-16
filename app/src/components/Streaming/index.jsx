@@ -45,24 +45,16 @@ const Component = ({ match, history }) => {
     };
 
     return (
-        <div className="streaming" onMouseMove={_handleMouseMove}>
-            <div
-                className={
-                    isVisibleBack ? 'streaming-back-active' : 'streaming-back'
-                }
-                onClick={_handleBack}
-            >
-                <FeatherIcon icon="arrow-left" color="#AAAAAA" size="3rem" />
+        <div className='streaming' onMouseMove={_handleMouseMove}>
+            <div className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'} onClick={_handleBack}>
+                <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
             </div>
             {fileName !== '' ? (
-                <video className="streaming-video" controls autoPlay={true}>
-                    <source
-                        src={`/stream/play/${magnet}/${fileName}`}
-                        type="video/mp4"
-                    />
+                <video className='streaming-video' controls autoPlay={true}>
+                    <source src={`/stream/play/${magnet}/${fileName}`} type='video/mp4' />
                 </video>
             ) : (
-                <div className="streaming-loading">Loading...</div>
+                <div className='streaming-loading'>Loading...</div>
             )}
             <Chat torrent={torrent} />
         </div>
