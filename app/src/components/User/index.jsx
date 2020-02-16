@@ -27,7 +27,8 @@ const Component = ({ match }) => {
         userName: '',
         firstName: '',
         lastName: '',
-        picture: ''
+        picture: '',
+        socialType: '',
     });
     const [nav, setNav] = useState(0);
 

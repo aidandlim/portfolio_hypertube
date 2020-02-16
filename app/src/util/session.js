@@ -13,6 +13,10 @@ export const session = (dispatch, res) => {
         alert('message', 'Token is invalid. Please sign in again :)', () => window.open('/auth/signin', '_self'), null);
         return false;
     } else {
-        return true;
+        if (res.status === 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 };
