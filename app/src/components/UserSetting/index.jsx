@@ -5,20 +5,27 @@ import { useSelector } from 'react-redux';
 import './index.css';
 import '../Auth/index.css';
 
-const Component = () => {
+const Component = ({ user, setUser }) => {
     const ui = useSelector(state => state.ui);
 
     const _handleForm = e => {
         e.preventDefault();
     };
 
-    const _handleReset = e => {
-        
+    const _handleReset = () => {
+        const form = document.setting;
+
+        form.userName.value = user.userName;
+        form.password.value = '';
+        form.confirm.value = '';
+        form.email.value = user.email;
+        form.firstName.value = user.firstName;
+        form.lastName.value = user.lastName;
     }
 
     return (
         <div className="userSetting">
-            <form name="signup" autoComplete="off" onSubmit={_handleForm}>
+            <form name="setting" autoComplete="off" onSubmit={_handleForm}>
                 <div className="auth-placeholder-disabled">
                     {ui.lang === 'en_US' ? 'USER NAME' : '아이디'}
                 </div>

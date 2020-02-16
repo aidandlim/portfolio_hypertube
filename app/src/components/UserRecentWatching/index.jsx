@@ -1,45 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 import UserRecentWatchingMovie from '../UserRecentWatchingMovie';
 
+import { getHistories } from '../../data';
+import { session } from '../../util';
+
 import './index.css';
 
-const Component = () => {
-    // const data = [];
+const Component = ({ userName }) => {
+    const [movies, setMovies] = useState([]);
 
-    const data = [
-        {
-            movieId: 419704,
-            time: '01-06-2020 17:35'
-        },
-        {
-            movieId: 515001,
-            time: '01-07-2020 13:32'
-        },
-        {
-            movieId: 530915,
-            time: '01-08-2020 09:17'
-        },
-        {
-            movieId: 331482,
-            time: '01-09-2020 03:30'
-        },
-        {
-            movieId: 438259,
-            time: '01-10-2020 05:42'
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (userName !== '') {
+            getHistories(auth.token, userName, res => {
+                if (session(dispatch, res)) {
+                    setMovies(res.data.list);
+                }
+            });
         }
-    ];
+    }, [dispatch, auth.token, userName]);
 
     return (
         <div className='userRecentWatching'>
-            {data.length !== 0 ? (
-                data.map((data, index) => (
-                    <UserRecentWatchingMovie data={data} key={index} />
-                ))
+            {movies.length !== 0 ? (
+                movies.map((data, index) => <UserRecentWatchingMovie data={data} key={index} />)
             ) : (
-                <div className='userRecentWatching-none'>
-                    There is no recent watching data
-                </div>
+                <div className='userRecentWatching-none'>There is no recent watching data</div>
             )}
         </div>
     );

@@ -11,6 +11,7 @@ export const session = (dispatch, res) => {
         });
         dispatch(auth_token(''));
         alert('message', 'Token is invalid. Please sign in again :)', () => window.open('/auth/signin', '_self'), null);
+        return false;
     } else {
         return true;
     }

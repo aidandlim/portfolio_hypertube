@@ -38,7 +38,7 @@ export const checkToken = (token, cb) => {
 
 /*
     method: 
-        GET
+        POST
     url: 
         /api/auth
     parameter: 
@@ -57,7 +57,7 @@ export const signin = (userName, password, cb) => {
         password
     };
 
-    Axios.get(url, { params: data })
+    Axios.post(url, data)
         .then(res => {
             cb(res.data);
         })

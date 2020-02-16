@@ -16,26 +16,29 @@ const Component = ({ history }) => {
 
     const _handleForm = e => {
         e.preventDefault();
-        const form = document.signup;
-        signup(
-            form.userName.value,
-            form.password.value,
-            form.email.value,
-            form.firstName.value,
-            form.lastName.value,
-            res => {
-                if (res.status === 200) {
-                    history.goBack();
+        if (_handleCheckUserName && _handleCheckPassword && _handleCheckConfrim && _handleCheckEmail) {
+            const form = document.signup;
+            signup(
+                form.userName.value,
+                form.password.value,
+                form.email.value,
+                form.firstName.value,
+                form.lastName.value,
+                res => {
+                    if (res.status === 200) {
+                        history.goBack();
+                    }
                 }
-            }
-        );
+            );
+        } else {
+        }
     };
 
     const normalColor = '#505050';
     const confirmedColor = '#64FFDA';
 
-    const _handleCheckUserName = e => {
-        const value = e.target.value;
+    const _handleCheckUserName = () => {
+        const value = document.signup.userName.value;
         const target = 'signup-userName';
 
         if (value.length < 5) {
@@ -54,16 +57,57 @@ const Component = ({ history }) => {
         });
     };
 
-    const _handleCheckPassword = e => {
-        document.getElementById('signup-password').style.color = confirmedColor;
+    const _handleCheckPassword = () => {
+        const password = document.signup.password.value;
+        const target = 'signup-password';
+
+        const pattern1 = /[0-9]/;
+        const pattern2 = /[a-zA-Z]/;
+        const pattern3 = /[~!@#$%<>^&*]/;
+
+        document.getElementById(target).style.color = normalColor;
+
+        let error = 0;
+
+        if (!(8 <= password.length && password.length <= 20)) {
+            error++;
+        }
+
+        if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            error++;
+        }
+
+        if (error > 0) {
+            return false;
+        } else {
+            document.getElementById(target).style.color = confirmedColor;
+            return true;
+        }
     };
 
-    const _handleCheckConfrim = e => {
-        document.getElementById('signup-confirm').style.color = confirmedColor;
+    const _handleCheckConfrim = () => {
+        const password = document.signup.password.value;
+        const confirm = document.signup.confirm.value;
+        const target = 'signup-confirm';
+
+        document.getElementById(target).style.color = normalColor;
+
+        let error = 0;
+
+        if (password === '' || password !== confirm) {
+            error++;
+        }
+
+        if (error > 0) {
+            return false;
+        } else {
+            document.getElementById(target).style.color = confirmedColor;
+            return true;
+        }
     };
 
-    const _handleCheckEmail = e => {
-        const value = e.target.value;
+    const _handleCheckEmail = () => {
+        const value = document.signup.email.value;
         const target = 'signup-email';
 
         if (value.length < 5) {

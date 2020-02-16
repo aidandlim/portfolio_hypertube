@@ -10,22 +10,45 @@ import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
 import UserSetting from '../UserSetting';
 
-import { getUserByToken } from '../../data';
+import { getUserByToken, getUserByUserName } from '../../data';
+
+import { session } from '../../util/session';
 
 import FeatherIcon from 'feather-icons-react';
 import user_default from '../../assets/images/user_default.png';
 
 import './index.css';
 
-const Component = () => {
+const Component = ({ match }) => {
+    const userName = match.params.userName;
+
+    const [user, setUser] = useState({
+        id: -1,
+        userName: '',
+        firstName: '',
+        lastName: '',
+        picture: ''
+    });
     const [nav, setNav] = useState(0);
 
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        
-    }, []);
+        getUserByToken(auth.token, res => {
+            if (session(dispatch, res)) {
+                if (res.data.obj.userName === userName) {
+                    setUser(res.data);
+                } else {
+                    getUserByUserName(auth.token, userName, res => {
+                        if (session(dispatch, res)) {
+                            setUser(res.data.obj);
+                        }
+                    });
+                }
+            }
+        });
+    }, [dispatch, auth.token, userName]);
 
     const _handleSignOut = () => {
         cookie.save('token', '', {
@@ -43,38 +66,34 @@ const Component = () => {
                     <div
                         className='user-info-picture'
                         style={{
-                            backgroundImage: `url('${user_default}')`
+                            backgroundImage:
+                                user.picture !== null && user.picture !== undefined && user.picture !== ''
+                                    ? `url('${user.picture}')`
+                                    : `url('${user_default}')`
                         }}
                     >
                         <FeatherIcon
-                            className={
-                                nav === 2
-                                    ? 'user-info-picture-update-active'
-                                    : 'user-info-picture-update'
-                            }
+                            className={nav === 2 ? 'user-info-picture-update-active' : 'user-info-picture-update'}
                             icon='upload'
                         />
                     </div>
                     <div className='user-info-basic'>
-                        <div className='user-info-userName'>@aidan</div>
-                        <div className='user-info-fullName'>Aidan Lim</div>
+                        <div className='user-info-userName'>@{user.userName}</div>
+                        <div className='user-info-fullName'>
+                            {user.firstName} {user.lastName}
+                        </div>
                     </div>
                 </div>
                 <div className='user-content-container'>
                     <div className='user-content-header'>
                         {menus.map((menu, index) => (
-                            <UserMenu
-                                index={menu}
-                                nav={nav}
-                                setNav={setNav}
-                                key={index}
-                            />
+                            <UserMenu index={menu} nav={nav} setNav={setNav} key={index} />
                         ))}
                     </div>
                     <div className='user-content-body'>
-                        {nav === 0 ? <UserRecentWatching /> : null}
-                        {nav === 1 ? <UserComments /> : null}
-                        {nav === 2 ? <UserSetting /> : null}
+                        {nav === 0 ? <UserRecentWatching userName={user.userName} /> : null}
+                        {nav === 1 ? <UserComments user={user} /> : null}
+                        {nav === 2 ? <UserSetting user={user} setUser={setUser} /> : null}
                     </div>
                 </div>
             </div>
