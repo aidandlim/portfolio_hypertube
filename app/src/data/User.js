@@ -80,7 +80,7 @@ export const getUserByUserName = (token, userName, cb) => {
         UserSetting
 */
 export const putUser = (token, userName, password, email, firstName, lastName, cb) => {
-    const url = `/api/auth`;
+    const url = `/api/user`;
     const data = {
         token,
         userName,
@@ -89,6 +89,8 @@ export const putUser = (token, userName, password, email, firstName, lastName, c
         firstName,
         lastName
     };
+
+    console.log(data);
 
     Axios.put(url, data)
         .then(res => {
@@ -112,7 +114,7 @@ export const putUser = (token, userName, password, email, firstName, lastName, c
         User
 */
 export const deleteUser = (token, cb) => {
-    const url = `/api/auth`;
+    const url = `/api/user`;
     const data = {
         token
     };

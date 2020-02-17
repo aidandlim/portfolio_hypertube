@@ -84,6 +84,8 @@ export const postComment = (token, movieId, content, cb) => {
         content
     };
 
+    console.log(data);
+
     Axios.post(url, data)
         .then(res => {
             cb(res.data);

@@ -8,6 +8,7 @@ const app = express();
 const TORRENT_PORT = 8443;
 const STREAM_PORT = 8444;
 // const SOCKET_PORT = 8445;
+const API_IP = '10.10.146.166';
 const API_PORT = 8446;
 
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(cors());
 app.use(
     '/api',
     proxy({
-        target: `http://localhost:${API_PORT}`,
+        target: `http://${API_IP}:${API_PORT}`,
         changeOrigin: true
     })
 );

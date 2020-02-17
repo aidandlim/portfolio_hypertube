@@ -26,13 +26,13 @@ const Component = () => {
             <Route path='/search/:type/:query/:queryName' exact component={Search} />
             <Route path='/detail/:id' exact component={Detail} />
             <Route path='/streaming/:torrent/:magnet' exact component={Streaming} />
-            {auth.token !== '' ? <Redirect from='/auth/signin' to='/feed/all/popularity' exact /> : null}
+            {/*auth.token !== '' ? <Redirect from='/auth/signin' to='/feed/all/popularity' exact /> : null*/}
             <Route path='/auth/signin' exact component={SignIn} />
-            {auth.token !== '' ? <Redirect from='/auth/signin/:source' to='/feed/all/popularity' exact /> : null}
+            {/*auth.token !== '' ? <Redirect from='/auth/signin/:source' to='/feed/all/popularity' exact /> : null*/}
             <Route path='/auth/signin/:source' exact component={SocialSignInCallback} />
             <Route path='/auth/signup' exact component={SignUp} />
             <Route path='/auth/recovery' exact component={Recovery} />
-            {auth.token === '' ? <Redirect from='/user/:userName' to='/auth/signin' exact /> : null}
+            {/*auth.token === '' ? <Redirect from='/user/:userName' to='/auth/signin' exact /> : null*/}
             <Route path='/user/:userName' exact component={User} />
             <Route component={Error} />
         </Switch>

@@ -1,51 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getUserName, getEmail, putUser } from '../../data';
-import { session } from '../../util';
+import { session, alert } from '../../util';
 
 import FeatherIcon from 'feather-icons-react';
 import './index.css';
 import '../Auth/index.css';
 
-const Component = ({ user, setUser }) => {
+const Component = ({ userData, setUserData }) => {
+    const [checkUserName, setCheckUserName] = useState(false);
+    const [checkEmail, setCheckEmail] = useState(false);
+
     const auth = useSelector(state => state.auth);
     const ui = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
     const _handleForm = e => {
         e.preventDefault();
-        if (_handleCheckUserName && _handleCheckPassword && _handleCheckConfrim && _handleCheckEmail) {
-            const form = document.setting;
+
+        const form = document.setting;
+
+        if ((form.userName.value === userData.userName || checkUserName) && _handleCheckPassword() && _handleCheckConfrim() && (form.email.value === userData.email || checkEmail)) {
             putUser(auth.token, form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
                 if (session(dispatch, res)) {
-                    setUser({
-                        id: user.id,
+                    setUserData({
+                        id: userData.id,
                         userName: form.userName.value,
                         email: form.email.value,
                         firstName: form.firstName.value,
                         lastName: form.lastName.value,
-                        socialType: user.socialType
+                        socialType: userData.socialType
                     });
                 } else {
                     alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
             });
         } else {
-            alert('messeage', 'Input data is invalid! Please check your information again.', null, null);
+            alert('message', 'Input data is invalid! Please check your information again.', null, null);
         }
     };
 
     const _handleReset = () => {
         const form = document.setting;
 
-        form.userName.value = user.userName;
+        form.userName.value = userData.userName;
         form.password.value = '';
         form.confirm.value = '';
-        form.email.value = user.email;
-        form.firstName.value = user.firstName;
-        form.lastName.value = user.lastName;
+        form.email.value = userData.email;
+        form.firstName.value = userData.firstName;
+        form.lastName.value = userData.lastName;
     };
 
     const normalColor = '#505050';
@@ -57,18 +62,18 @@ const Component = ({ user, setUser }) => {
 
         if (value.length < 5) {
             document.getElementById(target).style.color = normalColor;
-            return false;
+            setCheckUserName(false);
+        } else {
+            getUserName(value, res => {
+                if (res.status === 200) {
+                    document.getElementById(target).style.color = confirmedColor;
+                    setCheckUserName(true);
+                } else {
+                    document.getElementById(target).style.color = normalColor;
+                    setCheckUserName(false);
+                }
+            });
         }
-
-        getUserName(value, res => {
-            if (res.status === 200) {
-                document.getElementById(target).style.color = confirmedColor;
-                return true;
-            } else {
-                document.getElementById(target).style.color = normalColor;
-                return false;
-            }
-        });
     };
 
     const _handleCheckPassword = () => {
@@ -81,6 +86,10 @@ const Component = ({ user, setUser }) => {
 
         document.getElementById(target).style.color = normalColor;
 
+        if (password.length === 0) {
+            return true;
+        }
+
         let error = 0;
 
         if (!(8 <= password.length && password.length <= 20)) {
@@ -91,11 +100,11 @@ const Component = ({ user, setUser }) => {
             error++;
         }
 
-        if (error > 0) {
-            return false;
-        } else {
+        if (error === 0) {
             document.getElementById(target).style.color = confirmedColor;
             return true;
+        } else {
+            return false;
         }
     };
 
@@ -106,17 +115,21 @@ const Component = ({ user, setUser }) => {
 
         document.getElementById(target).style.color = normalColor;
 
+        if (password.length === 0) {
+            return true;
+        }
+
         let error = 0;
 
         if (password === '' || password !== confirm) {
             error++;
         }
 
-        if (error > 0) {
-            return false;
-        } else {
+        if (error === 0) {
             document.getElementById(target).style.color = confirmedColor;
             return true;
+        } else {
+            return false;
         }
     };
 
@@ -124,20 +137,22 @@ const Component = ({ user, setUser }) => {
         const value = document.setting.email.value;
         const target = 'setting-email';
 
-        if (value.length < 5) {
-            document.getElementById(target).style.color = normalColor;
-            return false;
-        }
+        const format = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        getEmail(value, res => {
-            if (res.status === 200) {
-                document.getElementById(target).style.color = confirmedColor;
-                return true;
-            } else {
-                document.getElementById(target).style.color = normalColor;
-                return false;
-            }
-        });
+        if (!format.test(value)) {
+            document.getElementById(target).style.color = normalColor;
+            setCheckEmail(false);
+        } else {
+            getEmail(value, res => {
+                if (res.status === 200) {
+                    document.getElementById(target).style.color = confirmedColor;
+                    setCheckEmail(true);
+                } else {
+                    document.getElementById(target).style.color = normalColor;
+                    setCheckEmail(false);
+                }
+            });
+        }
     };
 
     return (
@@ -149,53 +164,53 @@ const Component = ({ user, setUser }) => {
                         <FeatherIcon id='setting-userName' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input className='auth-input' type='text' name='userName' defaultValue={user.userName} onChange={_handleCheckUserName} />
-                <div className={user.socialType === null ? 'auth-placeholder' : 'auth-placeholder-disabled'}>
+                <input className='auth-input' type='text' name='userName' defaultValue={userData.userName} onChange={_handleCheckUserName} />
+                <div className={userData.socialType !== null ? 'auth-placeholder-disabled' : 'auth-placeholder'}>
                     {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호 변경'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-password' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
                 <input
-                    className={user.socialType === null ? 'auth-input' : 'auth-input-disabled'}
+                    className={userData.socialType !== null ? 'auth-input-disabled' : 'auth-input'}
                     type='password'
                     name='password'
                     onChange={_handleCheckPassword}
-                    disabled={user.socialType === null ? 'disabled' : ''}
+                    disabled={userData.socialType !== null ? 'disabled' : ''}
                 />
-                <div className={user.socialType === null ? 'auth-placeholder' : 'auth-placeholder-disabled'}>
+                <div className={userData.socialType !== null ? 'auth-placeholder-disabled' : 'auth-placeholder'}>
                     {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-confirm' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
                 <input
-                    className={user.socialType === null ? 'auth-input' : 'auth-input-disabled'}
+                    className={userData.socialType !== null ? 'auth-input-disabled' : 'auth-input'}
                     type='password'
                     name='confirm'
                     onChange={_handleCheckConfrim}
-                    disabled={user.socialType === null ? 'disabled' : ''}
+                    disabled={userData.socialType !== null ? 'disabled' : ''}
                 />
-                <div className={user.socialType === null ? 'auth-placeholder' : 'auth-placeholder-disabled'}>
+                <div className={userData.socialType !== null ? 'auth-placeholder-disabled' : 'auth-placeholder'}>
                     {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-email' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
                 <input
-                    className={user.socialType === null ? 'auth-input' : 'auth-input-disabled'}
+                    className={userData.socialType !== null ? 'auth-input-disabled' : 'auth-input'}
                     type='email'
                     name='email'
-                    defaultValue={user.email}
+                    defaultValue={userData.email}
                     autoComplete='password'
                     autoFocus
                     onChange={_handleCheckEmail}
-                    disabled={user.socialType === null ? 'disabled' : ''}
+                    disabled={userData.socialType !== null ? 'disabled' : ''}
                 />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
-                <input className='auth-input' type='text' name='firstName' defaultValue={user.firstName} autoComplete='password' />
+                <input className='auth-input' type='text' name='firstName' defaultValue={userData.firstName} autoComplete='password' />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
-                <input className='auth-input' type='text' name='lastName' defaultValue={user.lastName} autoComplete='password' />
+                <input className='auth-input' type='text' name='lastName' defaultValue={userData.lastName} autoComplete='password' />
                 <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SAVE' : '저장'} />
                 <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'RESET' : '취소'} onClick={_handleReset} />
             </form>

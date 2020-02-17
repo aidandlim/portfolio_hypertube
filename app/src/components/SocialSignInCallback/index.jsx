@@ -53,8 +53,10 @@ const Component = ({ history, location, match }) => {
                                         maxAge: 60 * 30
                                     })
                                 );
+                            } else if (res.status === 411) {
+                                alert('message', ui.lang === 'en_US' ? 'This email address has signed up already :(' : '이미 가입되있는 이메일입니다 :(', () => history.goBack(), null);
                             } else {
-                                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', () => history.goBack(), null);
                             }
                         });
                     });

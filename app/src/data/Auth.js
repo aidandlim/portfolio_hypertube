@@ -196,7 +196,7 @@ export const oAuth = ({ userName, email, firstName, lastName, picture, socialTyp
         socialType
     };
 
-    Axios.post(url, { params: data })
+    Axios.post(url, data)
         .then(res => {
             cb(res.data);
         })

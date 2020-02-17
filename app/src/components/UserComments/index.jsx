@@ -9,7 +9,7 @@ import { session, alert } from '../../util';
 
 import './index.css';
 
-const Component = ({ user }) => {
+const Component = ({ userData }) => {
     const [comments, setComments] = useState([]);
 
     const auth = useSelector(state => state.auth);
@@ -17,8 +17,8 @@ const Component = ({ user }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user.id !== -1) {
-            getCommentsByUserId(auth.token, user.id, res => {
+        if (userData.id !== -1) {
+            getCommentsByUserId(auth.token, userData.id, res => {
                 if (session(dispatch, res)) {
                     setComments(res.data.list);
                 } else {
@@ -26,7 +26,7 @@ const Component = ({ user }) => {
                 }
             });
         }
-    }, [dispatch, auth.token, user, ui.lang]);
+    }, [dispatch, auth.token, userData, ui.lang]);
 
     const _handleDeleteComment = (id) => {
 

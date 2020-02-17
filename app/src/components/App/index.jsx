@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { auth_token, movie_genres, movie_histories, ui_lang } from '../../actions';
+import { auth_token, user_data, movie_genres, movie_histories, ui_lang } from '../../actions';
 
 import { BrowserRouter } from 'react-router-dom';
 import Wrapper from 'react-div-100vh';
@@ -9,10 +9,11 @@ import cookie from 'react-cookies';
 import Header from '../Header';
 import Core from '../Core';
 
-import { apiGenres, checkToken, getHistories } from '../../data';
+import { apiGenres, checkToken, getUserByToken, getHistories } from '../../data';
 import { session } from '../../util';
 
 const Component = () => {
+    const auth = useSelector(state => state.auth);
     const ui = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
@@ -38,6 +39,16 @@ const Component = () => {
             dispatch(movie_genres(res));
         });
     }, [dispatch, ui.lang]);
+
+    useEffect(() => {
+        if (auth.token !== '') {
+            getUserByToken(auth.token, res => {
+                if (session(auth.token, res)) {
+                    dispatch(user_data(res.obj));
+                }
+            });
+        }
+    }, [auth.token]);
 
     return (
         <Wrapper className='no-drag'>

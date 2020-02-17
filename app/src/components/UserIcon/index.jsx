@@ -11,9 +11,10 @@ import './index.css';
 
 const Component = () => {
     const auth = useSelector(state => state.auth);
+    const user = useSelector(state => state.user);
 
     return (
-        <Link to={auth.token ? `/user/my` : '/auth/signin'} className='userIcon'>
+        <Link to={auth.token ? `/user/${user.userName}` : '/auth/signin'} className='userIcon'>
             <div
                 className='userIcon-image'
                 style={{
