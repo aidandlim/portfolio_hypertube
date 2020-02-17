@@ -143,34 +143,55 @@ const Component = ({ user, setUser }) => {
     return (
         <div className='userSetting'>
             <form name='setting' autoComplete='off' onSubmit={_handleForm}>
-                <div className='auth-placeholder-disabled'>
+                <div className='auth-placeholder'>
                     {ui.lang === 'en_US' ? 'USER NAME' : '아이디'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-userName' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input className='auth-input-disabled' type='text' name='userName' defaultValue={user.userName} onChange={_handleCheckUserName} />
-                <div className='auth-placeholder'>
+                <input className='auth-input' type='text' name='userName' defaultValue={user.userName} onChange={_handleCheckUserName} />
+                <div className={user.socialType === '' ? 'auth-placeholder' : 'auth-placeholder-disabled'}>
                     {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호 변경'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-password' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input className='auth-input' type='password' name='password' onChange={_handleCheckPassword} />
-                <div className='auth-placeholder'>
+                <input
+                    className={user.socialType === '' ? 'auth-input' : 'auth-input-disabled'}
+                    type='password'
+                    name='password'
+                    onChange={_handleCheckPassword}
+                    disabled={user.socialType === '' ? 'disabled' : ''}
+                />
+                <div className={user.socialType === '' ? 'auth-placeholder' : 'auth-placeholder-disabled'}>
                     {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-confirm' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input className='auth-input' type='password' name='confirm' onChange={_handleCheckConfrim} />
-                <div className='auth-placeholder'>
+                <input
+                    className={user.socialType === '' ? 'auth-input' : 'auth-input-disabled'}
+                    type='password'
+                    name='confirm'
+                    onChange={_handleCheckConfrim}
+                    disabled={user.socialType === '' ? 'disabled' : ''}
+                />
+                <div className={user.socialType === '' ? 'auth-placeholder' : 'auth-placeholder-disabled'}>
                     {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
                     <div className='auth-input-check'>
                         <FeatherIcon id='setting-email' className='auth-input-check-icon' icon='check' />
                     </div>
                 </div>
-                <input className='auth-input' type='email' name='email' defaultValue={user.email} autoComplete='password' autoFocus onChange={_handleCheckEmail} />
+                <input
+                    className={user.socialType === '' ? 'auth-input' : 'auth-input-disabled'}
+                    type='email'
+                    name='email'
+                    defaultValue={user.email}
+                    autoComplete='password'
+                    autoFocus
+                    onChange={_handleCheckEmail}
+                    disabled={user.socialType === '' ? 'disabled' : ''}
+                />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
                 <input className='auth-input' type='text' name='firstName' defaultValue={user.firstName} autoComplete='password' />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>

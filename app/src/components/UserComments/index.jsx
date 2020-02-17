@@ -28,9 +28,13 @@ const Component = ({ user }) => {
         }
     }, [dispatch, auth.token, user, ui.lang]);
 
+    const _handleDeleteComment = (id) => {
+
+    }
+
     return (
         <div className='userComment'>
-            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} key={index} />) : <div className='userComment-none'>There is no recent watching data</div>}
+            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} _handleDeleteComment={_handleDeleteComment} key={index} />) : <div className='userComment-none'>There is no recent watching data</div>}
         </div>
     );
 };

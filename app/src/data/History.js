@@ -49,6 +49,8 @@ export const getHistories = (token, cb) => {
     result:
         status
         list
+    using at:
+        UserRecentWatching
 */
 export const getHistoriesByUserName = (token, userName, cb) => {
     const url = `/api/histories/userName/${userName}`;

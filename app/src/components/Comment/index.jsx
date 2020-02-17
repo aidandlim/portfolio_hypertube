@@ -8,8 +8,12 @@ import user_default from '../../assets/images/user_default.png';
 
 import './index.css';
 
-const Component = ({ comment }) => {
+const Component = ({ comment, _handleDeleteComment }) => {
     const auth = useSelector(state => state.auth);
+
+    const _handleDelete = () => {
+        _handleDeleteComment(comment.id);
+    };
 
     return (
         <Link to={auth.token !== '' ? `/user/${comment.userName}` : '/auth/signin'}>
@@ -25,6 +29,7 @@ const Component = ({ comment }) => {
                     <div className='comment-content-time'>({comment.time})</div>
                     <div className='comment-content-message'>{comment.comment}</div>
                 </div>
+                {comment.isMine ? <div className='comment-delete' onClick={_handleDelete}></div> : null}
             </div>
         </Link>
     );

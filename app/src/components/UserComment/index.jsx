@@ -6,7 +6,7 @@ import { apiMovie } from '../../data';
 
 import './index.css';
 
-const Component = ({ data }) => {
+const Component = ({ data, _handleDeleteComment }) => {
     const [movie, setMovie] = useState({});
 
     const ui = useSelector(state => state.ui);
@@ -25,6 +25,10 @@ const Component = ({ data }) => {
         };
     }, [data.movieId, ui.lang]);
 
+    const _handleDelete = () => {
+        _handleDeleteComment(data.id);
+    };
+
     return (
         <div className='userComment'>
             <div className='userComment-movie'>
@@ -32,6 +36,7 @@ const Component = ({ data }) => {
             </div>
             <div className='userComment-comment'>{data.comment}</div>
             <div className='userComment-time'>{data.time}</div>
+            {data.isMine ? <div className='userComment-delete' onClick={_handleDelete}></div> : null}
         </div>
     );
 };

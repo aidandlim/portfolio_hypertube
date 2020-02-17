@@ -36,10 +36,14 @@ const Component = ({ id }) => {
         };
     }, [id, setIsDoneSearch, ui.lang]);
 
+    const _handleDeleteComment = (id) => {
+
+    }
+
     return (
         <div className='commentList'>
             <div className='commentList-container'>
-                {commentList.length !== 0 ? commentList.map((comment, index) => <Comment comment={comment} key={index} />) : null}
+                {commentList.length !== 0 ? commentList.map((comment, index) => <Comment comment={comment} _handleDeleteComment={_handleDeleteComment} key={index} />) : null}
                 {commentList.length === 0 && isDoneSearch ? (ui.lang === 'en_US' ? 'We cannot find out any comments :(' : '등록된 코멘트가 없습니다 :(') : null}
                 {commentList.length === 0 && !isDoneSearch ? (ui.lang === 'en_US' ? 'We are looking for comments!' : '코멘트를 검색 중입니다!') : null}
             </div>

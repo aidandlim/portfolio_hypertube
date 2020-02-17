@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import UserRecentWatchingMovie from '../UserRecentWatchingMovie';
 
-import { getHistories } from '../../data';
+import { getHistoriesByUserName } from '../../data';
 import { session } from '../../util';
 
 import './index.css';
@@ -17,9 +17,9 @@ const Component = ({ userName }) => {
 
     useEffect(() => {
         if (userName !== '') {
-            getHistories(auth.token, userName, res => {
+            getHistoriesByUserName(auth.token, userName, res => {
                 if (session(dispatch, res)) {
-                    setMovies(res.data.list);
+                    setMovies(res.list);
                 }
             });
         }
