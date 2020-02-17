@@ -9,13 +9,7 @@ import './index.css';
 import App from './components/App';
 
 ReactDOM.render(
-    <Provider
-        store={createStore(
-            Reducers,
-            window.__REDUX_DEVTOOLS_EXTENSION__ &&
-                window.__REDUX_DEVTOOLS_EXTENSION__()
-        )}
-    >
+    <Provider store={createStore(Reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
         <App />
     </Provider>,
     document.getElementById('root')
