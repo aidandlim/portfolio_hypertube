@@ -8,7 +8,7 @@ import { session, alert } from '../../util';
 
 import './index.css';
 
-const Component = ({ id }) => {
+const Component = ({ id, commentList, setCommentList }) => {
     const auth = useSelector(state => state.auth);
     const ui = useSelector(state => state.ui);
     const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const Component = ({ id }) => {
         if (text !== '') {
             postComment(auth.token, id, text, res => {
                 if (session(dispatch, res)) {
+                    setCommentList([res.obj, ...commentList]);
                     alert('message', ui.lang === 'en_US' ? 'Done!' : '등록완료!', null, null);
                     document.comment.comment.value = '';
                 } else {

@@ -16,7 +16,7 @@ const Component = ({ comment, _handleDeleteComment }) => {
     };
 
     return (
-        <Link to={auth.token !== '' ? `/user/${comment.userName}` : '/auth/signin'}>
+        <Link to={auth.token !== '' ? `/user/${comment.user.userName}` : '/auth/signin'}>
             <div className='comment'>
                 <div
                     className='comment-picture'
@@ -25,9 +25,9 @@ const Component = ({ comment, _handleDeleteComment }) => {
                     }}
                 ></div>
                 <div className='comment-content'>
-                    <div className='comment-content-name'>{comment.fullName}</div>
+                    <div className='comment-content-name'>{comment.user.firstName} {comment.user.lastName}</div>
                     <div className='comment-content-time'>({comment.time})</div>
-                    <div className='comment-content-message'>{comment.comment}</div>
+                    <div className='comment-content-message'>{comment.content}</div>
                 </div>
                 {comment.isMine ? <div className='comment-delete' onClick={_handleDelete}></div> : null}
             </div>

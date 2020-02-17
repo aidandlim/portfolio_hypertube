@@ -29,6 +29,7 @@ export const getCommentsByMovieId = (movieId, cb) => {
 
     Axios.get(url)
         .then(res => {
+            console.log(res);
             cb(res.data);
         })
         .catch(() => {
@@ -83,8 +84,6 @@ export const postComment = (token, movieId, content, cb) => {
         movieId,
         content
     };
-
-    console.log(data);
 
     Axios.post(url, data)
         .then(res => {

@@ -86,17 +86,17 @@ const Component = ({ match }) => {
     return (
         <div className='user'>
             {userData.id === -1 ? (
-                isDoneSearch ?
+                isDoneSearch ? (
                     ui.lang === 'en_US' ? (
                         "We can't find any information of this account"
                     ) : (
                         '회원정보를 찾을 수 없습니다.'
                     )
-                    : ui.lang === 'en_US' ? (
-                        "We are looking for this account information"
-                    ) : (
-                        '회원정보를 검색 중입니다.'
-                    )
+                ) : ui.lang === 'en_US' ? (
+                    'We are looking for this account information'
+                ) : (
+                    '회원정보를 검색 중입니다.'
+                )
             ) : (
                 <div className='user-container'>
                     <div className='user-info'>
@@ -135,11 +135,15 @@ const Component = ({ match }) => {
                 </button>
             ) : null}
 
-            {userData.userName === user.userName ? (
+            {/*userData.userName === user.userName ? (
                 <button className='user-signout' onClick={_handleSignOut}>
                     SIGN OUT
                 </button>
-            ) : null}
+            ) : null*/}
+
+            <button className='user-signout' onClick={_handleSignOut}>
+                SIGN OUT
+            </button>
         </div>
     );
 };
