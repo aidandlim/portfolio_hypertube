@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -9,15 +9,19 @@ import FeatherIcon from 'feather-icons-react';
 import '../Auth/index.css';
 
 const Component = ({ history }) => {
+    const [checkUserName, setCheckUserName] = useState(false);
+    const [checkEmail, setCheckEmail] = useState(false);
+
     const ui = useSelector(state => state.ui);
 
     const _handleBack = () => {
         history.goBack();
     };
 
-    const _handleForm = e => {
+    const _handleForm = async e => {
         e.preventDefault();
-        if (_handleCheckUserName && _handleCheckPassword && _handleCheckConfrim && _handleCheckEmail) {
+
+        if (checkUserName && _handleCheckPassword() && _handleCheckConfrim() && checkEmail) {
             const form = document.signup;
             signup(form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
                 if (res.status === 200) {
@@ -27,7 +31,7 @@ const Component = ({ history }) => {
                 }
             });
         } else {
-            alert('messeage', 'Input data is invalid! Please check your information again.', null, null);
+            alert('message', 'Input data is invalid! Please check your information again.', null, null);
         }
     };
 
@@ -40,18 +44,18 @@ const Component = ({ history }) => {
 
         if (value.length < 5) {
             document.getElementById(target).style.color = normalColor;
-            return false;
+            setCheckUserName(false);
+        } else {
+            getUserName(value, res => {
+                if (res.status === 200) {
+                    document.getElementById(target).style.color = confirmedColor;
+                    setCheckUserName(true);
+                } else {
+                    document.getElementById(target).style.color = normalColor;
+                    setCheckUserName(false);
+                }
+            });
         }
-
-        getUserName(value, res => {
-            if (res.status === 200) {
-                document.getElementById(target).style.color = confirmedColor;
-                return true;
-            } else {
-                document.getElementById(target).style.color = normalColor;
-                return false;
-            }
-        });
     };
 
     const _handleCheckPassword = () => {
@@ -74,11 +78,11 @@ const Component = ({ history }) => {
             error++;
         }
 
-        if (error > 0) {
-            return false;
-        } else {
+        if (error === 0) {
             document.getElementById(target).style.color = confirmedColor;
             return true;
+        } else {
+            return false;
         }
     };
 
@@ -95,11 +99,11 @@ const Component = ({ history }) => {
             error++;
         }
 
-        if (error > 0) {
-            return false;
-        } else {
+        if (error === 0) {
             document.getElementById(target).style.color = confirmedColor;
             return true;
+        } else {
+            return false;
         }
     };
 
@@ -107,20 +111,22 @@ const Component = ({ history }) => {
         const value = document.signup.email.value;
         const target = 'signup-email';
 
-        if (value.length < 5) {
-            document.getElementById(target).style.color = normalColor;
-            return false;
-        }
+        const format = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        getEmail(value, res => {
-            if (res.status === 200) {
-                document.getElementById(target).style.color = confirmedColor;
-                return true;
-            } else {
-                document.getElementById(target).style.color = normalColor;
-                return false;
-            }
-        });
+        if (!format.test(value)) {
+            document.getElementById(target).style.color = normalColor;
+            setCheckEmail(false);
+        } else {
+            getEmail(value, res => {
+                if (res.status === 200) {
+                    document.getElementById(target).style.color = confirmedColor;
+                    setCheckEmail(true);
+                } else {
+                    document.getElementById(target).style.color = normalColor;
+                    setCheckEmail(false);
+                }
+            });
+        }
     };
 
     return (
@@ -139,28 +145,28 @@ const Component = ({ history }) => {
                             <FeatherIcon id='signup-userName' className='auth-input-check-icon' icon='check' />
                         </div>
                     </div>
-                    <input className='auth-input' type='text' name='userName' autoFocus onChange={_handleCheckUserName} />
+                    <input className='auth-input' type='text' name='userName' autoFocus onChange={_handleCheckUserName} required />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호'}
                         <div className='auth-input-check'>
                             <FeatherIcon id='signup-password' className='auth-input-check-icon' icon='check' />
                         </div>
                     </div>
-                    <input className='auth-input' type='password' name='password' onChange={_handleCheckPassword} />
+                    <input className='auth-input' type='password' name='password' onChange={_handleCheckPassword} required />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
                         <div className='auth-input-check'>
                             <FeatherIcon id='signup-confirm' className='auth-input-check-icon' icon='check' />
                         </div>
                     </div>
-                    <input className='auth-input' type='password' name='confirm' onChange={_handleCheckConfrim} />
+                    <input className='auth-input' type='password' name='confirm' onChange={_handleCheckConfrim} required />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
                         <div className='auth-input-check'>
                             <FeatherIcon id='signup-email' className='auth-input-check-icon' icon='check' />
                         </div>
                     </div>
-                    <input className='auth-input' type='email' name='email' autoComplete='password' onChange={_handleCheckEmail} />
+                    <input className='auth-input' type='email' name='email' autoComplete='password' onChange={_handleCheckEmail} required />
                     <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
                     <input className='auth-input' type='text' name='firstName' autoComplete='password' />
                     <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>

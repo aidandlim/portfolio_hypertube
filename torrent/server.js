@@ -7,14 +7,15 @@ const RarbgApi = require('rarbg');
 const app = express();
 const TORRENT_PORT = 8443;
 const STREAM_PORT = 8444;
-const API_PORT = 8080;
+// const SOCKET_PORT = 8445;
+const API_PORT = 8446;
 
 app.use(cors());
 
 app.use(
     '/api',
     proxy({
-        target: `http://10.10.146.166:${API_PORT}`,
+        target: `http://localhost:${API_PORT}`,
         changeOrigin: true
     })
 );

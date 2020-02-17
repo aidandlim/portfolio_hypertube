@@ -16,7 +16,7 @@ import { session } from '../../util/session';
 
 import FeatherIcon from 'feather-icons-react';
 import user_default from '../../assets/images/user_default.png';
-
+import { alert } from '../../util';
 import './index.css';
 
 const Component = ({ match }) => {
@@ -37,23 +37,23 @@ const Component = ({ match }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getUserByToken(auth.token, res => {
-            if (session(dispatch, res)) {
-                if (res.obj.userName === userName) {
-                    setUser(res.data);
+        if (userName === 'my') {
+            getUserByToken(auth.token, res => {
+                if (session(dispatch, res)) {
+                    setUser(res.obj);
                 } else {
-                    getUserByUserName(auth.token, userName, res => {
-                        if (session(dispatch, res)) {
-                            setUser(res.obj);
-                        } else {
-                            alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-                        }
-                    });
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
-            } else {
-                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-            }
-        });
+            });
+        } else {
+            getUserByUserName(auth.token, userName, res => {
+                if (session(dispatch, res)) {
+                    setUser(res.obj);
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                }
+            });
+        }
     }, [dispatch, auth.token, userName, ui.lang]);
 
     const _handleClose = () => {

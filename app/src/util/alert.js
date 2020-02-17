@@ -25,5 +25,14 @@ export const alert = (type, message, cb1, cb2) => {
                 }
             ]
         });
+    } else {
+        confirmAlert({
+            message: 'coding error',
+            buttons: [
+                {
+                    label: 'Yes'
+                }
+            ]
+        });
     }
 };
