@@ -6,7 +6,7 @@ import { auth_token } from '../../actions';
 import { Link } from 'react-router-dom';
 import cookie from 'react-cookies';
 
-import SocialSignIn from '../SocialSignIn';
+import Social from '../Social';
 
 import { signin } from '../../data';
 
@@ -84,7 +84,7 @@ const Component = ({ history }) => {
                         ? 'Sometimes, all you need to do is completely make an ass of yourself and laugh it off to realise that life isn’t so bad after all.'
                         : '모든 국민은 건강하고 쾌적한 환경에서 생활할 권리를 가지며, 국가와 국민은 환경보전을 위하여 노력하여야 한다. 이 헌법은 1988년 2월 25일부터 시행한다.'}
                 </div>
-                <SocialSignIn />
+                <Social />
             </div>
         </div>
     );

@@ -24,7 +24,7 @@ app.use(
 app.use(
     '/stream',
     proxy({
-        target: `http://localhost:${STREAM_PORT}`,
+        target: `http://${API_IP}:${STREAM_PORT}`,
         changeOrigin: true
     })
 );
