@@ -35,7 +35,9 @@ export const getUserByToken = (token, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -63,7 +65,9 @@ export const getUserByUserName = (token, userName, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -90,14 +94,14 @@ export const putUser = (token, userName, password, email, firstName, lastName, c
         lastName
     };
 
-    console.log(data);
-
     Axios.put(url, data)
         .then(res => {
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -124,6 +128,8 @@ export const deleteUser = (token, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };

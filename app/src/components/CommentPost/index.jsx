@@ -19,6 +19,7 @@ const Component = ({ id, commentList, setCommentList }) => {
         const text = document.comment.comment.value;
         if (text !== '') {
             postComment(auth.token, id, text, res => {
+                console.log(res);
                 if (session(dispatch, res)) {
                     setCommentList([res.obj, ...commentList]);
                     alert('message', ui.lang === 'en_US' ? 'Done!' : '등록완료!', null, null);

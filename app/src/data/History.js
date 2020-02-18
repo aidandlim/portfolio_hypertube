@@ -30,12 +30,16 @@ export const getHistories = (token, cb) => {
         token
     };
 
+    console.log(data);
+
     Axios.get(url, { params: data })
         .then(res => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -63,7 +67,9 @@ export const getHistoriesByUserName = (token, userName, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -89,7 +95,9 @@ export const getHistory = (token, movieId, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -117,6 +125,8 @@ export const postHistory = (token, movieId, current, duration, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };

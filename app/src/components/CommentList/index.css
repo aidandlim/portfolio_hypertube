@@ -12,7 +12,7 @@
     width: 100%;
     height: calc(100% - 5rem);
 
-    padding: 1rem;
+    padding: 0.5rem;
 
     overflow-x: hidden;
     overflow-y: scroll;

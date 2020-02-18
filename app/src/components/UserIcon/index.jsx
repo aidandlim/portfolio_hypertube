@@ -14,7 +14,7 @@ const Component = () => {
     const user = useSelector(state => state.user);
 
     return (
-        <Link to={auth.token ? `/user/${user.userName}` : '/auth/signin'} className='userIcon'>
+        <Link to={auth.token && user.id !== -1 ? `/user/${user.userName}` : '/auth/signin'} className='userIcon'>
             <div
                 className='userIcon-image'
                 style={{

@@ -9,8 +9,8 @@ import cookie from 'react-cookies';
 import Header from '../Header';
 import Core from '../Core';
 
-import { apiGenres, checkToken, getUserByToken, getHistories } from '../../data';
-import { session } from '../../util';
+import { apiGenres, checkToken, getHistoriesByUserName, getUserByToken } from '../../data';
+import { session, alert } from '../../util';
 
 const Component = () => {
     const auth = useSelector(state => state.auth);
@@ -24,13 +24,6 @@ const Component = () => {
             checkToken(token, res => {
                 if (res.status === 200) {
                     dispatch(auth_token(token));
-                    // getHistories(token, res => {
-                    //     if (session(dispatch, res)) {
-                    //         dispatch(movie_histories(res.list));
-                    //     } else {
-                    //         alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-                    //     }
-                    // });
                 }
             });
         }
@@ -45,10 +38,33 @@ const Component = () => {
             getUserByToken(auth.token, res => {
                 if (session(auth.token, res)) {
                     dispatch(user_data(res.obj));
+                    getHistoriesByUserName(auth.token, res.obj.userName, res => {
+                        if (session(dispatch, res)) {
+                            dispatch(movie_histories(res.list));
+                        } else {
+                            alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                        }
+                    });
+                } else {
+                    cookie.save('token', '', {
+                        path: '/'
+                    });
+                    dispatch(auth_token(''));
+                    dispatch(
+                        user_data({
+                            id: -1,
+                            userName: '',
+                            email: '',
+                            firstName: '',
+                            lastName: '',
+                            picture: '',
+                            socialType: ''
+                        })
+                    );
                 }
             });
         }
-    }, [auth.token]);
+    }, [dispatch, auth.token, ui.lang]);
 
     return (
         <Wrapper className='no-drag'>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import { Switch, Redirect, Route } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ import User from '../User';
 import Error from '../Error';
 
 const Component = () => {
-    const auth = useSelector(state => state.auth);
+    // const auth = useSelector(state => state.auth);
 
     return (
         <Switch>

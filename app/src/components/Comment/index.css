@@ -1,8 +1,16 @@
-.comment {
+.comment-container {
     width: 100%;
     height: auto;
 
     margin-bottom: 0.75rem;
+
+    position: relative;
+    float: left;
+}
+
+.comment {
+    width: calc(100% - 1rem);
+    height: auto;
 
     position: relative;
     float: left;
@@ -15,7 +23,8 @@
     position: relative;
     float: left;
 
-    background-size: 2rem 2rem;
+    background-size: cover;
+    background-position: center;
     border-radius: 50%;
 }
 
@@ -81,4 +90,18 @@
 
     white-space: normal;
     word-break: break-all;
+}
+
+.comment-delete {
+    width: 0.7rem;
+    height: 0.7rem;
+
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-100%, -50%);
+
+    color: var(--color-30);
+
+    cursor: pointer;
 }

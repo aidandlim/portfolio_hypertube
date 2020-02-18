@@ -17,11 +17,11 @@ const Component = ({ userName }) => {
 
     useEffect(() => {
         if (userName !== '') {
-            // getHistoriesByUserName(auth.token, userName, res => {
-            //     if (session(dispatch, res)) {
-            //         setMovies(res.list);
-            //     }
-            // });
+            getHistoriesByUserName(auth.token, userName, res => {
+                if (session(dispatch, res)) {
+                    setMovies(res.list);
+                }
+            });
         }
     }, [dispatch, auth.token, userName]);
 

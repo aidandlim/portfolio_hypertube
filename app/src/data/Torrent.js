@@ -8,6 +8,8 @@ export const getTorrents = (id, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };

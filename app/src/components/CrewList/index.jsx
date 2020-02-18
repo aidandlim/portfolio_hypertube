@@ -18,12 +18,10 @@ const Component = ({ id }) => {
         let isCancelled = false;
 
         apiMovieDetail(id, ui.lang, res => {
-            setTimeout(() => {
-                if (!isCancelled) {
-                    setCrewList(res.crew);
-                    setIsDoneSearch(true);
-                }
-            }, 1000);
+            if (!isCancelled) {
+                setCrewList(res.crew);
+                setIsDoneSearch(true);
+            }
         });
         return () => {
             isCancelled = true;

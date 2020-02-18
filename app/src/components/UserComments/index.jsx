@@ -20,21 +20,17 @@ const Component = ({ userData }) => {
         if (userData.id !== -1) {
             getCommentsByUserId(auth.token, userData.id, res => {
                 if (session(dispatch, res)) {
-                    setComments(res.data.list);
+                    setComments(res.list);
                 } else {
                     alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
             });
         }
-    }, [dispatch, auth.token, userData, ui.lang]);
-
-    const _handleDeleteComment = (id) => {
-
-    }
+    }, [dispatch, auth.token, userData.id, ui.lang]);
 
     return (
-        <div className='userComment'>
-            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} _handleDeleteComment={_handleDeleteComment} key={index} />) : <div className='userComment-none'>There is no recent watching data</div>}
+        <div className='userComments'>
+            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} key={index} />) : <div className='userComments-none'>There is no recent watching data</div>}
         </div>
     );
 };

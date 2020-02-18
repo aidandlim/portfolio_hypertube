@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Comment from '../Comment';
 import CommentPost from '../CommentPost';
 
-import { getCommentsByMovieId } from '../../data';
+import { getCommentsByMovieId, deleteComment } from '../../data';
 
 import { alert } from '../../util';
 import './index.css';
@@ -14,29 +14,36 @@ const Component = ({ id }) => {
     const [commentList, setCommentList] = useState([]);
     const [isDoneSearch, setIsDoneSearch] = useState(false);
 
+    const auth = useSelector(state => state.auth);
     const ui = useSelector(state => state.ui);
 
     useEffect(() => {
         let isCancelled = false;
 
         getCommentsByMovieId(id, res => {
-            setTimeout(() => {
-                if (!isCancelled) {
-                    if (res.status === 200) {
-                        setCommentList(res.list);
-                        setIsDoneSearch(true);
-                    } else {
-                        alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-                    }
+            if (!isCancelled) {
+                if (res.status === 200) {
+                    setCommentList(res.list);
+                    setIsDoneSearch(true);
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
-            }, 1000);
+            }
         });
         return () => {
             isCancelled = true;
         };
     }, [id, setIsDoneSearch, ui.lang]);
 
-    const _handleDeleteComment = id => {};
+    const _handleDeleteComment = id => {
+        deleteComment(auth.token, id, res => {
+            if (res.status === 200) {
+                setCommentList(commentList.filter(comment => comment.id !== id));
+            } else {
+                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+            }
+        });
+    };
 
     return (
         <div className='commentList'>

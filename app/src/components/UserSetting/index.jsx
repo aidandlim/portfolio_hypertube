@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { user_data } from '../../actions';
 
 import { getUserName, getEmail, putUser } from '../../data';
 import { session, alert } from '../../util';
@@ -17,6 +18,9 @@ const Component = ({ userData, setUserData }) => {
     const ui = useSelector(state => state.ui);
     const dispatch = useDispatch();
 
+    const normalColor = '#505050';
+    const confirmedColor = '#64FFDA';
+
     const _handleForm = e => {
         e.preventDefault();
 
@@ -31,8 +35,22 @@ const Component = ({ userData, setUserData }) => {
                         email: form.email.value,
                         firstName: form.firstName.value,
                         lastName: form.lastName.value,
+                        picture: userData.picture,
                         socialType: userData.socialType
                     });
+                    dispatch(user_data({
+                        id: userData.id,
+                        userName: form.userName.value,
+                        email: form.email.value,
+                        firstName: form.firstName.value,
+                        lastName: form.lastName.value,
+                        picture: userData.picture,
+                        socialType: userData.socialType
+                    }));
+                    document.getElementById('setting-userName').style.color = normalColor;
+                    document.getElementById('setting-password').style.color = normalColor;
+                    document.getElementById('setting-confirm').style.color = normalColor;
+                    document.getElementById('setting-email').style.color = normalColor;
                 } else {
                     alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
                 }
@@ -51,10 +69,12 @@ const Component = ({ userData, setUserData }) => {
         form.email.value = userData.email;
         form.firstName.value = userData.firstName;
         form.lastName.value = userData.lastName;
+        
+        document.getElementById('setting-userName').style.color = normalColor;
+        document.getElementById('setting-password').style.color = normalColor;
+        document.getElementById('setting-confirm').style.color = normalColor;
+        document.getElementById('setting-email').style.color = normalColor;
     };
-
-    const normalColor = '#505050';
-    const confirmedColor = '#64FFDA';
 
     const _handleCheckUserName = () => {
         const value = document.setting.userName.value;

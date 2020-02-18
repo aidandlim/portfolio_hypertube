@@ -29,11 +29,12 @@ export const getCommentsByMovieId = (movieId, cb) => {
 
     Axios.get(url)
         .then(res => {
-            console.log(res);
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -60,9 +61,11 @@ export const getCommentsByUserId = (token, userId, cb) => {
         .then(res => {
             cb(res.data);
         })
-        .catch(() => {
-            cb(null);
-        });
+        // .catch(() => {
+        //     cb({
+        //         status: 400
+        //     });
+        // });
 };
 
 /*
@@ -90,7 +93,9 @@ export const postComment = (token, movieId, content, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -117,6 +122,8 @@ export const deleteComment = (token, commentId, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(null);
+            cb({
+                status: 400
+            });
         });
 };

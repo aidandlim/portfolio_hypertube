@@ -18,12 +18,10 @@ const Component = ({ id, setIsOpenDetail }) => {
         let isCancelled = false;
 
         apiSimilarMovies(id, ui.lang, res => {
-            setTimeout(() => {
-                if (!isCancelled) {
-                    setSimilarList(res);
-                    setIsDoneSearch(true);
-                }
-            }, 1000);
+            if (!isCancelled) {
+                setSimilarList(res);
+                setIsDoneSearch(true);
+            }
         });
         return () => {
             isCancelled = true;

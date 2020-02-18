@@ -145,7 +145,9 @@ export const signup = (userName, password, email, firstName, lastName, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -169,7 +171,9 @@ export const recovery = (email, cb) => {
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };
 
@@ -201,6 +205,8 @@ export const oAuth = ({ userName, email, firstName, lastName, picture, socialTyp
             cb(res.data);
         })
         .catch(() => {
-            cb(0);
+            cb({
+                status: 400
+            });
         });
 };
