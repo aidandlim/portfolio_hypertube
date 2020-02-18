@@ -30,7 +30,7 @@ const Component = ({ userData }) => {
 
     return (
         <div className='userComments'>
-            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} key={index} />) : <div className='userComments-none'>There is no recent watching data</div>}
+            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} key={index} />) : <div className='userComments-none'>There is no comment data</div>}
         </div>
     );
 };

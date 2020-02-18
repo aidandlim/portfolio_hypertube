@@ -42,17 +42,7 @@ const Component = ({ history, location, match }) => {
                         oAuth(res, res => {
                             if (res.status === 200) {
                                 dispatch(auth_token(res.obj));
-                                alert(
-                                    'question',
-                                    ui.lang === 'en_US' ? 'Do you want to keep your signin status?' : '로그인을 유지하시겠습니까?',
-                                    cookie.save('token', res.obj, {
-                                        path: '/'
-                                    }),
-                                    cookie.save('token', res.obj, {
-                                        path: '/',
-                                        maxAge: 60 * 30
-                                    })
-                                );
+                                alert('question', ui.lang === 'en_US' ? 'Do you want to keep your signin status?' : '로그인을 유지하시겠습니까?', () => _handleFinish(true, res.obj), () => _handleFinish(false, res.obj));
                             } else if (res.status === 411) {
                                 alert('message', ui.lang === 'en_US' ? 'This email address has signed up already :(' : '이미 가입되있는 이메일입니다 :(', () => history.goBack(), null);
                             } else {
@@ -66,6 +56,21 @@ const Component = ({ history, location, match }) => {
             });
         }
     }, [location, history, ui.lang, source, dispatch]);
+
+    const _handleFinish = (isPermanent, token) => {
+        if (isPermanent) {
+            cookie.save('token', token, {
+                path: '/'
+            });
+            window.open('/', '_self');
+        } else {
+            cookie.save('token', token, {
+                path: '/',
+                maxAge: 60 * 30
+            });
+            window.open('/', '_self');
+        }
+    };
 
     return (
         <div className='socialSignInWith42'>

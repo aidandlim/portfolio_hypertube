@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { user_data } from '../../actions';
+import { auth_token, user_data } from '../../actions';
 
-import { getUserName, getEmail, putUser } from '../../data';
+import cookie from 'react-cookies';
+
+import { getUserName, getEmail, putUser, deleteUser } from '../../data';
 import { session, alert } from '../../util';
 
 import FeatherIcon from 'feather-icons-react';
@@ -175,6 +177,37 @@ const Component = ({ userData, setUserData }) => {
         }
     };
 
+    const _handleClose = () => {
+        if (auth.token !== '') {
+            deleteUser(auth.token, res => {
+                if (session(dispatch, res)) {
+                    _handleSignOut();
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                }
+            });
+        }
+    };
+
+    const _handleSignOut = () => {
+        cookie.save('token', '', {
+            path: '/'
+        });
+        dispatch(auth_token(''));
+        dispatch(
+            user_data({
+                id: -1,
+                userName: '',
+                email: '',
+                firstName: '',
+                lastName: '',
+                picture: '',
+                socialType: ''
+            })
+        );
+        window.open('/', '_self');
+    };
+
     return (
         <div className='userSetting'>
             <form name='setting' autoComplete='off' onSubmit={_handleForm}>
@@ -231,6 +264,7 @@ const Component = ({ userData, setUserData }) => {
                 <input className='auth-input' type='text' name='firstName' defaultValue={userData.firstName} autoComplete='password' />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
                 <input className='auth-input' type='text' name='lastName' defaultValue={userData.lastName} autoComplete='password' />
+                <div className='auth-nav' onClick={_handleClose}>{ui.lang === 'en_US' ? 'By any chance, Do you want to close this account?' : '혹시 계정을 삭제하시겠습니까?'}</div>
                 <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SAVE' : '저장'} />
                 <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'RESET' : '취소'} onClick={_handleReset} />
             </form>

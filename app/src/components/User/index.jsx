@@ -10,13 +10,12 @@ import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
 import UserSetting from '../UserSetting';
 
-import { getUserByUserName, deleteUser } from '../../data';
+import { getUserByUserName } from '../../data';
 
 import { session } from '../../util/session';
 
 import FeatherIcon from 'feather-icons-react';
 import user_default from '../../assets/images/user_default.png';
-import { alert } from '../../util';
 import './index.css';
 
 const Component = ({ match }) => {
@@ -51,18 +50,6 @@ const Component = ({ match }) => {
         }
     }, [dispatch, auth.token, userName, ui.lang]);
 
-    const _handleClose = () => {
-        if (auth.token !== '') {
-            deleteUser(auth.token, res => {
-                if (session(dispatch, res)) {
-                    _handleSignOut();
-                } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-                }
-            });
-        }
-    };
-
     const _handleSignOut = () => {
         cookie.save('token', '', {
             path: '/'
@@ -79,6 +66,7 @@ const Component = ({ match }) => {
                 socialType: ''
             })
         );
+        window.open('/', '_self');
     };
 
     const menus = userData.userName === user.userName ? [0, 1, 2] : [0, 1];
@@ -130,20 +118,10 @@ const Component = ({ match }) => {
                 </div>
             )}
             {userData.userName === user.userName ? (
-                <button className='user-delete' onClick={_handleClose}>
-                    CLOSE ACCOUNT
-                </button>
+                <div className='user-util-container'>
+                    <FeatherIcon className='user-util-icon-logout' icon='log-out' onClick={_handleSignOut} />
+                </div>
             ) : null}
-
-            {/*userData.userName === user.userName ? (
-                <button className='user-signout' onClick={_handleSignOut}>
-                    SIGN OUT
-                </button>
-            ) : null*/}
-
-            <button className='user-signout' onClick={_handleSignOut}>
-                SIGN OUT
-            </button>
         </div>
     );
 };

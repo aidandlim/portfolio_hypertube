@@ -11,7 +11,7 @@ const reducer = (state = data, action) => {
             });
         case 'MOVIE_HISTORIES':
             return Object.assign({}, state, {
-                histories: action.payload.genres
+                histories: action.payload.histories
             });
         default:
             return state;

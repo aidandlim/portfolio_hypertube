@@ -88,7 +88,7 @@ const Component = ({ match }) => {
                 {ui.lang === 'en_US' ? 'SEARCH RESULT' : '검색결과'} : "{type === 'movie' ? query : queryName}"
             </div>
             {result.results.map((movie, index) => (
-                <Movie movie={movie} key={index} />
+                <Movie movieData={movie} key={index} />
             ))}
         </div>
     );

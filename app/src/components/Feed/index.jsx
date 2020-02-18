@@ -76,7 +76,7 @@ const Component = ({ match }) => {
             <div className='feed-container'>
                 <FilterIcon genre={genre} filter={filter} _handleFilter={_handleFilter} />
                 {movies.map((movie, index) => (
-                    <Movie movie={movie} key={index} />
+                    <Movie movieData={movie} key={index} />
                 ))}
             </div>
             {isOpenFilter ? <Filter genre={genre} filter={filter} _handleFilter={_handleFilter} /> : null}

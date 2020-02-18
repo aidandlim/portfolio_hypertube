@@ -22,8 +22,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: white;
-    background-size: 1.25rem 1.25rem;
+    background-size: cover;
+    background-position: center;
     border: none;
     border-radius: 50%;
 }
