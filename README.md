@@ -16,7 +16,7 @@
 
 ---
 
-## Deploy
+## Deployment
 
 ***Not Yet***
 
