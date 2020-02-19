@@ -69,7 +69,3 @@ start:
 end:
 	@echo "Trying to terminate all $(NAME) application server :)"
 	@sh Terminator.sh
-
-
-
-#sudo netstat -ntlp | grep :8444 | awk -F 'LISTEN      ' '{print $2}' |-F '/' '{printf $1}'
