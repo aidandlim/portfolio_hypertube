@@ -27,6 +27,3 @@ id8446=`sudo netstat -ntlp | grep :8446 | awk -F 'LISTEN      ' '{print $2}' | a
 sudo kill -9 ${id8446}
 echo "\t     [ # ]  Terminating the API Server.\c"
 echo ""
-echo ""
-echo "\tAPP > It has been terminated."
-echo ""

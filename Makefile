@@ -71,3 +71,6 @@ end:
 	@echo "\t$(GREEN_BOLD)CAMAGRU APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
 	@echo ""
 	@./Terminator.sh
+	@echo ""
+	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been terminated."
+	@echo ""
