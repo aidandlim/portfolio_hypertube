@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.61516c14.chunk.css",
+    "main.js": "/static/js/main.926e9d66.chunk.js",
+    "main.js.map": "/static/js/main.926e9d66.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.da1601b7.js",
+    "runtime-main.js.map": "/static/js/runtime-main.da1601b7.js.map",
+    "static/js/2.096b22a5.chunk.js": "/static/js/2.096b22a5.chunk.js",
+    "static/js/2.096b22a5.chunk.js.map": "/static/js/2.096b22a5.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.bc3ff422076862a0dc600b58d3c504b2.js": "/precache-manifest.bc3ff422076862a0dc600b58d3c504b2.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.61516c14.chunk.css.map": "/static/css/main.61516c14.chunk.css.map",
+    "static/js/2.096b22a5.chunk.js.LICENSE.txt": "/static/js/2.096b22a5.chunk.js.LICENSE.txt",
+    "static/media/en_US.png": "/static/media/en_US.e499f1fb.png",
+    "static/media/image_default.png": "/static/media/image_default.54f03dc1.png",
+    "static/media/ko_KR.png": "/static/media/ko_KR.b026a630.png",
+    "static/media/user_default.png": "/static/media/user_default.90529fa1.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.da1601b7.js",
+    "static/js/2.096b22a5.chunk.js",
+    "static/css/main.61516c14.chunk.css",
+    "static/js/main.926e9d66.chunk.js"
+  ]
+}
