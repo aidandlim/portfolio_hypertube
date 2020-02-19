@@ -68,4 +68,4 @@ start:
 
 end:
 	@echo "Trying to terminate all $(NAME) application server"
-	@sh Terminator.sh
+	@./Terminator.sh
