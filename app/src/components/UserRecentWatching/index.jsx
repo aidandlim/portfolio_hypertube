@@ -16,13 +16,19 @@ const Component = ({ userName }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isCancelled = false;
+
         if (userName !== '') {
             getHistoriesByUserName(auth.token, userName, res => {
-                if (session(dispatch, res)) {
+                if (!isCancelled && session(dispatch, res)) {
                     setMovies(res.list);
                 }
             });
         }
+
+        return () => {
+            isCancelled = true;
+        };
     }, [dispatch, auth.token, userName]);
 
     return (

@@ -17,15 +17,23 @@ const Component = ({ userData }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isCancelled = false;
+
         if (userData.id !== -1) {
             getCommentsByUserId(auth.token, userData.id, res => {
-                if (session(dispatch, res)) {
-                    setComments(res.list);
-                } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                if (!isCancelled) {
+                    if (session(dispatch, res)) {
+                        setComments(res.list);
+                    } else {
+                        alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                    }
                 }
             });
         }
+
+        return () => {
+            isCancelled = true;
+        };
     }, [dispatch, auth.token, userData.id, ui.lang]);
 
     return (

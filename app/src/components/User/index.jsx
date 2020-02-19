@@ -38,16 +38,24 @@ const Component = ({ match }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isCancelled = false;
+
         if (auth.token !== '') {
             getUserByUserName(auth.token, userName, res => {
-                if (session(dispatch, res)) {
-                    setTimeout(() => {
-                        setUserData(res.obj);
-                        setIsDoneSearch(true);
-                    }, 1000);
+                if (!isCancelled) {
+                    if (session(dispatch, res)) {
+                        setTimeout(() => {
+                            setUserData(res.obj);
+                            setIsDoneSearch(true);
+                        }, 1000);
+                    }
                 }
             });
         }
+
+        return () => {
+            isCancelled = true;
+        };
     }, [dispatch, auth.token, userName, ui.lang]);
 
     const _handleSignOut = () => {

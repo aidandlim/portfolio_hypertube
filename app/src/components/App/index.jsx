@@ -18,52 +18,65 @@ const Component = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isCancelled = false;
+
         const token = cookie.load('token');
 
         if (token !== null && token !== undefined && token !== '') {
             checkToken(token, res => {
-                if (res.status === 200) {
+                if (!isCancelled && res.status === 200) {
                     dispatch(auth_token(token));
                 }
             });
         }
-        dispatch(ui_lang(cookie.load('lang') !== undefined ? cookie.load('lang') : 'en_US'));
         apiGenres(ui.lang, res => {
             dispatch(movie_genres(res));
         });
+        dispatch(ui_lang(cookie.load('lang') !== undefined ? cookie.load('lang') : 'en_US'));
+        return () => {
+            isCancelled = true;
+        };
     }, [dispatch, ui.lang]);
 
     useEffect(() => {
+        let isCancelled = false;
+
         if (auth.token !== '') {
             getUserByToken(auth.token, res => {
-                if (session(auth.token, res)) {
-                    dispatch(user_data(res.obj));
-                    getHistoriesByUserName(auth.token, res.obj.userName, res => {
-                        if (session(dispatch, res)) {
-                            dispatch(movie_histories(res.list));
-                        } else {
-                            alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-                        }
-                    });
-                } else {
-                    cookie.save('token', '', {
-                        path: '/'
-                    });
-                    dispatch(auth_token(''));
-                    dispatch(
-                        user_data({
-                            id: -1,
-                            userName: '',
-                            email: '',
-                            firstName: '',
-                            lastName: '',
-                            picture: '',
-                            socialType: ''
-                        })
-                    );
+                if (!isCancelled) {
+                    if (session(auth.token, res)) {
+                        dispatch(user_data(res.obj));
+                        getHistoriesByUserName(auth.token, res.obj.userName, res => {
+                            if (!isCancelled && session(dispatch, res)) {
+                                dispatch(movie_histories(res.list));
+                            } else {
+                                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                            }
+                        });
+                    } else {
+                        cookie.save('token', '', {
+                            path: '/'
+                        });
+                        dispatch(auth_token(''));
+                        dispatch(
+                            user_data({
+                                id: -1,
+                                userName: '',
+                                email: '',
+                                firstName: '',
+                                lastName: '',
+                                picture: '',
+                                socialType: ''
+                            })
+                        );
+                    }
                 }
             });
         }
+
+        return () => {
+            isCancelled = true;
+        };
     }, [dispatch, auth.token, ui.lang]);
 
     return (
