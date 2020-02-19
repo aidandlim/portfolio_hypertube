@@ -67,5 +67,7 @@ start:
 	@echo ""
 
 end:
-	@echo "Trying to terminate all $(NAME) application server"
+	@echo ""
+	@echo "\t$(GREEN_BOLD)CAMAGRU APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
+	@echo ""
 	@./Terminator.sh
