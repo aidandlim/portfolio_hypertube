@@ -56,8 +56,8 @@ start:
 	@sleep 0.5
 
 	@echo "\t     [   ]  Initializing the $(UNDERLINE)React Frontend Server$(RESET).\c"
-	@cd app && npm install express --quiet --no-progress > /dev/null 2>&1
-	@cd app && nohup npm start >/dev/null 2>&1 &
+	@cd client && npm install express --quiet --no-progress > /dev/null 2>&1
+	@cd client && nohup npm start >/dev/null 2>&1 &
 	@sleep 0.5
 	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
