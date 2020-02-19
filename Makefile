@@ -49,7 +49,7 @@ start:
 	@sleep 0.5
 
 	@echo "\t     [   ]  Initializing the $(UNDERLINE)Database API Server$(RESET).\c"
-	@cd server && nohup java -jar api.jar >/dev/null 2>&1 &
+	@cd api && nohup java -jar api.jar >/dev/null 2>&1 &
 	@sleep 0.5
 	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
@@ -67,5 +67,5 @@ start:
 	@echo ""
 
 end:
-	@echo "Trying to terminate all $(NAME) application server :)"
+	@echo "Trying to terminate all $(NAME) application server"
 	@sh Terminator.sh
