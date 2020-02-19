@@ -1,17 +1,27 @@
 const express = require('express');
 const socketio = require('socket.io');
-const http = require('http');
 
-const {
-    addUser,
-    removeUser,
-    getUser
-} = require('./container');
+const { addUser, removeUser, getUser } = require('./container');
 
 const app = express();
-const server = http.createServer(app);
+const fs = require('fs');
+const https = require('https');
+const privateKey = fs.readFileSync('cert/key.pem', 'utf8');
+const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+const server = https.createServer(credentials, app);
+
 const io = socketio(server);
-const SOCKET_PORT = 8445;
+
+// const API_IP = 'localhost';
+// const TORRENT_PORT = 8444;
+// const STREAM_PORT = 8445;
+// const API_PORT = 8446;
+const SOCKET_PORT = 8447;
+
+app.get('/socket', (req, res) => {
+    res.json('Socket server is running');
+});
 
 io.on('connection', socket => {
     socket.on('join', ({ userName, movieRoom }, callback) => {
@@ -42,6 +52,4 @@ io.on('connection', socket => {
     });
 });
 
-server.listen(SOCKET_PORT, () =>
-    console.log(`Socket server is running on port ${SOCKET_PORT}`)
-);
+server.listen(SOCKET_PORT, () => console.log(`Socket server is running on port ${SOCKET_PORT}`));

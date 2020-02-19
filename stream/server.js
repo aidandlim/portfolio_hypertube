@@ -3,9 +3,25 @@ const cors = require('cors');
 const WebTorrent = require('webtorrent');
 
 const app = express();
-const STREAM_PORT = 8444;
+
+const fs = require('fs');
+const https = require('https');
+const privateKey = fs.readFileSync('cert/key.pem', 'utf8');
+const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+const server = https.createServer(credentials, app);
+
+// const API_IP = 'localhost';
+// const TORRENT_PORT = 8444;
+const STREAM_PORT = 8445;
+// const API_PORT = 8446;
+// const SOCKET_PORT = 8447;
 
 app.use(cors());
+
+app.get('/stream', (req, res) => {
+    res.json('Stream server is running');
+});
 
 const client = new WebTorrent();
 
@@ -88,7 +104,6 @@ app.get('/stream/play/:magnet/:filename', (req, res, next) => {
     });
 
     if (filename.split('.')[filename.split('.').length - 1] === 'mkv') {
-        
     } else {
         stream.pipe(res);
     }
@@ -107,6 +122,6 @@ app.get('/stream/delete/:magnet', (req, res, next) => {
     });
 });
 
-app.listen(STREAM_PORT, () => {
+server.listen(STREAM_PORT, () => {
     console.log(`Stream server is running on port ${STREAM_PORT}`);
 });

@@ -27,7 +27,7 @@ export const alert = (type, message, cb1, cb2) => {
         });
     } else {
         confirmAlert({
-            message: 'coding error',
+            message: 'Message Error',
             buttons: [
                 {
                     label: 'Yes'
