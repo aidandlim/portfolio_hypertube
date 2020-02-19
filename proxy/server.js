@@ -11,7 +11,7 @@ const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const server = https.createServer(credentials, app);
 
-const API_IP = '127.0.0.1';
+const API_IP = 'localhost';
 const PROXY_PORT = 8443;
 const TORRENT_PORT = 8444;
 const STREAM_PORT = 8445;

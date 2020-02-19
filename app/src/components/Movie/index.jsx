@@ -14,6 +14,8 @@ import './index.css';
 
 const Component = ({ movieData }) => {
     const movie = useSelector(state => state.movie);
+    const ui = useSelector(state => state.ui);
+
     const thisMovie = movie.histories.find(history => history.movieId === movieData.id);
 
     const starColor = '#FFEA00';
@@ -46,7 +48,7 @@ const Component = ({ movieData }) => {
                         <StarIcon name='rating' value={movieData.vote_average / 2.0} starColor={starColor} emptyStarColor={emptyStarColor} editing={false} />
                     </div>
                     <div className='movie-release'>{movieData.release_date}</div>
-                    <div className='movie-overview'>{movieData.overview}</div>
+                    <div className='movie-overview'>{movieData.overview === '' ? ui.lang === 'en_US' ? 'There is no overview about this movie.' : '이 영화의 개요 정보를 찾을 수 없습니다.' : movieData.overview}</div>
                 </div>
             </div>
         </Link>
