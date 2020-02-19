@@ -13,7 +13,7 @@ all:
 
 start:
 	@echo ""
-	@echo "\t$(GREEN_BOLD)CAMAGRU APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
+	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
 	@echo ""
 
 	@echo "\t     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
