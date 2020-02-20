@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import io from 'socket.io-client';
-// import { SOCKET_URL } from '../../constants/url';
+import { SOCKET_URL } from '../../constants/url';
 
 import ScrollToBottom from 'react-scroll-to-bottom';
 
@@ -16,7 +16,7 @@ const Component = ({ torrent }) => {
     const [isOpenChat, setIsOpenChat] = useState(false);
 
     useEffect(() => {
-        socket = io('/socket');
+        socket = io(SOCKET_URL);
 
         socket.emit('join', { userName: 'Aidan', movieRoom: torrent }, () => {});
     }, [torrent]);

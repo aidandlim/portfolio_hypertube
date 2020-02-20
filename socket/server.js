@@ -19,10 +19,6 @@ const io = socketio(server);
 // const API_PORT = 8446;
 const SOCKET_PORT = 8447;
 
-app.get('/socket', (req, res) => {
-    res.json('Socket server is running');
-});
-
 io.on('connection', socket => {
     socket.on('join', ({ userName, movieRoom }, callback) => {
         const user = addUser({

@@ -14,76 +14,71 @@ all:
 
 start:
 	@echo ""
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
 	@echo ""
 
-	@echo "\t     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
+	@echo "     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
 	@cd proxy && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd proxy && nohup npm start >/dev/null 2>&1 &
+	@cd proxy && nohup npm start > /dev/null 2>&1 &
 	@sleep 0.5
-	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
+	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t     [   ]  Initializing the $(UNDERLINE)Torrent API Server$(RESET).\c"
+	@echo "     [   ]  Initializing the $(UNDERLINE)Torrent API Server$(RESET).\c"
 	@cd torrent && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd torrent && nohup npm start >/dev/null 2>&1 &
+	@cd torrent && nohup npm start > /dev/null 2>&1 &
 	@sleep 0.5
-	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
+	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t     [   ]  Initializing the $(UNDERLINE)Stream API Server$(RESET).\c"
+	@echo "     [   ]  Initializing the $(UNDERLINE)Stream API Server$(RESET).\c"
 	@cd stream && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd stream && nohup npm start >/dev/null 2>&1 &
+	@cd stream && nohup npm start > /dev/null 2>&1 &
 	@sleep 0.5
-	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
+	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t     [   ]  Initializing the $(UNDERLINE)Socket API Server$(RESET).\c"
+	@echo "     [   ]  Initializing the $(UNDERLINE)Socket API Server$(RESET).\c"
 	@cd socket && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd socket && nohup npm start >/dev/null 2>&1 &
+	@cd socket && nohup npm start > /dev/null 2>&1 &
 	@sleep 0.5
-	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
+	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t     [   ]  Initializing the $(UNDERLINE)Database API Server$(RESET).\c"
-	@cd api && nohup java -jar api.jar >/dev/null 2>&1 &
+	@echo "     [   ]  Initializing the $(UNDERLINE)Database API Server$(RESET).\c"
+	@cd api && nohup java -jar api.jar > /dev/null 2>&1 &
 	@sleep 0.5
-	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
+	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t     [   ]  Initializing the $(UNDERLINE)React Frontend Server$(RESET).\c"
+	@echo "     [   ]  Initializing the $(UNDERLINE)React Frontend Server$(RESET).\c"
 	@cd client && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd client && nohup npm start >/dev/null 2>&1 &
+	@cd client && nohup npm start > /dev/null 2>&1 &
 	@sleep 0.5
-	@echo "\r\t     [ $(YELLOW)#$(RESET) ]"
+	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
-	@echo ""
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 
 end:
 	@echo ""
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
 	@echo ""
-	@./shell/terminator.sh
-	@echo ""
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been terminated.$(RESET)"
-	@echo ""
+	@sh terminator.sh
 
 check:
 	@echo ""
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Initialize a File Checker$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Initialize a File Checker$(RESET)"
 	@echo ""
-	@sh ./shell/fileChecker.sh
+	@sh fileChecker.sh
 	@echo ""
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)File Checker has processed!$(RESET)"
-	@echo ""
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)File Checker has processed!$(RESET)"
 
 apijs:
 	vim client/src/constants/api.js
