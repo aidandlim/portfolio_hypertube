@@ -73,6 +73,8 @@ const Component = ({ match }) => {
         setIsOpenFilter(isOpenFilter => !isOpenFilter);
     };
 
+    document.title = 'HyperYube';
+
     return (
         <div className='feed' onScroll={_handleScroll}>
             <div className='feed-container'>

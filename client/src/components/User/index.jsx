@@ -79,6 +79,8 @@ const Component = ({ match }) => {
 
     const menus = userData.userName === user.userName ? [0, 1, 2] : [0, 1];
 
+    if (user.userName !== '') document.title = `${user.userName} - HyperTube`;
+
     return (
         <div className='user'>
             {userData.id === -1 ? (

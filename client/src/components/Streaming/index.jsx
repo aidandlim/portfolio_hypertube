@@ -44,6 +44,8 @@ const Component = ({ match, history }) => {
         }, 5000);
     };
 
+    document.title = `Streaming - HyperTube`;
+
     return (
         <div className='streaming' onMouseMove={_handleMouseMove}>
             <div className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'} onClick={_handleBack}>

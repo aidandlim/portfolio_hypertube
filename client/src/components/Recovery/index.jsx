@@ -54,6 +54,8 @@ const Component = ({ history }) => {
         });
     };
 
+    document.title = `Recovery Password - HyperTube`;
+
     return (
         <div className='auth'>
             <div className='auth-container'>

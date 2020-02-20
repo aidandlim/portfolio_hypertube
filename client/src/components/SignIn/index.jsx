@@ -51,6 +51,8 @@ const Component = ({ history }) => {
         });
     };
 
+    document.title = `Sign In - HyperTube`;
+
     return (
         <div className='auth'>
             <div className='auth-container'>

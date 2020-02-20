@@ -49,7 +49,7 @@ const Component = ({ match }) => {
         return () => {
             isCancelled = true;
         };
-    }, [ui.lang, type, query]);
+    }, [ui.lang, type, query, queryName]);
 
     let isWorking = false;
 
@@ -82,6 +82,8 @@ const Component = ({ match }) => {
         }
     };
 
+    document.title = `${queryName === undefined ? query : queryName} - HyperTube`;
+    
     return (
         <div className='search' onScroll={_handleScroll}>
             <div className='search-result'>

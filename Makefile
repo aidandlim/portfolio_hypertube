@@ -17,6 +17,13 @@ start:
 	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
 	@echo ""
 
+	@echo ""
+	@ifeq ($(shell ./shell/fileChecker.sh), VALID)
+	@echo "valid"
+	@else
+	@echo "invalid"
+	@endif
+
 	@echo "\t     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
 	@cd proxy && npm install --quiet --no-progress > /dev/null 2>&1
 	@cd proxy && nohup npm start >/dev/null 2>&1 &
@@ -71,7 +78,7 @@ end:
 	@echo ""
 	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
 	@echo ""
-	@./Terminator.sh
+	@./shell/terminator.sh
 	@echo ""
 	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been terminated."
 	@echo ""
