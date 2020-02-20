@@ -34,14 +34,14 @@
     width: auto;
     height: 1.55rem;
 
-    padding: 0 0.6rem;
+    padding: 0 0.45rem;
 
     position: relative;
     float: left;
 
     color: var(--color-30);
     font-size: 0.5rem;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.5rem;
 
     cursor: pointer;
