@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { auth_token, user_data, movie_genres, movie_histories, ui_lang } from '../../actions';
 
 import { BrowserRouter } from 'react-router-dom';
-
-import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import Wrapper from 'react-div-100vh';
 import cookie from 'react-cookies';
 
@@ -82,11 +80,9 @@ const Component = () => {
     }, [dispatch, auth.token, ui.lang]);
 
     return (
-        <DeviceOrientation lockOrientation={'portrait'}>
-            <Orientation orientation='portrait'>
-                <Wrapper className='no-drag'>
-                    <style>
-                        {`
+        <Wrapper className='no-drag'>
+            <style>
+                {`
 					:root {
                         --size-header: 2.5rem;
                         
@@ -121,14 +117,12 @@ const Component = () => {
                         --color-primary-light: #FFFF8D;
 					}
 				`}
-                    </style>
-                    <BrowserRouter>
-                        <Header />
-                        <Core />
-                    </BrowserRouter>
-                </Wrapper>
-            </Orientation>
-        </DeviceOrientation>
+            </style>
+            <BrowserRouter>
+                <Header />
+                <Core />
+            </BrowserRouter>
+        </Wrapper>
     );
 };
 

@@ -86,6 +86,8 @@ body {
     overflow: hidden;
 
     font-family: 'Barlow', sans-serif;
+
+    background-color: var(--color-85);
 }
 
 .no-drag {

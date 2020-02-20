@@ -18,6 +18,7 @@ const Component = ({ match }) => {
 
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState([]);
+    const [isDoneSearch, setIsDoneSearch] = useState(false);
     const [isOpenFilter, setIsOpenFilter] = useState(false);
 
     const ui = useSelector(state => state.ui);
@@ -30,6 +31,7 @@ const Component = ({ match }) => {
                 if (!isCancelled && res !== null) {
                     setMovies(res);
                     setPage(page => page + 1);
+                    setIsDoneSearch(true);
                 }
             });
             return () => {
@@ -75,9 +77,7 @@ const Component = ({ match }) => {
         <div className='feed' onScroll={_handleScroll}>
             <div className='feed-container'>
                 <FilterIcon genre={genre} filter={filter} _handleFilter={_handleFilter} />
-                {movies.map((movie, index) => (
-                    <Movie movieData={movie} key={index} />
-                ))}
+                {isDoneSearch ? movies.map((movie, index) => <Movie movieData={movie} key={index} />) : <div className='feed-loading'>{ui.lang === 'en_US' ? 'Loading...' : '로딩중...'}</div>}
             </div>
             {isOpenFilter ? <Filter genre={genre} filter={filter} _handleFilter={_handleFilter} /> : null}
             <div className='feed-toTop' onClick={_handleScrollTop}>
