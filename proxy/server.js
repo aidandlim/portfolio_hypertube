@@ -60,4 +60,4 @@ app.use(
     })
 );
 
-server.listen(PROXY_PORT, () => console.log(`Socket server is running on port ${PROXY_PORT}`));
+server.listen(PROXY_PORT, () => console.log(`Proxy server is running on port ${PROXY_PORT}`));
