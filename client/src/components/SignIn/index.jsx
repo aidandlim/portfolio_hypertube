@@ -71,8 +71,8 @@ const Component = ({ history }) => {
                     <Link to='/auth/recovery'>
                         <div className='auth-nav'>{ui.lang === 'en_US' ? 'Do you Forgot Password?' : '비밀번호를 잊으셨나요?'}</div>
                     </Link>
-                    <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SIGN IN' : '로그인'} />
-                    <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'} onClick={_handleBack} />
+                    <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SIGN IN' : '로그인'}</button>
+                    <button className='auth-button' type='button' onClick={_handleBack}>{ui.lang === 'en_US' ? 'BACK' : '돌아가기'}</button>
                 </form>
                 <div className='auth-division'>
                     <div className='auth-division-line'></div>

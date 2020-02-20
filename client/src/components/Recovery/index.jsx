@@ -71,8 +71,8 @@ const Component = ({ history }) => {
                         </div>
                     </div>
                     <input className='auth-input' type='email' name='email' autoComplete='password' autoFocus onChange={_handleCheckEmail} />
-                    <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SUBMIT' : '비밀번호 찾기'} />
-                    <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'} onClick={_handleBack} />
+                    <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SUBMIT' : '비밀번호 찾기'}</button>
+                    <button className='auth-button' type='button' onClick={_handleBack}>{ui.lang === 'en_US' ? 'BACK' : '돌아가기'}</button>
                 </form>
             </div>
         </div>

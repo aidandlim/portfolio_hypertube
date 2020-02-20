@@ -174,8 +174,8 @@ const Component = ({ history }) => {
                     <div className='auth-nav' onClick={_handleBack}>
                         {ui.lang === 'en_US' ? 'Do you have an account already?' : '이미 계정을 갖고 계신가요?'}
                     </div>
-                    <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SIGN UP' : '회원가입'} />
-                    <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'BACK' : '돌아가기'} onClick={_handleBack} />
+                    <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SIGN UP' : '회원가입'}</button>
+                    <button className='auth-button' type='button' onClick={_handleBack}>{ui.lang === 'en_US' ? 'BACK' : '돌아가기'}</button>
                 </form>
             </div>
         </div>
