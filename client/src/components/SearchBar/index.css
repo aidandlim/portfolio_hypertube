@@ -54,3 +54,13 @@
 .searchBar-button:hover {
     background-color: var(--color-40);
 }
+
+@media (max-width: 70rem) {
+    .searchBar-input {
+        width: calc(100% - 3rem);
+    }
+
+    .searchBar-button {
+        width: 3rem;
+    }
+}
