@@ -28,7 +28,13 @@ const Component = ({ torrent }) => {
     return (
         <Link to={auth.token !== '' ? `/streaming/${torrent.title}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
             <div className='torrent'>
-                <div className='torrent-title'>{torrent.title}</div>
+                <div className='torrent-title'>
+                    <font className='torrent-title-resolution'>{torrent.title.match('1080') ? '[1080p]' : null}</font>
+                    <font className='torrent-title-resolution'>{torrent.title.match('720') ? '[720p]' : null}</font>
+                    <font className='torrent-title-resolution'>{!torrent.title.match('1080') && !torrent.title.match('720') ? '[No Data]' : null}</font>
+                    &nbsp;&nbsp;
+                    {torrent.title}
+                </div>
                 <div className='torrent-info'>
                     {(torrent.size / 1024 / 1024 / 1024).toFixed(2)}
                     GB

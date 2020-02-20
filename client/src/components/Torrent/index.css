@@ -28,6 +28,14 @@
     word-wrap: break-word;
 }
 
+.torrent-title-resolution {
+    color: var(--color-C);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: left;
+    line-height: 1.5;
+}
+
 .torrent-info {
     width: auto;
     height: 1rem;
