@@ -281,7 +281,7 @@
 
 @media (max-width: 70rem) {
     .detail-info-container {
-        width: calc(100% - 8rem);
+        width: calc(100% - 3rem);
     }
 
     .detail-title {
