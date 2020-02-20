@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(
-    '/torrent/*',
+    '/torrent',
     createProxyMiddleware({
         target: `https://${API_IP}:${TORRENT_PORT}`,
         changeOrigin: true,
@@ -34,7 +34,7 @@ app.use(
 );
 
 app.use(
-    '/stream/*',
+    '/stream',
     createProxyMiddleware({
         target: `https://${API_IP}:${STREAM_PORT}`,
         changeOrigin: true,
@@ -43,7 +43,7 @@ app.use(
 );
 
 app.use(
-    '/api/*',
+    '/api',
     createProxyMiddleware({
         target: `https://${API_IP}:${API_PORT}`,
         changeOrigin: true,
@@ -52,7 +52,7 @@ app.use(
 );
 
 app.use(
-    '/socket/*',
+    '/socket',
     createProxyMiddleware({
         target: `https://${API_IP}:${SOCKET_PORT}`,
         changeOrigin: true,
