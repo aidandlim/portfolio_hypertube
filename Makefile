@@ -82,6 +82,8 @@ check:
 	@echo ""
 	@sh ./shell/fileChecker.sh
 	@echo ""
+	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)File Checker has processed!$(RESET)"
+	@echo ""
 
 apijs:
 	vim client/src/constants/api.js
