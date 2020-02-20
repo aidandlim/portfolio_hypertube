@@ -89,3 +89,6 @@ check:
 	@echo ""
 	@cat client/src/constants/url.js
 	@echo ""
+
+apijs:
+	vim client/src/constants/api.js
