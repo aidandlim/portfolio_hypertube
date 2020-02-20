@@ -17,13 +17,6 @@ start:
 	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
 	@echo ""
 
-	@echo ""
-	@ifeq ($(shell ./shell/fileChecker.sh), VALID)
-	@echo "valid"
-	@else
-	@echo "invalid"
-	@endif
-
 	@echo "\t     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
 	@cd proxy && npm install --quiet --no-progress > /dev/null 2>&1
 	@cd proxy && nohup npm start >/dev/null 2>&1 &
@@ -87,12 +80,7 @@ check:
 	@echo ""
 	@echo "$(WHITE_BOLD)Checking environment variables of $(NAME) application$(RESET)"
 	@echo ""
-	@echo "$(GREEN_BOLD)client/src/constants/api.js$(RESET)"
-	@echo ""
-	@cat client/src/constants/api.js
-	@echo ""
-	@echo ""
-	@echo "$(GREEN_BOLD)client/src/constants/url.js$(RESET)"
+	@sh ./shell/fileChecker.sh
 	@echo ""
 	@cat client/src/constants/url.js
 	@echo ""

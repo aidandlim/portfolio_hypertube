@@ -1,17 +1,17 @@
-FILES=0
-
 APIJS=$(pwd)/client/src/constants/api.js
 if [ -f "$APIJS" ]; then
-    FILES=`expr $FILES + 1`
+    @echo "api.js is existed!"
+else
+    @echo "api.js is NOT existed!"
 fi
+
+@echo ""
 
 URLJS=$(pwd)/client/src/constants/url.js
 if [ -f "$URLJS" ]; then
-    FILES=`expr $FILES + 1`
+    @echo "url.js is existed!"
+else
+    @echo "url.js is NOT existed!"
 fi
 
-if [ $FILES -eq 2 ]; then
-    echo "VALID"
-else
-    echo "INVALID"
-fi
+@echo ""
