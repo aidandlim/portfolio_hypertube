@@ -4,7 +4,6 @@
     "private": true,
     "dependencies": {
         "axios": "^0.19.2",
-        "express": "^4.17.1",
         "feather-icons-react": "^0.4.1",
         "query-string": "^6.10.1",
         "react": "^16.12.0",
@@ -23,6 +22,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
+        "prestart": "rm -f ./node_modules/webpack-dev-server/ssl/server.pem && cp -f ./cert/server.pem ./node_modules/webpack-dev-server/ssl",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
@@ -42,9 +42,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "https://hypertube.aidandlim.com:8443",
-    "comments": {
-        "start": "react-scripts start",
-        "prestart": "rm -f ./node_modules/webpack-dev-server/ssl/server.pem && cp -f ./cert/server.pem ./node_modules/webpack-dev-server/ssl"
-    }
+    "proxy": "https://hypertube.aidandlim.com:8443"
 }
