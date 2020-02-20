@@ -4,6 +4,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 
 import Feed from '../Feed';
 import Search from '../Search';
+import SearchNull from '../SearchNull';
 import Detail from '../Detail';
 import Streaming from '../Streaming';
 import SignIn from '../SignIn';
@@ -18,6 +19,7 @@ const Component = () => {
         <Switch>
             <Redirect from='/' to='/feed/all/popularity' exact />
             <Route path='/feed/:genre/:filter' exact component={Feed} />
+            <Route path='/search/:type' exact component={SearchNull} />
             <Route path='/search/:type/:query' exact component={Search} />
             <Route path='/search/:type/:query/:queryName' exact component={Search} />
             <Route path='/detail/:id' exact component={Detail} />

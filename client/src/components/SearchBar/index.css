@@ -42,6 +42,9 @@
     width: 4rem;
     height: 100%;
 
+    position: relative;
+    float: left;
+
     background-color: var(--color-50);
     border: none;
     border-radius: 0 0.25rem 0.25rem 0;
@@ -53,6 +56,16 @@
 
 .searchBar-button:hover {
     background-color: var(--color-40);
+}
+
+.searchBar-icon {
+    width: 0.8rem;
+    height: 0.8rem;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media (max-width: 70rem) {

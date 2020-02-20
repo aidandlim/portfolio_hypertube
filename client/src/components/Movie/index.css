@@ -42,7 +42,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    transform: translate(0, -100%);
+    transform: translate(0, calc(-100% + 0.05rem));
 
     background-color: var(--color-60);
 }
