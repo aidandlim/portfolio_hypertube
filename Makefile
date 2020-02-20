@@ -64,7 +64,7 @@ start:
 	@echo ""
 	@sleep 0.5
 
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed."
+	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
 
 end:
@@ -73,16 +73,14 @@ end:
 	@echo ""
 	@./shell/terminator.sh
 	@echo ""
-	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been terminated."
+	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been terminated.$(RESET)"
 	@echo ""
 
 check:
 	@echo ""
-	@echo "$(WHITE_BOLD)Checking environment variables of $(NAME) application$(RESET)"
+	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Initialize a File Checker$(RESET)"
 	@echo ""
 	@sh ./shell/fileChecker.sh
-	@echo ""
-	@cat client/src/constants/url.js
 	@echo ""
 
 apijs:
