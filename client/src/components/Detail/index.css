@@ -187,9 +187,11 @@
     width: 6rem;
     height: 6rem;
 
-    padding: 1.5rem;
+    padding: 2rem;
 
     position: absolute;
+
+    color: var(--color-A);
 
     box-sizing: border-box;
 
@@ -275,4 +277,21 @@
 
     background-color: var(--color-70);
     box-sizing: border-box;
+}
+
+@media (max-width: 70rem) {
+    .detail-info-container {
+        width: calc(100% - 8rem);
+    }
+
+    .detail-title {
+        font-size: 3rem;
+    }
+
+    .detail-back {
+        width: 4rem;
+        height: 4rem;
+    
+        padding: 1rem;
+    }
 }

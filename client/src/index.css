@@ -110,11 +110,11 @@ textarea {
 }
 
 ::-webkit-scrollbar:vertical {
-    width: 15px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar:horizontal {
-    height: 15px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {

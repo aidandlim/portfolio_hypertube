@@ -75,3 +75,21 @@
     white-space: nowrap;
     word-wrap: normal;
 }
+
+@media (max-width: 100rem) {
+    .cast {
+        width: calc(100% / 8 - 1rem);
+    }
+}
+
+@media (max-width: 80rem) {
+    .cast {
+        width: calc(100% / 6 - 1rem);
+    }
+}
+
+@media (max-width: 60rem) {
+    .cast {
+        width: calc(25% - 1rem);
+    }
+}

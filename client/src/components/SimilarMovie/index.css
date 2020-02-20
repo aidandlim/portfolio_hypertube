@@ -47,3 +47,21 @@
     white-space: nowrap;
     word-wrap: normal;
 }
+
+@media (max-width: 100rem) {
+    .similarMovie {
+        width: calc(100% / 6 - 1rem);
+    }
+}
+
+@media (max-width: 80rem) {
+    .similarMovie {
+        width: calc(100% / 4 - 1rem);
+    }
+}
+
+@media (max-width: 60rem) {
+    .similarMovie {
+        width: calc(100% / 3 - 1rem);
+    }
+}

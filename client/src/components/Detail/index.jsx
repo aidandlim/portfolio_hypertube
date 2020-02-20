@@ -66,7 +66,7 @@ const Component = ({ match, history }) => {
                 >
                     <div className='detail-cover'>
                         <div className='detail-back' onClick={_handleBack}>
-                            <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
+                            <FeatherIcon icon='arrow-left' size='2rem'/>
                         </div>
                         <div className='detail-open' onClick={() => setIsOpenDetail(isOpenDetail => !isOpenDetail)}>
                             <div className='detail-open-icon'>

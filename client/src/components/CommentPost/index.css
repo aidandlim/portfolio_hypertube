@@ -58,11 +58,11 @@
     position: relative;
     float: left;
 
-    color: var(--color-70);
+    color: var(--color-30);
     font-size: 0.5rem;
     font-weight: 700;
 
-    background-color: var(--color-A);
+    background-color: var(--color-85);
     border: none;
     border-radius: 0.25rem;
 
