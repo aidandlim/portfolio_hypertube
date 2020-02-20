@@ -10,6 +10,7 @@ all:
 	@echo "usage:"
 	@echo "\tmake start : to initialize $(NAME) application"
 	@echo "\tmake end : to terminate $(NAME) application"
+	@echo "\tmake check : to check environment variables of $(NAME) application"
 
 start:
 	@echo ""
@@ -74,4 +75,18 @@ end:
 	@./Terminator.sh
 	@echo ""
 	@echo "\t$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been terminated."
+	@echo ""
+
+check:
+	@echo ""
+	@echo "$(WHITE_BOLD)Checking environment variables of $(NAME) application$(RESET)"
+	@echo ""
+	@echo "$(GREEN_BOLD)client/src/constants/api.js$(RESET)"
+	@echo ""
+	@cat client/src/constants/api.js
+	@echo ""
+	@echo ""
+	@echo "$(GREEN_BOLD)client/src/constants/url.js$(RESET)"
+	@echo ""
+	@cat client/src/constants/url.js
 	@echo ""
