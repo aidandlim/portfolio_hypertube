@@ -265,8 +265,8 @@ const Component = ({ userData, setUserData }) => {
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
                 <input className='auth-input' type='text' name='lastName' defaultValue={userData.lastName} autoComplete='password' />
                 <div className='auth-nav' onClick={_handleClose}>{ui.lang === 'en_US' ? 'By any chance, Do you want to close this account?' : '혹시 계정을 삭제하시겠습니까?'}</div>
-                <input className='auth-button auth-submit' type='submit' value={ui.lang === 'en_US' ? 'SAVE' : '저장'} />
-                <input className='auth-button' type='button' value={ui.lang === 'en_US' ? 'RESET' : '취소'} onClick={_handleReset} />
+                <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SAVE' : '저장'}</button>
+                <button className='auth-button' type='button' onClick={_handleReset}>{ui.lang === 'en_US' ? 'RESET' : '취소'}</button>
             </form>
         </div>
     );
