@@ -1,4 +1,4 @@
-NAME = Hypertube
+NAME = HyperTube
 
 GREEN_BOLD = \033[1;34m
 WHITE_BOLD = \033[1;37m
@@ -65,12 +65,14 @@ start:
 	@sleep 0.5
 
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
+	@echo ""
 
 end:
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
 	@echo ""
 	@sh terminator.sh
+	@echo ""
 
 check:
 	@echo ""
@@ -79,6 +81,7 @@ check:
 	@sh fileChecker.sh
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)File Checker has processed!$(RESET)"
+	@echo ""
 
 apijs:
 	vim client/src/constants/api.js
