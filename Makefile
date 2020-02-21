@@ -88,3 +88,9 @@ check:
 
 apijs:
 	vim client/src/constants/api.js
+
+urljs:
+	vim client/src/constants/url.js
+
+packagejson:
+	vim client/package.json
