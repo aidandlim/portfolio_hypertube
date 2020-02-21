@@ -19,7 +19,6 @@ export const getTorrentSubtitles = (id, lang, cb) => {
 
     Axios.get(url)
         .then(res => {
-            console.log(res.data);
             cb(res.data);
         })
         .catch(() => {

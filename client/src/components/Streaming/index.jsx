@@ -24,22 +24,38 @@ const Component = ({ match, history }) => {
     const ui = useSelector(state => state.ui);
 
     useEffect(() => {
+        let isCancelled = false;
+
         getTorrentSubtitles(imdbId, ui.lang, res => {
-            setSubtitles(res);
+            if (!isCancelled) {
+                setSubtitles(res);
+            }
         });
+
+        return () => {
+            isCancelled = true;
+        };
     }, [imdbId, ui.lang]);
 
     useEffect(() => {
+        let isCancelled = false;
+
         axios.get(`/stream/add/${magnet}`).then(res => {
-            setFileName(res.data.name);
+            if (!isCancelled) {
+                setFileName(res.data.name);
+            }
         });
 
         setTimeout(() => {
-            setIsVisibleBack(false);
+            if (document.querySelector('.streaming') !== null) {
+                setIsVisibleBack(false);
+            }
         }, 5000);
 
         return (current = document.getElementById('streaming').currentTime, duration = document.getElementById('streaming').duration) => {
-            postHistory(auth.token, tmdbId, current, duration);
+            if (current !== null && duration !== null) {
+                postHistory(auth.token, tmdbId, current, duration);
+            }
         };
     }, [auth.token, magnet, tmdbId]);
 
@@ -48,10 +64,14 @@ const Component = ({ match, history }) => {
     };
 
     const _handleMouseMove = () => {
-        setIsVisibleBack(true);
-        setTimeout(() => {
-            setIsVisibleBack(false);
-        }, 5000);
+        if (document.querySelector('.streaming') !== null) {
+            setIsVisibleBack(true);
+            setTimeout(() => {
+                if (document.querySelector('.streaming') !== null) {
+                    setIsVisibleBack(false);
+                }
+            }, 5000);
+        }
     };
 
     document.title = `Streaming - HyperTube`;
@@ -64,7 +84,7 @@ const Component = ({ match, history }) => {
             {fileName !== '' ? (
                 <video id='streaming' className='streaming-video' controls autoPlay={true}>
                     <source src={`/stream/play/${magnet}/${fileName}`} type='video/mp4' />
-                    {subtitles !== undefined ? <track label='English' kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'ko'} src={subtitles} /> : null}
+                    {subtitles !== undefined ? <track label={ui.lang === 'en_US' ? 'English' : 'Korean'} kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'kr'} src={subtitles} default /> : null}
                 </video>
             ) : (
                 <div className='streaming-loading'>Loading...</div>

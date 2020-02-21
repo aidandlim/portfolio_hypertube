@@ -120,5 +120,7 @@ export const postHistory = (token, movieId, current, duration) => {
         duration
     };
 
+    console.log(data);
+
     Axios.post(url, data);
 };
