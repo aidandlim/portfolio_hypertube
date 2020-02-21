@@ -71,16 +71,16 @@ end:
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
 	@echo ""
-	@sh terminator.sh
+	@sh Terminator.sh
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
 
 check:
 	@echo ""
-	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Initialize a File Checker$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Initialize a Environment Checker$(RESET)"
 	@echo ""
-	@sh fileChecker.sh
+	@sh EnvironmentChecker.sh
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
