@@ -82,7 +82,7 @@ check:
 	@echo ""
 	@sh fileChecker.sh
 	@echo ""
-	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)File Checker has processed!$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
 
 apijs:
