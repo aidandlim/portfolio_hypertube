@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const RarbgApi = require('rarbg');
+const OS = require('opensubtitles-api');
 
 const app = express();
 
@@ -48,6 +49,18 @@ app.get('/torrent/search/:id', async (req, res) => {
         .catch(error => {
             res.json(error);
         });
+});
+
+const OpenSubtitles = new OS('TemporaryUserAgent');
+
+app.get('/torrent/subtitle/:id', async (req, res) => {
+    const id = req.params.id;
+
+    OpenSubtitles.search({
+        imdbid: id
+    }).then((subtitles) => {
+        res.json(subtitles);
+    });
 });
 
 server.listen(TORRENT_PORT, () => {

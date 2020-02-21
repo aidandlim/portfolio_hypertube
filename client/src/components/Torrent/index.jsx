@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import { confirmAlert } from 'react-confirm-alert';
+import { alert } from '../../util';
 
 import './index.css';
 
@@ -14,19 +14,12 @@ const Component = ({ torrent }) => {
 
     const _handleUserStatus = () => {
         if (auth.token === '') {
-            confirmAlert({
-                message: ui.lang === 'en_US' ? 'This feature requires SignIn first.' : '로그인이 필요한 서비스입니다.',
-                buttons: [
-                    {
-                        label: 'Okay'
-                    }
-                ]
-            });
+            alert('message', ui.lang === 'en_US' ? 'This feature requires SignIn first.' : '로그인이 필요한 서비스입니다.', null, null);
         }
     };
 
     return (
-        <Link to={auth.token !== '' ? `/streaming/${torrent.title}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
+        <Link to={auth.token !== '' ? `/streaming/${torrent.episode_info.imdb}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
             <div className='torrent'>
                 <div className='torrent-title'>
                     <font className='torrent-title-resolution'>{torrent.title.match('1080') ? '[1080p]' : null}</font>

@@ -4,17 +4,21 @@ import axios from 'axios';
 
 import Chat from '../Chat';
 
+import { getTorrentSubtitles } from '../../data';
+
 import FeatherIcon from 'feather-icons-react';
 import './index.css';
 
 const Component = ({ match, history }) => {
-    const torrent = match.params.torrent;
+    const id = match.params.id;
     const magnet = match.params.magnet;
 
     const [fileName, setFileName] = useState('');
     const [isVisibleBack, setIsVisibleBack] = useState(true);
 
     useEffect(() => {
+        getTorrentSubtitles(id, res => {});
+
         axios.get(`/stream/add/${magnet}`).then(res => {
             setFileName(res.data.name);
         });
@@ -24,14 +28,9 @@ const Component = ({ match, history }) => {
         }, 5000);
 
         return () => {
-            axios.get(`/stream/delete/${magnet}`);
+            console.log('Bye');
         };
     }, [magnet]);
-
-    // const _handleTest = () => {
-    //     console.log(document.querySelector('.streaming-video').currentTime);
-    //     console.log(document.querySelector('.streaming-video').duration);
-    // };
 
     const _handleBack = () => {
         history.goBack();
@@ -58,7 +57,7 @@ const Component = ({ match, history }) => {
             ) : (
                 <div className='streaming-loading'>Loading...</div>
             )}
-            <Chat torrent={torrent} />
+            <Chat id={id} />
         </div>
     );
 };

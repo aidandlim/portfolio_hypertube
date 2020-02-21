@@ -11,15 +11,15 @@ import './index.css';
 
 let socket;
 
-const Component = ({ torrent }) => {
+const Component = ({ id }) => {
     const [messages, setMessages] = useState([]);
     const [isOpenChat, setIsOpenChat] = useState(false);
 
     useEffect(() => {
         socket = io(SOCKET_URL);
 
-        socket.emit('join', { userName: 'Aidan', movieRoom: torrent }, () => {});
-    }, [torrent]);
+        socket.emit('join', { userName: 'Aidan', movieRoom: id }, () => {});
+    }, [id]);
 
     useEffect(() => {
         socket.on('message', message => {

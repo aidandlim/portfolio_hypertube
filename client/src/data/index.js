@@ -10,7 +10,7 @@ import { getHistories, getHistoriesByUserName, getHistory } from './History';
 
 import { getCommentsByMovieId, getCommentsByUserId, postComment, deleteComment } from './Comment';
 
-import { getTorrents } from './Torrent';
+import { getTorrents, getTorrentSubtitles } from './Torrent';
 
 export {
     apiGenres,
@@ -48,5 +48,6 @@ export {
     getCommentsByUserId,
     postComment,
     deleteComment,
-    getTorrents
+    getTorrents,
+    getTorrentSubtitles
 };

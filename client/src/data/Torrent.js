@@ -13,3 +13,18 @@ export const getTorrents = (id, cb) => {
             });
         });
 };
+
+export const getTorrentSubtitles = (id, cb) => {
+    let url = `/torrent/subtitle/${id}`;
+
+    Axios.get(url)
+        .then(res => {
+            console.log(res.data);
+            cb(res.data);
+        })
+        .catch(() => {
+            cb({
+                status: 400
+            });
+        });
+};
