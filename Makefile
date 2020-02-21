@@ -28,6 +28,7 @@ start:
 	@echo "     [   ]  Initializing the $(UNDERLINE)Torrent API Server$(RESET).\c"
 	@cd torrent && npm install --quiet --no-progress > /dev/null 2>&1
 	@cd torrent && nohup npm start > /dev/null 2>&1 &
+	@cd torrent && mkdir public && cd public && mkdir sub
 	@sleep 0.5
 	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""

@@ -7,6 +7,7 @@ const OS = require('opensubtitles-api');
 const app = express();
 
 const fs = require('fs');
+const path = require('path');
 const https = require('https');
 const privateKey = fs.readFileSync('cert/key.pem', 'utf8');
 const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
@@ -20,6 +21,8 @@ const TORRENT_PORT = 8444;
 // const SOCKET_PORT = 8447;
 
 app.use(cors());
+
+app.use('/torrent/sub', express.static('public/sub'));
 
 app.get('/torrent', (req, res) => {
     res.json('Torrent server is running');
@@ -51,17 +54,36 @@ app.get('/torrent/search/:id', async (req, res) => {
         });
 });
 
-const OpenSubtitles = new OS('TemporaryUserAgent');
+const OpenSubtitles = new OS({
+    useragent: ' TemporaryUserAgent',
+    username: 'hypertube_aidan',
+    password: 'hypertube_aidan',
+    ssl: true
+});
 
 app.get('/torrent/subtitle/:id', async (req, res) => {
     const id = req.params.id;
 
     OpenSubtitles.search({
         imdbid: id
-    }).then((subtitles) => {
-        res.json(subtitles);
+    }).then(subtitles => {
+        console.log(subtitles);
+        download(subtitles.en.vtt, path.join(__dirname, 'public', 'sub', subtitles.en.filename.replace('.srt', '.vtt')), () => {
+            res.json(`/torrent/sub/${subtitles.en.filename.replace('.srt', '.vtt')}`);
+        });
     });
 });
+
+const download = (url, dest, cb) => {
+    var file = fs.createWriteStream(dest);
+
+    https.get(url, response => {
+        response.pipe(file);
+        file.on('finish', () => {
+            file.close(cb);
+        });
+    });
+};
 
 server.listen(TORRENT_PORT, () => {
     console.log(`Torrent server is running on port ${TORRENT_PORT}`);

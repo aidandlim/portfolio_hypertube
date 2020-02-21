@@ -14,10 +14,13 @@ const Component = ({ match, history }) => {
     const magnet = match.params.magnet;
 
     const [fileName, setFileName] = useState('');
+    const [subtitles, setSubtitles] = useState(undefined);
     const [isVisibleBack, setIsVisibleBack] = useState(true);
 
     useEffect(() => {
-        getTorrentSubtitles(id, res => {});
+        getTorrentSubtitles(id, res => {
+            setSubtitles(res);
+        });
 
         axios.get(`/stream/add/${magnet}`).then(res => {
             setFileName(res.data.name);
@@ -53,6 +56,7 @@ const Component = ({ match, history }) => {
             {fileName !== '' ? (
                 <video className='streaming-video' controls autoPlay={true}>
                     <source src={`/stream/play/${magnet}/${fileName}`} type='video/mp4' />
+                    {subtitles !== undefined ? <track label='English' kind='subtitles' srcLang='en' src={subtitles} default /> : null}
                 </video>
             ) : (
                 <div className='streaming-loading'>Loading...</div>

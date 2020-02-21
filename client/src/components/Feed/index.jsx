@@ -23,23 +23,22 @@ const Component = ({ match }) => {
 
     const ui = useSelector(state => state.ui);
 
-    let isCancelled = false;
+    useEffect(() => {
+        let isCancelled = false;
 
-    useEffect(
-        isCancelled => {
-            apiMovies(genre, filter, 1, ui.lang, res => {
-                if (!isCancelled && res !== null) {
+        apiMovies(genre, filter, 1, ui.lang, res => {
+            if (!isCancelled) {
+                if (res !== null) {
                     setMovies(res);
                     setPage(page => page + 1);
                     setIsDoneSearch(true);
                 }
-            });
-            return () => {
-                isCancelled = true;
-            };
-        },
-        [genre, filter, ui.lang]
-    );
+            }
+        });
+        return () => {
+            isCancelled = true;
+        };
+    }, [genre, filter, ui.lang]);
 
     let isWorking = false;
 
@@ -47,7 +46,7 @@ const Component = ({ match }) => {
         if (!isWorking && e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight) > 0.9) {
             isWorking = true;
             apiMovies(genre, filter, page, ui.lang, res => {
-                if (!isCancelled && res !== null) {
+                if (res !== null) {
                     setMovies([...movies, ...res]);
                     setPage(page => page + 1);
                 }
