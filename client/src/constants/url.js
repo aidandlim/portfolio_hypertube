@@ -1,4 +1,4 @@
-const URL = 'https://localhost';
+const URL = 'https://hypertube.aidandlim.com';
 const APP_PORT = '3000';
 const SOCKET_PORT = '8447';
 
