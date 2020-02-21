@@ -58,6 +58,8 @@ export const getHistory = (token, movieId, cb) => {
         token
     };
 
+    console.log(data);
+
     Axios.get(url, { params: data })
         .then(res => {
             cb(res.data);

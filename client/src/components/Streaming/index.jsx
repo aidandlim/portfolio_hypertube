@@ -20,10 +20,15 @@ const Component = ({ match, history }) => {
     const [fileName, setFileName] = useState('');
     const [subtitles, setSubtitles] = useState(undefined);
     const [isVisibleBack, setIsVisibleBack] = useState(true);
+    const [watchingHistory, setWatchingHistory] = useState({
+        start: 0,
+        end: 0
+    });
 
     const auth = useSelector(state => state.auth);
     const user = useSelector(state => state.user);
     const ui = useSelector(state => state.ui);
+    const movie = useSelector(state => state.movie);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -38,7 +43,18 @@ const Component = ({ match, history }) => {
         return () => {
             isCancelled = true;
         };
-    }, [imdbId, ui.lang]);
+    }, [auth.token, imdbId, ui.lang]);
+
+    useEffect(() => {
+        const result = movie.histories.find(history => history.movieId === parseInt(tmdbId));
+
+        if (result !== undefined) {
+            setWatchingHistory({
+                start: result.current,
+                end: result.duration
+            });
+        }
+    }, [movie, tmdbId]);
 
     useEffect(() => {
         let isCancelled = false;
@@ -57,18 +73,18 @@ const Component = ({ match, history }) => {
 
         return (current = document.getElementById('streaming').currentTime, duration = document.getElementById('streaming').duration) => {
             if (current !== null && duration !== null) {
-                postHistory(auth.token, tmdbId, current, duration, (res) => {
-                    if(res.status === 200) {
-                        getHistories(auth.token, user.userName, (res) => {
-                        if(res.status === 200) {
-                            dispatch(movie_histories(res.list));
-                        }
-                    });
-                }
+                postHistory(auth.token, tmdbId, current, duration, res => {
+                    if (res.status === 200) {
+                        getHistories(auth.token, user.userName, res => {
+                            if (res.status === 200) {
+                                dispatch(movie_histories(res.list));
+                            }
+                        });
+                    }
                 });
             }
         };
-    }, [auth.token, magnet, tmdbId]);
+    }, [dispatch, auth.token, magnet, tmdbId]);
 
     const _handleBack = () => {
         history.goBack();
@@ -94,7 +110,7 @@ const Component = ({ match, history }) => {
             </div>
             {fileName !== '' ? (
                 <video id='streaming' className='streaming-video' controls autoPlay={true}>
-                    <source src={`/stream/play/${magnet}/${fileName}`} type='video/mp4' />
+                    <source src={`/stream/play/${magnet}/${fileName}${watchingHistory.start !== 0 ? '#t=' + watchingHistory.start + ',' + watchingHistory.end : ''}`} type='video/mp4' />
                     {subtitles !== undefined ? <track label={ui.lang === 'en_US' ? 'English' : 'Korean'} kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'kr'} src={subtitles} default /> : null}
                 </video>
             ) : (
