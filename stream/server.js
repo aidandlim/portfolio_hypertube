@@ -41,6 +41,23 @@ client.on('error', err => {
 app.get('/stream/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
 
+    const tor = client.get(magnet);
+
+    if (tor != null) {
+        let max = {
+            name: '',
+            length: 0
+        };
+        for (i = 0; i < tor.files.length; i++) {
+            if (max.length < tor.files[i].length)
+                max = {
+                    name: tor.files[i].name,
+                    length: tor.files[i].length
+                };
+        }
+        res.json(max);
+    }
+
     client.add(magnet, torrent => {
         console.log(`magnet(${magnet}) has added`);
         let max = {
@@ -55,7 +72,6 @@ app.get('/stream/add/:magnet', (req, res) => {
                     length: data.length
                 };
         });
-
         res.json(max);
     });
 });
@@ -110,15 +126,6 @@ app.get('/stream/play/:magnet/:filename', (req, res, next) => {
 
     stream.on('error', err => {
         return next(err);
-    });
-});
-
-app.get('/stream/delete/:magnet', (req, res, next) => {
-    let magnet = req.params.magnet;
-
-    client.remove(magnet, () => {
-        console.log(`magnet(${magnet}) has removed`);
-        res.write();
     });
 });
 
