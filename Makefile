@@ -73,6 +73,8 @@ end:
 	@echo ""
 	@sh terminator.sh
 	@echo ""
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
+	@echo ""
 
 check:
 	@echo ""
