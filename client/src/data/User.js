@@ -107,6 +107,36 @@ export const putUser = (token, userName, password, email, firstName, lastName, c
 
 /*
     method: 
+        PUT
+    url: 
+        /api/user/picture
+    parameter: 
+        formData(token, file)
+    result:
+        status
+    using at:
+        UserSetting
+*/
+export const putUserPicture = (formData, cb) => {
+    const url = `/api/user/picture`;
+
+    Axios.put(url, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb({
+                status: 400
+            });
+        });
+};
+
+/*
+    method: 
         DELETE
     url: 
         /api/user

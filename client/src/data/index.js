@@ -4,7 +4,7 @@ import { checkToken, signin, getUserName, getEmail, signup, recovery, oAuth } fr
 
 import { requestGoogleCode, requestGoogleProfile, requestFacebookCode, requestFacebookProfile, request42Code, request42Profile } from './oAuth';
 
-import { getUserByToken, getUserByUserName, putUser, deleteUser } from './User';
+import { getUserByToken, getUserByUserName, putUser, putUserPicture, deleteUser } from './User';
 
 import { getHistories, getHistoriesByUserName, getHistory } from './History';
 
@@ -39,6 +39,7 @@ export {
     getUserByToken,
     getUserByUserName,
     putUser,
+    putUserPicture,
     deleteUser,
     getHistories,
     getHistory,

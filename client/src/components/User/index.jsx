@@ -10,9 +10,9 @@ import UserRecentWatching from '../UserRecentWatching';
 import UserComments from '../UserComments';
 import UserSetting from '../UserSetting';
 
-import { getUserByUserName } from '../../data';
+import { getUserByUserName, putUserPicture } from '../../data';
 
-import { session } from '../../util/session';
+import { session, alert } from '../../util';
 
 import FeatherIcon from 'feather-icons-react';
 import user_default from '../../assets/images/user_default.png';
@@ -77,6 +77,33 @@ const Component = ({ match }) => {
         window.open('/', '_self');
     };
 
+    const _handleInitChangePicture = () => {
+        document.getElementById('user-picture-upload').click();
+    };
+
+    const _handleChangePicture = () => {
+        let input = document.getElementById('user-picture-upload');
+
+        let extension = input.value.split('.')[input.value.split('.').length - 1];
+        if (extension === 'jpg' || extension === 'jpeg' || extension === 'png') {
+            let formData = new FormData();
+            formData.append('token', auth.token);
+            formData.append('picture', input.files[0]);
+
+            putUserPicture(formData, res => {
+                if (session(dispatch, res)) {
+                    alert('message', ui.lang === 'en_US' ? 'Done!' : '등록완료!', null, null);
+                } else {
+                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                }
+                input.value = '';
+            });
+        } else {
+            input.value = '';
+            alert('message', ui.lang === 'en_US' ? 'Extension of image can be only .jpg, .jpeg, .png!' : '확장자가 .jpg, .jpeg, .png인 이미지만 업로드할 수 있습니다!', null, null);
+        }
+    };
+
     const menus = userData.userName === user.userName ? [0, 1, 2] : [0, 1];
 
     if (user.userName !== '') document.title = `${user.userName} - HyperTube`;
@@ -104,7 +131,8 @@ const Component = ({ match }) => {
                                 backgroundImage: userData.picture !== null && userData.picture !== undefined && userData.picture !== '' ? `url('${userData.picture}')` : `url('${user_default}')`
                             }}
                         >
-                            <FeatherIcon className={nav === 2 ? 'user-info-picture-update-active' : 'user-info-picture-update'} icon='upload' />
+                            <FeatherIcon className={nav === 2 ? 'user-info-picture-update-active' : 'user-info-picture-update'} icon='upload' onClick={_handleInitChangePicture} />
+                            <input id='user-picture-upload' type='file' style={{ display: 'none' }} onChange={_handleChangePicture} />
                         </div>
                         <div className='user-info-basic'>
                             <div className='user-info-userName'>@{userData.userName}</div>
