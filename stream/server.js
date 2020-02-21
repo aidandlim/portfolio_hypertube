@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const WebTorrent = require('webtorrent');
 
 const app = express();
 
@@ -10,6 +9,8 @@ const privateKey = fs.readFileSync('cert/key.pem', 'utf8');
 const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const server = https.createServer(credentials, app);
+
+const TorrentService = require('./src');
 
 // const API_IP = 'localhost';
 // const TORRENT_PORT = 8444;
@@ -23,20 +24,11 @@ app.get('/stream', (req, res) => {
     res.json('Stream server is running');
 });
 
-const client = new WebTorrent();
+const client = new TorrentService();
 
 client.on('error', err => {
     console.log(err.message);
 });
-
-// client.on('download', () => {
-//     stats = {
-//         progress: Math.round(client.progress * 100 * 100) / 100,
-//         downloadSpeed: client.downloadSpeed,
-//         ratio: client.ratio
-//     };
-//     console.log(stats);
-// });
 
 app.get('/stream/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
@@ -120,6 +112,7 @@ app.get('/stream/play/:magnet/:filename', (req, res, next) => {
     });
 
     if (filename.split('.')[filename.split('.').length - 1] === 'mkv') {
+        stream.pipe(res);
     } else {
         stream.pipe(res);
     }

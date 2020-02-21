@@ -6,7 +6,7 @@ import { requestGoogleCode, requestGoogleProfile, requestFacebookCode, requestFa
 
 import { getUserByToken, getUserByUserName, putUser, putUserPicture, deleteUser } from './User';
 
-import { getHistories, getHistory, postHistory } from './History';
+import { getHistories, postHistory } from './History';
 
 import { getCommentsByMovieId, getCommentsByUserId, postComment, deleteComment } from './Comment';
 
@@ -42,7 +42,6 @@ export {
     putUserPicture,
     deleteUser,
     getHistories,
-    getHistory,
     postHistory,
     getCommentsByMovieId,
     getCommentsByUserId,

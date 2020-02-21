@@ -43,36 +43,6 @@ export const getHistories = (token, userName, cb) => {
 
 /*
     method: 
-        GET
-    url: 
-        /api/history/:movieId
-    parameter: 
-        token
-    result:
-        status
-        obj
-*/
-export const getHistory = (token, movieId, cb) => {
-    const url = `/api/history/${movieId}`;
-    const data = {
-        token
-    };
-
-    console.log(data);
-
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb({
-                status: 400
-            });
-        });
-};
-
-/*
-    method: 
         POST
     url: 
         /api/history
