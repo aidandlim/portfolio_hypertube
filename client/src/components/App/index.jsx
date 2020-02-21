@@ -9,7 +9,7 @@ import cookie from 'react-cookies';
 import Header from '../Header';
 import Core from '../Core';
 
-import { apiGenres, checkToken, getHistoriesByUserName, getUserByToken } from '../../data';
+import { apiGenres, checkToken, getHistories, getUserByToken } from '../../data';
 import { session, alert } from '../../util';
 
 const Component = () => {
@@ -46,7 +46,7 @@ const Component = () => {
                 if (!isCancelled) {
                     if (session(auth.token, res)) {
                         dispatch(user_data(res.obj));
-                        getHistoriesByUserName(auth.token, res.obj.userName, res => {
+                        getHistories(auth.token, res.obj.userName, res => {
                             if (!isCancelled && session(dispatch, res)) {
                                 dispatch(movie_histories(res.list));
                             } else {

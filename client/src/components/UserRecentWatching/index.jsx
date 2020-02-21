@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import UserRecentWatchingMovie from '../UserRecentWatchingMovie';
 
-import { getHistoriesByUserName } from '../../data';
+import { getHistories } from '../../data';
 import { session } from '../../util';
 
 import './index.css';
@@ -19,7 +19,7 @@ const Component = ({ userName }) => {
         let isCancelled = false;
 
         if (userName !== '') {
-            getHistoriesByUserName(auth.token, userName, res => {
+            getHistories(auth.token, userName, res => {
                 if (!isCancelled) {
                     if (session(dispatch, res)) {
                         setMovies(res.list);

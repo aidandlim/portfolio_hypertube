@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { movie_histories } from '../../actions';
 
 import axios from 'axios';
 
 import Chat from '../Chat';
 
-import { getTorrentSubtitles, postHistory } from '../../data';
+import { getTorrentSubtitles, getHistories, postHistory } from '../../data';
 
 import FeatherIcon from 'feather-icons-react';
 import './index.css';
@@ -21,7 +22,9 @@ const Component = ({ match, history }) => {
     const [isVisibleBack, setIsVisibleBack] = useState(true);
 
     const auth = useSelector(state => state.auth);
+    const user = useSelector(state => state.user);
     const ui = useSelector(state => state.ui);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let isCancelled = false;
@@ -54,7 +57,15 @@ const Component = ({ match, history }) => {
 
         return (current = document.getElementById('streaming').currentTime, duration = document.getElementById('streaming').duration) => {
             if (current !== null && duration !== null) {
-                postHistory(auth.token, tmdbId, current, duration);
+                postHistory(auth.token, tmdbId, current, duration, (res) => {
+                    if(res.status === 200) {
+                        getHistories(auth.token, user.userName, (res) => {
+                        if(res.status === 200) {
+                            dispatch(movie_histories(res.list));
+                        }
+                    });
+                }
+                });
             }
         };
     }, [auth.token, magnet, tmdbId]);

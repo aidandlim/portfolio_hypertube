@@ -15,39 +15,7 @@ import Axios from 'axios';
     method: 
         GET
     url: 
-        /api/histories/
-    parameter: 
-        token
-    result:
-        status
-        list
-    using at:
-        App
-*/
-export const getHistories = (token, cb) => {
-    const url = `/api/histories`;
-    const data = {
-        token
-    };
-
-    console.log(data);
-
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb({
-                status: 400
-            });
-        });
-};
-
-/*
-    method: 
-        GET
-    url: 
-        /api/histories/userName/:userName
+        /api/histories/:userName
     parameter: 
         token
     result:
@@ -56,8 +24,8 @@ export const getHistories = (token, cb) => {
     using at:
         UserRecentWatching
 */
-export const getHistoriesByUserName = (token, userName, cb) => {
-    const url = `/api/histories/userName/${userName}`;
+export const getHistories = (token, userName, cb) => {
+    const url = `/api/histories/${userName}`;
     const data = {
         token
     };
@@ -111,7 +79,7 @@ export const getHistory = (token, movieId, cb) => {
     result:
         status
 */
-export const postHistory = (token, movieId, current, duration) => {
+export const postHistory = (token, movieId, current, duration, cb) => {
     const url = `/api/history`;
     const data = {
         token,
@@ -120,7 +88,13 @@ export const postHistory = (token, movieId, current, duration) => {
         duration
     };
 
-    console.log(data);
-
-    Axios.post(url, data);
+    Axios.post(url, data)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb({
+                status: 400
+            });
+        });
 };
