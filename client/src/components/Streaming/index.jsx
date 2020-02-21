@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 
 import Chat from '../Chat';
 
-import { getTorrentSubtitles } from '../../data';
+import { getTorrentSubtitles, postHistory } from '../../data';
 
 import FeatherIcon from 'feather-icons-react';
 import './index.css';
 
 const Component = ({ match, history }) => {
-    const id = match.params.id;
+    const tmdbId = match.params.tmdbId;
+    const imdbId = match.params.imdbId;
     const magnet = match.params.magnet;
 
     const [fileName, setFileName] = useState('');
     const [subtitles, setSubtitles] = useState(undefined);
     const [isVisibleBack, setIsVisibleBack] = useState(true);
 
+    const auth = useSelector(state => state.auth);
+    const ui = useSelector(state => state.ui);
+
     useEffect(() => {
-        getTorrentSubtitles(id, res => {
+        getTorrentSubtitles(imdbId, ui.lang, res => {
             setSubtitles(res);
         });
+    }, [imdbId, ui.lang]);
 
+    useEffect(() => {
         axios.get(`/stream/add/${magnet}`).then(res => {
             setFileName(res.data.name);
         });
@@ -30,10 +38,10 @@ const Component = ({ match, history }) => {
             setIsVisibleBack(false);
         }, 5000);
 
-        return () => {
-            console.log('Bye');
+        return (current = document.getElementById('streaming').currentTime, duration = document.getElementById('streaming').duration) => {
+            postHistory(auth.token, tmdbId, current, duration);
         };
-    }, [magnet]);
+    }, [auth.token, magnet, tmdbId]);
 
     const _handleBack = () => {
         history.goBack();
@@ -54,14 +62,14 @@ const Component = ({ match, history }) => {
                 <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
             </div>
             {fileName !== '' ? (
-                <video className='streaming-video' controls autoPlay={true}>
+                <video id='streaming' className='streaming-video' controls autoPlay={true}>
                     <source src={`/stream/play/${magnet}/${fileName}`} type='video/mp4' />
-                    {subtitles !== undefined ? <track label='English' kind='subtitles' srcLang='en' src={subtitles} default /> : null}
+                    {subtitles !== undefined ? <track label='English' kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'ko'} src={subtitles} /> : null}
                 </video>
             ) : (
                 <div className='streaming-loading'>Loading...</div>
             )}
-            <Chat id={id} />
+            <Chat tmdbId={tmdbId} />
         </div>
     );
 };

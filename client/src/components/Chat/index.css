@@ -1,25 +1,24 @@
 .chat,
 .chat-active {
-    width: 15rem;
-    height: 100%;
+    width: 100%;
+    height: 20rem;
 
     position: absolute;
-    top: 0;
-    left: calc(100% - 1rem);
+    top: calc(100% - 1rem);
+    left: 0;
 
-    opacity: 0.5;
+    opacity: 0.75;
 
     transition: 0.5s;
 }
 
 .chat-active {
-    left: 100%;
-    transform: translate(-100%, 0);
+    top: calc(100% - 20rem);
 }
 
 .chat-toggle-container {
-    width: 1rem;
-    height: 100%;
+    width: 100%;
+    height: 1rem;
 
     position: relative;
     float: left;
@@ -29,17 +28,17 @@
     width: auto;
     height: auto;
 
-    padding: 3rem 0;
+    padding: 0 3rem;
 
     position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(0, -50%);
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 
     color: var(--color-A);
 
-    background-color: var(--color-90);
-    border-radius: 1.5rem 0 0 1.5rem;
+    background-color: var(--color-80);
+    border-radius: 1.5rem 1.5rem 0 0;
 
     cursor: pointer;
 
@@ -51,8 +50,8 @@
 }
 
 .chat-content-container {
-    width: calc(100% - 1rem);
-    height: 100%;
+    width: 100%;
+    height: calc(100% - 1rem);
 
     overflow: hidden;
 

@@ -61,16 +61,28 @@ const OpenSubtitles = new OS({
     ssl: true
 });
 
-app.get('/torrent/subtitle/:id', async (req, res) => {
+app.get('/torrent/subtitle/:id/:lang', (req, res) => {
     const id = req.params.id;
+    const lang = req.params.lang;
 
     OpenSubtitles.search({
         imdbid: id
     }).then(subtitles => {
-        console.log(subtitles);
-        download(subtitles.en.vtt, path.join(__dirname, 'public', 'sub', subtitles.en.filename.replace('.srt', '.vtt')), () => {
-            res.json(`/torrent/sub/${subtitles.en.filename.replace('.srt', '.vtt')}`);
-        });
+        if(lang === 'en_US') {
+            if (subtitles.en !== null && subtitles.en !== undefined) {
+                const name = subtitles.en.filename.replace('.srt', '') + '.en.vtt';
+                download(subtitles.en.vtt, path.join(__dirname, 'public', 'sub', name), () => {
+                    res.json(`/torrent/sub/${name}`);
+                });
+            }
+        } else {
+            if (subtitles.ko !== null && subtitles.ko !== undefined) {
+                const name = subtitles.ko.filename.replace('.srt', '') + '.ko.vtt';
+                download(subtitles.ko.vtt, path.join(__dirname, 'public', 'sub', name), () => {
+                    res.json(`/torrent/sub/${name}`);
+                });
+            }
+        }
     });
 });
 

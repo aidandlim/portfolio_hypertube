@@ -11,15 +11,15 @@ import './index.css';
 
 let socket;
 
-const Component = ({ id }) => {
+const Component = ({ tmdbId }) => {
     const [messages, setMessages] = useState([]);
     const [isOpenChat, setIsOpenChat] = useState(false);
 
     useEffect(() => {
         socket = io(SOCKET_URL);
 
-        socket.emit('join', { userName: 'Aidan', movieRoom: id }, () => {});
-    }, [id]);
+        socket.emit('join', { userName: 'Aidan', movieRoom: tmdbId }, () => {});
+    }, [tmdbId]);
 
     useEffect(() => {
         socket.on('message', message => {
@@ -50,7 +50,7 @@ const Component = ({ id }) => {
     return (
         <div className={isOpenChat ? 'chat-active' : 'chat'}>
             <div className='chat-toggle-container'>
-                <FeatherIcon icon={isOpenChat ? 'chevron-right' : 'chevron-left'} className='chat-toggle' size='1rem' onClick={_handleOpenToggle} />
+                <FeatherIcon icon={isOpenChat ? 'chevron-down' : 'chevron-up'} className='chat-toggle' size='1rem' onClick={_handleOpenToggle} />
             </div>
             <div className='chat-content-container'>
                 <ScrollToBottom className='chat-message-container'>

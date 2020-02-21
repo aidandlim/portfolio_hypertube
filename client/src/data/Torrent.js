@@ -14,8 +14,8 @@ export const getTorrents = (id, cb) => {
         });
 };
 
-export const getTorrentSubtitles = (id, cb) => {
-    let url = `/torrent/subtitle/${id}`;
+export const getTorrentSubtitles = (id, lang, cb) => {
+    let url = `/torrent/subtitle/${id}/${lang}`;
 
     Axios.get(url)
         .then(res => {

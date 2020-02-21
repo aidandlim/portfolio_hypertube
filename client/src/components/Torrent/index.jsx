@@ -19,7 +19,7 @@ const Component = ({ torrent }) => {
     };
 
     return (
-        <Link to={auth.token !== '' ? `/streaming/${torrent.episode_info.imdb}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
+        <Link to={auth.token !== '' ? `/streaming/${torrent.episode_info.tmdb}/${torrent.episode_info.imdb}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
             <div className='torrent'>
                 <div className='torrent-title'>
                     <font className='torrent-title-resolution'>{torrent.title.match('1080') ? '[1080p]' : null}</font>

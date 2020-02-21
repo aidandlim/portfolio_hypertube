@@ -20,8 +20,10 @@ const Component = ({ userName }) => {
 
         if (userName !== '') {
             getHistoriesByUserName(auth.token, userName, res => {
-                if (!isCancelled && session(dispatch, res)) {
-                    setMovies(res.list);
+                if (!isCancelled) {
+                    if (session(dispatch, res)) {
+                        setMovies(res.list);
+                    }
                 }
             });
         }

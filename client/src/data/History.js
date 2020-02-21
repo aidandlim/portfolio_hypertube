@@ -111,7 +111,7 @@ export const getHistory = (token, movieId, cb) => {
     result:
         status
 */
-export const postHistory = (token, movieId, current, duration, cb) => {
+export const postHistory = (token, movieId, current, duration) => {
     const url = `/api/history`;
     const data = {
         token,
@@ -120,13 +120,5 @@ export const postHistory = (token, movieId, current, duration, cb) => {
         duration
     };
 
-    Axios.post(url, data)
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb({
-                status: 400
-            });
-        });
+    Axios.post(url, data);
 };
