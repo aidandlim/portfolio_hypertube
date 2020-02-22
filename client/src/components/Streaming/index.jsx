@@ -74,7 +74,7 @@ const Component = ({ match, history }) => {
         return (current = document.getElementById('streaming').currentTime, duration = document.getElementById('streaming').duration) => {
             if (current !== null && duration !== null) {
                 postHistory(auth.token, tmdbId, current, duration, res => {
-                    if (res.status === 200) {
+                    if (res.status === 200 && user.userName !== '') {
                         getHistories(auth.token, user.userName, res => {
                             if (res.status === 200) {
                                 dispatch(movie_histories(res.list));
@@ -84,7 +84,7 @@ const Component = ({ match, history }) => {
                 });
             }
         };
-    }, [dispatch, auth.token, magnet, tmdbId]);
+    }, [dispatch, auth.token, magnet, tmdbId, user.userName]);
 
     const _handleBack = () => {
         history.goBack();
