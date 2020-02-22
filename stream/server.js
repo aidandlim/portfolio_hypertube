@@ -31,6 +31,7 @@ client.on('error', err => {
 });
 
 app.get('/stream/add/:magnet', (req, res) => {
+
     const magnet = req.params.magnet;
 
     const tor = client.get(magnet);
@@ -46,12 +47,10 @@ app.get('/stream/add/:magnet', (req, res) => {
                     name: tor.files[i].name,
                     length: tor.files[i].length
                 };
-        }
-        res.json(max);
+        } res.json(max);
     }
 
     client.add(magnet, torrent => {
-        console.log(`magnet(${magnet}) has added`);
         let max = {
             name: '',
             length: 0
@@ -71,8 +70,6 @@ app.get('/stream/add/:magnet', (req, res) => {
 app.get('/stream/play/:magnet/:filename', (req, res, next) => {
     const magnet = req.params.magnet;
     const filename = req.params.filename;
-
-    console.log(filename);
 
     const tor = client.get(magnet);
 
@@ -112,7 +109,7 @@ app.get('/stream/play/:magnet/:filename', (req, res, next) => {
     });
 
     if (filename.split('.')[filename.split('.').length - 1] === 'mkv') {
-        stream.pipe(res);
+        
     } else {
         stream.pipe(res);
     }

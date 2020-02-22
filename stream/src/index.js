@@ -51,11 +51,9 @@ class TorrentService extends EventEmitter {
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
       if (opts.rtcConfig) {
-        console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
         this.tracker.rtcConfig = opts.rtcConfig
       }
       if (opts.wrtc) {
-        console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
         this.tracker.wrtc = opts.wrtc
       }
       if (global.WRTC && !this.tracker.wrtc) {
@@ -151,7 +149,6 @@ class TorrentService extends EventEmitter {
   }
 
   download (torrentId, opts, ontorrent) {
-    console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
     return this.add(torrentId, opts, ontorrent)
   }
 

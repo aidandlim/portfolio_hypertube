@@ -99,7 +99,8 @@ export const request42Code = (code, cb) => {
         client_id: SV_ID,
         client_secret: SV_SECRET,
         code,
-        redirect_uri: `${APP_REDIRECT_URL}/42`
+        // redirect_uri: `${APP_REDIRECT_URL}/42`
+        redirect_uri: 'https://localhost:3000/auth/signin/42'
     };
 
     Axios.post(url, data)

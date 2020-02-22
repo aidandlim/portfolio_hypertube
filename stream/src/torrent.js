@@ -164,7 +164,6 @@ class Torrent extends EventEmitter {
   }
 
   get swarm () {
-    console.warn('WebTorrent: `torrent.swarm` is deprecated. Use `torrent` directly instead.')
     return this
   }
 
