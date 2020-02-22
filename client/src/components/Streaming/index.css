@@ -230,7 +230,9 @@
     opacity: 0;
     -webkit-appearance: slider-vertical;
     cursor: pointer;
-}.rh5v-Captions_component {
+}
+
+.rh5v-Captions_component {
     position: relative;
 }
 

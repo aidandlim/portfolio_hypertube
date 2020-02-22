@@ -73,8 +73,8 @@ const Component = ({ match, history }) => {
             }
         }, 5000);
 
-        return (current = document.getElementById('streaming').currentTime, duration = document.getElementById('streaming').duration) => {
-            if (current !== null && duration !== null) {
+        return (current = document.getElementById('streaming') === null ? null : document.getElementById('streaming').currentTime, duration = document.getElementById('streaming') === null ? null : document.getElementById('streaming').duration) => {
+            if (current !== null && current !== undefined && duration !== null && duration !== undefined) {
                 postHistory(auth.token, tmdbId, current, duration, res => {
                     if (res.status === 200 && user.userName !== '') {
                         getHistories(auth.token, user.userName, res => {
