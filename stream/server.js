@@ -108,11 +108,7 @@ app.get('/stream/play/:magnet/:filename', (req, res, next) => {
         end
     });
 
-    if (filename.split('.')[filename.split('.').length - 1] === 'mkv') {
-        
-    } else {
-        stream.pipe(res);
-    }
+    stream.pipe(res);
 
     stream.on('error', err => {
         return next(err);
