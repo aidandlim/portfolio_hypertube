@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { movie_histories } from '../../actions';
 
+import { DefaultPlayer as Video } from 'react-html5video';
+
 import axios from 'axios';
 
 import Chat from '../Chat';
@@ -109,10 +111,12 @@ const Component = ({ match, history }) => {
                 <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
             </div>
             {fileName !== '' ? (
-                <video id='streaming' className='streaming-video' controls autoPlay={true}>
-                    <source src={`/stream/play/${magnet}/${fileName}${watchingHistory.start !== 0 ? '#t=' + watchingHistory.start + ',' + watchingHistory.end : ''}`} type='video/mp4' />
-                    {subtitles !== undefined ? <track label={ui.lang === 'en_US' ? 'English' : 'Korean'} kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'kr'} src={subtitles} default /> : null}
-                </video>
+                <div className='streaming-container'>
+                    <Video id='streaming' controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']} autoPlay={true}>
+                        <source src={`/stream/play/${magnet}/${fileName}${watchingHistory.start !== 0 ? '#t=' + watchingHistory.start + ',' + watchingHistory.end : ''}`} type='video/mp4' />
+                        {subtitles !== undefined ? <track label={ui.lang === 'en_US' ? 'English' : 'Korean'} kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'kr'} src={subtitles} default /> : null}
+                    </Video>
+                </div>
             ) : (
                 <div className='streaming-loading'>Loading...</div>
             )}
