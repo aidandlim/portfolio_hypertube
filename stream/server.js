@@ -31,7 +31,6 @@ client.on('error', err => {
 });
 
 app.get('/stream/add/:magnet', (req, res) => {
-
     const magnet = req.params.magnet;
 
     const tor = client.get(magnet);
@@ -47,24 +46,25 @@ app.get('/stream/add/:magnet', (req, res) => {
                     name: tor.files[i].name,
                     length: tor.files[i].length
                 };
-        } res.json(max);
-    }
-
-    client.add(magnet, torrent => {
-        let max = {
-            name: '',
-            length: 0
-        };
-
-        torrent.files.forEach(data => {
-            if (max.length < data.length)
-                max = {
-                    name: data.name,
-                    length: data.length
-                };
-        });
+        }
         res.json(max);
-    });
+    } else {
+        client.add(magnet, torrent => {
+            let max = {
+                name: '',
+                length: 0
+            };
+
+            torrent.files.forEach(data => {
+                if (max.length < data.length)
+                    max = {
+                        name: data.name,
+                        length: data.length
+                    };
+            });
+            res.json(max);
+        });
+    }
 });
 
 app.get('/stream/play/:magnet/:filename', (req, res, next) => {
