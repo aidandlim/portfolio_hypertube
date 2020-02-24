@@ -16,7 +16,7 @@ const Component = ({ history }) => {
         if (_handleCheckEmail) {
             const form = document.recovery;
             recovery(form.email.value, res => {
-                if (res === 200) {
+                if (res.status === 200) {
                     alert('message', ui.lang === 'en_US' ? 'Password recovery mail has sent :)' : '비밀번호 복구 이메일이 발송되었습니다.', () => history.goBack(), null);
                 } else {
                     alert('message', ui.lang === 'en_US' ? 'Email is invalid :(' : '이메일이 올바르지 않습니다.', null, null);
