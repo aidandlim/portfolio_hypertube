@@ -20,6 +20,7 @@ const Component = ({ match, history }) => {
     const magnet = match.params.magnet;
 
     const [fileName, setFileName] = useState('');
+    const [dirName, setDirName] = useState('');
     const [subtitles, setSubtitles] = useState(undefined);
     const [isVisibleBack, setIsVisibleBack] = useState(true);
     const [watchingHistory, setWatchingHistory] = useState({
@@ -63,7 +64,8 @@ const Component = ({ match, history }) => {
 
         axios.get(`/stream/add/${magnet}`).then(res => {
             if (!isCancelled) {
-                setFileName(res.data.name);
+                setFileName(res.data.filename);
+                setDirName(res.data.dirname);
             }
         });
 
@@ -73,19 +75,19 @@ const Component = ({ match, history }) => {
             }
         }, 5000);
 
-        return (current = document.getElementById('streaming') === null ? null : document.getElementById('streaming').currentTime, duration = document.getElementById('streaming') === null ? null : document.getElementById('streaming').duration) => {
-            if (current !== null && current !== undefined && duration !== null && duration !== undefined) {
-                postHistory(auth.token, tmdbId, current, duration, res => {
-                    if (res.status === 200 && user.userName !== '') {
-                        getHistories(auth.token, user.userName, res => {
-                            if (res.status === 200) {
-                                dispatch(movie_histories(res.list));
-                            }
-                        });
-                    }
-                });
-            }
-        };
+        // return (current = document.getElementById('streaming') === null ? null : document.getElementById('streaming').currentTime, duration = document.getElementById('streaming') === null ? null : document.getElementById('streaming').duration) => {
+        //     if (current !== null && current !== undefined && current !== 0 && duration !== null && duration !== undefined && duration !== 0) {
+        //         postHistory(auth.token, tmdbId, current, duration, res => {
+        //             if (res.status === 200 && user.userName !== '') {
+        //                 getHistories(auth.token, user.userName, res => {
+        //                     if (res.status === 200) {
+        //                         dispatch(movie_histories(res.list));
+        //                     }
+        //                 });
+        //             }
+        //         });
+        //     }
+        // };
     }, [dispatch, auth.token, magnet, tmdbId, user.userName]);
 
     const _handleBack = () => {
@@ -113,7 +115,7 @@ const Component = ({ match, history }) => {
             {fileName !== '' ? (
                 <div className='streaming-container'>
                     <Video id='streaming' controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']} autoPlay={true}>
-                        <source src={`/stream/play/${magnet}/${fileName}${watchingHistory.start !== 0 ? '#t=' + watchingHistory.start + ',' + watchingHistory.end : ''}`} type='video/mp4' />
+                        <source src={fileName.match('.mkv') ? `/stream/mkv/${magnet}/${dirName}/${fileName.replace('mkv', 'mp4')}` : `/stream/normal/${magnet}/${fileName}${watchingHistory.start !== 0 ? '#t=' + watchingHistory.start + ',' + watchingHistory.end : ''}`} type='video/mp4' />
                         {subtitles !== undefined ? <track label={ui.lang === 'en_US' ? 'English' : 'Korean'} kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'kr'} src={subtitles} default /> : null}
                     </Video>
                 </div>
