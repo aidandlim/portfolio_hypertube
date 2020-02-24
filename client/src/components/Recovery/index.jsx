@@ -44,7 +44,7 @@ const Component = ({ history }) => {
         }
 
         getEmail(value, res => {
-            if (res.status === 200) {
+            if (res.status !== 200) {
                 document.getElementById(target).style.color = confirmedColor;
                 return true;
             } else {
