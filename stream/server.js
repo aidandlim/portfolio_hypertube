@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 const fs = require('fs');
+const path = require('path');
 const https = require('https');
 const privateKey = fs.readFileSync('cert/key.pem', 'utf8');
 const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
@@ -31,7 +32,7 @@ client.on('error', err => {
 });
 
 const ffmpeg = require('fluent-ffmpeg');
-ffmpeg.setFfmpegPath('./resources/ffmpeg');
+ffmpeg.setFfmpegPath(path.join(__dirname, 'resources', 'ffmpeg'));
 
 app.get('/stream/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
@@ -93,9 +94,6 @@ app.get('/stream/add/:magnet', (req, res) => {
                     .on('error', e => {
                         console.log('Transcoding error.', e);
                     })
-                    /*.on('stderr', (stderrLine) => {
-                        stderrLines.push(stderrLine);
-                      })*/
                     .on('end', () => {
                         console.log('Transcoding ended.');
                     })
@@ -163,8 +161,6 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     let stat = fs.statSync(path);
     let fileSize = stat.size;
     const range = req.headers.range;
-
-    console.log(fileSize);
 
     if (range) {
         const parts = range.replace(/bytes=/, '').split('-');
