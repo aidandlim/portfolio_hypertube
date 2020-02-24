@@ -31,6 +31,7 @@ client.on('error', err => {
 });
 
 const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath('./resources/ffmpeg');
 
 app.get('/stream/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
@@ -159,9 +160,11 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     const filename = req.params.filename;
 
     const path = `/tmp/webtorrent/${magnet}/${dirname}/${filename}`;
-    const stat = fs.statSync(path);
-    const fileSize = stat.size;
+    let stat = fs.statSync(path);
+    let fileSize = stat.size;
     const range = req.headers.range;
+
+    console.log(fileSize);
 
     if (range) {
         const parts = range.replace(/bytes=/, '').split('-');
@@ -174,6 +177,7 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
             'Accept-Ranges': 'bytes',
             'Content-Length': chunkSize,
             'Content-Type': 'video/mp4',
+            'Cache-Control': 'must-revalidate',
         });
 
         let stream = fs.createReadStream(path, {
