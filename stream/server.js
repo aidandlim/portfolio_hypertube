@@ -105,9 +105,6 @@ app.get('/stream/add/:magnet', (req, res) => {
                         console.log('Transcoding started.');
                         console.log(commandLine);
                     })
-                    .on('progress', progress => {
-                        // console.log(progress);
-                    })
                     .on('error', e => {
                         console.log('Transcoding error.', e);
                     })

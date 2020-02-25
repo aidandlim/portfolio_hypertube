@@ -76,7 +76,9 @@ const Component = ({ match }) => {
     };
 
     const _handleInitChangePicture = () => {
-        document.getElementById('user-picture-upload').click();
+        if (nav === 2) {
+            document.getElementById('user-picture-upload').click();
+        }
     };
 
     const _handleChangePicture = () => {
@@ -169,17 +171,15 @@ const Component = ({ match }) => {
                                         : `url('${user_default}')`
                             }}
                         >
-                            {nav === 2 ? (
-                                <FeatherIcon
-                                    className={
-                                        nav === 2
-                                            ? 'user-info-picture-update-active'
-                                            : 'user-info-picture-update'
-                                    }
-                                    icon='upload'
-                                    onClick={_handleInitChangePicture}
-                                />
-                            ) : null}
+                            <FeatherIcon
+                                className={
+                                    nav === 2
+                                        ? 'user-info-picture-update-active'
+                                        : 'user-info-picture-update'
+                                }
+                                icon='upload'
+                                onClick={_handleInitChangePicture}
+                            />
                             <input
                                 id='user-picture-upload'
                                 type='file'

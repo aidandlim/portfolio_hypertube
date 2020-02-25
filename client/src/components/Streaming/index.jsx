@@ -51,7 +51,6 @@ const Component = ({ match, history }) => {
     useEffect(() => {
         const result = movie.histories.find(history => history.movieId === parseInt(tmdbId));
 
-        console.log('here');
         if (result !== undefined) {
             setWatchingHistory({
                 start: result.current,

@@ -146,7 +146,6 @@ export const apiSearchWithCast = (id, page, lang, cb) => {
 
     Axios.get(url)
         .then(res => {
-            console.log(res);
             cb(res.data);
         })
         .catch(() => {

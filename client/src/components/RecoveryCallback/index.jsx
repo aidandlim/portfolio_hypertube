@@ -19,7 +19,6 @@ const Component = ({ match }) => {
         if (_handleCheckPassword() && _handleCheckConfrim()) {
             const form = document.recoveryCallback;
             recoveryCallback(uuid, form.password.value, res => {
-                console.log(res);
                 if (res.status === 200) {
                     alert(
                         'message',
