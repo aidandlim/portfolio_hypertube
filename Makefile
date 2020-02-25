@@ -7,6 +7,13 @@ UNDERLINE = \033[1;4;37m
 RESET = \033[0;37m
 
 all:
+	@echo ""
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome!$(RESET)"
+	@echo ""
+	@echo "requires:"
+	@echo "\tNODE"
+	@echo "\tJAVA"
+	@echo ""
 	@echo "usage:"
 	@echo "\tmake check : to check environment variables of $(NAME) application"
 	@echo "\tmake start : to initialize $(NAME) application"
@@ -17,7 +24,6 @@ all:
 	@echo "\tmake apijs : to set api.js environment"
 	@echo "\tmake urljs : to set url.js environment"
 	@echo "\tmake env : to set .env environment"
-	@echo "\tmake mvn : to install mvn resources"
 	@echo "\tmake ffmpeg : to install ffmpeg resources"
 
 start:
@@ -113,21 +119,6 @@ urljs:
 
 env:
 	vim client/.env
-
-mvn:
-	@echo ""
-	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Installing MVN$(RESET)"
-	@echo ""
-	@cd api && rm -rf resources
-	@cd api && mkdir resources
-	@cd api && rm -rf temp
-	@cd api && mkdir temp
-	@cd api/temp && curl -O http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip --silent
-	@cd api/temp && unzip -a apache-maven-3.6.3-bin.zip  > /dev/null
-	@mv api/temp/apache-maven-3.6.3/bin/mvn api/resources
-	@rm -rf api/temp
-	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)MVN has installed.$(RESET)"
-	@echo ""
 
 ffmpeg:
 	@echo ""
