@@ -44,10 +44,8 @@ const Component = ({ match }) => {
             getUserByUserName(auth.token, userName, res => {
                 if (!isCancelled) {
                     if (session(dispatch, res)) {
-                        setTimeout(() => {
-                            setUserData(res.obj);
-                            setIsDoneSearch(true);
-                        }, 1000);
+                        setUserData(res.obj);
+                        setIsDoneSearch(true);
                     }
                 }
             });

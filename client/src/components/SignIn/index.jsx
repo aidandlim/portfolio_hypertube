@@ -32,15 +32,9 @@ const Component = ({ history }) => {
                     ui.lang === 'en_US'
                         ? 'Do you want to keep your signin status?'
                         : '로그인을 유지하시겠습니까?',
-                    cookie.save('token', res.obj, {
-                        path: '/'
-                    }),
-                    cookie.save('token', res.obj, {
-                        path: '/',
-                        maxAge: 60 * 30
-                    })
+                        () => _handleCallback(true, res.obj),
+                        () => _handleCallback(false, res.obj)
                 );
-                history.goBack();
             } else {
                 if (res.status === 411) {
                     alert(
@@ -72,6 +66,20 @@ const Component = ({ history }) => {
                 }
             }
         });
+    };
+
+    const _handleCallback = (isSave, token) => {
+        if (isSave) {
+            cookie.save('token', token, {
+                path: '/'
+            });
+        } else {
+            cookie.save('token', token, {
+                path: '/',
+                maxAge: 60 * 30
+            });
+        }
+        window.open('/', '_self');
     };
 
     document.title = `Sign In - HyperTube`;
