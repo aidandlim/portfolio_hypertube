@@ -32,10 +32,16 @@ client.on('error', err => {
 });
 
 const ffmpeg = require('fluent-ffmpeg');
+
 ffmpeg.setFfmpegPath(path.join(__dirname, 'resources', 'ffmpeg'));
+
+const sleep = require('system-sleep');
 
 app.get('/stream/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
+
+    console.log('/stream/add/:magnet is called');
+    console.log(magnet);
 
     const tor = client.get(magnet);
 
@@ -77,6 +83,12 @@ app.get('/stream/add/:magnet', (req, res) => {
                 const input = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename}`;
                 const output = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename.replace('.mkv', '.mp4')}`;
 
+                console.log('Check whether transcoding can start');
+
+                while(!fs.existsSync(input) || fs.statSync(input).size < 134217728) {
+                    sleep(3000);
+                }
+
                 new ffmpeg()
                     .input(input)
                     .output(output)
@@ -107,6 +119,10 @@ app.get('/stream/add/:magnet', (req, res) => {
 app.get('/stream/normal/:magnet/:filename', (req, res, next) => {
     const magnet = req.params.magnet;
     const filename = req.params.filename;
+
+    console.log('/stream/normal/:magnet/:filename is called');
+    console.log(magnet);
+    console.log(filename);
 
     const tor = client.get(magnet);
 
@@ -157,7 +173,19 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     const dirname = req.params.dirname;
     const filename = req.params.filename;
 
+    console.log('/stream/mkv/:magnet/:dirname/:filename is called');
+    console.log(magnet);
+    console.log(dirname);
+    console.log(filename);
+
     const path = `/tmp/webtorrent/${magnet}/${dirname}/${filename}`;
+
+    while(!fs.existsSync(path) || fs.statSync(path).size < 134217728) {
+        sleep(3000);
+    }
+
+    console.log('Start streaming');
+
     let stat = fs.statSync(path);
     let fileSize = stat.size;
     const range = req.headers.range;
@@ -169,7 +197,7 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
         const chunkSize = end - start + 1;
 
         res.writeHead(206, {
-            'Content-Range': 'bytes ' + start + '-' + end + '/' + fileSize,
+            'Content-Range': 'bytes ' + start + '-' + end + '/*',
             'Accept-Ranges': 'bytes',
             'Content-Length': chunkSize,
             'Content-Type': 'video/mp4',
