@@ -17,7 +17,10 @@ const Component = ({ movie, setIsOpenDetail }) => {
                 <div
                     className='similarMovie-poster'
                     style={{
-                        backgroundImage: movie.poster_path !== null ? `url('https://image.tmdb.org/t/p/w500/${movie.poster_path}')` : `url('${image_default}')`
+                        backgroundImage:
+                            movie.poster_path !== null
+                                ? `url('https://image.tmdb.org/t/p/w500/${movie.poster_path}')`
+                                : `url('${image_default}')`
                     }}
                 ></div>
                 <div className='similarMovie-title'>{movie.title}</div>

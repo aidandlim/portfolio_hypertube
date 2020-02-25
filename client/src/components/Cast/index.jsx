@@ -14,7 +14,9 @@ const Component = ({ cast }) => {
                     className='cast-picture'
                     style={{
                         backgroundImage:
-                            cast.profile_path !== '' && cast.profile_path !== null && cast.profile_path !== undefined
+                            cast.profile_path !== '' &&
+                            cast.profile_path !== null &&
+                            cast.profile_path !== undefined
                                 ? `url('https://image.tmdb.org/t/p/original/${cast.profile_path}')`
                                 : `url('${image_default}')`
                     }}

@@ -43,7 +43,10 @@ const Component = ({ match }) => {
     let isWorking = false;
 
     const _handleScroll = e => {
-        if (!isWorking && e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight) > 0.9) {
+        if (
+            !isWorking &&
+            e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight) > 0.9
+        ) {
             isWorking = true;
             apiMovies(genre, filter, page, ui.lang, res => {
                 if (res !== null) {
@@ -78,9 +81,17 @@ const Component = ({ match }) => {
         <div className='feed' onScroll={_handleScroll}>
             <div className='feed-container'>
                 <FilterIcon genre={genre} filter={filter} _handleFilter={_handleFilter} />
-                {isDoneSearch ? movies.map((movie, index) => <Movie movieData={movie} key={index} />) : <div className='feed-loading'>{ui.lang === 'en_US' ? 'Loading...' : '로딩중...'}</div>}
+                {isDoneSearch ? (
+                    movies.map((movie, index) => <Movie movieData={movie} key={index} />)
+                ) : (
+                    <div className='feed-loading'>
+                        {ui.lang === 'en_US' ? 'Loading...' : '로딩중...'}
+                    </div>
+                )}
             </div>
-            {isOpenFilter ? <Filter genre={genre} filter={filter} _handleFilter={_handleFilter} /> : null}
+            {isOpenFilter ? (
+                <Filter genre={genre} filter={filter} _handleFilter={_handleFilter} />
+            ) : null}
             <div className='feed-toTop' onClick={_handleScrollTop}>
                 <FeatherIcon className='feed-toTop-icon' icon='arrow-up' />
             </div>

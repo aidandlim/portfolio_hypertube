@@ -68,7 +68,7 @@ app.get('/torrent/subtitle/:id/:lang', (req, res) => {
     OpenSubtitles.search({
         imdbid: id
     }).then(subtitles => {
-        if(lang === 'en_US') {
+        if (lang === 'en_US') {
             if (subtitles.en !== null && subtitles.en !== undefined) {
                 const name = subtitles.en.filename.replace('.srt', '') + '.en.vtt';
                 download(subtitles.en.vtt, path.join(__dirname, 'public', 'sub', name), () => {

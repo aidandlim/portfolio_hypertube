@@ -32,9 +32,19 @@ const Component = ({ id }) => {
 
     return (
         <div className='torrentList'>
-            {torrentList.length !== 0 ? torrentList.map((torrent, index) => <Torrent torrent={torrent} key={index} />) : null}
-            {torrentList.length === 0 && isDoneSearch ? (ui.lang === 'en_US' ? 'We cannot find out any torrent file :(' : '토렌트 파일을 찾을 수 없습니다 :(') : null}
-            {torrentList.length === 0 && !isDoneSearch ? (ui.lang === 'en_US' ? 'We are looking for torrent file!' : '토렌트 파일을 검색 중입니다.') : null}
+            {torrentList.length !== 0
+                ? torrentList.map((torrent, index) => <Torrent torrent={torrent} key={index} />)
+                : null}
+            {torrentList.length === 0 && isDoneSearch
+                ? ui.lang === 'en_US'
+                    ? 'We cannot find out any torrent file :('
+                    : '토렌트 파일을 찾을 수 없습니다 :('
+                : null}
+            {torrentList.length === 0 && !isDoneSearch
+                ? ui.lang === 'en_US'
+                    ? 'We are looking for torrent file!'
+                    : '토렌트 파일을 검색 중입니다.'
+                : null}
         </div>
     );
 };

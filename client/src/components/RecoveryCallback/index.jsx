@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { getEmail, recovery } from '../../data';
+import { recoveryCallback } from '../../data';
 
 import { alert } from '../../util';
 import FeatherIcon from 'feather-icons-react';
@@ -18,17 +18,35 @@ const Component = ({ match }) => {
 
         if (_handleCheckPassword() && _handleCheckConfrim()) {
             const form = document.recoveryCallback;
-            // signup(form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
-            //     if (res.status === 200) {
-            //         history.goBack();
-            //     } else {
-            //         alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
-            //     }
-            // });
+            recoveryCallback(uuid, form.password.value, res => {
+                console.log(res);
+                if (res.status === 200) {
+                    alert(
+                        'message',
+                        ui.lang === 'en_US' ? 'Done!' : '변경완료!',
+                        () => window.open('/auth/signin', '_self'),
+                        null
+                    );
+                } else {
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Something went wrong :('
+                            : '알 수 없는 오류가 발생했습니다 :(',
+                        null,
+                        null
+                    );
+                }
+            });
         } else {
-            alert('message', 'Input data is invalid! Please check your information again.', null, null);
+            alert(
+                'message',
+                'Input data is invalid! Please check your information again.',
+                null,
+                null
+            );
         }
-    }
+    };
 
     const normalColor = '#505050';
     const confirmedColor = '#64FFDA';
@@ -85,7 +103,9 @@ const Component = ({ match }) => {
     return (
         <div className='auth'>
             <div className='auth-container'>
-                <div className='auth-title'>{ui.lang === 'en_US' ? 'Password Recovery' : '비밀번호 찾기'}</div>
+                <div className='auth-title'>
+                    {ui.lang === 'en_US' ? 'Password Recovery' : '비밀번호 찾기'}
+                </div>
                 <div className='auth-description'>
                     {ui.lang === 'en_US'
                         ? 'Sometimes, all you need to do is completely make an ass of yourself and laugh it off to realise that life isn’t so bad after all. The green tea and avocado smoothie turned out exactly as would be expected.'
@@ -95,22 +115,45 @@ const Component = ({ match }) => {
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'NEW PASSWORD' : '새로운 비밀번호'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='recovery-password' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='recovery-password'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='password' name='password' autoComplete='password' onChange={_handleCheckPassword} autoFocus />
+                    <input
+                        className='auth-input'
+                        type='password'
+                        name='password'
+                        autoComplete='password'
+                        onChange={_handleCheckPassword}
+                        autoFocus
+                    />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='recovery-confirm' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='recovery-confirm'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='password' name='confirm' autoComplete='password' onChange={_handleCheckConfrim} />
-                    <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SUBMIT' : '비밀번호 찾기'}</button>
+                    <input
+                        className='auth-input'
+                        type='password'
+                        name='confirm'
+                        autoComplete='password'
+                        onChange={_handleCheckConfrim}
+                    />
+                    <button className='auth-button auth-submit' type='submit'>
+                        {ui.lang === 'en_US' ? 'SUBMIT' : '비밀번호 찾기'}
+                    </button>
                 </form>
             </div>
         </div>
     );
-}
+};
 
 export default Component;

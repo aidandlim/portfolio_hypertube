@@ -25,7 +25,14 @@ const Component = ({ userData }) => {
                     if (session(dispatch, res)) {
                         setComments(res.list);
                     } else {
-                        alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                        alert(
+                            'message',
+                            ui.lang === 'en_US'
+                                ? 'Something went wrong :('
+                                : '알 수 없는 오류가 발생했습니다 :(',
+                            null,
+                            null
+                        );
                     }
                 }
             });
@@ -38,7 +45,11 @@ const Component = ({ userData }) => {
 
     return (
         <div className='userComments'>
-            {comments.length !== 0 ? comments.map((data, index) => <UserComment data={data} key={index} />) : <div className='userComments-none'>There is no comment data</div>}
+            {comments.length !== 0 ? (
+                comments.map((data, index) => <UserComment data={data} key={index} />)
+            ) : (
+                <div className='userComments-none'>There is no comment data</div>
+            )}
         </div>
     );
 };

@@ -26,7 +26,14 @@ const Component = ({ id }) => {
                     setCommentList(res.list);
                     setIsDoneSearch(true);
                 } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Something went wrong :('
+                            : '알 수 없는 오류가 발생했습니다 :(',
+                        null,
+                        null
+                    );
                 }
             }
         });
@@ -40,7 +47,14 @@ const Component = ({ id }) => {
             if (res.status === 200) {
                 setCommentList(commentList.filter(comment => comment.id !== id));
             } else {
-                alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                alert(
+                    'message',
+                    ui.lang === 'en_US'
+                        ? 'Something went wrong :('
+                        : '알 수 없는 오류가 발생했습니다 :(',
+                    null,
+                    null
+                );
             }
         });
     };
@@ -48,9 +62,25 @@ const Component = ({ id }) => {
     return (
         <div className='commentList'>
             <div className='commentList-container'>
-                {commentList.length !== 0 ? commentList.map((comment, index) => <Comment comment={comment} _handleDeleteComment={_handleDeleteComment} key={index} />) : null}
-                {commentList.length === 0 && isDoneSearch ? (ui.lang === 'en_US' ? 'We cannot find out any comments :(' : '등록된 코멘트가 없습니다 :(') : null}
-                {commentList.length === 0 && !isDoneSearch ? (ui.lang === 'en_US' ? 'We are looking for comments!' : '코멘트를 검색 중입니다!') : null}
+                {commentList.length !== 0
+                    ? commentList.map((comment, index) => (
+                          <Comment
+                              comment={comment}
+                              _handleDeleteComment={_handleDeleteComment}
+                              key={index}
+                          />
+                      ))
+                    : null}
+                {commentList.length === 0 && isDoneSearch
+                    ? ui.lang === 'en_US'
+                        ? 'We cannot find out any comments :('
+                        : '등록된 코멘트가 없습니다 :('
+                    : null}
+                {commentList.length === 0 && !isDoneSearch
+                    ? ui.lang === 'en_US'
+                        ? 'We are looking for comments!'
+                        : '코멘트를 검색 중입니다!'
+                    : null}
             </div>
             <CommentPost id={id} commentList={commentList} setCommentList={setCommentList} />
         </div>

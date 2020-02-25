@@ -89,15 +89,15 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     opacity: 0;
     transition: opacity 0.2s;
 }
 
 .rh5v-DefaultPlayer_seek {
     -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
 }
 
 .rh5v-DefaultPlayer_component:hover .rh5v-DefaultPlayer_controls {
@@ -128,8 +128,8 @@
     right: 5px;
     height: 4px;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     background-color: #3e3e3e;
 }
 
@@ -205,8 +205,8 @@
     left: 50%;
     width: 4px;
     -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
     background-color: #3e3e3e;
 }
 
@@ -266,7 +266,7 @@
     right: 0;
     bottom: 100%;
     display: none;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     list-style: none;
     padding: 0;
     margin: 0;
@@ -353,7 +353,7 @@
     color: #fff;
     text-align: center;
     cursor: pointer;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .rh5v-Overlay_inner {
@@ -365,10 +365,10 @@
     width: 60px;
     height: 60px;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     margin-left: -30px;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
 }
 
@@ -379,6 +379,6 @@
     left: 50%;
     margin-left: -20px;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

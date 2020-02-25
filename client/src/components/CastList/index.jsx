@@ -30,9 +30,19 @@ const Component = ({ id }) => {
 
     return (
         <div className='castList'>
-            {castList.length !== 0 ? castList.map((cast, index) => <Cast cast={cast} key={index} />) : null}
-            {castList.length === 0 && isDoneSearch ? (ui.lang === 'en_US' ? 'We cannot find out any casting information :(' : '출연진 정보를 찾을 수 없습니다 :(') : null}
-            {castList.length === 0 && !isDoneSearch ? (ui.lang === 'en_US' ? 'We are looking for casting information!' : '출연진 정보를 검색 중입니다!') : null}
+            {castList.length !== 0
+                ? castList.map((cast, index) => <Cast cast={cast} key={index} />)
+                : null}
+            {castList.length === 0 && isDoneSearch
+                ? ui.lang === 'en_US'
+                    ? 'We cannot find out any casting information :('
+                    : '출연진 정보를 찾을 수 없습니다 :('
+                : null}
+            {castList.length === 0 && !isDoneSearch
+                ? ui.lang === 'en_US'
+                    ? 'We are looking for casting information!'
+                    : '출연진 정보를 검색 중입니다!'
+                : null}
         </div>
     );
 };

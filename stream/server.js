@@ -40,9 +40,6 @@ const sleep = require('system-sleep');
 app.get('/stream/add/:magnet', (req, res) => {
     const magnet = req.params.magnet;
 
-    console.log('/stream/add/:magnet is called');
-    console.log(magnet);
-
     const tor = client.get(magnet);
 
     if (tor != null) {
@@ -81,11 +78,12 @@ app.get('/stream/add/:magnet', (req, res) => {
 
             if (max.filename.match('.mkv')) {
                 const input = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename}`;
-                const output = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename.replace('.mkv', '.mp4')}`;
+                const output = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename.replace(
+                    '.mkv',
+                    '.mp4'
+                )}`;
 
-                console.log('Check whether transcoding can start');
-
-                while(!fs.existsSync(input) || fs.statSync(input).size < 134217728) {
+                while (!fs.existsSync(input) || fs.statSync(input).size < 134217728) {
                     sleep(3000);
                 }
 
@@ -94,7 +92,14 @@ app.get('/stream/add/:magnet', (req, res) => {
                     .output(output)
                     .videoCodec('libx264')
                     .audioCodec('aac')
-                    .addOption(['-threads 1', '-crf 22', '-preset ultrafast', '-tune zerolatency', '-movflags frag_keyframe+empty_moov+faststart', '-f ismv'])
+                    .addOption([
+                        '-threads 1',
+                        '-crf 22',
+                        '-preset ultrafast',
+                        '-tune zerolatency',
+                        '-movflags frag_keyframe+empty_moov+faststart',
+                        '-f ismv'
+                    ])
                     .format('mp4')
                     .on('start', function(commandLine) {
                         console.log('Transcoding started.');
@@ -119,10 +124,6 @@ app.get('/stream/add/:magnet', (req, res) => {
 app.get('/stream/normal/:magnet/:filename', (req, res, next) => {
     const magnet = req.params.magnet;
     const filename = req.params.filename;
-
-    console.log('/stream/normal/:magnet/:filename is called');
-    console.log(magnet);
-    console.log(filename);
 
     const tor = client.get(magnet);
 
@@ -173,18 +174,11 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     const dirname = req.params.dirname;
     const filename = req.params.filename;
 
-    console.log('/stream/mkv/:magnet/:dirname/:filename is called');
-    console.log(magnet);
-    console.log(dirname);
-    console.log(filename);
-
     const path = `/tmp/webtorrent/${magnet}/${dirname}/${filename}`;
 
-    while(!fs.existsSync(path) || fs.statSync(path).size < 134217728) {
+    while (!fs.existsSync(path) || fs.statSync(path).size < 134217728) {
         sleep(3000);
     }
-
-    console.log('Start streaming');
 
     let stat = fs.statSync(path);
     let fileSize = stat.size;
@@ -200,7 +194,7 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
         'Accept-Ranges': 'bytes',
         'Content-Length': chunkSize,
         'Content-Type': 'video/mp4',
-        'Cache-Control': 'must-revalidate',
+        'Cache-Control': 'must-revalidate'
     });
 
     let stream = fs.createReadStream(path, {
@@ -213,19 +207,6 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     stream.on('error', err => {
         return next(err);
     });
-
-    // if (range) {
-        
-    // } else {
-    //     res.writeHead(200, {
-    //         'Content-Length': fileSize,
-    //         'Content-Type': 'video/mp4'
-    //     });
-
-    //     let stream = fs.createReadStream(path);
-
-    //     stream.pipe(res);
-    // }
 });
 
 server.listen(STREAM_PORT, () => {

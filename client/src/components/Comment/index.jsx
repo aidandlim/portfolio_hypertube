@@ -24,7 +24,11 @@ const Component = ({ comment, _handleDeleteComment }) => {
                         className='comment-picture'
                         style={{
                             backgroundImage:
-                                comment.user.picture !== null && comment.user.picture !== undefined && comment.user.picture !== '' ? `url('${comment.user.picture}')` : `url('${user_default}')`
+                                comment.user.picture !== null &&
+                                comment.user.picture !== undefined &&
+                                comment.user.picture !== ''
+                                    ? `url('${comment.user.picture}')`
+                                    : `url('${user_default}')`
                         }}
                     ></div>
                     <div className='comment-content'>
@@ -36,7 +40,9 @@ const Component = ({ comment, _handleDeleteComment }) => {
                     </div>
                 </div>
             </Link>
-            {comment.user.id === user.id ? <FeatherIcon className='comment-delete' icon='x' onClick={_handleDelete} /> : null}
+            {comment.user.id === user.id ? (
+                <FeatherIcon className='comment-delete' icon='x' onClick={_handleDelete} />
+            ) : null}
         </div>
     );
 };

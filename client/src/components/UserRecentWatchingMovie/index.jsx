@@ -34,7 +34,11 @@ const Component = ({ data }) => {
                     className='userRecentWatchingMovie-picture'
                     style={{
                         backgroundImage:
-                            movie.poster_path !== '' && movie.poster_path !== null && movie.poster_path !== undefined ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')` : ''
+                            movie.poster_path !== '' &&
+                            movie.poster_path !== null &&
+                            movie.poster_path !== undefined
+                                ? `url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`
+                                : ''
                     }}
                 ></div>
                 <div className='userRecentWatchingMovie-title'>{movie.title}</div>

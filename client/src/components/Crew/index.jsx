@@ -14,7 +14,9 @@ const Component = ({ crew }) => {
                     className='crew-picture'
                     style={{
                         backgroundImage:
-                            crew.profile_path !== '' && crew.profile_path !== null && crew.profile_path !== undefined
+                            crew.profile_path !== '' &&
+                            crew.profile_path !== null &&
+                            crew.profile_path !== undefined
                                 ? `url('https://image.tmdb.org/t/p/original/${crew.profile_path}')`
                                 : `url('${image_default}')`
                     }}

@@ -11,7 +11,9 @@ const Component = ({ url, titleEN, titleKR, genre, filter }) => {
 
     return (
         <Link to={`/feed/${genre}/${url}`}>
-            <button className={filter === url ? 'sorterButton-active' : 'sorterButton'}>{ui.lang === 'en_US' ? titleEN : titleKR}</button>
+            <button className={filter === url ? 'sorterButton-active' : 'sorterButton'}>
+                {ui.lang === 'en_US' ? titleEN : titleKR}
+            </button>
         </Link>
     );
 };

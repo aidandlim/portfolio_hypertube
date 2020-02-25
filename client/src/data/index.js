@@ -1,8 +1,35 @@
-import { apiGenres, apiMovies, apiMovie, apiMovieDetail, apiSimilarMovies, apiRecommendationMovies, apiSearch, apiSearchWithCast, apiSearchWithCrew, apiSearchWithCompany } from './API';
+import {
+    apiGenres,
+    apiMovies,
+    apiMovie,
+    apiMovieDetail,
+    apiSimilarMovies,
+    apiRecommendationMovies,
+    apiSearch,
+    apiSearchWithCast,
+    apiSearchWithCrew,
+    apiSearchWithCompany
+} from './API';
 
-import { checkToken, signin, getUserName, getEmail, signup, recovery, recoveryCallback, oAuth } from './Auth';
+import {
+    checkToken,
+    signin,
+    getUserName,
+    getEmail,
+    signup,
+    recovery,
+    recoveryCallback,
+    oAuth
+} from './Auth';
 
-import { requestGoogleCode, requestGoogleProfile, requestFacebookCode, requestFacebookProfile, request42Code, request42Profile } from './oAuth';
+import {
+    requestGoogleCode,
+    requestGoogleProfile,
+    requestFacebookCode,
+    requestFacebookProfile,
+    request42Code,
+    request42Profile
+} from './oAuth';
 
 import { getUserByToken, getUserByUserName, putUser, putUserPicture, deleteUser } from './User';
 

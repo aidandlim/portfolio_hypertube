@@ -14,17 +14,41 @@ const Component = ({ torrent }) => {
 
     const _handleUserStatus = () => {
         if (auth.token === '') {
-            alert('message', ui.lang === 'en_US' ? 'This feature requires SignIn first.' : '로그인이 필요한 서비스입니다.', null, null);
+            alert(
+                'message',
+                ui.lang === 'en_US'
+                    ? 'This feature requires SignIn first.'
+                    : '로그인이 필요한 서비스입니다.',
+                null,
+                null
+            );
         }
     };
 
     return (
-        <Link to={auth.token !== '' ? `/streaming/${torrent.episode_info.themoviedb}/${torrent.episode_info.imdb}/${torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]}` : '/auth/signin'} onClick={_handleUserStatus}>
+        <Link
+            to={
+                auth.token !== ''
+                    ? `/streaming/${torrent.episode_info.themoviedb}/${torrent.episode_info.imdb}/${
+                          torrent.download.replace('magnet:?xt=urn:btih:', '').split('&')[0]
+                      }`
+                    : '/auth/signin'
+            }
+            onClick={_handleUserStatus}
+        >
             <div className='torrent'>
                 <div className='torrent-title'>
-                    <font className='torrent-title-resolution'>{torrent.title.match('1080') ? '[1080p]' : null}</font>
-                    <font className='torrent-title-resolution'>{torrent.title.match('720') ? '[720p]' : null}</font>
-                    <font className='torrent-title-resolution'>{!torrent.title.match('1080') && !torrent.title.match('720') ? '[No Data]' : null}</font>
+                    <font className='torrent-title-resolution'>
+                        {torrent.title.match('1080') ? '[1080p]' : null}
+                    </font>
+                    <font className='torrent-title-resolution'>
+                        {torrent.title.match('720') ? '[720p]' : null}
+                    </font>
+                    <font className='torrent-title-resolution'>
+                        {!torrent.title.match('1080') && !torrent.title.match('720')
+                            ? '[No Data]'
+                            : null}
+                    </font>
                     &nbsp;&nbsp;
                     {torrent.title}
                 </div>

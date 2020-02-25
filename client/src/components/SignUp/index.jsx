@@ -23,15 +23,34 @@ const Component = ({ history }) => {
 
         if (checkUserName && _handleCheckPassword() && _handleCheckConfrim() && checkEmail) {
             const form = document.signup;
-            signup(form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
-                if (res.status === 200) {
-                    history.goBack();
-                } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+            signup(
+                form.userName.value,
+                form.password.value,
+                form.email.value,
+                form.firstName.value,
+                form.lastName.value,
+                res => {
+                    if (res.status === 200) {
+                        history.goBack();
+                    } else {
+                        alert(
+                            'message',
+                            ui.lang === 'en_US'
+                                ? 'Something went wrong :('
+                                : '알 수 없는 오류가 발생했습니다 :(',
+                            null,
+                            null
+                        );
+                    }
                 }
-            });
+            );
         } else {
-            alert('message', 'Input data is invalid! Please check your information again.', null, null);
+            alert(
+                'message',
+                'Input data is invalid! Please check your information again.',
+                null,
+                null
+            );
         }
     };
 
@@ -144,37 +163,95 @@ const Component = ({ history }) => {
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'USER NAME' : '아이디'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='signup-userName' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='signup-userName'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='text' name='userName' autoFocus onChange={_handleCheckUserName} required />
+                    <input
+                        className='auth-input'
+                        type='text'
+                        name='userName'
+                        autoFocus
+                        onChange={_handleCheckUserName}
+                        required
+                    />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='signup-password' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='signup-password'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='password' name='password' onChange={_handleCheckPassword} required />
+                    <input
+                        className='auth-input'
+                        type='password'
+                        name='password'
+                        onChange={_handleCheckPassword}
+                        required
+                    />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='signup-confirm' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='signup-confirm'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='password' name='confirm' onChange={_handleCheckConfrim} required />
+                    <input
+                        className='auth-input'
+                        type='password'
+                        name='confirm'
+                        onChange={_handleCheckConfrim}
+                        required
+                    />
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='signup-email' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='signup-email'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='email' name='email' autoComplete='password' onChange={_handleCheckEmail} required />
-                    <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
-                    <input className='auth-input' type='text' name='firstName' autoComplete='password' />
-                    <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
-                    <input className='auth-input' type='text' name='lastName' autoComplete='password' />
+                    <input
+                        className='auth-input'
+                        type='email'
+                        name='email'
+                        autoComplete='password'
+                        onChange={_handleCheckEmail}
+                        required
+                    />
+                    <div className='auth-placeholder'>
+                        {ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}
+                    </div>
+                    <input
+                        className='auth-input'
+                        type='text'
+                        name='firstName'
+                        autoComplete='password'
+                    />
+                    <div className='auth-placeholder'>
+                        {ui.lang === 'en_US' ? 'LAST NAME' : '성'}
+                    </div>
+                    <input
+                        className='auth-input'
+                        type='text'
+                        name='lastName'
+                        autoComplete='password'
+                    />
                     <div className='auth-nav' onClick={_handleBack}>
-                        {ui.lang === 'en_US' ? 'Do you have an account already?' : '이미 계정을 갖고 계신가요?'}
+                        {ui.lang === 'en_US'
+                            ? 'Do you have an account already?'
+                            : '이미 계정을 갖고 계신가요?'}
                     </div>
                     <button className='auth-button auth-submit' type='submit'>
                         {ui.lang === 'en_US' ? 'SIGN UP' : '회원가입'}

@@ -7,7 +7,15 @@ import cookie from 'react-cookies';
 
 import queryString from 'query-string';
 
-import { requestGoogleCode, requestGoogleProfile, requestFacebookCode, requestFacebookProfile, request42Code, request42Profile, oAuth } from '../../data';
+import {
+    requestGoogleCode,
+    requestGoogleProfile,
+    requestFacebookCode,
+    requestFacebookProfile,
+    request42Code,
+    request42Profile,
+    oAuth
+} from '../../data';
 
 import { alert } from '../../util';
 import './index.css';
@@ -49,21 +57,44 @@ const Component = ({ history, location, match }) => {
                                             dispatch(auth_token(res.obj));
                                             alert(
                                                 'question',
-                                                ui.lang === 'en_US' ? 'Do you want to keep your signin status?' : '로그인을 유지하시겠습니까?',
+                                                ui.lang === 'en_US'
+                                                    ? 'Do you want to keep your signin status?'
+                                                    : '로그인을 유지하시겠습니까?',
                                                 () => _handleFinish(true, res.obj),
                                                 () => _handleFinish(false, res.obj)
                                             );
                                         } else if (res.status === 411) {
-                                            alert('message', ui.lang === 'en_US' ? 'This email address has signed up already :(' : '이미 가입되있는 이메일입니다 :(', () => history.goBack(), null);
+                                            alert(
+                                                'message',
+                                                ui.lang === 'en_US'
+                                                    ? 'This email address has signed up already :('
+                                                    : '이미 가입되있는 이메일입니다 :(',
+                                                () => history.goBack(),
+                                                null
+                                            );
                                         } else {
-                                            alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', () => history.goBack(), null);
+                                            alert(
+                                                'message',
+                                                ui.lang === 'en_US'
+                                                    ? 'Something went wrong :('
+                                                    : '알 수 없는 오류가 발생했습니다 :(',
+                                                () => history.goBack(),
+                                                null
+                                            );
                                         }
                                     }
                                 });
                             }
                         });
                     } else {
-                        alert('message', ui.lang === 'en_US' ? 'This access is invalid! Please try again.' : '올바르지 않은 접속입니다. 다시 시도해주십시오.', () => history.goBack(), null);
+                        alert(
+                            'message',
+                            ui.lang === 'en_US'
+                                ? 'This access is invalid! Please try again.'
+                                : '올바르지 않은 접속입니다. 다시 시도해주십시오.',
+                            () => history.goBack(),
+                            null
+                        );
                     }
                 }
             });
@@ -91,7 +122,9 @@ const Component = ({ history, location, match }) => {
 
     return (
         <div className='socialSignInWith42'>
-            <div className='socialSignInWith42-loading'>{ui.lang === 'en_US' ? 'SignIn is processing!' : '로그인이 진행 중입니다.'}</div>
+            <div className='socialSignInWith42-loading'>
+                {ui.lang === 'en_US' ? 'SignIn is processing!' : '로그인이 진행 중입니다.'}
+            </div>
         </div>
     );
 };

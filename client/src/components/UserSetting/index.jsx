@@ -28,37 +28,64 @@ const Component = ({ userData, setUserData }) => {
 
         const form = document.setting;
 
-        if ((form.userName.value === userData.userName || checkUserName) && _handleCheckPassword() && _handleCheckConfrim() && (form.email.value === userData.email || checkEmail)) {
-            putUser(auth.token, form.userName.value, form.password.value, form.email.value, form.firstName.value, form.lastName.value, res => {
-                if (session(dispatch, res)) {
-                    setUserData({
-                        id: userData.id,
-                        userName: form.userName.value,
-                        email: form.email.value,
-                        firstName: form.firstName.value,
-                        lastName: form.lastName.value,
-                        picture: userData.picture,
-                        socialType: userData.socialType
-                    });
-                    dispatch(user_data({
-                        id: userData.id,
-                        userName: form.userName.value,
-                        email: form.email.value,
-                        firstName: form.firstName.value,
-                        lastName: form.lastName.value,
-                        picture: userData.picture,
-                        socialType: userData.socialType
-                    }));
-                    document.getElementById('setting-userName').style.color = normalColor;
-                    document.getElementById('setting-password').style.color = normalColor;
-                    document.getElementById('setting-confirm').style.color = normalColor;
-                    document.getElementById('setting-email').style.color = normalColor;
-                } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+        if (
+            (form.userName.value === userData.userName || checkUserName) &&
+            _handleCheckPassword() &&
+            _handleCheckConfrim() &&
+            (form.email.value === userData.email || checkEmail)
+        ) {
+            putUser(
+                auth.token,
+                form.userName.value,
+                form.password.value,
+                form.email.value,
+                form.firstName.value,
+                form.lastName.value,
+                res => {
+                    if (session(dispatch, res)) {
+                        setUserData({
+                            id: userData.id,
+                            userName: form.userName.value,
+                            email: form.email.value,
+                            firstName: form.firstName.value,
+                            lastName: form.lastName.value,
+                            picture: userData.picture,
+                            socialType: userData.socialType
+                        });
+                        dispatch(
+                            user_data({
+                                id: userData.id,
+                                userName: form.userName.value,
+                                email: form.email.value,
+                                firstName: form.firstName.value,
+                                lastName: form.lastName.value,
+                                picture: userData.picture,
+                                socialType: userData.socialType
+                            })
+                        );
+                        document.getElementById('setting-userName').style.color = normalColor;
+                        document.getElementById('setting-password').style.color = normalColor;
+                        document.getElementById('setting-confirm').style.color = normalColor;
+                        document.getElementById('setting-email').style.color = normalColor;
+                    } else {
+                        alert(
+                            'message',
+                            ui.lang === 'en_US'
+                                ? 'Something went wrong :('
+                                : '알 수 없는 오류가 발생했습니다 :(',
+                            null,
+                            null
+                        );
+                    }
                 }
-            });
+            );
         } else {
-            alert('message', 'Input data is invalid! Please check your information again.', null, null);
+            alert(
+                'message',
+                'Input data is invalid! Please check your information again.',
+                null,
+                null
+            );
         }
     };
 
@@ -71,7 +98,7 @@ const Component = ({ userData, setUserData }) => {
         form.email.value = userData.email;
         form.firstName.value = userData.firstName;
         form.lastName.value = userData.lastName;
-        
+
         document.getElementById('setting-userName').style.color = normalColor;
         document.getElementById('setting-password').style.color = normalColor;
         document.getElementById('setting-confirm').style.color = normalColor;
@@ -183,7 +210,14 @@ const Component = ({ userData, setUserData }) => {
                 if (session(dispatch, res)) {
                     _handleSignOut();
                 } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Something went wrong :('
+                            : '알 수 없는 오류가 발생했습니다 :(',
+                        null,
+                        null
+                    );
                 }
             });
         }
@@ -214,14 +248,34 @@ const Component = ({ userData, setUserData }) => {
                 <div className='auth-placeholder'>
                     {ui.lang === 'en_US' ? 'USER NAME' : '아이디'}
                     <div className='auth-input-check'>
-                        <FeatherIcon id='setting-userName' className='auth-input-check-icon' icon='check' />
+                        <FeatherIcon
+                            id='setting-userName'
+                            className='auth-input-check-icon'
+                            icon='check'
+                        />
                     </div>
                 </div>
-                <input className='auth-input' type='text' name='userName' defaultValue={userData.userName} onChange={_handleCheckUserName} />
-                <div className={userData.socialType !== null ? 'auth-placeholder-disabled' : 'auth-placeholder'}>
+                <input
+                    className='auth-input'
+                    type='text'
+                    name='userName'
+                    defaultValue={userData.userName}
+                    onChange={_handleCheckUserName}
+                />
+                <div
+                    className={
+                        userData.socialType !== null
+                            ? 'auth-placeholder-disabled'
+                            : 'auth-placeholder'
+                    }
+                >
                     {ui.lang === 'en_US' ? 'PASSWORD' : '비밀번호 변경'}
                     <div className='auth-input-check'>
-                        <FeatherIcon id='setting-password' className='auth-input-check-icon' icon='check' />
+                        <FeatherIcon
+                            id='setting-password'
+                            className='auth-input-check-icon'
+                            icon='check'
+                        />
                     </div>
                 </div>
                 <input
@@ -231,10 +285,20 @@ const Component = ({ userData, setUserData }) => {
                     onChange={_handleCheckPassword}
                     disabled={userData.socialType !== null ? 'disabled' : ''}
                 />
-                <div className={userData.socialType !== null ? 'auth-placeholder-disabled' : 'auth-placeholder'}>
+                <div
+                    className={
+                        userData.socialType !== null
+                            ? 'auth-placeholder-disabled'
+                            : 'auth-placeholder'
+                    }
+                >
                     {ui.lang === 'en_US' ? 'CONFIRM PASSWORD' : '비밀번호 확인'}
                     <div className='auth-input-check'>
-                        <FeatherIcon id='setting-confirm' className='auth-input-check-icon' icon='check' />
+                        <FeatherIcon
+                            id='setting-confirm'
+                            className='auth-input-check-icon'
+                            icon='check'
+                        />
                     </div>
                 </div>
                 <input
@@ -244,10 +308,20 @@ const Component = ({ userData, setUserData }) => {
                     onChange={_handleCheckConfrim}
                     disabled={userData.socialType !== null ? 'disabled' : ''}
                 />
-                <div className={userData.socialType !== null ? 'auth-placeholder-disabled' : 'auth-placeholder'}>
+                <div
+                    className={
+                        userData.socialType !== null
+                            ? 'auth-placeholder-disabled'
+                            : 'auth-placeholder'
+                    }
+                >
                     {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
                     <div className='auth-input-check'>
-                        <FeatherIcon id='setting-email' className='auth-input-check-icon' icon='check' />
+                        <FeatherIcon
+                            id='setting-email'
+                            className='auth-input-check-icon'
+                            icon='check'
+                        />
                     </div>
                 </div>
                 <input
@@ -260,13 +334,35 @@ const Component = ({ userData, setUserData }) => {
                     onChange={_handleCheckEmail}
                     disabled={userData.socialType !== null ? 'disabled' : ''}
                 />
-                <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}</div>
-                <input className='auth-input' type='text' name='firstName' defaultValue={userData.firstName} autoComplete='password' />
+                <div className='auth-placeholder'>
+                    {ui.lang === 'en_US' ? 'FIRST NAME' : '이름'}
+                </div>
+                <input
+                    className='auth-input'
+                    type='text'
+                    name='firstName'
+                    defaultValue={userData.firstName}
+                    autoComplete='password'
+                />
                 <div className='auth-placeholder'>{ui.lang === 'en_US' ? 'LAST NAME' : '성'}</div>
-                <input className='auth-input' type='text' name='lastName' defaultValue={userData.lastName} autoComplete='password' />
-                <div className='auth-nav' onClick={_handleClose}>{ui.lang === 'en_US' ? 'By any chance, Do you want to close this account?' : '혹시 계정을 삭제하시겠습니까?'}</div>
-                <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SAVE' : '저장'}</button>
-                <button className='auth-button' type='button' onClick={_handleReset}>{ui.lang === 'en_US' ? 'RESET' : '취소'}</button>
+                <input
+                    className='auth-input'
+                    type='text'
+                    name='lastName'
+                    defaultValue={userData.lastName}
+                    autoComplete='password'
+                />
+                <div className='auth-nav' onClick={_handleClose}>
+                    {ui.lang === 'en_US'
+                        ? 'By any chance, Do you want to close this account?'
+                        : '혹시 계정을 삭제하시겠습니까?'}
+                </div>
+                <button className='auth-button auth-submit' type='submit'>
+                    {ui.lang === 'en_US' ? 'SAVE' : '저장'}
+                </button>
+                <button className='auth-button' type='button' onClick={_handleReset}>
+                    {ui.lang === 'en_US' ? 'RESET' : '취소'}
+                </button>
             </form>
         </div>
     );

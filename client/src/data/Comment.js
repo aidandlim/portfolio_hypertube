@@ -57,15 +57,14 @@ export const getCommentsByUserId = (token, userId, cb) => {
         token
     };
 
-    Axios.get(url, { params: data })
-        .then(res => {
-            cb(res.data);
-        })
-        // .catch(() => {
-        //     cb({
-        //         status: 400
-        //     });
-        // });
+    Axios.get(url, { params: data }).then(res => {
+        cb(res.data);
+    });
+    // .catch(() => {
+    //     cb({
+    //         status: 400
+    //     });
+    // });
 };
 
 /*

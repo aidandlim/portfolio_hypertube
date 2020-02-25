@@ -10,7 +10,12 @@ export const session = (dispatch, res) => {
             path: '/'
         });
         dispatch(auth_token(''));
-        alert('message', 'Token is invalid. Please sign in again :)', () => window.open('/auth/signin', '_self'), null);
+        alert(
+            'message',
+            'Token is invalid. Please sign in again :)',
+            () => window.open('/auth/signin', '_self'),
+            null
+        );
         return false;
     } else {
         if (res.status === 200) {

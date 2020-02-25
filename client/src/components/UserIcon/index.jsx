@@ -13,11 +13,22 @@ const Component = () => {
     const user = useSelector(state => state.user);
 
     return (
-        <Link to={auth.token && user.id !== -1 ? `/user/${user.userName}` : '/auth/signin'} className='userIcon'>
+        <Link
+            to={auth.token && user.id !== -1 ? `/user/${user.userName}` : '/auth/signin'}
+            className='userIcon'
+        >
             <div
                 className='userIcon-image'
                 style={{
-                    backgroundImage: `url('${auth.token !== '' ? (user.picture !== null && user.picture !== undefined && user.picture !== '' ? user.picture : user_default) : user_default}')`
+                    backgroundImage: `url('${
+                        auth.token !== ''
+                            ? user.picture !== null &&
+                              user.picture !== undefined &&
+                              user.picture !== ''
+                                ? user.picture
+                                : user_default
+                            : user_default
+                    }')`
                 }}
             ></div>
         </Link>

@@ -31,7 +31,10 @@ const Component = ({ data }) => {
         <Link to={`/detail/${movie.id}`}>
             <div className='userComment'>
                 <div className='userComment-movie'>
-                    To {movie.title} {movie.release_date !== null && movie.release_date !== undefined ? `(${movie.release_date.substring(0, 4)})` : null}
+                    To {movie.title}{' '}
+                    {movie.release_date !== null && movie.release_date !== undefined
+                        ? `(${movie.release_date.substring(0, 4)})`
+                        : null}
                 </div>
                 <div className='userComment-comment'>{data.content}</div>
                 <div className='userComment-time'>{data.time}</div>

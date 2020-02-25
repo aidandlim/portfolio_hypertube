@@ -51,13 +51,13 @@ app.use(
     })
 );
 
-// app.use(
-//     '/socket',
-//     createProxyMiddleware({
-//         target: `https://${API_IP}:${SOCKET_PORT}`,
-//         changeOrigin: true,
-//         secure: false
-//     })
-// );
+app.use(
+    '/socket',
+    createProxyMiddleware({
+        target: `https://${API_IP}:${SOCKET_PORT}`,
+        changeOrigin: true,
+        secure: false
+    })
+);
 
 server.listen(PROXY_PORT, () => console.log(`Proxy server is running on port ${PROXY_PORT}`));

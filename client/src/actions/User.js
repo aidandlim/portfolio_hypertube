@@ -1,4 +1,4 @@
-export const user_data = (value) => {
+export const user_data = value => {
     return {
         type: 'USER_DATA',
         payload: {

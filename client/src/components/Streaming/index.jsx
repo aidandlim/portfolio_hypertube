@@ -46,11 +46,12 @@ const Component = ({ match, history }) => {
         return () => {
             isCancelled = true;
         };
-    }, [auth.token, imdbId, ui.lang]);
+    }, [imdbId, ui.lang]);
 
     useEffect(() => {
         const result = movie.histories.find(history => history.movieId === parseInt(tmdbId));
 
+        console.log('here');
         if (result !== undefined) {
             setWatchingHistory({
                 start: result.current,
@@ -75,8 +76,23 @@ const Component = ({ match, history }) => {
             }
         }, 5000);
 
-        return (current = document.getElementById('streaming') === null ? null : document.getElementById('streaming').currentTime, duration = document.getElementById('streaming') === null ? null : document.getElementById('streaming').duration) => {
-            if (!fileName.match('.mkv') && current !== null && current !== undefined && current !== 0 && duration !== null && duration !== undefined && duration !== 0) {
+        return (
+            current = document.getElementById('streaming') === null
+                ? null
+                : document.getElementById('streaming').currentTime,
+            duration = document.getElementById('streaming') === null
+                ? null
+                : document.getElementById('streaming').duration
+        ) => {
+            if (
+                !fileName.match('.mkv') &&
+                current !== null &&
+                current !== undefined &&
+                current !== 0 &&
+                duration !== null &&
+                duration !== undefined &&
+                duration !== 0
+            ) {
                 postHistory(auth.token, tmdbId, current, duration, res => {
                     if (res.status === 200 && user.userName !== '') {
                         getHistories(auth.token, user.userName, res => {
@@ -109,14 +125,50 @@ const Component = ({ match, history }) => {
 
     return (
         <div className='streaming' onMouseMove={_handleMouseMove}>
-            <div className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'} onClick={_handleBack}>
+            <div
+                className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'}
+                onClick={_handleBack}
+            >
                 <FeatherIcon icon='arrow-left' color='#AAAAAA' size='3rem' />
             </div>
             {fileName !== '' ? (
                 <div className='streaming-container'>
-                    <Video id='streaming' controls={fileName.match('.mkv') ? ['PlayPause', 'Volume', 'Fullscreen', 'Captions'] : ['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']} autoPlay={true}>
-                        <source src={fileName.match('.mkv') ? `/stream/mkv/${magnet}/${dirName}/${fileName.replace('mkv', 'mp4')}` : `/stream/normal/${magnet}/${fileName}${watchingHistory.start !== 0 ? '#t=' + watchingHistory.start + ',' + watchingHistory.end : ''}`} type='video/mp4' />
-                        {subtitles !== undefined ? <track label={ui.lang === 'en_US' ? 'English' : 'Korean'} kind='subtitles' srcLang={ui.lang === 'en_US' ? 'en' : 'kr'} src={subtitles} default /> : null}
+                    <Video
+                        id='streaming'
+                        controls={
+                            fileName.match('.mkv')
+                                ? ['PlayPause', 'Volume', 'Fullscreen', 'Captions']
+                                : ['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']
+                        }
+                        autoPlay={true}
+                    >
+                        <source
+                            src={
+                                fileName.match('.mkv')
+                                    ? `/stream/mkv/${magnet}/${dirName}/${fileName.replace(
+                                          'mkv',
+                                          'mp4'
+                                      )}`
+                                    : `/stream/normal/${magnet}/${fileName}${
+                                          watchingHistory.start !== 0
+                                              ? '#t=' +
+                                                watchingHistory.start +
+                                                ',' +
+                                                watchingHistory.end
+                                              : ''
+                                      }`
+                            }
+                            type='video/mp4'
+                        />
+                        {subtitles !== undefined ? (
+                            <track
+                                label={ui.lang === 'en_US' ? 'English' : 'Korean'}
+                                kind='subtitles'
+                                srcLang={ui.lang === 'en_US' ? 'en' : 'kr'}
+                                src={subtitles}
+                                default
+                            />
+                        ) : null}
                     </Video>
                 </div>
             ) : (

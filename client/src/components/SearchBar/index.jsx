@@ -21,10 +21,21 @@ const Component = () => {
 
     return (
         <div className='searchBar'>
-            <input className='searchBar-input' placeholder={ui.lang === 'en_US' ? 'Search' : '검색'} value={query} onChange={e => setQuery(e.target.value)} onKeyUp={_handleEnter} />
+            <input
+                className='searchBar-input'
+                placeholder={ui.lang === 'en_US' ? 'Search' : '검색'}
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                onKeyUp={_handleEnter}
+            />
             <Link to={`/search/movie/${query}`}>
                 <div className='searchBar-button'>
-                    <FeatherIcon className='searchBar-icon' icon='search' color='#303030' size='0.8rem' />
+                    <FeatherIcon
+                        className='searchBar-icon'
+                        icon='search'
+                        color='#303030'
+                        size='0.8rem'
+                    />
                 </div>
             </Link>
         </div>

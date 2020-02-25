@@ -27,14 +27,20 @@ const Component = ({ movieData }) => {
                 <div
                     className='movie-poster'
                     style={{
-                        backgroundImage: movieData.poster_path !== null ? `url('https://image.tmdb.org/t/p/w500/${movieData.poster_path}')` : `url('${image_default}')`
+                        backgroundImage:
+                            movieData.poster_path !== null
+                                ? `url('https://image.tmdb.org/t/p/w500/${movieData.poster_path}')`
+                                : `url('${image_default}')`
                     }}
                 >
                     <div className='movie-progress-bar'>
                         <div
                             className='movie-progress'
                             style={{
-                                width: thisMovie !== undefined ? (thisMovie.current / thisMovie.duration) * 100 + '%' : 0
+                                width:
+                                    thisMovie !== undefined
+                                        ? (thisMovie.current / thisMovie.duration) * 100 + '%'
+                                        : 0
                             }}
                         ></div>
                     </div>
@@ -45,10 +51,22 @@ const Component = ({ movieData }) => {
                     </div>
                     <div className='movie-title'>{movieData.title}</div>
                     <div className='movie-rate'>
-                        <StarIcon name='rating' value={movieData.vote_average / 2.0} starColor={starColor} emptyStarColor={emptyStarColor} editing={false} />
+                        <StarIcon
+                            name='rating'
+                            value={movieData.vote_average / 2.0}
+                            starColor={starColor}
+                            emptyStarColor={emptyStarColor}
+                            editing={false}
+                        />
                     </div>
                     <div className='movie-release'>{movieData.release_date}</div>
-                    <div className='movie-overview'>{movieData.overview === '' ? ui.lang === 'en_US' ? 'There is no overview about this movie.' : '이 영화의 개요 정보를 찾을 수 없습니다.' : movieData.overview}</div>
+                    <div className='movie-overview'>
+                        {movieData.overview === ''
+                            ? ui.lang === 'en_US'
+                                ? 'There is no overview about this movie.'
+                                : '이 영화의 개요 정보를 찾을 수 없습니다.'
+                            : movieData.overview}
+                    </div>
                 </div>
             </div>
         </Link>

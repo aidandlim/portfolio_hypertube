@@ -24,11 +24,23 @@ const Component = ({ id, commentList, setCommentList }) => {
                     alert('message', ui.lang === 'en_US' ? 'Done!' : '등록완료!', null, null);
                     document.comment.comment.value = '';
                 } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Something went wrong :('
+                            : '알 수 없는 오류가 발생했습니다 :(',
+                        null,
+                        null
+                    );
                 }
             });
         } else {
-            alert('message', ui.lang === 'en_US' ? 'Please input your review.' : '리뷰를 작성하여 주십시오.', null, null);
+            alert(
+                'message',
+                ui.lang === 'en_US' ? 'Please input your review.' : '리뷰를 작성하여 주십시오.',
+                null,
+                null
+            );
         }
     };
 
@@ -50,7 +62,11 @@ const Component = ({ id, commentList, setCommentList }) => {
                     disabled={auth.token === '' ? 'disabled' : null}
                 ></textarea>
                 <div className='commentPost-button-container'>
-                    <button className='commentPost-button' type='submit' disabled={auth.token === '' ? 'disabled' : null}>
+                    <button
+                        className='commentPost-button'
+                        type='submit'
+                        disabled={auth.token === '' ? 'disabled' : null}
+                    >
                         POST
                     </button>
                 </div>

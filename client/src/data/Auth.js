@@ -192,10 +192,13 @@ export const recovery = (email, cb) => {
 export const recoveryCallback = (uuid, password, cb) => {
     const url = `/api/auth/recovery/${uuid}`;
     const data = {
-        password,
-    }
+        password
+    };
 
-    Axios.put(url)
+    console.log(url);
+    console.log(data);
+
+    Axios.put(url, data)
         .then(res => {
             cb(res.data);
         })

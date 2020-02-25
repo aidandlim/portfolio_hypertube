@@ -35,7 +35,11 @@ const Component = ({ userName }) => {
 
     return (
         <div className='userRecentWatching'>
-            {movies.length !== 0 ? movies.map((data, index) => <UserRecentWatchingMovie data={data} key={index} />) : <div className='userRecentWatching-none'>There is no recent watching data</div>}
+            {movies.length !== 0 ? (
+                movies.map((data, index) => <UserRecentWatchingMovie data={data} key={index} />)
+            ) : (
+                <div className='userRecentWatching-none'>There is no recent watching data</div>
+            )}
         </div>
     );
 };

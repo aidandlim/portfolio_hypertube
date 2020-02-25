@@ -1,6 +1,14 @@
 import Axios from 'axios';
 
-import { GOOGLE_ID, GOOGLE_SECRET, FACEBOOK_ID, FACEBOOK_SECRET, SV_ID, SV_SECRET } from '../constants/api';
+import {
+    GOOGLE_ID,
+    GOOGLE_SECRET,
+    FACEBOOK_ID,
+    FACEBOOK_SECRET,
+    SV_ID,
+    SV_SECRET
+} from '../constants/api';
+
 import { APP_REDIRECT_URL } from '../constants/url';
 
 export const requestGoogleCode = (code, cb) => {

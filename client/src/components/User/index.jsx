@@ -94,13 +94,27 @@ const Component = ({ match }) => {
                 if (session(dispatch, res)) {
                     alert('message', ui.lang === 'en_US' ? 'Done!' : '등록완료!', null, null);
                 } else {
-                    alert('message', ui.lang === 'en_US' ? 'Something went wrong :(' : '알 수 없는 오류가 발생했습니다 :(', null, null);
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Something went wrong :('
+                            : '알 수 없는 오류가 발생했습니다 :(',
+                        null,
+                        null
+                    );
                 }
                 input.value = '';
             });
         } else {
             input.value = '';
-            alert('message', ui.lang === 'en_US' ? 'Extension of image can be only .jpg, .jpeg, .png!' : '확장자가 .jpg, .jpeg, .png인 이미지만 업로드할 수 있습니다!', null, null);
+            alert(
+                'message',
+                ui.lang === 'en_US'
+                    ? 'Extension of image can be only .jpg, .jpeg, .png!'
+                    : '확장자가 .jpg, .jpeg, .png인 이미지만 업로드할 수 있습니다!',
+                null,
+                null
+            );
         }
     };
 
@@ -128,11 +142,29 @@ const Component = ({ match }) => {
                         <div
                             className='user-info-picture'
                             style={{
-                                backgroundImage: userData.picture !== null && userData.picture !== undefined && userData.picture !== '' ? `url('${userData.picture}')` : `url('${user_default}')`
+                                backgroundImage:
+                                    userData.picture !== null &&
+                                    userData.picture !== undefined &&
+                                    userData.picture !== ''
+                                        ? `url('${userData.picture}')`
+                                        : `url('${user_default}')`
                             }}
                         >
-                            <FeatherIcon className={nav === 2 ? 'user-info-picture-update-active' : 'user-info-picture-update'} icon='upload' onClick={_handleInitChangePicture} />
-                            <input id='user-picture-upload' type='file' style={{ display: 'none' }} onChange={_handleChangePicture} />
+                            <FeatherIcon
+                                className={
+                                    nav === 2
+                                        ? 'user-info-picture-update-active'
+                                        : 'user-info-picture-update'
+                                }
+                                icon='upload'
+                                onClick={_handleInitChangePicture}
+                            />
+                            <input
+                                id='user-picture-upload'
+                                type='file'
+                                style={{ display: 'none' }}
+                                onChange={_handleChangePicture}
+                            />
                         </div>
                         <div className='user-info-basic'>
                             <div className='user-info-userName'>@{userData.userName}</div>
@@ -150,14 +182,20 @@ const Component = ({ match }) => {
                         <div className='user-content-body'>
                             {nav === 0 ? <UserRecentWatching userName={userData.userName} /> : null}
                             {nav === 1 ? <UserComments userData={userData} /> : null}
-                            {nav === 2 ? <UserSetting userData={userData} setUserData={setUserData} /> : null}
+                            {nav === 2 ? (
+                                <UserSetting userData={userData} setUserData={setUserData} />
+                            ) : null}
                         </div>
                     </div>
                 </div>
             )}
             {userData.userName === user.userName ? (
                 <div className='user-util-container'>
-                    <FeatherIcon className='user-util-icon-logout' icon='log-out' onClick={_handleSignOut} />
+                    <FeatherIcon
+                        className='user-util-icon-logout'
+                        icon='log-out'
+                        onClick={_handleSignOut}
+                    />
                 </div>
             ) : null}
         </div>

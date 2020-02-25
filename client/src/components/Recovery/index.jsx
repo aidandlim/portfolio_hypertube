@@ -17,13 +17,30 @@ const Component = ({ history }) => {
             const form = document.recovery;
             recovery(form.email.value, res => {
                 if (res.status === 200) {
-                    alert('message', ui.lang === 'en_US' ? 'Password recovery mail has sent :)' : '비밀번호 복구 이메일이 발송되었습니다.', () => history.goBack(), null);
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Password recovery mail has sent :)'
+                            : '비밀번호 복구 이메일이 발송되었습니다.',
+                        () => history.goBack(),
+                        null
+                    );
                 } else {
-                    alert('message', ui.lang === 'en_US' ? 'Email is invalid :(' : '이메일이 올바르지 않습니다.', null, null);
+                    alert(
+                        'message',
+                        ui.lang === 'en_US' ? 'Email is invalid :(' : '이메일이 올바르지 않습니다.',
+                        null,
+                        null
+                    );
                 }
             });
         } else {
-            alert('messeage', 'Input data is invalid! Please check your information again.', null, null);
+            alert(
+                'messeage',
+                'Input data is invalid! Please check your information again.',
+                null,
+                null
+            );
         }
     };
 
@@ -59,7 +76,9 @@ const Component = ({ history }) => {
     return (
         <div className='auth'>
             <div className='auth-container'>
-                <div className='auth-title'>{ui.lang === 'en_US' ? 'Password Recovery' : '비밀번호 찾기'}</div>
+                <div className='auth-title'>
+                    {ui.lang === 'en_US' ? 'Password Recovery' : '비밀번호 찾기'}
+                </div>
                 <div className='auth-description'>
                     {ui.lang === 'en_US'
                         ? 'Sometimes, all you need to do is completely make an ass of yourself and laugh it off to realise that life isn’t so bad after all. The green tea and avocado smoothie turned out exactly as would be expected.'
@@ -69,12 +88,27 @@ const Component = ({ history }) => {
                     <div className='auth-placeholder'>
                         {ui.lang === 'en_US' ? 'EMAIL' : '이메일'}
                         <div className='auth-input-check'>
-                            <FeatherIcon id='recovery-email' className='auth-input-check-icon' icon='check' />
+                            <FeatherIcon
+                                id='recovery-email'
+                                className='auth-input-check-icon'
+                                icon='check'
+                            />
                         </div>
                     </div>
-                    <input className='auth-input' type='email' name='email' autoComplete='password' autoFocus onChange={_handleCheckEmail} />
-                    <button className='auth-button auth-submit' type='submit'>{ui.lang === 'en_US' ? 'SUBMIT' : '비밀번호 찾기'}</button>
-                    <button className='auth-button' type='button' onClick={_handleBack}>{ui.lang === 'en_US' ? 'BACK' : '돌아가기'}</button>
+                    <input
+                        className='auth-input'
+                        type='email'
+                        name='email'
+                        autoComplete='password'
+                        autoFocus
+                        onChange={_handleCheckEmail}
+                    />
+                    <button className='auth-button auth-submit' type='submit'>
+                        {ui.lang === 'en_US' ? 'SUBMIT' : '비밀번호 찾기'}
+                    </button>
+                    <button className='auth-button' type='button' onClick={_handleBack}>
+                        {ui.lang === 'en_US' ? 'BACK' : '돌아가기'}
+                    </button>
                 </form>
             </div>
         </div>
