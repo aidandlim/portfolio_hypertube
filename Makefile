@@ -8,9 +8,15 @@ RESET = \033[0;37m
 
 all:
 	@echo "usage:"
+	@echo "\tmake check : to check environment variables of $(NAME) application"
 	@echo "\tmake start : to initialize $(NAME) application"
 	@echo "\tmake end : to terminate $(NAME) application"
-	@echo "\tmake check : to check environment variables of $(NAME) application"
+	@echo ""
+	@echo "util:"
+	@echo "\tmake apijs : to set api.js environment"
+	@echo "\tmake urljs : to set url.js environment"
+	@echo "\tmake packagejson : to set package.json environment"
+	@echo "\tmake ffmpeg : to install ffmpeg resources"
 
 start:
 	@rm -rf logs
@@ -95,6 +101,9 @@ apijs:
 
 urljs:
 	vim client/src/constants/url.js
+	
+packagejson:
+	vim client/package.json
 
 ffmpeg:
 	@echo ""
@@ -110,6 +119,3 @@ ffmpeg:
 	@rm -rf stream/temp
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
-
-packagejson:
-	vim client/package.json
