@@ -5,6 +5,5 @@
 .DS_Store
 
 #protect api key file
-.env
 /src/constants/api.js
 /src/constants/url.js

@@ -20,6 +20,10 @@ const reducer = (state = data, action) => {
                 picture: action.payload.picture,
                 socialType: action.payload.socialType
             });
+        case 'USER_PICTURE':
+            return Object.assign({}, state, {
+                picture: action.payload.picture,
+            });
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { auth_token, user_data } from '../../actions';
+import { auth_token, user_data, user_picture } from '../../actions';
 
 import cookie from 'react-cookies';
 
@@ -90,6 +90,20 @@ const Component = ({ match }) => {
 
             putUserPicture(formData, res => {
                 if (session(dispatch, res)) {
+                    setUserData({
+                        id: userData.id,
+                        userName: userData.userName,
+                        email: userData.email,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        picture: res.obj,
+                        socialType: userData.socialType
+                    });
+                    dispatch(
+                        user_picture({
+                            picture: res.obj
+                        })
+                    );
                     alert('message', ui.lang === 'en_US' ? 'Done!' : '등록완료!', null, null);
                 } else {
                     alert(
@@ -144,19 +158,28 @@ const Component = ({ match }) => {
                                     userData.picture !== null &&
                                     userData.picture !== undefined &&
                                     userData.picture !== ''
-                                        ? `url('${userData.picture}')`
+                                        ? `url('${
+                                              userData.picture.match('SERVER/')
+                                                  ? `/api/user/picture/${userData.picture.replace(
+                                                        'SERVER/',
+                                                        ''
+                                                    )}`
+                                                  : userData.picture
+                                          }')`
                                         : `url('${user_default}')`
                             }}
                         >
-                            <FeatherIcon
-                                className={
-                                    nav === 2
-                                        ? 'user-info-picture-update-active'
-                                        : 'user-info-picture-update'
-                                }
-                                icon='upload'
-                                onClick={_handleInitChangePicture}
-                            />
+                            {nav === 2 ? (
+                                <FeatherIcon
+                                    className={
+                                        nav === 2
+                                            ? 'user-info-picture-update-active'
+                                            : 'user-info-picture-update'
+                                    }
+                                    icon='upload'
+                                    onClick={_handleInitChangePicture}
+                                />
+                            ) : null}
                             <input
                                 id='user-picture-upload'
                                 type='file'

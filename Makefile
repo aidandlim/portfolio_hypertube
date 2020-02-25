@@ -23,7 +23,7 @@ all:
 	@echo "\tmake ip : to find out ip address for url / env"
 	@echo "\tmake apijs : to set api.js environment"
 	@echo "\tmake urljs : to set url.js environment"
-	@echo "\tmake env : to set .env environment"
+	@echo "\tmake package : to set package.json environment"
 	@echo "\tmake ffmpeg : to install ffmpeg resources"
 
 start:
@@ -69,6 +69,8 @@ start:
 	@sleep 0.5
 
 	@echo "     [   ]  Initializing the $(UNDERLINE)Database API Server$(RESET).\c"
+	@cd api && rm -rf pictures
+	@cd api && mkdir pictures
 	@cd api && nohup java -jar api.jar > ../logs/api/log.out 2> ../logs/api/log.err &
 	@sleep 0.5
 	@echo "\r     [ $(YELLOW)#$(RESET) ]"
@@ -117,8 +119,8 @@ apijs:
 urljs:
 	vim client/src/constants/url.js
 
-env:
-	vim client/.env
+package:
+	vim client/package.json
 
 ffmpeg:
 	@echo ""

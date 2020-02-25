@@ -12,3 +12,12 @@ export const user_data = value => {
         }
     };
 };
+
+export const user_picture = value => {
+    return {
+        type: 'USER_PICTURE',
+        payload: {
+            picture: value.picture,
+        }
+    };
+};

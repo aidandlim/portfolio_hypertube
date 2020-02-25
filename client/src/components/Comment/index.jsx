@@ -27,7 +27,14 @@ const Component = ({ comment, _handleDeleteComment }) => {
                                 comment.user.picture !== null &&
                                 comment.user.picture !== undefined &&
                                 comment.user.picture !== ''
-                                    ? `url('${comment.user.picture}')`
+                                    ? `url('${
+                                          comment.user.picture.match('SERVER/')
+                                              ? `/api/user/picture/${comment.user.picture.replace(
+                                                    'SERVER/',
+                                                    ''
+                                                )}`
+                                              : comment.user.picture
+                                      }')`
                                     : `url('${user_default}')`
                         }}
                     ></div>

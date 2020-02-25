@@ -40,12 +40,3 @@ if [ -f "$URLJS" ]; then
 else
     echo "     [ \033[0;31mX\033[0;37m ]  URL.js is NOT exist! (run make urljs)"
 fi
-
-echo ""
-
-ENV=$(pwd)/client/.env
-if [ -f "$URLJS" ]; then
-    echo "     [ \033[0;32m#\033[0;37m ]  .ENV is exist!"
-else
-    echo "     [ \033[0;31mX\033[0;37m ]  .ENV is NOT exist! (run make env)"
-fi

@@ -25,7 +25,9 @@ const Component = () => {
                             ? user.picture !== null &&
                               user.picture !== undefined &&
                               user.picture !== ''
-                                ? user.picture
+                                ? user.picture.match('SERVER/')
+                                    ? `/api/user/picture/${user.picture.replace('SERVER/', '')}`
+                                    : user.picture
                                 : user_default
                             : user_default
                     }')`
