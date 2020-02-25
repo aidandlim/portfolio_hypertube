@@ -19,17 +19,17 @@ const Component = ({ tmdbId }) => {
         socket = io(SOCKET_URL);
 
         socket.emit('join', { userName: 'Aidan', movieRoom: tmdbId }, () => {});
-
-        return () => {
-            socket.emit('disconnect');
-            socket.off();
-        };
     }, [tmdbId]);
 
     useEffect(() => {
         socket.on('message', message => {
             setMessages(messages => [...messages, message]);
         });
+
+        return () => {
+            socket.emit('disconnect');
+            socket.off();
+        };
     }, [messages]);
 
     const _handleSendMessage = e => {

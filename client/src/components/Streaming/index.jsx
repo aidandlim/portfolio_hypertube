@@ -12,7 +12,6 @@ import Chat from '../Chat';
 import { getTorrentSubtitles, getHistories, postHistory } from '../../data';
 
 import FeatherIcon from 'feather-icons-react';
-import { alert } from '../../util';
 import './index.css';
 
 const Component = ({ match, history }) => {
@@ -89,7 +88,7 @@ const Component = ({ match, history }) => {
                 });
             }
         };
-    }, [dispatch, auth.token, magnet, tmdbId, user.userName]);
+    }, [dispatch, auth.token, magnet, tmdbId, user.userName, fileName]);
 
     const _handleBack = () => {
         history.goBack();
