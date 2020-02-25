@@ -13,9 +13,11 @@ all:
 	@echo "\tmake end : to terminate $(NAME) application"
 	@echo ""
 	@echo "util:"
+	@echo "\tmake ip : to find out ip address for url / env"
 	@echo "\tmake apijs : to set api.js environment"
 	@echo "\tmake urljs : to set url.js environment"
-	@echo "\tmake packagejson : to set package.json environment"
+	@echo "\tmake env : to set .env environment"
+	@echo "\tmake mvn : to install mvn resources"
 	@echo "\tmake ffmpeg : to install ffmpeg resources"
 
 start:
@@ -96,18 +98,40 @@ check:
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
 
+ip:
+	@echo ""
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Looking for IP Address$(RESET)"
+	@echo ""
+	@sh IPAddress.sh
+	@echo ""
+
 apijs:
 	vim client/src/constants/api.js
 
 urljs:
 	vim client/src/constants/url.js
-	
-packagejson:
-	vim client/package.json
+
+env:
+	vim client/.env
+
+mvn:
+	@echo ""
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Installing MVN$(RESET)"
+	@echo ""
+	@cd api && rm -rf resources
+	@cd api && mkdir resources
+	@cd api && rm -rf temp
+	@cd api && mkdir temp
+	@cd api/temp && curl -O http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip --silent
+	@cd api/temp && unzip -a apache-maven-3.6.3-bin.zip  > /dev/null
+	@mv api/temp/apache-maven-3.6.3/bin/mvn api/resources
+	@rm -rf api/temp
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)MVN has installed.$(RESET)"
+	@echo ""
 
 ffmpeg:
 	@echo ""
-	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Install Resource Files$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Installing FFMPEG$(RESET)"
 	@echo ""
 	@cd stream && rm -rf resources
 	@cd stream && mkdir resources
@@ -117,5 +141,5 @@ ffmpeg:
 	@cd stream/temp && unzip -a ffmpeg-20200224-bc9b635-macos64-static.zip  > /dev/null
 	@mv stream/temp/ffmpeg-20200224-bc9b635-macos64-static/bin/ffmpeg stream/resources
 	@rm -rf stream/temp
-	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
+	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)FFMPEG has installed..$(RESET)"
 	@echo ""
