@@ -190,40 +190,42 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     let fileSize = stat.size;
     const range = req.headers.range;
 
-    if (range) {
-        const parts = range.replace(/bytes=/, '').split('-');
-        const start = parseInt(parts[0], 10);
-        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-        const chunkSize = end - start + 1;
+    const parts = range.replace(/bytes=/, '').split('-');
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const chunkSize = end - start + 1;
 
-        res.writeHead(206, {
-            'Content-Range': 'bytes ' + start + '-' + end + '/*',
-            'Accept-Ranges': 'bytes',
-            'Content-Length': chunkSize,
-            'Content-Type': 'video/mp4',
-            'Cache-Control': 'must-revalidate',
-        });
+    res.writeHead(206, {
+        'Content-Range': 'bytes ' + start + '-' + end + '/*',
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': 'video/mp4',
+        'Cache-Control': 'must-revalidate',
+    });
 
-        let stream = fs.createReadStream(path, {
-            start,
-            end
-        });
+    let stream = fs.createReadStream(path, {
+        start,
+        end
+    });
 
-        stream.pipe(res);
+    stream.pipe(res);
 
-        stream.on('error', err => {
-            return next(err);
-        });
-    } else {
-        res.writeHead(200, {
-            'Content-Length': fileSize,
-            'Content-Type': 'video/mp4'
-        });
+    stream.on('error', err => {
+        return next(err);
+    });
 
-        let stream = fs.createReadStream(path);
+    // if (range) {
+        
+    // } else {
+    //     res.writeHead(200, {
+    //         'Content-Length': fileSize,
+    //         'Content-Type': 'video/mp4'
+    //     });
 
-        stream.pipe(res);
-    }
+    //     let stream = fs.createReadStream(path);
+
+    //     stream.pipe(res);
+    // }
 });
 
 server.listen(STREAM_PORT, () => {
