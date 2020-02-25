@@ -179,6 +179,35 @@ export const recovery = (email, cb) => {
 
 /*
     method: 
+        PUT
+    url: 
+        /api/auth/recovery/:uuid
+    parameter: 
+        password
+    result:
+        status
+    using at:
+        RecoveryCallback
+*/
+export const recoveryCallback = (uuid, password, cb) => {
+    const url = `/api/auth/recovery/${uuid}`;
+    const data = {
+        password,
+    }
+
+    Axios.put(url)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb({
+                status: 400
+            });
+        });
+};
+
+/*
+    method: 
         GET
     url: 
         /api/auth/social

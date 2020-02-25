@@ -1,6 +1,6 @@
 import { apiGenres, apiMovies, apiMovie, apiMovieDetail, apiSimilarMovies, apiRecommendationMovies, apiSearch, apiSearchWithCast, apiSearchWithCrew, apiSearchWithCompany } from './API';
 
-import { checkToken, signin, getUserName, getEmail, signup, recovery, oAuth } from './Auth';
+import { checkToken, signin, getUserName, getEmail, signup, recovery, recoveryCallback, oAuth } from './Auth';
 
 import { requestGoogleCode, requestGoogleProfile, requestFacebookCode, requestFacebookProfile, request42Code, request42Profile } from './oAuth';
 
@@ -30,6 +30,7 @@ export {
     signup,
     oAuth,
     recovery,
+    recoveryCallback,
     requestGoogleCode,
     requestGoogleProfile,
     requestFacebookCode,
