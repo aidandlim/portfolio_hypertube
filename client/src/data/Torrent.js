@@ -6,15 +6,17 @@ export const getTorrents = (id, cb) => {
     Axios.get(url)
         .then(res => {
             console.log(res.data);
-            cb(res.data.sort(function(a, b) {
-                if(a.title.match('1080') && b.title.match('720')) {
-                    return 1;
-                } else if(a.title.match('720') && b.title.match('1080')) {
-                    return -1;
-                }
+            cb(
+                res.data.sort(function(a, b) {
+                    if (a.title.match('1080') && b.title.match('720')) {
+                        return 1;
+                    } else if (a.title.match('720') && b.title.match('1080')) {
+                        return -1;
+                    }
 
-                return b.seeders - a.seeders;
-            }));
+                    return b.seeders - a.seeders;
+                })
+            );
         })
         .catch(() => {
             cb({

@@ -25,11 +25,14 @@ const Component = ({ torrent }) => {
         }
 
         if (torrent.seeders < 20) {
-            alert('message', ui.lang === 'en_US'
+            alert(
+                'message',
+                ui.lang === 'en_US'
                     ? 'It can occur troubles due to low seeders :('
                     : '시드가 적어 시청에 문제가 발생할 수 있습니다 :(',
                 null,
-                null);
+                null
+            );
         }
     };
 
