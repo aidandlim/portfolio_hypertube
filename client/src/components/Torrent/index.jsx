@@ -23,6 +23,14 @@ const Component = ({ torrent }) => {
                 null
             );
         }
+
+        if (torrent.seeders < 20) {
+            alert('message', ui.lang === 'en_US'
+                    ? 'It can occur troubles due to low seeders :('
+                    : '시드가 적어 시청에 문제가 발생할 수 있습니다 :(',
+                null,
+                null);
+        }
     };
 
     return (
@@ -36,12 +44,12 @@ const Component = ({ torrent }) => {
             }
             onClick={_handleUserStatus}
         >
-            <div className='torrent'>
+            <div className={torrent.seeders < 20 ? 'torrent-restrict' : 'torrent'}>
                 <div className='torrent-title'>
-                    <font className='torrent-title-resolution'>
+                    <font className='torrent-title-resolution torrent-title-resolution-1080'>
                         {torrent.title.match('1080') ? '[1080p]' : null}
                     </font>
-                    <font className='torrent-title-resolution'>
+                    <font className='torrent-title-resolution torrent-title-resolution-720'>
                         {torrent.title.match('720') ? '[720p]' : null}
                     </font>
                     <font className='torrent-title-resolution'>

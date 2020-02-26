@@ -43,7 +43,7 @@ app.get('/torrent/search/:id', async (req, res) => {
             search_themoviedb: id,
             sort: 'seeders',
             category: [rarbg.categories.MOVIES_X264_1080, rarbg.categories.MOVIES_X264_720],
-            min_seeders: 0,
+            min_seeders: 1,
             format: 'json_extended'
         })
         .then(response => {

@@ -1,4 +1,6 @@
-.torrent {
+.torrent,
+.torrent-restrict,
+.torrent-inactive {
     width: 100%;
     height: auto;
 
@@ -8,6 +10,14 @@
     float: left;
 
     box-sizing: border-box;
+}
+
+.torrent-restrict {
+    opacity: 0.5;
+}
+
+.torrent-inactive {
+    opacity: 0.3;
 }
 
 .torrent-title {
@@ -34,6 +44,14 @@
     font-weight: 700;
     text-align: left;
     line-height: 1.5;
+}
+
+.torrent-title-resolution-1080 {
+    color: #80CBC4;
+}
+
+.torrent-title-resolution-720 {
+    color: #E6EE9C;
 }
 
 .torrent-info {
