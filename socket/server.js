@@ -37,14 +37,15 @@ io.on('connection', socket => {
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
 
-        console.log(`[MESSAGE] ${user.userName}(${user.movieRoom}) : ${message}`);
+        if (user !== undefined) {
+            console.log(`[MESSAGE] ${user.userName}(${user.movieRoom}) : ${message}`);
+            io.to(user.movieRoom).emit('message', {
+                userName: user.userName,
+                text: message
+            });
 
-        io.to(user.movieRoom).emit('message', {
-            userName: user.userName,
-            text: message
-        });
-
-        callback();
+            callback();
+        }
     });
 
     socket.on('disconnect', () => {

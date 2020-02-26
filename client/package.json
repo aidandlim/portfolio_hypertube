@@ -43,5 +43,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "https://hypertube.aidandlim.com:8443"
+    "proxy": "https://localhost:8443"
 }
