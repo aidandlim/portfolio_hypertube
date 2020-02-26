@@ -75,7 +75,7 @@ const Component = ({ match }) => {
         setIsOpenFilter(isOpenFilter => !isOpenFilter);
     };
 
-    document.title = 'HyperYube';
+    document.title = 'HyperTube';
 
     return (
         <div className='feed' onScroll={_handleScroll}>
