@@ -11,6 +11,8 @@
 
     background-color: var(--color-85);
     border-radius: 0.35rem;
+
+    transition: 0.5s;
 }
 
 .cast-picture {
