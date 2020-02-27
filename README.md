@@ -22,7 +22,11 @@
 
 Hello guys, Do you want to try this project yourself on your computer? Follow the few instructions below!
 
+<br>
+
 ### Mac Environment like 42 Silicon Valley cluster
+
+<br>
 
 You can just use Makefile for installation & initialization of the project easily on the Mac environment like 42 Silicon Valley clusters.
 
