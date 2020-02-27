@@ -104,7 +104,23 @@ make end
 
 ## Language
 
-***Not Yet***
+> Front-end Side
+
+- Javascript
+- React
+- Redux
+
+> Back-end Side
+
+- Java
+- Spring-boot
+- Node
+- Express
+
+> Database
+
+- MySQL
+- JPA
 
 ---
 
@@ -116,7 +132,7 @@ make end
 
 ## Live Demo
 
-***Not Yet***
+I can't serve live demo of this project online because of intellectual property rights. <br>Please check the preview or download it on your computer.
 
 ---
 
