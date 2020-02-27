@@ -74,7 +74,7 @@ make check
 
 **[5] Set environment variables & dependency**
 
-If `make check` command says "It doesn't exit", you can use other make command like `make apijs` to set environment variables. In addition, `make ffmpeg` command offers automatic installation of ffmpeg for transcoding videos.
+If `make check` command says "Something doesn't exist", you can use other make command like `make apijs` to set environment variables. In addition, `make ffmpeg` command offers automatic installation of ffmpeg for transcoding videos.
 
 ```shell
 make apijs | urljs | package | ffmpeg
