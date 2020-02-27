@@ -22,15 +22,15 @@
 
 Hello guys, Do you want to try this project yourself on your computer? Follow the few instructions below!
 
-<br>
-
-### In 42 Silicon Valley cluster
+### Mac Environment like 42 Silicon Valley cluster
 
 You can just use Makefile for installation & initialization of the project easily on the Mac environment like 42 Silicon Valley clusters.
 
 <br>
 
 **[1] Clone repository**
+
+The first step is cloning git repository from GitHub using `git clone` command.
 
 ```shell
 git clone https://github.com/aidandlim/portfolio_hypertube.git && cd portfolio_hypertube
@@ -40,6 +40,8 @@ git clone https://github.com/aidandlim/portfolio_hypertube.git && cd portfolio_h
 
 **[2] Check available make options**
 
+You can use `make` command to check the available commands.
+
 ```shell
 make
 ```
@@ -47,6 +49,8 @@ make
 <br>
 
 **[3] Initialize dependencies checking shell**
+
+Before you run this project, you have to check if Node and Java have installed on your computer first. If you are using 42 Silicon Valley cluster's Mac, you probably can install Node using `brew` and Java using `Managed Software Center`.
 
 ```shell
 node --version | java --version
@@ -56,29 +60,27 @@ node --version | java --version
 
 **[4] Check environment with shell**
 
+You can check whether Node and Java have installed or not with a `make check` command as well. This command also provides checking other environment variables such as api.js, url.js and FFMPEG.
+
 ```shell
 make check
 ```
 
 <br>
 
-**[5] Set environment variables**
+**[5] Set environment variables & dependency**
+
+If `make check` command says "It doesn't exit", you can use other make command like `make apijs` to set environment variables. In addition, `make ffmpeg` command offers automatic installation of ffmpeg for transcoding videos.
 
 ```shell
-make apijs | urljs | package
+make apijs | urljs | package | ffmpeg
 ```
 
 <br>
 
-**[6] Install FFMPEG dependency**
+**[6] Initialize project**
 
-```shell
-make ffmpeg
-```
-
-<br>
-
-**[7] Initialize project**
+You can run this project using `make start` command easily. Moreover, log files that include standard out and error are going to be stored in directory named `logs`.
 
 ```shell
 make start
@@ -86,7 +88,9 @@ make start
 
 <br>
 
-**[8] Terminate project**
+**[7] Terminate project**
+
+When you're done, it can be terminated easily with `make end` command. It makes all servers stop automatically.
 
 ```shell
 make end
