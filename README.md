@@ -18,7 +18,79 @@
 
 ## Deployment
 
-***Not Yet***
+<br>
+
+Hello guys, Do you want to try this project yourself on your computer? Follow the few instructions below!
+
+<br>
+
+### In 42 Silicon Valley cluster
+
+You can just use Makefile for installation & initialization of the project easily on the Mac environment like 42 Silicon Valley clusters.
+
+<br>
+
+**[1] Clone repository**
+
+```shell
+git clone https://github.com/aidandlim/portfolio_hypertube.git && cd portfolio_hypertube
+```
+
+<br>
+
+**[2] Check available make options**
+
+```shell
+make
+```
+
+<br>
+
+**[3] Initialize dependencies checking shell**
+
+```shell
+node --version | java --version
+```
+
+<br>
+
+**[4] Check environment with shell**
+
+```shell
+make check
+```
+
+<br>
+
+**[5] Set environment variables**
+
+```shell
+make apijs | urljs | package
+```
+
+<br>
+
+**[6] Install FFMPEG dependency**
+
+```shell
+make ffmpeg
+```
+
+<br>
+
+**[7] Initialize project**
+
+```shell
+make start
+```
+
+<br>
+
+**[8] Terminate project**
+
+```shell
+make end
+```
 
 ---
 
