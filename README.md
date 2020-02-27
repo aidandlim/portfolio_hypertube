@@ -24,7 +24,7 @@ Hello guys, Do you want to try this project yourself on your computer? Follow th
 
 <br>
 
-### Mac Environment like 42 Silicon Valley cluster
+**Mac Environment like 42 Silicon Valley cluster**
 
 <br>
 
