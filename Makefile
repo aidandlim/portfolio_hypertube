@@ -105,7 +105,7 @@ end:
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Trying to terminate all $(NAME) application server$(RESET)"
 	@echo ""
-	@sh Terminator.sh
+	@sh ./script/Terminator.sh
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
@@ -114,7 +114,7 @@ check:
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Initialize a Environment Checker$(RESET)"
 	@echo ""
-	@sh EnvironmentChecker.sh
+	@sh ./script/EnvironmentChecker.sh
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)It has been completed.$(RESET)"
 	@echo ""
@@ -123,7 +123,7 @@ ip:
 	@echo ""
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Looking for IP Address$(RESET)"
 	@echo ""
-	@sh IPAddress.sh
+	@sh ./script/IPAddress.sh
 	@echo ""
 
 apijs:
