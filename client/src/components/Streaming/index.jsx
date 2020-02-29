@@ -37,6 +37,8 @@ const Component = ({ match, history }) => {
     useEffect(() => {
         let isCancelled = false;
 
+        setSubtitles(undefined);
+
         getTorrentSubtitles(imdbId, ui.lang, res => {
             if (!isCancelled) {
                 setSubtitles(res);
