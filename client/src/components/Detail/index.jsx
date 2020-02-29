@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import { apiMovie } from '../../data';
+import { apiMovie, apiMovieDetailFromOMDB } from '../../data';
 
 import MoreDetail from '../MoreDetail';
 
@@ -33,6 +33,11 @@ const Component = ({ match, history }) => {
         apiMovie(id, ui.lang, res => {
             if (!isCancelled) {
                 setMovie(res);
+                apiMovieDetailFromOMDB(res.imdb_id, res => {
+                    if (!isCancelled) {
+                        console.log(res);
+                    }
+                });
             }
         });
 
