@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import { apiMovie, apiMovieDetailFromOMDB } from '../../data';
+import { apiMovie, apiMovieFromOMDB } from '../../data';
 
 import MoreDetail from '../MoreDetail';
 
@@ -20,6 +20,7 @@ const Component = ({ match, history }) => {
         vote_average: 0,
         production_companies: []
     });
+    const [movieFromOMDB, setMovieFromOMDB] = useState({});
     const [isOpenDetail, setIsOpenDetail] = useState(false);
 
     const ui = useSelector(state => state.ui);
@@ -33,9 +34,9 @@ const Component = ({ match, history }) => {
         apiMovie(id, ui.lang, res => {
             if (!isCancelled) {
                 setMovie(res);
-                apiMovieDetailFromOMDB(res.imdb_id, res => {
+                apiMovieFromOMDB(res.imdb_id, res => {
                     if (!isCancelled) {
-                        console.log(res);
+                        setMovieFromOMDB(res);
                     }
                 });
             }
@@ -101,7 +102,15 @@ const Component = ({ match, history }) => {
                             </div>
                         </div>
                         <div className='detail-info-container'>
-                            <div className='detail-status'>{movie.status}</div>
+                            <div className='detail-status'>
+                                [
+                                {movieFromOMDB.Rated === 'N/A'
+                                    ? ui.lang === 'en_US'
+                                        ? 'No Data'
+                                        : '정보없음'
+                                    : movieFromOMDB.Rated}
+                                ]&nbsp;&nbsp;{movie.status}
+                            </div>
                             <div className='detail-genres'>
                                 {movie.genres.map((genre, index) => (
                                     <div className='detail-info-general-italic' key={index}>
@@ -121,8 +130,20 @@ const Component = ({ match, history }) => {
                             </div>
                             <div className='detail-info-general'>
                                 {movie.vote_average.toFixed(1)}&nbsp;&nbsp;(
-                                {movie.vote_count})
+                                {movie.vote_count}
+                                {movieFromOMDB.imdbRating !== null &&
+                                movieFromOMDB.imdbRating !== undefined
+                                    ? `, ${movieFromOMDB.imdbRating} by IMDB)`
+                                    : null}
                             </div>
+                            {movieFromOMDB.Metascore !== 'N/A' ? (
+                                <div className='detail-info-division'>l</div>
+                            ) : null}
+                            {movieFromOMDB.Metascore !== 'N/A' ? (
+                                <div className='detail-info-general'>
+                                    {movieFromOMDB.Metascore} / 100
+                                </div>
+                            ) : null}
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>
                                 {movie.runtime !== null && movie.runtime !== 0

@@ -72,13 +72,24 @@ export const apiMovie = (id, lang, cb) => {
 
     Axios.get(url)
         .then(res => {
-            console.log(res.data);
             cb(res.data);
         })
         .catch(() => {
             cb(null);
         });
 };
+
+export const apiMovieFromOMDB = (id, cb) => {
+    let url = `https://www.omdbapi.com/?apikey=${OMDB_ID}&i=${id}`;
+
+    Axios.get(url)
+        .then(res => {
+            cb(res.data);
+        })
+        .catch(() => {
+            cb(null);
+        });
+}
 
 export const apiMovieDetail = (id, lang, cb) => {
     let url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${TMDB_ID}&language=${
@@ -93,18 +104,6 @@ export const apiMovieDetail = (id, lang, cb) => {
             cb(null);
         });
 };
-
-export const apiMovieDetailFromOMDB = (id, cb) => {
-    let url = `https://www.omdbapi.com/?apikey=${OMDB_ID}&i=${id}`;
-
-    Axios.get(url)
-        .then(res => {
-            cb(res.data);
-        })
-        .catch(() => {
-            cb(null);
-        });
-}
 
 export const apiSimilarMovies = (id, lang, cb) => {
     let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${TMDB_ID}&language=${
