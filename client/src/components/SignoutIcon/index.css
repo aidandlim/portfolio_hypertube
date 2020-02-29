@@ -1,0 +1,20 @@
+.signoutIcon {
+    width: 1.3rem;
+    height: 1.3rem;
+
+    margin: calc((var(--size-header) - 1.3rem) / 2);
+
+    position: relative;
+    float: right;
+
+    color: var(--color-A);
+    font-size: 0.7rem;
+    text-align: center;
+    line-height: 1.3rem;
+
+    background-color: var(--color-70);
+    box-sizing: border-box;
+    border-radius: 50%;
+
+    cursor: pointer;
+}

@@ -136,26 +136,6 @@
     transform: translate(calc(-100% - 1.75rem), calc(-100% - 1.75rem - 15px));
 }
 
-.user-util-icon-logout {
-    width: 1.25rem;
-    height: 1.25rem;
-
-    padding: 0.75rem;
-
-    position: relative;
-    float: left;
-
-    background-color: var(--color-65);
-    border-radius: 50%;
-
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-.user-util-icon-logout:hover {
-    background-color: var(--color-55);
-}
-
 .user-content-container {
     width: 100%;
     height: auto;

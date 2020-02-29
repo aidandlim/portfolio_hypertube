@@ -2,7 +2,6 @@
     width: var(--size-header);
     height: var(--size-header);
 
-    margin-right: 0.75rem;
     padding: calc((var(--size-header) - 1rem) / 2);
 
     position: relative;

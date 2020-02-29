@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { auth_token, user_data, user_picture } from '../../actions';
-
-import cookie from 'react-cookies';
+import {user_picture } from '../../actions';
 
 import UserMenu from '../UserMenu';
 import UserRecentWatching from '../UserRecentWatching';
@@ -55,25 +53,6 @@ const Component = ({ match }) => {
             isCancelled = true;
         };
     }, [dispatch, auth.token, userName, ui.lang]);
-
-    const _handleSignOut = () => {
-        cookie.save('token', '', {
-            path: '/'
-        });
-        dispatch(auth_token(''));
-        dispatch(
-            user_data({
-                id: -1,
-                userName: '',
-                email: '',
-                firstName: '',
-                lastName: '',
-                picture: '',
-                socialType: ''
-            })
-        );
-        window.open('/', '_self');
-    };
 
     const _handleInitChangePicture = () => {
         if (nav === 2) {
@@ -210,15 +189,6 @@ const Component = ({ match }) => {
                     </div>
                 </div>
             )}
-            {userData.userName === user.userName ? (
-                <div className='user-util-container'>
-                    <FeatherIcon
-                        className='user-util-icon-logout'
-                        icon='log-out'
-                        onClick={_handleSignOut}
-                    />
-                </div>
-            ) : null}
         </div>
     );
 };
