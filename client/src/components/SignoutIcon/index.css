@@ -7,24 +7,11 @@
     position: relative;
     float: right;
 
-    color: var(--color-A);
-    font-size: 0.7rem;
-    text-align: center;
-    line-height: 1.3rem;
-
-    background-color: var(--color-70);
+    background-size: 1.3rem 1.3rem;
+    background-position: center;
     box-sizing: border-box;
     border-radius: 50%;
+    filter: grayscale(1);
 
     cursor: pointer;
-}
-
-.signoutIcon-container {
-    width: auto;
-    height: auto;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }

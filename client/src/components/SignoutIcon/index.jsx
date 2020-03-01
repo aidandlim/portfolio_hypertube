@@ -5,6 +5,7 @@ import { auth_token, user_data } from '../../actions';
 
 import cookie from 'react-cookies';
 
+import SignoutIcon from '../../assets/icons/SignoutIcon.png';
 import './index.css';
 
 const Component = () => {
@@ -30,7 +31,7 @@ const Component = () => {
     };
 
     return (
-        <div className='signoutIcon' onClick={_handleSignOut}><span className='signoutIcon-container'>👋</span></div>
+        <div className='signoutIcon' onClick={_handleSignOut} style={{backgroundImage: `url('${SignoutIcon}')`}}></div>
     );
 };
 
