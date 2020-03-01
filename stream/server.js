@@ -206,6 +206,21 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     });
 });
 
+const schedule = require('node-schedule');
+const rm = require('rimraf');
+
+schedule.scheduleJob('0 0 0 * * *', () => {
+    const dirPath = path.join(__dirname, 'public', 'video');
+    const dir = fs.readdirSync(dirPath).filter(file => fs.statSync(path.join(dirPath, file)).isDirectory());
+
+    for(var i = 0; i < dir.length; i++) {
+        const dateDiff = (new Date().getTime() - fs.statSync(`${dirPath}/${dir[i]}`).atime.getTime()) / (1000 * 3600 * 24);
+        if(dateDiff > 30) {
+            rm(`${dirPath}/${dir[i]}`, () => {});
+        }
+    }
+});
+
 server.listen(STREAM_PORT, () => {
     console.log(`Stream server is running on port ${STREAM_PORT}`);
 });
