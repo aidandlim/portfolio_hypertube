@@ -30,7 +30,7 @@ const Component = () => {
     };
 
     return (
-        <div className='signoutIcon' onClick={_handleSignOut}>👋</div>
+        <div className='signoutIcon' onClick={_handleSignOut}><span className='signoutIcon-container'>👋</span></div>
     );
 };
 

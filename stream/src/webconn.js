@@ -90,7 +90,7 @@ class WebConn extends Wire {
         url,
         method: 'GET',
         headers: {
-          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`,
+          'user-agent': `HyperTube`,
           range: `bytes=${start}-${end}`
         }
       }

@@ -46,13 +46,6 @@ const RECONNECT_WAIT = [1000, 5000, 15000]
 
 const USER_AGENT = 'HyperTube';
 
-let TMP
-try {
-  TMP = path.join(fs.statSync('/tmp') && '/tmp', 'webtorrent')
-} catch (err) {
-  TMP = path.join(typeof os.tmpdir === 'function' ? os.tmpdir() : '/', 'webtorrent')
-}
-
 class Torrent extends EventEmitter {
   constructor (torrentId, client, opts) {
     super()
@@ -194,8 +187,6 @@ class Torrent extends EventEmitter {
     if (!this.infoHash) {
       return this._destroy(new Error('Malformed torrent data: No info hash'))
     }
-
-    if (!this.path) this.path = path.join(TMP, this.infoHash)
 
     this._rechokeIntervalId = setInterval(() => {
       this._rechoke()

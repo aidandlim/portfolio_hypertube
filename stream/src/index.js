@@ -102,7 +102,7 @@ class TorrentService extends EventEmitter {
     if (typeof loadIPSet === 'function' && opts.blocklist != null) {
       loadIPSet(opts.blocklist, {
         headers: {
-          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`
+          'user-agent': `HyperTube`
         }
       }, (err, ipSet) => {
         if (err) return this.error(`Failed to load blocklist: ${err.message}`)
@@ -202,7 +202,7 @@ class TorrentService extends EventEmitter {
     const isFilePath = typeof input === 'string'
 
     if (isFilePath) opts.path = path.dirname(input)
-    if (!opts.createdBy) opts.createdBy = `WebTorrent/${VERSION_STR}`
+    if (!opts.createdBy) opts.createdBy = `HyperTube`
 
     const onTorrent = torrent => {
       const tasks = [

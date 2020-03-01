@@ -147,7 +147,7 @@ function Server (torrent, opts = {}) {
         )).join('<br>')
 
       const html = getPageHTML(
-        `${escapeHtml(torrent.name)} - WebTorrent`,
+        `${escapeHtml(torrent.name)} - HyperTube`,
         `
           <h1>${escapeHtml(torrent.name)}</h1>
           <ol>${listHtml}</ol>
