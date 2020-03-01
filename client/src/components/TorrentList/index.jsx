@@ -37,8 +37,8 @@ const Component = ({ id }) => {
                 : null}
             {torrentList.length === 0 && isDoneSearch
                 ? ui.lang === 'en_US'
-                    ? 'We cannot find out any torrent file :('
-                    : '토렌트 파일을 찾을 수 없습니다 :('
+                    ? 'We cannot find out any torrent file :( Please try again!'
+                    : '토렌트 파일을 찾을 수 없습니다 :( 다시 시도해 주세요!'
                 : null}
             {torrentList.length === 0 && !isDoneSearch
                 ? ui.lang === 'en_US'
