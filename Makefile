@@ -68,6 +68,7 @@ start:
 	@echo "     [   ]  Initializing the $(UNDERLINE)Stream API Server$(RESET).\c"
 	@cd stream && npm install --quiet --no-progress > /dev/null 2>&1
 	@cd stream && nohup npm start > ../logs/stream/log.out 2> ../logs/stream/log.err &
+	@cd stream && rm -rf public && mkdir public && cd public && mkdir video
 	@sleep 0.5
 	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""

@@ -60,7 +60,7 @@ app.get('/stream/add/:magnet', (req, res) => {
 
         res.json(max);
     } else {
-        client.add(magnet, torrent => {
+        client.add(magnet, { path: path.join(__dirname, 'public', 'video') }, torrent => {
             let max = {
                 filename: '',
                 dirname: '',
@@ -77,8 +77,8 @@ app.get('/stream/add/:magnet', (req, res) => {
             });
 
             if (max.filename.match('.mkv')) {
-                const input = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename}`;
-                const output = `/tmp/webtorrent/${magnet}/${max.dirname}/${max.filename.replace(
+                const input = `${path.join(__dirname, 'public', 'video')}/${max.dirname}/${max.filename}`;
+                const output = `${path.join(__dirname, 'public', 'video')}/${max.dirname}/${max.filename.replace(
                     '.mkv',
                     '.mp4'
                 )}`;
@@ -171,13 +171,13 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
     const dirname = req.params.dirname;
     const filename = req.params.filename;
 
-    const path = `/tmp/webtorrent/${magnet}/${dirname}/${filename}`;
+    const filepath = `${path.join(__dirname, 'public', 'video')}/${dirname}/${filename}`;
 
-    while (!fs.existsSync(path) || fs.statSync(path).size < 134217728) {
+    while (!fs.existsSync(filepath) || fs.statSync(filepath).size < 134217728) {
         sleep(3000);
     }
 
-    let stat = fs.statSync(path);
+    let stat = fs.statSync(filepath);
     let fileSize = stat.size;
     const range = req.headers.range;
 
@@ -194,7 +194,7 @@ app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
         'Cache-Control': 'must-revalidate'
     });
 
-    let stream = fs.createReadStream(path, {
+    let stream = fs.createReadStream(filepath, {
         start,
         end
     });

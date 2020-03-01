@@ -44,8 +44,7 @@ const FILESYSTEM_CONCURRENCY = process.browser ? Infinity : 2
 
 const RECONNECT_WAIT = [1000, 5000, 15000]
 
-const VERSION = require('../package.json').version
-const USER_AGENT = `WebTorrent/${VERSION} (https://webtorrent.io)`
+const USER_AGENT = 'HyperTube';
 
 let TMP
 try {
