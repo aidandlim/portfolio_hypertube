@@ -141,13 +141,13 @@ const Component = ({ match, history }) => {
                             ) : null}
                             {movieFromOMDB.Metascore !== 'N/A' ? (
                                 <div className='detail-info-general'>
-                                    {movieFromOMDB.Metascore} / 100
+                                    {movieFromOMDB.Metascore}%
                                 </div>
                             ) : null}
                             <div className='detail-info-division'>l</div>
                             <div className='detail-info-general'>
                                 {movie.runtime !== null && movie.runtime !== 0
-                                    ? `${movie.runtime} ${ui.lang === 'en_US' ? 'minutes' : '분'}`
+                                    ? `${movie.runtime} ${ui.lang === 'en_US' ? 'mins' : '분'}`
                                     : ui.lang === 'en_US'
                                     ? 'No Data'
                                     : '정보없음'}
