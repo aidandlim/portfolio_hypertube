@@ -77,11 +77,12 @@ app.get('/stream/add/:magnet', (req, res) => {
             });
 
             if (max.filename.match('.mkv')) {
-                const input = `${path.join(__dirname, 'public', 'video')}/${max.dirname}/${max.filename}`;
-                const output = `${path.join(__dirname, 'public', 'video')}/${max.dirname}/${max.filename.replace(
-                    '.mkv',
-                    '.mp4'
-                )}`;
+                const input = `${path.join(__dirname, 'public', 'video')}/${max.dirname}/${
+                    max.filename
+                }`;
+                const output = `${path.join(__dirname, 'public', 'video')}/${
+                    max.dirname
+                }/${max.filename.replace('.mkv', '.mp4')}`;
 
                 while (!fs.existsSync(input) || fs.statSync(input).size < 134217728) {
                     sleep(3000);
@@ -211,11 +212,15 @@ const rm = require('rimraf');
 
 schedule.scheduleJob('0 0 0 * * *', () => {
     const dirPath = path.join(__dirname, 'public', 'video');
-    const dir = fs.readdirSync(dirPath).filter(file => fs.statSync(path.join(dirPath, file)).isDirectory());
+    const dir = fs
+        .readdirSync(dirPath)
+        .filter(file => fs.statSync(path.join(dirPath, file)).isDirectory());
 
-    for(var i = 0; i < dir.length; i++) {
-        const dateDiff = (new Date().getTime() - fs.statSync(`${dirPath}/${dir[i]}`).atime.getTime()) / (1000 * 3600 * 24);
-        if(dateDiff > 30) {
+    for (var i = 0; i < dir.length; i++) {
+        const dateDiff =
+            (new Date().getTime() - fs.statSync(`${dirPath}/${dir[i]}`).atime.getTime()) /
+            (1000 * 3600 * 24);
+        if (dateDiff > 30) {
             rm(`${dirPath}/${dir[i]}`, () => {});
         }
     }
