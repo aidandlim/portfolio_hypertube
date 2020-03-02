@@ -45,7 +45,7 @@ app.use(
 app.use(
     '/api',
     createProxyMiddleware({
-        target: `https://${API_IP}:${API_PORT}`,
+        target: `https://10.10.146.166:${API_PORT}`,
         changeOrigin: true,
         secure: false
     })
