@@ -1,139 +1,137 @@
-const { EventEmitter } = require('events')
-const { PassThrough } = require('readable-stream')
-const eos = require('end-of-stream')
-const path = require('path')
-const render = require('render-media')
-const streamToBlob = require('stream-to-blob')
-const streamToBlobURL = require('stream-to-blob-url')
-const streamToBuffer = require('stream-with-known-length-to-buffer')
-const FileStream = require('./file-stream')
+const { EventEmitter } = require('events');
+const { PassThrough } = require('readable-stream');
+const eos = require('end-of-stream');
+const path = require('path');
+const render = require('render-media');
+const streamToBlob = require('stream-to-blob');
+const streamToBlobURL = require('stream-to-blob-url');
+const streamToBuffer = require('stream-with-known-length-to-buffer');
+const FileStream = require('./file-stream');
 
 class File extends EventEmitter {
-  constructor (torrent, file) {
-    super()
+    constructor(torrent, file) {
+        super();
 
-    this._torrent = torrent
-    this._destroyed = false
+        this._torrent = torrent;
+        this._destroyed = false;
 
-    this.name = file.name
-    this.path = file.path
-    this.length = file.length
-    this.offset = file.offset
+        this.name = file.name;
+        this.path = file.path;
+        this.length = file.length;
+        this.offset = file.offset;
 
-    this.done = false
+        this.done = false;
 
-    const start = file.offset
-    const end = start + file.length - 1
+        const start = file.offset;
+        const end = start + file.length - 1;
 
-    this._startPiece = start / this._torrent.pieceLength | 0
-    this._endPiece = end / this._torrent.pieceLength | 0
+        this._startPiece = (start / this._torrent.pieceLength) | 0;
+        this._endPiece = (end / this._torrent.pieceLength) | 0;
 
-    if (this.length === 0) {
-      this.done = true
-      this.emit('done')
-    }
-  }
-
-  get downloaded () {
-    if (!this._torrent.bitfield) return 0
-
-    const { pieces, bitfield, pieceLength } = this._torrent
-    const { _startPiece: start, _endPiece: end } = this
-    const piece = pieces[start]
-
-    const irrelevantFirstPieceBytes = this.offset % pieceLength
-    let downloaded = bitfield.get(start)
-      ? pieceLength - irrelevantFirstPieceBytes
-      : Math.max(pieceLength - irrelevantFirstPieceBytes - piece.missing, 0)
-
-    for (let index = start + 1; index <= end; ++index) {
-      if (bitfield.get(index)) {
-        downloaded += pieceLength
-      } else {
-        const piece = pieces[index]
-        downloaded += pieceLength - piece.missing
-      }
+        if (this.length === 0) {
+            this.done = true;
+            this.emit('done');
+        }
     }
 
-    return Math.min(downloaded, this.length)
-  }
+    get downloaded() {
+        if (!this._torrent.bitfield) return 0;
 
-  get progress () {
-    return this.length ? this.downloaded / this.length : 0
-  }
+        const { pieces, bitfield, pieceLength } = this._torrent;
+        const { _startPiece: start, _endPiece: end } = this;
+        const piece = pieces[start];
 
-  select (priority) {
-    if (this.length === 0) return
-    this._torrent.select(this._startPiece, this._endPiece, priority)
-  }
+        const irrelevantFirstPieceBytes = this.offset % pieceLength;
+        let downloaded = bitfield.get(start)
+            ? pieceLength - irrelevantFirstPieceBytes
+            : Math.max(pieceLength - irrelevantFirstPieceBytes - piece.missing, 0);
 
-  deselect () {
-    if (this.length === 0) return
-    this._torrent.deselect(this._startPiece, this._endPiece, false)
-  }
+        for (let index = start + 1; index <= end; ++index) {
+            if (bitfield.get(index)) {
+                downloaded += pieceLength;
+            } else {
+                const piece = pieces[index];
+                downloaded += pieceLength - piece.missing;
+            }
+        }
 
-  createReadStream (opts) {
-    if (this.length === 0) {
-      const empty = new PassThrough()
-      process.nextTick(() => {
-        empty.end()
-      })
-      return empty
+        return Math.min(downloaded, this.length);
     }
 
-    const fileStream = new FileStream(this, opts)
-    this._torrent.select(fileStream._startPiece, fileStream._endPiece, true, () => {
-      fileStream._notify()
-    })
-    eos(fileStream, () => {
-      if (this._destroyed) return
-      if (!this._torrent.destroyed) {
-        this._torrent.deselect(fileStream._startPiece, fileStream._endPiece, true)
-      }
-    })
-    return fileStream
-  }
+    get progress() {
+        return this.length ? this.downloaded / this.length : 0;
+    }
 
-  getBuffer (cb) {
-    streamToBuffer(this.createReadStream(), this.length, cb)
-  }
+    select(priority) {
+        if (this.length === 0) return;
+        this._torrent.select(this._startPiece, this._endPiece, priority);
+    }
 
-  getBlob (cb) {
-    if (typeof window === 'undefined') throw new Error('browser-only method')
-    streamToBlob(this.createReadStream(), this._getMimeType())
-      .then(
-        blob => cb(null, blob),
-        err => cb(err)
-      )
-  }
+    deselect() {
+        if (this.length === 0) return;
+        this._torrent.deselect(this._startPiece, this._endPiece, false);
+    }
 
-  getBlobURL (cb) {
-    if (typeof window === 'undefined') throw new Error('browser-only method')
-    streamToBlobURL(this.createReadStream(), this._getMimeType())
-      .then(
-        blobUrl => cb(null, blobUrl),
-        err => cb(err)
-      )
-  }
+    createReadStream(opts) {
+        if (this.length === 0) {
+            const empty = new PassThrough();
+            process.nextTick(() => {
+                empty.end();
+            });
+            return empty;
+        }
 
-  appendTo (elem, opts, cb) {
-    if (typeof window === 'undefined') throw new Error('browser-only method')
-    render.append(this, elem, opts, cb)
-  }
+        const fileStream = new FileStream(this, opts);
+        this._torrent.select(fileStream._startPiece, fileStream._endPiece, true, () => {
+            fileStream._notify();
+        });
+        eos(fileStream, () => {
+            if (this._destroyed) return;
+            if (!this._torrent.destroyed) {
+                this._torrent.deselect(fileStream._startPiece, fileStream._endPiece, true);
+            }
+        });
+        return fileStream;
+    }
 
-  renderTo (elem, opts, cb) {
-    if (typeof window === 'undefined') throw new Error('browser-only method')
-    render.render(this, elem, opts, cb)
-  }
+    getBuffer(cb) {
+        streamToBuffer(this.createReadStream(), this.length, cb);
+    }
 
-  _getMimeType () {
-    return render.mime[path.extname(this.name).toLowerCase()]
-  }
+    getBlob(cb) {
+        if (typeof window === 'undefined') throw new Error('browser-only method');
+        streamToBlob(this.createReadStream(), this._getMimeType()).then(
+            blob => cb(null, blob),
+            err => cb(err)
+        );
+    }
 
-  _destroy () {
-    this._destroyed = true
-    this._torrent = null
-  }
+    getBlobURL(cb) {
+        if (typeof window === 'undefined') throw new Error('browser-only method');
+        streamToBlobURL(this.createReadStream(), this._getMimeType()).then(
+            blobUrl => cb(null, blobUrl),
+            err => cb(err)
+        );
+    }
+
+    appendTo(elem, opts, cb) {
+        if (typeof window === 'undefined') throw new Error('browser-only method');
+        render.append(this, elem, opts, cb);
+    }
+
+    renderTo(elem, opts, cb) {
+        if (typeof window === 'undefined') throw new Error('browser-only method');
+        render.render(this, elem, opts, cb);
+    }
+
+    _getMimeType() {
+        return render.mime[path.extname(this.name).toLowerCase()];
+    }
+
+    _destroy() {
+        this._destroyed = true;
+        this._torrent = null;
+    }
 }
 
-module.exports = File
+module.exports = File;

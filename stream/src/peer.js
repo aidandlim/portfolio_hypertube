@@ -1,195 +1,202 @@
-const arrayRemove = require('unordered-array-remove')
-const Wire = require('bittorrent-protocol')
+const arrayRemove = require('unordered-array-remove');
+const Wire = require('bittorrent-protocol');
 
-const WebConn = require('./webconn')
+const WebConn = require('./webconn');
 
-const CONNECT_TIMEOUT_TCP = 5000
-const CONNECT_TIMEOUT_WEBRTC = 25000
-const HANDSHAKE_TIMEOUT = 25000
+const CONNECT_TIMEOUT_TCP = 5000;
+const CONNECT_TIMEOUT_WEBRTC = 25000;
+const HANDSHAKE_TIMEOUT = 25000;
 
 exports.createWebRTCPeer = (conn, swarm) => {
-  const peer = new Peer(conn.id, 'webrtc')
-  peer.conn = conn
-  peer.swarm = swarm
+    const peer = new Peer(conn.id, 'webrtc');
+    peer.conn = conn;
+    peer.swarm = swarm;
 
-  if (peer.conn.connected) {
-    peer.onConnect()
-  } else {
-    peer.conn.once('connect', () => { peer.onConnect() })
-    peer.conn.once('error', err => { peer.destroy(err) })
-    peer.startConnectTimeout()
-  }
+    if (peer.conn.connected) {
+        peer.onConnect();
+    } else {
+        peer.conn.once('connect', () => {
+            peer.onConnect();
+        });
+        peer.conn.once('error', err => {
+            peer.destroy(err);
+        });
+        peer.startConnectTimeout();
+    }
 
-  return peer
-}
+    return peer;
+};
 
 exports.createTCPIncomingPeer = conn => {
-  const addr = `${conn.remoteAddress}:${conn.remotePort}`
-  const peer = new Peer(addr, 'tcpIncoming')
-  peer.conn = conn
-  peer.addr = addr
+    const addr = `${conn.remoteAddress}:${conn.remotePort}`;
+    const peer = new Peer(addr, 'tcpIncoming');
+    peer.conn = conn;
+    peer.addr = addr;
 
-  peer.onConnect()
+    peer.onConnect();
 
-  return peer
-}
+    return peer;
+};
 
 exports.createTCPOutgoingPeer = (addr, swarm) => {
-  const peer = new Peer(addr, 'tcpOutgoing')
-  peer.addr = addr
-  peer.swarm = swarm
+    const peer = new Peer(addr, 'tcpOutgoing');
+    peer.addr = addr;
+    peer.swarm = swarm;
 
-  return peer
-}
+    return peer;
+};
 
 exports.createWebSeedPeer = (url, swarm) => {
-  const peer = new Peer(url, 'webSeed')
-  peer.swarm = swarm
-  peer.conn = new WebConn(url, swarm)
-  peer.onConnect()
+    const peer = new Peer(url, 'webSeed');
+    peer.swarm = swarm;
+    peer.conn = new WebConn(url, swarm);
+    peer.onConnect();
 
-  return peer
-}
+    return peer;
+};
 
 class Peer {
-  constructor (id, type) {
-    this.id = id
-    this.type = type
+    constructor(id, type) {
+        this.id = id;
+        this.type = type;
 
-    this.addr = null
-    this.conn = null
-    this.swarm = null
-    this.wire = null
+        this.addr = null;
+        this.conn = null;
+        this.swarm = null;
+        this.wire = null;
 
-    this.connected = false
-    this.destroyed = false
-    this.timeout = null
-    this.retries = 0
+        this.connected = false;
+        this.destroyed = false;
+        this.timeout = null;
+        this.retries = 0;
 
-    this.sentHandshake = false
-  }
-
-  onConnect () {
-    if (this.destroyed) return
-    this.connected = true
-
-    clearTimeout(this.connectTimeout)
-
-    const conn = this.conn
-    conn.once('end', () => {
-      this.destroy()
-    })
-    conn.once('close', () => {
-      this.destroy()
-    })
-    conn.once('finish', () => {
-      this.destroy()
-    })
-    conn.once('error', err => {
-      this.destroy(err)
-    })
-
-    const wire = this.wire = new Wire()
-    wire.type = this.type
-    wire.once('end', () => {
-      this.destroy()
-    })
-    wire.once('close', () => {
-      this.destroy()
-    })
-    wire.once('finish', () => {
-      this.destroy()
-    })
-    wire.once('error', err => {
-      this.destroy(err)
-    })
-
-    wire.once('handshake', (infoHash, peerId) => {
-      this.onHandshake(infoHash, peerId)
-    })
-    this.startHandshakeTimeout()
-
-    conn.pipe(wire).pipe(conn)
-    if (this.swarm && !this.sentHandshake) this.handshake()
-  }
-
-  onHandshake (infoHash, peerId) {
-    if (!this.swarm) return
-    if (this.destroyed) return
-
-    if (this.swarm.destroyed) {
-      return this.destroy(new Error('swarm already destroyed'))
-    }
-    if (infoHash !== this.swarm.infoHash) {
-      return this.destroy(new Error('unexpected handshake info hash for this swarm'))
-    }
-    if (peerId === this.swarm.peerId) {
-      return this.destroy(new Error('refusing to connect to ourselves'))
+        this.sentHandshake = false;
     }
 
-    clearTimeout(this.handshakeTimeout)
+    onConnect() {
+        if (this.destroyed) return;
+        this.connected = true;
 
-    this.retries = 0
+        clearTimeout(this.connectTimeout);
 
-    let addr = this.addr
-    if (!addr && this.conn.remoteAddress && this.conn.remotePort) {
-      addr = `${this.conn.remoteAddress}:${this.conn.remotePort}`
+        const conn = this.conn;
+        conn.once('end', () => {
+            this.destroy();
+        });
+        conn.once('close', () => {
+            this.destroy();
+        });
+        conn.once('finish', () => {
+            this.destroy();
+        });
+        conn.once('error', err => {
+            this.destroy(err);
+        });
+
+        const wire = (this.wire = new Wire());
+        wire.type = this.type;
+        wire.once('end', () => {
+            this.destroy();
+        });
+        wire.once('close', () => {
+            this.destroy();
+        });
+        wire.once('finish', () => {
+            this.destroy();
+        });
+        wire.once('error', err => {
+            this.destroy(err);
+        });
+
+        wire.once('handshake', (infoHash, peerId) => {
+            this.onHandshake(infoHash, peerId);
+        });
+        this.startHandshakeTimeout();
+
+        conn.pipe(wire).pipe(conn);
+        if (this.swarm && !this.sentHandshake) this.handshake();
     }
-    this.swarm._onWire(this.wire, addr)
 
-    if (!this.swarm || this.swarm.destroyed) return
+    onHandshake(infoHash, peerId) {
+        if (!this.swarm) return;
+        if (this.destroyed) return;
 
-    if (!this.sentHandshake) this.handshake()
-  }
+        if (this.swarm.destroyed) {
+            return this.destroy(new Error('swarm already destroyed'));
+        }
+        if (infoHash !== this.swarm.infoHash) {
+            return this.destroy(new Error('unexpected handshake info hash for this swarm'));
+        }
+        if (peerId === this.swarm.peerId) {
+            return this.destroy(new Error('refusing to connect to ourselves'));
+        }
 
-  handshake () {
-    const opts = {
-      dht: this.swarm.private ? false : !!this.swarm.client.dht
+        clearTimeout(this.handshakeTimeout);
+
+        this.retries = 0;
+
+        let addr = this.addr;
+        if (!addr && this.conn.remoteAddress && this.conn.remotePort) {
+            addr = `${this.conn.remoteAddress}:${this.conn.remotePort}`;
+        }
+        this.swarm._onWire(this.wire, addr);
+
+        if (!this.swarm || this.swarm.destroyed) return;
+
+        if (!this.sentHandshake) this.handshake();
     }
-    this.wire.handshake(this.swarm.infoHash, this.swarm.client.peerId, opts)
-    this.sentHandshake = true
-  }
 
-  startConnectTimeout () {
-    clearTimeout(this.connectTimeout)
-    this.connectTimeout = setTimeout(() => {
-      this.destroy(new Error('connect timeout'))
-    }, this.type === 'webrtc' ? CONNECT_TIMEOUT_WEBRTC : CONNECT_TIMEOUT_TCP)
-    if (this.connectTimeout.unref) this.connectTimeout.unref()
-  }
-
-  startHandshakeTimeout () {
-    clearTimeout(this.handshakeTimeout)
-    this.handshakeTimeout = setTimeout(() => {
-      this.destroy(new Error('handshake timeout'))
-    }, HANDSHAKE_TIMEOUT)
-    if (this.handshakeTimeout.unref) this.handshakeTimeout.unref()
-  }
-
-  destroy (err) {
-    if (this.destroyed) return
-    this.destroyed = true
-    this.connected = false
-
-    clearTimeout(this.connectTimeout)
-    clearTimeout(this.handshakeTimeout)
-
-    const swarm = this.swarm
-    const conn = this.conn
-    const wire = this.wire
-
-    this.swarm = null
-    this.conn = null
-    this.wire = null
-
-    if (swarm && wire) {
-      arrayRemove(swarm.wires, swarm.wires.indexOf(wire))
+    handshake() {
+        const opts = {
+            dht: this.swarm.private ? false : !!this.swarm.client.dht
+        };
+        this.wire.handshake(this.swarm.infoHash, this.swarm.client.peerId, opts);
+        this.sentHandshake = true;
     }
-    if (conn) {
-      conn.on('error', () => {})
-      conn.destroy()
+
+    startConnectTimeout() {
+        clearTimeout(this.connectTimeout);
+        this.connectTimeout = setTimeout(
+            () => {
+                this.destroy(new Error('connect timeout'));
+            },
+            this.type === 'webrtc' ? CONNECT_TIMEOUT_WEBRTC : CONNECT_TIMEOUT_TCP
+        );
+        if (this.connectTimeout.unref) this.connectTimeout.unref();
     }
-    if (wire) wire.destroy()
-    if (swarm) swarm.removePeer(this.id)
-  }
+
+    startHandshakeTimeout() {
+        clearTimeout(this.handshakeTimeout);
+        this.handshakeTimeout = setTimeout(() => {
+            this.destroy(new Error('handshake timeout'));
+        }, HANDSHAKE_TIMEOUT);
+        if (this.handshakeTimeout.unref) this.handshakeTimeout.unref();
+    }
+
+    destroy(err) {
+        if (this.destroyed) return;
+        this.destroyed = true;
+        this.connected = false;
+
+        clearTimeout(this.connectTimeout);
+        clearTimeout(this.handshakeTimeout);
+
+        const swarm = this.swarm;
+        const conn = this.conn;
+        const wire = this.wire;
+
+        this.swarm = null;
+        this.conn = null;
+        this.wire = null;
+
+        if (swarm && wire) {
+            arrayRemove(swarm.wires, swarm.wires.indexOf(wire));
+        }
+        if (conn) {
+            conn.on('error', () => {});
+            conn.destroy();
+        }
+        if (wire) wire.destroy();
+        if (swarm) swarm.removePeer(this.id);
+    }
 }

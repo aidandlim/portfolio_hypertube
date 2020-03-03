@@ -26,7 +26,6 @@ const parseRange = require('parse-numeric-range');
 const File = require('./file');
 const Peer = require('./peer');
 const RarityMap = require('./rarity-map');
-// const Server = require('./server');
 
 const MAX_BLOCK_LENGTH = 128 * 1024;
 const PIECE_TIMEOUT = 30000;
