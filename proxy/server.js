@@ -18,8 +18,6 @@ const STREAM_PORT = 8445;
 const API_PORT = 8446;
 const SOCKET_PORT = 8447;
 
-const TEMP_PORT = 9445;
-
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -47,7 +45,7 @@ app.use(
 app.use(
     '/api',
     createProxyMiddleware({
-        target: `https://10.10.146.166:${API_PORT}`,
+        target: `https://${API_IP}:${API_PORT}`,
         changeOrigin: true,
         secure: false
     })
@@ -57,15 +55,6 @@ app.use(
     '/socket',
     createProxyMiddleware({
         target: `https://${API_IP}:${SOCKET_PORT}`,
-        changeOrigin: true,
-        secure: false
-    })
-);
-
-app.use(
-    '/temp',
-    createProxyMiddleware({
-        target: `https://${API_IP}:${TEMP_PORT}`,
         changeOrigin: true,
         secure: false
     })
