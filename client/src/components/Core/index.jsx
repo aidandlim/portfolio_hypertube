@@ -13,6 +13,7 @@ import SignUp from '../SignUp';
 import Recovery from '../Recovery';
 import RecoveryCallback from '../RecoveryCallback';
 import User from '../User';
+import Dev from '../Dev';
 import Error from '../Error';
 
 const Component = () => {
@@ -31,6 +32,7 @@ const Component = () => {
             <Route path='/auth/recovery' exact component={Recovery} />
             <Route path='/auth/recovery/:uuid' exact component={RecoveryCallback} />
             <Route path='/user/:userName' exact component={User} />
+            <Route path='/dev/:magnet' exact component={Dev} />
             <Route component={Error} />
         </Switch>
     );
