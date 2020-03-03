@@ -4,9 +4,9 @@
 
 # HyperTube
 
-> 
+> A responsive Single Page Application(SPA) using React, Node & Java
 
-> 
+> Responsive Web Application for Streaming Video with Torrent
 
 > A web brunch project of bootcamp named <a href="https://www.42.us.org" target="_blank">`42 Silicon Valley`</a>
 

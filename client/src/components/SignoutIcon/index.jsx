@@ -31,7 +31,11 @@ const Component = () => {
     };
 
     return (
-        <div className='signoutIcon' onClick={_handleSignOut} style={{backgroundImage: `url('${SignoutIcon}')`}}></div>
+        <div
+            className='signoutIcon'
+            onClick={_handleSignOut}
+            style={{ backgroundImage: `url('${SignoutIcon}')` }}
+        ></div>
     );
 };
 
