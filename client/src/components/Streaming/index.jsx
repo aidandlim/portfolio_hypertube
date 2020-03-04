@@ -12,6 +12,7 @@ import Chat from '../Chat';
 import { getTorrentSubtitles, getHistories, postHistory } from '../../data';
 
 import FeatherIcon from 'feather-icons-react';
+import { alert } from '../../util';
 import './index.css';
 
 const Component = ({ match, history }) => {
@@ -33,6 +34,19 @@ const Component = ({ match, history }) => {
     const ui = useSelector(state => state.ui);
     const movie = useSelector(state => state.movie);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(auth.isCheck && auth.token === '') {
+            alert(
+                'message',
+                ui.lang === 'en_US'
+                    ? 'This access is invalid! Please try again.'
+                    : '올바르지 않은 접속입니다. 다시 시도해주십시오.',
+                () => window.open('/', '_self'),
+                null
+            );
+        }
+    }, [auth.token, auth.isCheck, ui.lang]);
 
     useEffect(() => {
         let isCancelled = false;

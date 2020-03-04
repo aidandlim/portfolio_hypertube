@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { auth_token, user_data, movie_genres, movie_histories, ui_lang } from '../../actions';
+import {
+    auth_token,
+    auth_isCheck,
+    user_data,
+    movie_genres,
+    movie_histories,
+    ui_lang
+} from '../../actions';
 
 import { BrowserRouter } from 'react-router-dom';
 import Wrapper from 'react-div-100vh';
@@ -26,9 +33,13 @@ const Component = () => {
             checkToken(token, res => {
                 if (!isCancelled && res.status === 200) {
                     dispatch(auth_token(token));
+                    dispatch(auth_isCheck(true));
                 }
             });
+        } else {
+            dispatch(auth_isCheck(true));
         }
+
         apiGenres(ui.lang, res => {
             dispatch(movie_genres(res));
         });

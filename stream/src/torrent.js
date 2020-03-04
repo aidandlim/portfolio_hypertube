@@ -1316,6 +1316,10 @@ class Torrent extends EventEmitter {
 			!(host === '127.0.0.1' && port === this.client.torrentPort)
 		);
 	}
+
+	_destroy() {
+		return ;
+	}
 }
 
 function getBlockPipelineLength(wire, duration) {

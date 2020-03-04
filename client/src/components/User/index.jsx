@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import {user_picture } from '../../actions';
+import { user_picture } from '../../actions';
 
 import UserMenu from '../UserMenu';
 import UserRecentWatching from '../UserRecentWatching';
@@ -38,6 +38,17 @@ const Component = ({ match }) => {
     useEffect(() => {
         let isCancelled = false;
 
+        if (auth.isCheck && auth.token === '') {
+            alert(
+                'message',
+                ui.lang === 'en_US'
+                    ? 'This access is invalid! Please try again.'
+                    : '올바르지 않은 접속입니다. 다시 시도해주십시오.',
+                () => window.open('/', '_self'),
+                null
+            );
+        }
+
         if (auth.token !== '') {
             getUserByUserName(auth.token, userName, res => {
                 if (!isCancelled) {
@@ -52,7 +63,7 @@ const Component = ({ match }) => {
         return () => {
             isCancelled = true;
         };
-    }, [dispatch, auth.token, userName, ui.lang]);
+    }, [dispatch, auth.token, auth.isCheck, userName, ui.lang]);
 
     const _handleInitChangePicture = () => {
         if (nav === 2) {
