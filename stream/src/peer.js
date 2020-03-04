@@ -1,34 +1,10 @@
 const arrayRemove = require('unordered-array-remove');
 const Wire = require('bittorrent-protocol');
 
-// const WebConn = require('./webconn');
-
 const CONNECT_TIMEOUT_TCP = 5000;
-// const CONNECT_TIMEOUT_WEBRTC = 25000;
 const HANDSHAKE_TIMEOUT = 25000;
 
-// exports.createWebRTCPeer = (conn, swarm) => {
-//     const peer = new Peer(conn.id, 'webrtc');
-//     peer.conn = conn;
-//     peer.swarm = swarm;
-
-//     if (peer.conn.connected) {
-//         peer.onConnect();
-//     } else {
-//         peer.conn.once('connect', () => {
-//             peer.onConnect();
-//         });
-//         peer.conn.once('error', err => {
-//             peer.destroy(err);
-//         });
-//         peer.startConnectTimeout();
-//     }
-
-//     return peer;
-// };
-
 exports.createTCPIncomingPeer = conn => {
-	// console.log('createTCPIncomingPeer');
 	const addr = `${conn.remoteAddress}:${conn.remotePort}`;
 	const peer = new Peer(addr, 'tcpIncoming');
 	peer.conn = conn;
@@ -40,22 +16,12 @@ exports.createTCPIncomingPeer = conn => {
 };
 
 exports.createTCPOutgoingPeer = (addr, swarm) => {
-	// console.log('createTCPOutgoingPeer');
 	const peer = new Peer(addr, 'tcpOutgoing');
 	peer.addr = addr;
 	peer.swarm = swarm;
 
 	return peer;
 };
-
-// exports.createWebSeedPeer = (url, swarm) => {
-//     const peer = new Peer(url, 'webSeed');
-//     peer.swarm = swarm;
-//     peer.conn = new WebConn(url, swarm);
-//     peer.onConnect();
-
-//     return peer;
-// };
 
 class Peer {
 	constructor(id, type) {
@@ -164,13 +130,9 @@ class Peer {
 
 	startConnectTimeout() {
 		clearTimeout(this.connectTimeout);
-		this.connectTimeout = setTimeout(
-			() => {
-				this.destroy(new Error('connect timeout'));
-			},
-			// this.type === 'webrtc' ? CONNECT_TIMEOUT_WEBRTC : CONNECT_TIMEOUT_TCP
-			CONNECT_TIMEOUT_TCP
-		);
+		this.connectTimeout = setTimeout(() => {
+			this.destroy(new Error('connect timeout'));
+		}, CONNECT_TIMEOUT_TCP);
 		if (this.connectTimeout.unref) this.connectTimeout.unref();
 	}
 

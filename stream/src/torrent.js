@@ -1,23 +1,18 @@
 const addrToIPPort = require('addr-to-ip-port');
 const BitField = require('bitfield');
-// const ChunkStoreWriteStream = require('chunk-store-stream/write');
 const Discovery = require('torrent-discovery');
 const EventEmitter = require('events').EventEmitter;
 const fs = require('fs');
 const FSChunkStore = require('fs-chunk-store');
-// const get = require('simple-get');
 const ImmediateChunkStore = require('immediate-chunk-store');
-// const MultiStream = require('multistream');
 const net = require('net');
 const parallel = require('run-parallel');
 const parallelLimit = require('run-parallel-limit');
 const parseTorrent = require('parse-torrent');
 const path = require('path');
 const Piece = require('torrent-piece');
-// const pump = require('pump');
 const randomIterate = require('random-iterate');
 const sha1 = require('simple-sha1');
-// const speedometer = require('speedometer');
 const uniq = require('uniq');
 const utMetadata = require('ut_metadata');
 const utPex = require('ut_pex');
@@ -25,7 +20,6 @@ const parseRange = require('parse-numeric-range');
 
 const File = require('./file');
 const Peer = require('./peer');
-// const RarityMap = require('./rarity-map');
 
 const MAX_BLOCK_LENGTH = 128 * 1024;
 const PIECE_TIMEOUT = 30000;
@@ -38,36 +32,16 @@ const RECHOKE_OPTIMISTIC_DURATION = 2;
 const FILESYSTEM_CONCURRENCY = process.browser ? Infinity : 2;
 const RECONNECT_WAIT = [1000, 5000, 15000];
 
-// const USER_AGENT = 'HyperTube';
-
 class Torrent extends EventEmitter {
-	constructor(torrentId, client, opts) {
+	constructor(torrentId, client) {
 		super();
 
 		this.client = client;
-
-		// this.announce = opts.announce;
-		// this.urlList = opts.urlList;
-
 		this.path = path.join(__dirname, '..', 'public', 'video');
-
-		// this.skipVerify = !!opts.skipVerify;
-
-		// this._store = opts.store || FSChunkStore;
 		this._store = FSChunkStore;
-
-		// this._getAnnounceOpts = opts.getAnnounceOpts;
-
-		// this.strategy = opts.strategy || 'sequential';
 		this.strategy = 'sequential';
-
-		// this.maxWebConns = opts.maxWebConns || 4;
 		this.maxWebConns = 4;
-
-		// this._rechokeNumSlots =
-		//     opts.uploads === false || opts.uploads === 0 ? 0 : +opts.uploads || 10;
 		this._rechokeNumSlots = 10;
-
 		this._rechokeOptimisticWire = null;
 		this._rechokeOptimisticTime = 0;
 		this._rechokeIntervalId = null;
@@ -92,24 +66,11 @@ class Torrent extends EventEmitter {
 		this._peers = {};
 		this._peersLength = 0;
 
-		// this.received = 0;
-		// this.uploaded = 0;
-		// this._downloadSpeed = speedometer();
-		// this._uploadSpeed = speedometer();
-
 		this._servers = [];
 		this._xsRequests = [];
 
-		// this._fileModtimes = opts.fileModtimes;
-
 		if (torrentId !== null) this._onTorrentId(torrentId);
 	}
-
-	// get timeRemaining() {
-	//     if (this.done) return 0;
-	//     if (this.downloadSpeed === 0) return Infinity;
-	//     return ((this.length - this.downloaded) / this.downloadSpeed) * 1000;
-	// }
 
 	get downloaded() {
 		if (!this.bitfield) return 0;
@@ -126,34 +87,6 @@ class Torrent extends EventEmitter {
 		return downloaded;
 	}
 
-	// get downloadSpeed() {
-	//     return this._downloadSpeed();
-	// }
-
-	// get uploadSpeed() {
-	//     return this._uploadSpeed();
-	// }
-
-	// get progress() {
-	//     return this.length ? this.downloaded / this.length : 0;
-	// }
-
-	// get ratio() {
-	//     return this.uploaded / (this.received || 1);
-	// }
-
-	// get numPeers() {
-	//     return this.wires.length;
-	// }
-
-	// get torrentFileBlobURL() {
-	//     if (typeof window === 'undefined') throw new Error('browser-only property');
-	//     if (!this.torrentFile) return null;
-	//     return URL.createObjectURL(
-	//         new Blob([this.torrentFile], { type: 'application/x-bittorrent' })
-	//     );
-	// }
-
 	get _numQueued() {
 		return this._queue.length + (this._peersLength - this._numConns);
 	}
@@ -165,10 +98,6 @@ class Torrent extends EventEmitter {
 		}
 		return numConns;
 	}
-
-	// get swarm() {
-	//     return this;
-	// }
 
 	_onTorrentId(torrentId) {
 		if (this.destroyed) return;
@@ -259,7 +188,6 @@ class Torrent extends EventEmitter {
 		if (this.info) {
 			this._onMetadata(this);
 		} else {
-			// if (this.xs) this._getMetadataFromServer();
 			this._startDiscovery();
 		}
 	}
@@ -300,105 +228,11 @@ class Torrent extends EventEmitter {
 			userAgent: 'HyperTube'
 		});
 
-		// this.discovery.on('error', err => {
-		// 	this._destroy(err);
-		// });
-
 		this.discovery.on('peer', peer => {
 			if (typeof peer === 'string' && this.done) return;
 			this.addPeer(peer);
 		});
-
-		// this.discovery.on('trackerAnnounce', () => {
-		// 	this.emit('trackerAnnounce');
-		// 	if (this.numPeers === 0) this.emit('noPeers', 'tracker');
-		// });
-
-		// this.discovery.on('dhtAnnounce', () => {
-		// 	this.emit('dhtAnnounce');
-		// 	if (this.numPeers === 0) this.emit('noPeers', 'dht');
-		// });
-
-		// this.discovery.on('warning', err => {
-		// 	this.emit('warning', err);
-		// });
 	}
-
-	// _getMetadataFromServer() {
-	//     const self = this;
-
-	//     const urls = Array.isArray(this.xs) ? this.xs : [this.xs];
-
-	//     const tasks = urls.map(url => cb => {
-	//         getMetadataFromURL(url, cb);
-	//     });
-	//     parallel(tasks);
-
-	//     function getMetadataFromURL(url, cb) {
-	//         if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
-	//             self.emit('warning', new Error(`skipping non-http xs param: ${url}`));
-	//             return cb(null);
-	//         }
-
-	//         const opts = {
-	//             url,
-	//             method: 'GET',
-	//             headers: {
-	//                 'user-agent': USER_AGENT
-	//             }
-	//         };
-	//         let req;
-	//         try {
-	//             req = get.concat(opts, onResponse);
-	//         } catch (err) {
-	//             self.emit('warning', new Error(`skipping invalid url xs param: ${url}`));
-	//             return cb(null);
-	//         }
-
-	//         self._xsRequests.push(req);
-
-	//         function onResponse(err, res, torrent) {
-	//             if (self.destroyed) return cb(null);
-	//             if (self.metadata) return cb(null);
-
-	//             if (err) {
-	//                 self.emit('warning', new Error(`http error from xs param: ${url}`));
-	//                 return cb(null);
-	//             }
-	//             if (res.statusCode !== 200) {
-	//                 self.emit(
-	//                     'warning',
-	//                     new Error(`non-200 status code ${res.statusCode} from xs param: ${url}`)
-	//                 );
-	//                 return cb(null);
-	//             }
-
-	//             let parsedTorrent;
-	//             try {
-	//                 parsedTorrent = parseTorrent(torrent);
-	//             } catch (err) {}
-
-	//             if (!parsedTorrent) {
-	//                 self.emit(
-	//                     'warning',
-	//                     new Error(`got invalid torrent file from xs param: ${url}`)
-	//                 );
-	//                 return cb(null);
-	//             }
-
-	//             if (parsedTorrent.infoHash !== self.infoHash) {
-	//                 self.emit(
-	//                     'warning',
-	//                     new Error(`got torrent file with incorrect info hash from xs param: ${url}`)
-	//                 );
-	//                 return cb(null);
-	//             }
-
-	//             self._onMetadata(parsedTorrent);
-	//             cb(null);
-	//         }
-	//     }
-	// }
 
 	_onMetadata(metadata) {
 		if (this.metadata || this.destroyed) return;
@@ -421,14 +255,6 @@ class Torrent extends EventEmitter {
 
 		this._processParsedTorrent(parsedTorrent);
 		this.metadata = this.torrentFile;
-
-		if (this.client.enableWebSeeds) {
-			this.urlList.forEach(url => {
-				// this.addWebSeed(url);
-			});
-		}
-
-		// this._rarityMap = new RarityMap(this);
 
 		this.store = new ImmediateChunkStore(
 			new this._store(this.pieceLength, {
@@ -481,41 +307,6 @@ class Torrent extends EventEmitter {
 
 		this.emit('metadata');
 
-		// if (this.destroyed) return;
-
-		// if (this.skipVerify) {
-		// 	this._markAllVerified();
-		// 	this._onStore();
-		// } else {
-		// 	const onPiecesVerified = err => {
-		// 		if (err) return this._destroy(err);
-		// 		this._onStore();
-		// 	};
-
-		// 	if (this._fileModtimes && this._store === FSChunkStore) {
-		// 		this.getFileModtimes((err, fileModtimes) => {
-		// 			if (err) return this._destroy(err);
-
-		// 			const unchanged = this.files
-		// 				.map(
-		// 					(_, index) =>
-		// 						fileModtimes[index] ===
-		// 						this._fileModtimes[index]
-		// 				)
-		// 				.every(x => x);
-
-		// 			if (unchanged) {
-		// 				this._markAllVerified();
-		// 				this._onStore();
-		// 			} else {
-		// 				this._verifyPieces(onPiecesVerified);
-		// 			}
-		// 		});
-		// 	} else {
-		// 		this._verifyPieces(onPiecesVerified);
-		// 	}
-		// }
-
 		const onPiecesVerified = err => {
 			if (err) return this._destroy(err);
 			this._onStore();
@@ -564,18 +355,9 @@ class Torrent extends EventEmitter {
 	_verifyPieces(cb) {
 		parallelLimit(
 			this.pieces.map((piece, index) => cb => {
-				// if (this.destroyed)
-				// 	return cb(new Error('torrent is destroyed'));
-
 				this.store.get(index, (err, buf) => {
-					// if (this.destroyed)
-					// 	return cb(new Error('torrent is destroyed'));
-
 					if (err) return process.nextTick(cb, null);
 					sha1(buf, hash => {
-						// if (this.destroyed)
-						// 	return cb(new Error('torrent is destroyed'));
-
 						if (hash === this._hashes[index]) {
 							if (!this.pieces[index]) return cb(null);
 							this._markVerified(index);
@@ -588,21 +370,6 @@ class Torrent extends EventEmitter {
 			cb
 		);
 	}
-
-	// rescanFiles(cb) {
-	//     if (this.destroyed) throw new Error('torrent is destroyed');
-	//     if (!cb) cb = noop;
-
-	//     this._verifyPieces(err => {
-	//         if (err) {
-	//             this._destroy(err);
-	//             return cb(err);
-	//         }
-
-	//         this._checkDone();
-	//         cb(null);
-	//     });
-	// }
 
 	_markAllVerified() {
 		for (let index = 0; index < this.pieces.length; index++) {
@@ -625,12 +392,7 @@ class Torrent extends EventEmitter {
 		this._updateSelections();
 	}
 
-	// destroy(cb) {
-	//     this._destroy(null, cb);
-	// }
-
 	destroy(err, cb) {
-		// _destroy(err, cb) {
 		if (this.destroyed) return;
 		this.destroyed = true;
 
@@ -641,10 +403,6 @@ class Torrent extends EventEmitter {
 		this._xsRequests.forEach(req => {
 			req.abort();
 		});
-
-		// if (this._rarityMap) {
-		// 	this._rarityMap.destroy();
-		// }
 
 		for (const id in this._peers) {
 			this.removePeer(id);
@@ -768,36 +526,6 @@ class Torrent extends EventEmitter {
 		return newPeer;
 	}
 
-	// addWebSeed(url) {
-	//     if (this.destroyed) throw new Error('torrent is destroyed');
-
-	//     if (!/^https?:\/\/.+/.test(url)) {
-	//         this.emit('warning', new Error(`ignoring invalid web seed: ${url}`));
-	//         this.emit('invalidPeer', url);
-	//         return;
-	//     }
-
-	//     if (this._peers[url]) {
-	//         this.emit('warning', new Error(`ignoring duplicate web seed: ${url}`));
-	//         this.emit('invalidPeer', url);
-	//         return;
-	//     }
-
-	//     const newPeer = Peer.createWebSeedPeer(url, this);
-	//     this._peers[newPeer.id] = newPeer;
-	//     this._peersLength += 1;
-
-	//     this.emit('peer', url);
-	// }
-
-	// _addIncomingPeer(peer) {
-	//     if (this.destroyed) return peer.destroy(new Error('torrent is destroyed'));
-	//     if (this.paused) return peer.destroy(new Error('torrent is paused'));
-
-	//     this._peers[peer.id] = peer;
-	//     this._peersLength += 1;
-	// }
-
 	removePeer(peer) {
 		const id = (peer && peer.id) || peer;
 		peer = this._peers[id];
@@ -813,8 +541,6 @@ class Torrent extends EventEmitter {
 	}
 
 	select(start, end, priority, notify) {
-		// if (this.destroyed) throw new Error('torrent is destroyed');
-
 		if (start < 0 || end < start || this.pieces.length <= end) {
 			throw new Error(`invalid selection ${start} : ${end}`);
 		}
@@ -825,7 +551,7 @@ class Torrent extends EventEmitter {
 			to: end,
 			offset: 0,
 			priority,
-			notify: notify || noop
+			notify: notify || (() => {})
 		});
 
 		this._selections.sort((a, b) => b.priority - a.priority);
@@ -834,8 +560,6 @@ class Torrent extends EventEmitter {
 	}
 
 	deselect(start, end, priority) {
-		// if (this.destroyed) throw new Error('torrent is destroyed');
-
 		priority = Number(priority) || 0;
 
 		for (let i = 0; i < this._selections.length; ++i) {
@@ -850,8 +574,6 @@ class Torrent extends EventEmitter {
 	}
 
 	critical(start, end) {
-		// if (this.destroyed) throw new Error('torrent is destroyed');
-
 		for (let i = start; i <= end; ++i) {
 			this._critical[i] = true;
 		}
@@ -861,22 +583,10 @@ class Torrent extends EventEmitter {
 
 	_onWire(wire, addr) {
 		wire.on('download', downloaded => {
-			// if (this.destroyed) return;
 			this.received += downloaded;
-			// this._downloadSpeed(downloaded);
-			// this.client._downloadSpeed(downloaded);
 			this.emit('download', downloaded);
 			this.client.emit('download', downloaded);
 		});
-
-		// wire.on('upload', uploaded => {
-		// 	// if (this.destroyed) return;
-		// 	this.uploaded += uploaded;
-		// 	// this._uploadSpeed(uploaded);
-		// 	// this.client._uploadSpeed(uploaded);
-		// 	this.emit('upload', uploaded);
-		// 	this.client.emit('upload', uploaded);
-		// });
 
 		this.wires.push(wire);
 
@@ -1545,46 +1255,6 @@ class Torrent extends EventEmitter {
 		return done;
 	}
 
-	// load(streams, cb) {
-	//     if (this.destroyed) throw new Error('torrent is destroyed');
-	//     if (!this.ready)
-	//         return this.once('ready', () => {
-	//             this.load(streams, cb);
-	//         });
-
-	//     if (!Array.isArray(streams)) streams = [streams];
-	//     if (!cb) cb = noop;
-
-	//     const readable = new MultiStream(streams);
-	//     const writable = new ChunkStoreWriteStream(this.store, this.pieceLength);
-
-	//     pump(readable, writable, err => {
-	//         if (err) return cb(err);
-	//         this._markAllVerified();
-	//         this._checkDone();
-	//         cb(null);
-	//     });
-	// }
-
-	// createServer(requestListener) {
-	//     if (typeof Server !== 'function') throw new Error('node.js-only method');
-	//     if (this.destroyed) throw new Error('torrent is destroyed');
-	//     const server = new Server(this, requestListener);
-	//     this._servers.push(server);
-	//     return server;
-	// }
-
-	// pause() {
-	//     if (this.destroyed) return;
-	//     this.paused = true;
-	// }
-
-	// resume() {
-	//     if (this.destroyed) return;
-	//     this.paused = false;
-	//     this._drain();
-	// }
-
 	_drain() {
 		if (
 			typeof net.connect !== 'function' ||
@@ -1657,11 +1327,5 @@ function getBlockPipelineLength(wire, duration) {
 function getPiecePipelineLength(wire, duration, pieceLength) {
 	return 1 + Math.ceil((duration * wire.downloadSpeed()) / pieceLength);
 }
-
-// function randomInt(high) {
-// 	return (Math.random() * high) | 0;
-// }
-
-function noop() {}
 
 module.exports = Torrent;
