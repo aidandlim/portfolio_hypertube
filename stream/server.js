@@ -11,7 +11,7 @@ const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const server = https.createServer(credentials, app);
 
-const Client = require('./src');
+const Client = require('./src/client');
 
 // const API_IP = 'localhost';
 // const TORRENT_PORT = 8444;
@@ -167,8 +167,7 @@ app.get('/stream/normal/:magnet/:filename', (req, res, next) => {
     });
 });
 
-app.get('/stream/mkv/:magnet/:dirname/:filename', (req, res, next) => {
-    const magnet = req.params.magnet;
+app.get('/stream/mkv/:dirname/:filename', (req, res, next) => {
     const dirname = req.params.dirname;
     const filename = req.params.filename;
 

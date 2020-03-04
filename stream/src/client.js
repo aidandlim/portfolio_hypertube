@@ -73,13 +73,15 @@ class Client extends EventEmitter {
 		//     }
 		// }
 
-		if (typeof TCPPool === 'function') {
-			this._tcpPool = new TCPPool(this);
-		} else {
-			process.nextTick(() => {
-				this._onListening();
-			});
-		}
+		// if (typeof TCPPool === 'function') {
+		// 	this._tcpPool = new TCPPool(this);
+		// } else {
+		// 	process.nextTick(() => {
+		// 		this._onListening();
+		// 	});
+		// }
+
+		this._tcpPool = new TCPPool(this);
 
 		// this._downloadSpeed = speedometer();
 		// this._uploadSpeed = speedometer();
@@ -201,7 +203,7 @@ class Client extends EventEmitter {
 	// 	return this.add(torrentId, opts, ontorrent);
 	// }
 
-    // add(torrentId, opts = {}, ontorrent) {
+	// add(torrentId, opts = {}, ontorrent) {
 	add(torrentId, ontorrent) {
 		if (this.destroyed) throw new Error('client is destroyed');
 
@@ -335,6 +337,13 @@ class Client extends EventEmitter {
 	// 	this.torrents.splice(this.torrents.indexOf(torrent), 1);
 	// 	torrent.destroy(cb);
 	// }
+
+	remove(torrentId, cb) {
+		const torrent = this.get(torrentId);
+		if (!torrent) return;
+		this.torrents.splice(this.torrents.indexOf(torrent), 1);
+		torrent.destroy(cb);
+	}
 
 	// address() {
 	// 	if (!this.listening) return null;

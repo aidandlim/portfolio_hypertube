@@ -146,7 +146,7 @@ const Component = ({ match, history }) => {
                         <source
                             src={
                                 fileName.match('.mkv')
-                                    ? `/stream/mkv/${magnet}/${dirName}/${fileName.replace(
+                                    ? `/stream/mkv/${dirName}/${fileName.replace(
                                           'mkv',
                                           'mp4'
                                       )}`

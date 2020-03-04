@@ -1,100 +1,98 @@
-const arrayRemove = require('unordered-array-remove')
-const net = require('net')
+// const arrayRemove = require('unordered-array-remove');
+const net = require('net');
 
-const Peer = require('./peer')
+// const Peer = require('./peer');
 
 class TCPPool {
-  constructor (client) {
+	constructor(client) {
+		this.server = net.createServer();
+		this._client = client;
 
-    this.server = net.createServer()
-    this._client = client
+		this._pendingConns = [];
 
-    this._pendingConns = []
+		// this._onConnectionBound = conn => {
+		//   this._onConnection(conn)
+		// }
 
-    this._onConnectionBound = conn => {
-      this._onConnection(conn)
-    }
+		this._onListening = () => {
+			this._client._onListening();
+		};
 
-    this._onListening = () => {
-      this._client._onListening()
-    }
+		this._onError = err => {
+			this._client._destroy(err);
+		};
 
-    this._onError = err => {
-      this._client._destroy(err)
-    }
+		// this.server.on('connection', this._onConnectionBound)
+		this.server.on('listening', this._onListening);
+		this.server.on('error', this._onError);
 
-    this.server.on('connection', this._onConnectionBound)
-    this.server.on('listening', this._onListening)
-    this.server.on('error', this._onError)
+		this.server.listen(client.torrentPort);
+	}
 
-    this.server.listen(client.torrentPort)
-  }
+	destroy(cb) {
+		// this.server.removeListener('connection', this._onConnectionBound)
+		this.server.removeListener('listening', this._onListening);
+		this.server.removeListener('error', this._onError);
 
-  destroy (cb) {
+		this._pendingConns.forEach(conn => {
+			conn.on('error', noop);
+			conn.destroy();
+		});
 
-    this.server.removeListener('connection', this._onConnectionBound)
-    this.server.removeListener('listening', this._onListening)
-    this.server.removeListener('error', this._onError)
+		try {
+			this.server.close(cb);
+		} catch (err) {
+			if (cb) process.nextTick(cb);
+		}
 
-    this._pendingConns.forEach(conn => {
-      conn.on('error', noop)
-      conn.destroy()
-    })
+		this.server = null;
+		this._client = null;
+		this._pendingConns = null;
+	}
 
-    try {
-      this.server.close(cb)
-    } catch (err) {
-      if (cb) process.nextTick(cb)
-    }
+	// _onConnection (conn) {
+	//   const self = this
 
-    this.server = null
-    this._client = null
-    this._pendingConns = null
-  }
+	//   if (!conn.remoteAddress) {
+	//     conn.on('error', noop)
+	//     conn.destroy()
+	//     return
+	//   }
 
-  _onConnection (conn) {
-    const self = this
+	//   self._pendingConns.push(conn)
+	//   conn.once('close', cleanupPending)
 
-    if (!conn.remoteAddress) {
-      conn.on('error', noop)
-      conn.destroy()
-      return
-    }
+	//   const peer = Peer.createTCPIncomingPeer(conn)
 
-    self._pendingConns.push(conn)
-    conn.once('close', cleanupPending)
+	//   const wire = peer.wire
+	//   wire.once('handshake', onHandshake)
 
-    const peer = Peer.createTCPIncomingPeer(conn)
+	//   function onHandshake (infoHash, peerId) {
+	//     cleanupPending()
 
-    const wire = peer.wire
-    wire.once('handshake', onHandshake)
+	//     const torrent = self._client.get(infoHash)
+	//     if (torrent) {
+	//       peer.swarm = torrent
+	//       torrent._addIncomingPeer(peer)
+	//       peer.onHandshake(infoHash, peerId)
+	//     } else {
+	//       const err = new Error(
+	//         `Unexpected info hash ${infoHash} from incoming peer ${peer.id}`
+	//       )
+	//       peer.destroy(err)
+	//     }
+	//   }
 
-    function onHandshake (infoHash, peerId) {
-      cleanupPending()
-
-      const torrent = self._client.get(infoHash)
-      if (torrent) {
-        peer.swarm = torrent
-        torrent._addIncomingPeer(peer)
-        peer.onHandshake(infoHash, peerId)
-      } else {
-        const err = new Error(
-          `Unexpected info hash ${infoHash} from incoming peer ${peer.id}`
-        )
-        peer.destroy(err)
-      }
-    }
-
-    function cleanupPending () {
-      conn.removeListener('close', cleanupPending)
-      wire.removeListener('handshake', onHandshake)
-      if (self._pendingConns) {
-        arrayRemove(self._pendingConns, self._pendingConns.indexOf(conn))
-      }
-    }
-  }
+	//   function cleanupPending () {
+	//     conn.removeListener('close', cleanupPending)
+	//     wire.removeListener('handshake', onHandshake)
+	//     if (self._pendingConns) {
+	//       arrayRemove(self._pendingConns, self._pendingConns.indexOf(conn))
+	//     }
+	//   }
+	// }
 }
 
-function noop () {}
+function noop() {}
 
-module.exports = TCPPool
+module.exports = TCPPool;

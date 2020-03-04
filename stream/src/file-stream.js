@@ -48,7 +48,7 @@ class FileStream extends stream.Readable {
             this._notifying = false;
             if (this.destroyed) return;
 
-            if (err) return this._destroy(err);
+            if (err) return this._destroy(err, () => {});
 
             if (this._offset) {
                 buffer = buffer.slice(this._offset);
