@@ -7,8 +7,10 @@ class FileStream extends stream.Readable {
         this.destroyed = false;
         this._torrent = file._torrent;
 
-        const start = (opts && opts.start) || 0;
-        const end = opts && opts.end && opts.end < file.length ? opts.end : file.length - 1;
+        // const start = (opts && opts.start) || 0;
+        // const end = opts && opts.end && opts.end < file.length ? opts.end : file.length - 1;
+        const start = opts.start;
+        const end = opts.end;
 
         const pieceLength = file._torrent.pieceLength;
 
@@ -66,22 +68,22 @@ class FileStream extends stream.Readable {
         this._piece += 1;
     }
 
-    destroy(onclose) {
-        this._destroy(null, onclose);
-    }
+    // destroy(onclose) {
+    //     this._destroy(null, onclose);
+    // }
 
-    _destroy(err, onclose) {
-        if (this.destroyed) return;
-        this.destroyed = true;
+    // _destroy(err, onclose) {
+    //     if (this.destroyed) return;
+    //     this.destroyed = true;
 
-        if (!this._torrent.destroyed) {
-            this._torrent.deselect(this._startPiece, this._endPiece, true);
-        }
+    //     if (!this._torrent.destroyed) {
+    //         this._torrent.deselect(this._startPiece, this._endPiece, true);
+    //     }
 
-        if (err) this.emit('error', err);
-        this.emit('close');
-        if (onclose) onclose();
-    }
+    //     if (err) this.emit('error', err);
+    //     this.emit('close');
+    //     if (onclose) onclose();
+    // }
 }
 
 module.exports = FileStream;

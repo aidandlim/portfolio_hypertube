@@ -11,7 +11,7 @@ const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const server = https.createServer(credentials, app);
 
-const TorrentService = require('./src');
+const Client = require('./src');
 
 // const API_IP = 'localhost';
 // const TORRENT_PORT = 8444;
@@ -25,7 +25,7 @@ app.get('/stream', (req, res) => {
     res.json('Stream server is running');
 });
 
-const client = new TorrentService();
+const client = new Client();
 
 client.on('error', err => {
     console.log(err.message);
@@ -60,7 +60,7 @@ app.get('/stream/add/:magnet', (req, res) => {
 
         res.json(max);
     } else {
-        client.add(magnet, { path: path.join(__dirname, 'public', 'video') }, torrent => {
+        client.add(magnet, torrent => {
             let max = {
                 filename: '',
                 dirname: '',

@@ -1,11 +1,11 @@
 const { EventEmitter } = require('events');
 const { PassThrough } = require('readable-stream');
 const eos = require('end-of-stream');
-const path = require('path');
-const render = require('render-media');
-const streamToBlob = require('stream-to-blob');
-const streamToBlobURL = require('stream-to-blob-url');
-const streamToBuffer = require('stream-with-known-length-to-buffer');
+// const path = require('path');
+// const render = require('render-media');
+// const streamToBlob = require('stream-to-blob');
+// const streamToBlobURL = require('stream-to-blob-url');
+// const streamToBuffer = require('stream-with-known-length-to-buffer');
 const FileStream = require('./file-stream');
 
 class File extends EventEmitter {
@@ -34,43 +34,43 @@ class File extends EventEmitter {
         }
     }
 
-    get downloaded() {
-        if (!this._torrent.bitfield) return 0;
+    // get downloaded() {
+    //     if (!this._torrent.bitfield) return 0;
 
-        const { pieces, bitfield, pieceLength } = this._torrent;
-        const { _startPiece: start, _endPiece: end } = this;
-        const piece = pieces[start];
+    //     const { pieces, bitfield, pieceLength } = this._torrent;
+    //     const { _startPiece: start, _endPiece: end } = this;
+    //     const piece = pieces[start];
 
-        const irrelevantFirstPieceBytes = this.offset % pieceLength;
-        let downloaded = bitfield.get(start)
-            ? pieceLength - irrelevantFirstPieceBytes
-            : Math.max(pieceLength - irrelevantFirstPieceBytes - piece.missing, 0);
+    //     const irrelevantFirstPieceBytes = this.offset % pieceLength;
+    //     let downloaded = bitfield.get(start)
+    //         ? pieceLength - irrelevantFirstPieceBytes
+    //         : Math.max(pieceLength - irrelevantFirstPieceBytes - piece.missing, 0);
 
-        for (let index = start + 1; index <= end; ++index) {
-            if (bitfield.get(index)) {
-                downloaded += pieceLength;
-            } else {
-                const piece = pieces[index];
-                downloaded += pieceLength - piece.missing;
-            }
-        }
+    //     for (let index = start + 1; index <= end; ++index) {
+    //         if (bitfield.get(index)) {
+    //             downloaded += pieceLength;
+    //         } else {
+    //             const piece = pieces[index];
+    //             downloaded += pieceLength - piece.missing;
+    //         }
+    //     }
 
-        return Math.min(downloaded, this.length);
-    }
+    //     return Math.min(downloaded, this.length);
+    // }
 
-    get progress() {
-        return this.length ? this.downloaded / this.length : 0;
-    }
+    // get progress() {
+    //     return this.length ? this.downloaded / this.length : 0;
+    // }
 
-    select(priority) {
-        if (this.length === 0) return;
-        this._torrent.select(this._startPiece, this._endPiece, priority);
-    }
+    // select(priority) {
+    //     if (this.length === 0) return;
+    //     this._torrent.select(this._startPiece, this._endPiece, priority);
+    // }
 
-    deselect() {
-        if (this.length === 0) return;
-        this._torrent.deselect(this._startPiece, this._endPiece, false);
-    }
+    // deselect() {
+    //     if (this.length === 0) return;
+    //     this._torrent.deselect(this._startPiece, this._endPiece, false);
+    // }
 
     createReadStream(opts) {
         if (this.length === 0) {
@@ -94,44 +94,44 @@ class File extends EventEmitter {
         return fileStream;
     }
 
-    getBuffer(cb) {
-        streamToBuffer(this.createReadStream(), this.length, cb);
-    }
+    // getBuffer(cb) {
+    //     streamToBuffer(this.createReadStream(), this.length, cb);
+    // }
 
-    getBlob(cb) {
-        if (typeof window === 'undefined') throw new Error('browser-only method');
-        streamToBlob(this.createReadStream(), this._getMimeType()).then(
-            blob => cb(null, blob),
-            err => cb(err)
-        );
-    }
+    // getBlob(cb) {
+    //     if (typeof window === 'undefined') throw new Error('browser-only method');
+    //     streamToBlob(this.createReadStream(), this._getMimeType()).then(
+    //         blob => cb(null, blob),
+    //         err => cb(err)
+    //     );
+    // }
 
-    getBlobURL(cb) {
-        if (typeof window === 'undefined') throw new Error('browser-only method');
-        streamToBlobURL(this.createReadStream(), this._getMimeType()).then(
-            blobUrl => cb(null, blobUrl),
-            err => cb(err)
-        );
-    }
+    // getBlobURL(cb) {
+    //     if (typeof window === 'undefined') throw new Error('browser-only method');
+    //     streamToBlobURL(this.createReadStream(), this._getMimeType()).then(
+    //         blobUrl => cb(null, blobUrl),
+    //         err => cb(err)
+    //     );
+    // }
 
-    appendTo(elem, opts, cb) {
-        if (typeof window === 'undefined') throw new Error('browser-only method');
-        render.append(this, elem, opts, cb);
-    }
+    // appendTo(elem, opts, cb) {
+    //     if (typeof window === 'undefined') throw new Error('browser-only method');
+    //     render.append(this, elem, opts, cb);
+    // }
 
-    renderTo(elem, opts, cb) {
-        if (typeof window === 'undefined') throw new Error('browser-only method');
-        render.render(this, elem, opts, cb);
-    }
+    // renderTo(elem, opts, cb) {
+    //     if (typeof window === 'undefined') throw new Error('browser-only method');
+    //     render.render(this, elem, opts, cb);
+    // }
 
-    _getMimeType() {
-        return render.mime[path.extname(this.name).toLowerCase()];
-    }
+    // _getMimeType() {
+    //     return render.mime[path.extname(this.name).toLowerCase()];
+    // }
 
-    _destroy() {
-        this._destroyed = true;
-        this._torrent = null;
-    }
+    // _destroy() {
+    //     this._destroyed = true;
+    //     this._torrent = null;
+    // }
 }
 
 module.exports = File;

@@ -1,7 +1,7 @@
 const arrayRemove = require('unordered-array-remove');
 const Wire = require('bittorrent-protocol');
 
-const WebConn = require('./webconn');
+// const WebConn = require('./webconn');
 
 const CONNECT_TIMEOUT_TCP = 5000;
 const CONNECT_TIMEOUT_WEBRTC = 25000;
@@ -46,14 +46,14 @@ exports.createTCPOutgoingPeer = (addr, swarm) => {
     return peer;
 };
 
-exports.createWebSeedPeer = (url, swarm) => {
-    const peer = new Peer(url, 'webSeed');
-    peer.swarm = swarm;
-    peer.conn = new WebConn(url, swarm);
-    peer.onConnect();
+// exports.createWebSeedPeer = (url, swarm) => {
+//     const peer = new Peer(url, 'webSeed');
+//     peer.swarm = swarm;
+//     peer.conn = new WebConn(url, swarm);
+//     peer.onConnect();
 
-    return peer;
-};
+//     return peer;
+// };
 
 class Peer {
     constructor(id, type) {
