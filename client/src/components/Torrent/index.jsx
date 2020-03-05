@@ -19,7 +19,7 @@ const Component = ({ torrent }) => {
                 ui.lang === 'en_US'
                     ? 'This feature requires SignIn first.'
                     : '로그인이 필요한 서비스입니다.',
-                null,
+                () => window.open('/auth/signin', '_self'),
                 null
             );
         }

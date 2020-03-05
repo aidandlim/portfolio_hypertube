@@ -42,9 +42,9 @@ const Component = ({ match }) => {
             alert(
                 'message',
                 ui.lang === 'en_US'
-                    ? 'This access is invalid! Please try again.'
-                    : '올바르지 않은 접속입니다. 다시 시도해주십시오.',
-                () => window.open('/', '_self'),
+                    ? 'This feature requires SignIn first.'
+                    : '로그인이 필요한 서비스입니다.',
+                () => window.open('/auth/signin', '_self'),
                 null
             );
         }
