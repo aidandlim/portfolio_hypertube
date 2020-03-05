@@ -22,7 +22,7 @@ const Component = () => {
 
     const _handle42Signin = () => {
         window.open(
-            `https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=https://localhost:3000/auth/signin/42&response_type=code`,
+            `https://api.intra.42.fr/oauth/authorize?client_id=${SV_ID}&scope=public&redirect_uri=${APP_REDIRECT_URL}/42&response_type=code`,
             '_self'
         );
     };
