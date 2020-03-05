@@ -36,7 +36,7 @@ const Component = ({ match, history }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(auth.isCheck && auth.token === '') {
+        if (auth.isCheck && auth.token === '') {
             alert(
                 'message',
                 ui.lang === 'en_US'
@@ -80,8 +80,19 @@ const Component = ({ match, history }) => {
 
         axios.get(`/stream/add/${magnet}`).then(res => {
             if (!isCancelled) {
-                setFileName(res.data.filename);
-                setDirName(res.data.dirname);
+                if (res.status === 200) {
+                    setFileName(res.data.filename);
+                    setDirName(res.data.dirname);
+                } else {
+                    alert(
+                        'message',
+                        ui.lang === 'en_US'
+                            ? 'Something went wrong :('
+                            : '알 수 없는 오류가 발생했습니다 :(',
+                        () => history.goBack(),
+                        null
+                    );
+                }
             }
         });
 
@@ -119,7 +130,7 @@ const Component = ({ match, history }) => {
                 });
             }
         };
-    }, [dispatch, auth.token, magnet, tmdbId, user.userName, fileName]);
+    }, [dispatch, auth.token, magnet, tmdbId, user.userName, fileName, ui.lang, history]);
 
     const _handleBack = () => {
         history.goBack();
@@ -138,6 +149,10 @@ const Component = ({ match, history }) => {
 
     const _handleLoad = () => {
         document.querySelector('.streaming-cover').style.display = 'none';
+    };
+
+    const _handleError = () => {
+        console.log('error');
     }
 
     document.title = `Streaming - HyperTube`;
@@ -162,14 +177,12 @@ const Component = ({ match, history }) => {
                         }
                         autoPlay={true}
                         onPlay={_handleLoad}
+                        onError={_handleError}
                     >
                         <source
                             src={
                                 fileName.match('.mkv')
-                                    ? `/stream/mkv/${dirName}/${fileName.replace(
-                                          'mkv',
-                                          'mp4'
-                                      )}`
+                                    ? `/stream/mkv/${dirName}/${fileName.replace('mkv', 'mp4')}`
                                     : `/stream/normal/${magnet}/${fileName}${
                                           watchingHistory.start !== 0
                                               ? '#t=' +

@@ -1039,7 +1039,7 @@ class Torrent extends EventEmitter {
 			const candidates = peers
 				.slice(i)
 				.filter(peer => peer.wire.peerInterested);
-			const optimistic = candidates[(Math.random() * high) | 0];
+			const optimistic = candidates[(Math.random() * candidates.length) | 0];
 
 			if (optimistic) {
 				optimistic.isChoked = false;

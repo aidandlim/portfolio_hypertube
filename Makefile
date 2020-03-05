@@ -35,7 +35,6 @@ all:
 	@echo "\tmake ip : to find out ip address for url / env"
 	@echo "\tmake apijs : to set api.js environment"
 	@echo "\tmake urljs : to set url.js environment"
-	@echo "\tmake package : to set package.json environment"
 	@echo "\tmake ffmpeg : to install ffmpeg resources"
 	@echo ""
 
@@ -48,13 +47,13 @@ start:
 	@echo "$(GREEN_BOLD)$(NAME) APP > $(WHITE_BOLD)Welcome! The server setting process is initializing.$(RESET)"
 	@echo ""
 
-	@echo "     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
-	@cd proxy && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd proxy && nohup npm start > ../logs/proxy/log.out 2> ../logs/proxy/log.err &
-	@sleep 0.5
-	@echo "\r     [ $(YELLOW)#$(RESET) ]"
-	@echo ""
-	@sleep 0.5
+#	@echo "     [   ]  Initializing the $(UNDERLINE)Proxy API Server$(RESET).\c"
+#	@cd proxy && npm install --quiet --no-progress > /dev/null 2>&1
+#	@cd proxy && nohup npm start > ../logs/proxy/log.out 2> ../logs/proxy/log.err &
+#	@sleep 0.5
+#	@echo "\r     [ $(YELLOW)#$(RESET) ]"
+#	@echo ""
+#	@sleep 0.5
 
 	@echo "     [   ]  Initializing the $(UNDERLINE)Torrent API Server$(RESET).\c"
 	@cd torrent && npm install --quiet --no-progress > /dev/null 2>&1
@@ -93,7 +92,8 @@ start:
 
 	@echo "     [   ]  Initializing the $(UNDERLINE)React Frontend Server$(RESET).\c"
 	@cd client && npm install --quiet --no-progress > /dev/null 2>&1
-	@cd client && nohup npm start > ../logs/client/log.out 2> ../logs/client/log.err &
+	@cd client && npm run build > /dev/null 2>&1
+	@cd client && nohup node server.js > ../logs/client/log.out 2> ../logs/client/log.err &
 	@sleep 0.5
 	@echo "\r     [ $(YELLOW)#$(RESET) ]"
 	@echo ""
@@ -132,9 +132,6 @@ apijs:
 
 urljs:
 	vim client/src/constants/url.js
-
-package:
-	vim client/package.json
 
 ffmpeg:
 	@echo ""

@@ -1,7 +1,3 @@
-/*
-    This proxy server is for development :)
-*/
-
 const express = require('express');
 const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -9,11 +5,14 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 const fs = require('fs');
+const path = require('path');
 const https = require('https');
 const privateKey = fs.readFileSync('cert/key.pem', 'utf8');
 const certificate = fs.readFileSync('cert/hypertube.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const server = https.createServer(credentials, app);
+
+const PORT = 3000;
 
 const API_IP = 'localhost';
 const PROXY_PORT = 8443;
@@ -24,9 +23,8 @@ const SOCKET_PORT = 8447;
 
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.json('Proxy server is running');
-});
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(
     '/torrent',
@@ -64,4 +62,10 @@ app.use(
     })
 );
 
-server.listen(PROXY_PORT, () => console.log(`Proxy server is running on port ${PROXY_PORT}`));
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+server.listen(PORT, () => {
+    console.log(`Front server is running on port ${PORT}`);
+});
