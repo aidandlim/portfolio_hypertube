@@ -94,6 +94,15 @@ const Component = ({ match, history }) => {
                     );
                 }
             }
+        }).catch((err) => {
+            alert(
+                'message',
+                ui.lang === 'en_US'
+                    ? 'Something went wrong :('
+                    : '알 수 없는 오류가 발생했습니다 :(',
+                () => history.goBack(),
+                null
+            );
         });
 
         setTimeout(() => {
@@ -151,10 +160,6 @@ const Component = ({ match, history }) => {
         document.querySelector('.streaming-cover').style.display = 'none';
     };
 
-    const _handleError = () => {
-        console.log('error');
-    }
-
     document.title = `Streaming - HyperTube`;
 
     return (
@@ -177,7 +182,6 @@ const Component = ({ match, history }) => {
                         }
                         autoPlay={true}
                         onPlay={_handleLoad}
-                        onError={_handleError}
                     >
                         <source
                             src={

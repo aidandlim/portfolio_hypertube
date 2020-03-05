@@ -128,10 +128,10 @@ ip:
 	@echo ""
 
 apijs:
-	vim client/src/constants/api.js
+	@vim client/src/constants/api.js
 
 urljs:
-	vim client/src/constants/url.js
+	@vim client/src/constants/url.js
 
 ffmpeg:
 	@echo ""
