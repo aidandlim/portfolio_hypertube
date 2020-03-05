@@ -38,6 +38,17 @@
     font-weight: 300;
 }
 
+.streaming-cover {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+
+    z-index: 8;
+
+    opacity: 0;
+}
+
 .streaming-back-active,
 .streaming-back {
     width: 6rem;

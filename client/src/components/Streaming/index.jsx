@@ -136,10 +136,15 @@ const Component = ({ match, history }) => {
         }
     };
 
+    const _handleLoad = () => {
+        document.querySelector('.streaming-cover').style.display = 'none';
+    }
+
     document.title = `Streaming - HyperTube`;
 
     return (
         <div className='streaming' onMouseMove={_handleMouseMove}>
+            <div className='streaming-cover'></div>
             <div
                 className={isVisibleBack ? 'streaming-back-active' : 'streaming-back'}
                 onClick={_handleBack}
@@ -156,6 +161,7 @@ const Component = ({ match, history }) => {
                                 : ['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']
                         }
                         autoPlay={true}
+                        onPlay={_handleLoad}
                     >
                         <source
                             src={
@@ -181,7 +187,6 @@ const Component = ({ match, history }) => {
                                 kind='subtitles'
                                 srcLang={ui.lang === 'en_US' ? 'en' : 'kr'}
                                 src={subtitles}
-                                default
                             />
                         ) : null}
                     </Video>
