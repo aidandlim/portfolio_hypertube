@@ -87,11 +87,10 @@ class Client extends EventEmitter {
 		return torrent;
 	}
 
-	remove(torrentId, cb) {
+	remove(torrentId) {
 		const torrent = this.get(torrentId);
 		if (!torrent) return;
 		this.torrents.splice(this.torrents.indexOf(torrent), 1);
-		torrent.destroy(cb);
 	}
 
 	_onListening() {

@@ -114,6 +114,9 @@ app.get('/stream/add/:magnet', (req, res) => {
                     })
                     .run();
             }
+
+            fs.writeFileSync(`${path.join(__dirname, 'public', 'video', max.dirname, 'magnet:::' + magnet)}`, '');
+
             res.json(max);
         });
     }
@@ -220,6 +223,8 @@ schedule.scheduleJob('0 0 0 * * *', () => {
             (new Date().getTime() - fs.statSync(`${dirPath}/${dir[i]}`).atime.getTime()) /
             (1000 * 3600 * 24);
         if (dateDiff > 30) {
+            const magnet = fs.readdirSync(`${dirPath}/${dir[i]}`).filter((file) => file.match('magnet:::'))[0].split('magnet:::')[1];
+            client.remove(magnet);
             rm(`${dirPath}/${dir[i]}`, () => {});
         }
     }
