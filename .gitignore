@@ -1,1 +1,5 @@
 logs/
+
+#unnecessary file
+.DS_Store
+._.DS_Store
