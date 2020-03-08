@@ -126,13 +126,38 @@ make end
 
 ## Features
 
-***Not Yet***
+> Feed
+
+- Look around movies sorted by genre or filters
+- Discover movies by trends & now and upcoming
+- Infinite scroll
+
+> Search & Detail
+
+- Search movies by movie's title
+- Search movies by casts, crews, and production companies
+- Provide movie's information that includes rating, production years, casting, producers, and also torrent files
+- Share comments about movies with other users
+
+> Streaming
+
+- Stream movie by torrent before downloading is done
+- Provide transcoding from mp4 to mkv
+- Chat with other people watching the same movie
+
+> User
+
+- Sign in & Sign up with email address or a social account(oAuth) 
+- Find password by email
+- Change user profile & information
+- Access User detail page includes user information, recent watching, and comments
 
 ---
 
 ## Live Demo
 
-I can't serve live demo of this project online because of intellectual property rights. <br>Please check the preview or download it on your computer.
+I can't serve live demo of this project online because of intellectual property rights. <br><br>
+Please check the preview or download it on your computer.
 
 ---
 
