@@ -12,7 +12,7 @@
 
 ## Preview
 
-<img src="https://github.com/aidandlim/portfolio_hypertube/blob/master/PREVIEW.gif?raw=true" width="100%" title="preview" alt="preview">
+<img src="https://github.com/aidandlim/portfolio_hypertube/blob/master/PREVIEW.png?raw=true" width="100%" title="preview" alt="preview">
 
 ---
 
